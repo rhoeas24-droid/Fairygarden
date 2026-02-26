@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import GoldButton from './GoldButton';
+import GoldButton from '../GoldButton';
 
 const Hero = () => {
   const scrollToGallery = () => {
