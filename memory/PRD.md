@@ -56,16 +56,27 @@ Design a single-page website homepage for a magical terrarium brand called "Fair
     - Footer newsletter form - privacy (required)
 
 ### Cookie Consent Banner (Completed 2026-02-26) ✅
-11. **GDPR-compliant cookie banner**:
+11. **GDPR-compliant cookie banner with granular controls**:
     - Appears on first visit (after 1 second delay)
     - Translated in all 4 languages (EN, HU, EL, IT)
-    - Accept/Decline buttons
-    - Stores user preference in localStorage
+    - Three cookie categories:
+      - **Necessary** (always on, cannot be disabled)
+      - **Functional** (optional toggle)
+      - **Analytical** (optional toggle)
+    - "Accept All", "Customize", "Only Necessary" buttons
+    - Stores user preferences in localStorage with timestamp
     - Links to Privacy Policy
-    - Matches the dark enchanted forest aesthetic
+
+### Scroll to Top Button (Completed 2026-02-26) ✅
+12. **Magical floating scroll-to-top button**:
+    - Appears when scrolled down 400px
+    - Animated sparkles around the button
+    - Smooth scroll animation to top
+    - Gold gradient matching site aesthetic
+    - Hover and pulse animations
 
 ### Bug Fixes (Completed 2026-02-26) ✅
-12. **Email address fixed** in For Business section: `contact@fairygarden4u.com`
+13. **Email address fixed** in For Business section: `contact@fairygarden4u.com`
 
 ## API Endpoints
 - `GET /api/products` - Fetch product data for gallery
