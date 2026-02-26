@@ -100,6 +100,11 @@ const CustomTerrariumBuilder = ({ isOpen, onClose }) => {
       return;
     }
 
+    if (!formData.termsAccepted) {
+      toast.error(t('customTerrarium.termsError'));
+      return;
+    }
+
     setIsSubmitting(true);
     try {
       await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/custom-terrarium`, {
@@ -111,6 +116,7 @@ const CustomTerrariumBuilder = ({ isOpen, onClose }) => {
         lighting: formData.lighting === 'yes',
         message: formData.message,
         calculated_price: parseFloat(calculatedPrice),
+        deposit_amount: parseFloat(depositAmount),
         subscribed_to_newsletter: formData.subscribeNewsletter
       });
       
@@ -125,6 +131,7 @@ const CustomTerrariumBuilder = ({ isOpen, onClose }) => {
         lighting: 'no',
         message: '',
         privacyAccepted: false,
+        termsAccepted: false,
         subscribeNewsletter: false
       });
     } catch (error) {
