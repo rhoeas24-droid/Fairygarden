@@ -396,7 +396,7 @@ const CustomTerrariumBuilder = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            {/* Privacy & Newsletter Checkboxes */}
+            {/* Privacy, Terms & Newsletter Checkboxes */}
             <div className="space-y-3">
               <div className="flex items-start gap-3">
                 <input
@@ -420,6 +420,35 @@ const CustomTerrariumBuilder = ({ isOpen, onClose }) => {
                   *
                 </label>
               </div>
+              
+              {/* Terms and Conditions - Special for custom orders */}
+              <div className="flex items-start gap-3 bg-gold/5 p-3 rounded-lg border border-gold/20">
+                <input
+                  type="checkbox"
+                  id="custom-terms"
+                  name="termsAccepted"
+                  checked={formData.termsAccepted}
+                  onChange={handleChange}
+                  className="mt-1 w-5 h-5 rounded border-gold/40 bg-forest-dark text-gold focus:ring-gold"
+                  data-testid="custom-terrarium-terms"
+                />
+                <label htmlFor="custom-terms" className="text-cream/90 font-montserrat text-sm">
+                  {t('customTerrarium.termsLabel')}{' '}
+                  <button
+                    type="button"
+                    onClick={scrollToTerms}
+                    className="text-gold hover:text-gold-light underline"
+                  >
+                    {t('customTerrarium.termsLink')}
+                  </button>
+                  {', '}
+                  <span className="text-gold font-semibold">
+                    {t('customTerrarium.termsChapter5')}
+                  </span>
+                  {' *'}
+                </label>
+              </div>
+              
               <div className="flex items-start gap-3">
                 <input
                   type="checkbox"
