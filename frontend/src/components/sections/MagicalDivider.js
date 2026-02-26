@@ -166,12 +166,12 @@ const MagicalDivider = () => {
                 <FairySilhouette color="#00BFFF" className="w-full h-full" />
               </motion.div>
 
-              <GoldButton onClick={scrollToGallery} dataTestId=\"explore-magic-button\">
+              <GoldButton onClick={scrollToGallery} dataTestId="explore-magic-button">
                 Explore the Magic
               </GoldButton>
               
               <motion.div
-                className=\"absolute inset-0 rounded-full bg-gold/30 blur-2xl -z-10\"
+                className="absolute inset-0 rounded-full bg-gold/30 blur-2xl -z-10"
                 animate={{
                   scale: [1, 1.3, 1],
                   opacity: [0.4, 0.7, 0.4]
