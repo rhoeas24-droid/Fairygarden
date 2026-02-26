@@ -16,6 +16,7 @@ import ForBusiness from './components/sections/ForBusiness';
 import Workshops from './components/sections/Workshops';
 import About from './components/sections/About';
 import BlogPreview from './components/sections/BlogPreview';
+import TermsConditions from './components/sections/TermsConditions';
 import PrivacyPolicy from './components/sections/PrivacyPolicy';
 import Footer from './components/sections/Footer';
 import './App.css';
@@ -43,6 +44,7 @@ function App() {
           <Workshops />
           <About />
           <BlogPreview />
+          <TermsConditions />
           <PrivacyPolicy />
         </main>
         
