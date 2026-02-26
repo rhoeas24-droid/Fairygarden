@@ -1,0 +1,762 @@
+{
+  "config": {
+    "configFile": "/app/tests/playwright.config.ts",
+    "rootDir": "/app/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/app/tests/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {},
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/app/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "./test-results/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "runAgents": "none",
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.58.2",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "cart-footer-i18n.spec.ts",
+      "file": "cart-footer-i18n.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Cart Drawer Translations",
+          "file": "cart-footer-i18n.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should display cart drawer in English",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6d78af41fbface87df92-c1501df1a30f5e08c1a4",
+              "file": "cart-footer-i18n.spec.ts",
+              "line": 11,
+              "column": 7
+            },
+            {
+              "title": "should display cart drawer in Hungarian",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6d78af41fbface87df92-ba769f3196d9557dbf36",
+              "file": "cart-footer-i18n.spec.ts",
+              "line": 18,
+              "column": 7
+            },
+            {
+              "title": "should display cart drawer in Greek",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6d78af41fbface87df92-053d58a6c26a7aedb383",
+              "file": "cart-footer-i18n.spec.ts",
+              "line": 26,
+              "column": 7
+            },
+            {
+              "title": "should display cart drawer in Italian",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6d78af41fbface87df92-c726fb0d4f20d87c07cb",
+              "file": "cart-footer-i18n.spec.ts",
+              "line": 34,
+              "column": 7
+            },
+            {
+              "title": "should close cart drawer",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6d78af41fbface87df92-f77da3101910e84dc4b6",
+              "file": "cart-footer-i18n.spec.ts",
+              "line": 42,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Footer Translations",
+          "file": "cart-footer-i18n.spec.ts",
+          "line": 51,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should display footer in English",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6d78af41fbface87df92-e17bcc3bf322c1a6fa24",
+              "file": "cart-footer-i18n.spec.ts",
+              "line": 59,
+              "column": 7
+            },
+            {
+              "title": "should display footer in Hungarian",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6d78af41fbface87df92-ef78a1ce21bd15a2c39d",
+              "file": "cart-footer-i18n.spec.ts",
+              "line": 64,
+              "column": 7
+            },
+            {
+              "title": "should display footer in Greek",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6d78af41fbface87df92-eb92175ff27f7906b42c",
+              "file": "cart-footer-i18n.spec.ts",
+              "line": 72,
+              "column": 7
+            },
+            {
+              "title": "should display footer in Italian",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6d78af41fbface87df92-f6203787e0a24ef9935e",
+              "file": "cart-footer-i18n.spec.ts",
+              "line": 80,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "forms-validation.spec.ts",
+      "file": "forms-validation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "For Business Form",
+          "file": "forms-validation.spec.ts",
+          "line": 6,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should display privacy and newsletter checkboxes",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "2cf1a7b954a95db8e535-ae16acfbe4e5ad63f31e",
+              "file": "forms-validation.spec.ts",
+              "line": 14,
+              "column": 7
+            },
+            {
+              "title": "should submit successfully with privacy checkbox checked",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "2cf1a7b954a95db8e535-ba4dd9193ffab8d81e38",
+              "file": "forms-validation.spec.ts",
+              "line": 19,
+              "column": 7
+            },
+            {
+              "title": "should verify email address is contact@fairygarden4u.com",
+              "ok": true,
+              "tags": [
+                "fairygarden4u.com"
+              ],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "2cf1a7b954a95db8e535-8748f98c404f978a285e",
+              "file": "forms-validation.spec.ts",
+              "line": 33,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Workshop Form",
+          "file": "forms-validation.spec.ts",
+          "line": 39,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should display privacy and newsletter checkboxes",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "2cf1a7b954a95db8e535-d6fc607dba70bdede69d",
+              "file": "forms-validation.spec.ts",
+              "line": 47,
+              "column": 7
+            },
+            {
+              "title": "should submit successfully with privacy checkbox checked",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "2cf1a7b954a95db8e535-f8216a0462d181937570",
+              "file": "forms-validation.spec.ts",
+              "line": 52,
+              "column": 7
+            },
+            {
+              "title": "should display all workshop types in dropdown",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "2cf1a7b954a95db8e535-6d6390214b425f9c6820",
+              "file": "forms-validation.spec.ts",
+              "line": 67,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "Footer Newsletter Form",
+          "file": "forms-validation.spec.ts",
+          "line": 76,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should show footer with correct email and elements",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "2cf1a7b954a95db8e535-1c5ada67124458f0794e",
+              "file": "forms-validation.spec.ts",
+              "line": 84,
+              "column": 7
+            },
+            {
+              "title": "should subscribe successfully with privacy checkbox",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "2cf1a7b954a95db8e535-c5a5f45f054c5cca8ae9",
+              "file": "forms-validation.spec.ts",
+              "line": 93,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "i18n-navigation.spec.ts",
+      "file": "i18n-navigation.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Language Switching and Navigation i18n",
+          "file": "i18n-navigation.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should load homepage with English language by default",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "4836041ad5d3ade8fcf1-be0e845c2f78ab8dac6e",
+              "file": "i18n-navigation.spec.ts",
+              "line": 11,
+              "column": 7
+            },
+            {
+              "title": "should switch to Hungarian language",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "4836041ad5d3ade8fcf1-0c20c686433b5f804408",
+              "file": "i18n-navigation.spec.ts",
+              "line": 22,
+              "column": 7
+            },
+            {
+              "title": "should switch to Greek language",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "4836041ad5d3ade8fcf1-f7f794226ba9551a07b3",
+              "file": "i18n-navigation.spec.ts",
+              "line": 35,
+              "column": 7
+            },
+            {
+              "title": "should switch to Italian language",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "4836041ad5d3ade8fcf1-51456e2bd6e2840b655d",
+              "file": "i18n-navigation.spec.ts",
+              "line": 48,
+              "column": 7
+            },
+            {
+              "title": "should display language switcher dropdown with all 4 languages",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "4836041ad5d3ade8fcf1-c5341f027ae315eabda3",
+              "file": "i18n-navigation.spec.ts",
+              "line": 61,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "sections-i18n.spec.ts",
+      "file": "sections-i18n.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Section Translations (DIY Kits, For Business, Workshops, Blog)",
+          "file": "sections-i18n.spec.ts",
+          "line": 4,
+          "column": 6,
+          "specs": [
+            {
+              "title": "DIY Kits section should be translated in English",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6e0e7a3e08b73a45c926-0e4f2838b7e8561d6331",
+              "file": "sections-i18n.spec.ts",
+              "line": 11,
+              "column": 7
+            },
+            {
+              "title": "DIY Kits section should be translated in Hungarian",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6e0e7a3e08b73a45c926-011b30165aa4087a9390",
+              "file": "sections-i18n.spec.ts",
+              "line": 18,
+              "column": 7
+            },
+            {
+              "title": "For Business section should be translated in English",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6e0e7a3e08b73a45c926-300eef6840715e62c222",
+              "file": "sections-i18n.spec.ts",
+              "line": 25,
+              "column": 7
+            },
+            {
+              "title": "For Business section should be translated in Hungarian",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6e0e7a3e08b73a45c926-aafa516700333b6eac69",
+              "file": "sections-i18n.spec.ts",
+              "line": 43,
+              "column": 7
+            },
+            {
+              "title": "Workshops section should be translated in English",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6e0e7a3e08b73a45c926-11d010981b653e143c13",
+              "file": "sections-i18n.spec.ts",
+              "line": 50,
+              "column": 7
+            },
+            {
+              "title": "Workshops section should be translated in Hungarian",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6e0e7a3e08b73a45c926-adb503be95c4ef8a1dd4",
+              "file": "sections-i18n.spec.ts",
+              "line": 71,
+              "column": 7
+            },
+            {
+              "title": "Blog section should be translated in English",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6e0e7a3e08b73a45c926-9202b4dc8152f11e09a6",
+              "file": "sections-i18n.spec.ts",
+              "line": 82,
+              "column": 7
+            },
+            {
+              "title": "Blog section should be translated in Hungarian",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6e0e7a3e08b73a45c926-deca2971eefaba337ae4",
+              "file": "sections-i18n.spec.ts",
+              "line": 87,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-02-26T03:57:25.261Z",
+    "duration": 39.594999999999914,
+    "expected": 0,
+    "skipped": 30,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
