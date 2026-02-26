@@ -11,6 +11,9 @@ import { toast } from 'sonner';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
+// Calculate minimum price: S + Minimal + Container + No lighting
+const MIN_CUSTOM_PRICE = (35.99 * 1.2 * 1.1 * 1.0).toFixed(2);
+
 const ProductCard = ({ product, index }) => {
   const { addToCart } = useCart();
   const { t } = useTranslation();
