@@ -155,6 +155,39 @@
   "privacy": {
     "title": "Adatvédelmi Szabályzat"
   },
+  "terms": {
+    "title": "Általános Szerződési Feltételek",
+    "lastUpdated": "Utolsó frissítés: 2026. február",
+    "chapter1": {
+      "title": "1. Általános Rendelkezések",
+      "content": "Jelen Általános Szerződési Feltételek (ÁSZF) szabályozzák a Fairygarden For You által nyújtott összes tranzakciót és szolgáltatást. Rendelés leadásával vagy szolgáltatásaink igénybevételével Ön elfogadja ezeket a feltételeket."
+    },
+    "chapter2": {
+      "title": "2. Termékek és Szolgáltatások",
+      "content": "Kézzel készített terráriumokat, barkács készleteket, workshopokat és egyedi terrárium tervezési szolgáltatásokat kínálunk. Minden termék egyedi, és kézműves jellegéből adódóan kissé eltérhet a megjelenített képektől."
+    },
+    "chapter3": {
+      "title": "3. Rendelés és Fizetés",
+      "content": "Rendeléseket weboldalunkon vagy közvetlen kapcsolatfelvétellel lehet leadni. A fizetés a rendeléskor esedékes, hacsak másképp nem állapodunk meg. Elfogadjuk a főbb bankkártyákat és banki átutalást."
+    },
+    "chapter4": {
+      "title": "4. Szállítás és Visszaküldés",
+      "content": "A szállítási idő a termék elérhetőségétől és a helyszíntől függ. Termékeink élő jellege miatt visszaküldés csak sérült termékek esetén fogadható el. Kérjük, ellenőrizze rendelését átvételkor, és jelentsen bármilyen problémát 48 órán belül."
+    },
+    "chapter5": {
+      "title": "5. Egyedi Megrendelés Feltételei",
+      "intro": "Az alábbi feltételek kifejezetten az egyedi terrárium megrendelésekre vonatkoznak:",
+      "point1": "30% vissza nem térítendő előleg szükséges az egyedi megrendelések megkezdéséhez. Ez fedezi a tervezési konzultációt és az alapanyagok kezdeti beszerzését.",
+      "point2": "Az előleg beérkezését követően 24 órán belül felvesszük Önnel a kapcsolatot, hogy megbeszéljük elképzeléseit és igényeit.",
+      "point3": "Dizájn változtatások lehetségesek a konzultációs fázisban. A gyártás megkezdése után a jelentős változtatások további költségekkel járhatnak.",
+      "point4": "A végső ár eltérhet a kezdeti becsléstől az anyagok elérhetősége és a konzultáció során megállapodott dizájn összetettsége alapján.",
+      "point5": "Az egyedi megrendelések elkészítése általában 2-4 hetet vesz igénybe. Értesítjük, amikor terráriumja készen áll átvételre vagy szállításra."
+    },
+    "chapter6": {
+      "title": "6. Kapcsolatfelvételi Információk",
+      "content": "Ha kérdése van ezekkel a feltételekkel kapcsolatban, kérjük, lépjen kapcsolatba velünk a contact@fairygarden4u.com címen vagy weboldalunk kapcsolatfelvételi űrlapján keresztül."
+    }
+  },
   "about": {
     "title": "Rólunk",
     "subtitle": "Fedezd fel a Fairygarden For You mögötti varázslatot és ismerd meg a szenvedélyes csapatot, aki varázslat hoz a világodba",
