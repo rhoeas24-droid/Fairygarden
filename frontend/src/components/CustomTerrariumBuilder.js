@@ -224,7 +224,7 @@ const CustomTerrariumBuilder = ({ isOpen, onClose }) => {
                 {t('customTerrarium.sizeLabel')}
               </label>
               <div className="grid grid-cols-4 gap-3">
-                {Object.entries(PRICES.sizes).map(([size, price]) => (
+                {Object.keys(PRICES.sizes).map((size) => (
                   <button
                     key={size}
                     type="button"
@@ -237,7 +237,7 @@ const CustomTerrariumBuilder = ({ isOpen, onClose }) => {
                     data-testid={`size-${size}`}
                   >
                     <div className="font-cinzel font-bold text-lg">{size}</div>
-                    <div className="font-montserrat text-xs mt-1">€{price}</div>
+                    <div className="font-montserrat text-xs mt-1">{t(`customTerrarium.sizes.${size}`)}</div>
                   </button>
                 ))}
               </div>
