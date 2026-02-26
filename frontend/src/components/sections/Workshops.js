@@ -30,7 +30,7 @@ const Workshops = () => {
     e.preventDefault();
     
     if (!formData.privacyAccepted) {
-      toast.error('Please accept the Privacy Policy to continue.');
+      toast.error(t('workshops.privacyError'));
       return;
     }
     
@@ -54,10 +54,10 @@ const Workshops = () => {
         }
       }
       
-      toast.success('Registration successful! We will contact you with workshop details.');
+      toast.success(t('workshops.successMessage'));
       setFormData({ name: '', email: '', phone: '', workshop_type: 'beginner', privacyAccepted: false, subscribeNewsletter: false });
     } catch (error) {
-      toast.error('Registration failed. Please try again.');
+      toast.error(t('workshops.errorMessage'));
       console.error('Error submitting workshop registration:', error);
     } finally {
       setIsSubmitting(false);
@@ -180,10 +180,10 @@ const Workshops = () => {
                     focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat"
                   data-testid="workshop-type-select"
                 >
-                  <option value="beginner">Beginner - Introduction to Terrariums</option>
-                  <option value="intermediate">Intermediate - Advanced Techniques</option>
-                  <option value="group">Group/Corporate - Team Building</option>
-                  <option value="private">Private - One-on-One Session</option>
+                  <option value="beginner">{t('workshops.types.beginner')}</option>
+                  <option value="intermediate">{t('workshops.types.intermediate')}</option>
+                  <option value="group">{t('workshops.types.group')}</option>
+                  <option value="private">{t('workshops.types.private')}</option>
                 </select>
               </div>
 
@@ -238,11 +238,11 @@ const Workshops = () => {
             <div className="mt-6 space-y-3 text-forest/70 font-montserrat text-sm">
               <div className="flex items-center gap-3">
                 <Calendar className="w-5 h-5 text-gold-dark" />
-                <span>Workshops held every Saturday & Sunday</span>
+                <span>{t('workshops.schedule')}</span>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="w-5 h-5 text-gold-dark" />
-                <span>123 Enchanted Lane, Garden City</span>
+                <span>{t('workshops.location')}</span>
               </div>
             </div>
           </motion.div>
