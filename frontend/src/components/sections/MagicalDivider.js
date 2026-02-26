@@ -152,7 +152,7 @@ const MagicalDivider = () => {
               className="relative z-10"
             >
               <GoldButton onClick={scrollToGallery} dataTestId="explore-magic-button">
-                Explore the Magic
+                {t('hero.button')}
               </GoldButton>
               
               <motion.div
