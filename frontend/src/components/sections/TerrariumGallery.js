@@ -58,7 +58,7 @@ const ProductCard = ({ product, index }) => {
               active:translate-y-1 transition-all duration-200"
             data-testid={`add-to-cart-${product.id}`}
           >
-            Add to Cart
+            {t('gallery.addToCart')}
           </button>
         </div>
       </div>
