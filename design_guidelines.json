@@ -1,0 +1,138 @@
+{
+  "design_system": {
+    "brand_identity": {
+      "name": "Fairygarden For You",
+      "tagline": "A Touch of Magic in a Bottle",
+      "aesthetic": "Dark Enchanted Forest with Gold Accents",
+      "emotional_tone": ["Magical", "Mysterious", "Elegant", "Whimsical", "Premium"],
+      "target_audience": "Gift buyers, plant enthusiasts, fantasy lovers"
+    },
+    "colors": {
+      "palette": {
+        "primary": "#1a3320",
+        "primary_dark": "#0f1f12",
+        "accent_gold": "#c9a84c",
+        "accent_gold_light": "#f0e68c",
+        "accent_gold_dark": "#8b7620",
+        "cream": "#f5f0e8",
+        "text_main": "#f5f0e8",
+        "text_dark": "#1a3320",
+        "glass_bg": "rgba(26, 51, 32, 0.7)",
+        "glass_border": "rgba(201, 168, 76, 0.3)"
+      },
+      "usage": {
+        "background_main": "#1a3320",
+        "background_alt": "#f5f0e8",
+        "text_on_dark": "#f5f0e8",
+        "text_on_light": "#1a3320",
+        "buttons": "Gold Gradient (see components)",
+        "borders": "#c9a84c"
+      }
+    },
+    "typography": {
+      "font_family": {
+        "headings": "Cinzel Decorative, serif",
+        "body": "Montserrat, sans-serif",
+        "accent": "Playfair Display, serif"
+      },
+      "rules": {
+        "headings": "Use 'Cinzel Decorative' for H1-H3. Tracking wide. Gold or Cream color.",
+        "body": "Use 'Montserrat' for readability. High contrast required.",
+        "buttons": "Uppercase, wide tracking, bold weight."
+      },
+      "imports": [
+        "https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital@0;1&display=swap"
+      ]
+    },
+    "layout": {
+      "grid_system": "Tailwind Grid (grid-cols-1 md:grid-cols-12)",
+      "spacing": "Generous (p-8, p-12, p-24)",
+      "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+      "sections": {
+        "hero": "Full viewport height (100vh), centered content, parallax background.",
+        "gallery": "Bento Grid or 3-column masonry. Glassmorphic cards.",
+        "alternating": "Strict Dark (Forest) vs Light (Clearing) rhythm."
+      }
+    },
+    "ui_components": {
+      "buttons": {
+        "primary": {
+          "style": "Gold Embossed 3D",
+          "css_classes": "relative overflow-hidden transition-transform active:translate-y-1",
+          "custom_css": "background: linear-gradient(135deg, #d4af37 0%, #8b7620 100%); box-shadow: inset 2px 2px 4px rgba(255,255,255,0.4), inset -2px -2px 4px rgba(0,0,0,0.4), 0 4px 8px rgba(0,0,0,0.3); color: #3e2b08; font-weight: bold; text-transform: uppercase; border-radius: 9999px;"
+        },
+        "secondary": {
+          "style": "Ghost Gold",
+          "css_classes": "border-2 border-[#c9a84c] text-[#c9a84c] hover:bg-[#c9a84c] hover:text-[#1a3320] transition-colors rounded-full px-8 py-3 uppercase tracking-wider"
+        }
+      },
+      "cards": {
+        "product": "Glassmorphism: bg-[#1a3320]/80 backdrop-blur-md border border-[#c9a84c]/30 rounded-xl hover:border-[#c9a84c] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_0_20px_rgba(201,168,76,0.2)]",
+        "blog": "Solid Cream card with Dark Green text (if in light section) or Glassmorphism (if in dark section)."
+      },
+      "inputs": {
+        "style": "bg-black/20 border border-[#c9a84c]/40 text-cream placeholder:text-cream/50 focus:border-[#c9a84c] focus:ring-1 focus:ring-[#c9a84c] rounded-md"
+      },
+      "navigation": {
+        "style": "Sticky, Glassmorphic (Forest Glass).",
+        "background": "bg-[#1a3320]/90 backdrop-blur-lg border-b border-[#c9a84c]/20"
+      }
+    },
+    "visual_enhancers": {
+      "effects": {
+        "glassmorphism": "backdrop-filter: blur(12px); background: rgba(26, 51, 32, 0.6);",
+        "gold_glow": "box-shadow: 0 0 15px rgba(201, 168, 76, 0.3);",
+        "text_shadow": "text-shadow: 0 2px 4px rgba(0,0,0,0.5);"
+      },
+      "animations": {
+        "sparkles": "Use 'react-tsparticles' with 'fireworks' or custom gold dust config.",
+        "fairies": "Floating animation (framer-motion) for small glowing orbs/fairy assets.",
+        "reveal": "Staggered fade-up for gallery items."
+      }
+    },
+    "assets": {
+      "images": {
+        "hero_bg": "/HEADER_ENH.jpg",
+        "body_bg": "/BG_TILE_FINAL.jpg",
+        "logo": "/FullLogo_NoBuffer.png",
+        "product_placeholder": "/ablak.jpg",
+        "diy_kits": [
+          "https://images.unsplash.com/photo-1640746956838-895c7faca1eb?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1509021754700-4e73d47eb910?auto=format&fit=crop&w=800&q=80"
+        ],
+        "workshops": [
+          "https://images.unsplash.com/photo-1550836017-e1b9f7894f38?auto=format&fit=crop&w=800&q=80",
+          "https://images.pexels.com/photos/5830818/pexels-photo-5830818.jpeg?auto=compress&cs=tinysrgb&w=800"
+        ],
+        "blog": [
+          "https://images.pexels.com/photos/326055/pexels-photo-326055.jpeg?auto=compress&cs=tinysrgb&w=800",
+          "https://images.unsplash.com/photo-1703615230006-518a7d799016?auto=format&fit=crop&w=800&q=80",
+          "https://images.unsplash.com/photo-1655623454749-0a90b1f514fc?auto=format&fit=crop&w=800&q=80"
+        ]
+      },
+      "icons": "Use Lucide React (Wand, Sprout, ShoppingCart, Star, Sparkles)"
+    },
+    "tech_stack": {
+      "framework": "React (Create React App structure)",
+      "styling": "Tailwind CSS",
+      "components": "Shadcn UI (Customized)",
+      "animation": "Framer Motion + react-tsparticles",
+      "icons": "lucide-react"
+    },
+    "universal_guidelines": [
+      "Use 'data-testid' for all interactive elements.",
+      "No transparent backgrounds for dropdowns or floating elements (use glassmorphism).",
+      "Ensure text contrast meets WCAG AA (Gold text on Dark Green needs care - use lighter gold #f0e68c for small text).",
+      "Do NOT use standard HTML inputs; use styled Shadcn components.",
+      "Implement a 'Cart Overlay' (Sheet/Drawer) rather than a separate page for smoother UX."
+    ]
+  },
+  "instructions_to_main_agent": {
+    "step_1": "Install dependencies: 'yarn add framer-motion react-tsparticles tsparticles-slim lucide-react clsx tailwind-merge'.",
+    "step_2": "Setup Tailwind Config: Add the custom colors (forest green, gold, cream) and fonts.",
+    "step_3": "Create the 'GoldButton' component first - it is the signature element.",
+    "step_4": "Build the layout sections strictly following the Dark/Light alternation.",
+    "step_5": "Implement the 'Sparkles' background wrapper using react-tsparticles.",
+    "step_6": "Ensure the 'Shop' functionality uses a simple context-based cart system."
+  }
+}
