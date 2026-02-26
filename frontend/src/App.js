@@ -12,6 +12,7 @@ import DIYKits from './components/sections/DIYKits';
 import ForBusiness from './components/sections/ForBusiness';
 import Workshops from './components/sections/Workshops';
 import BlogPreview from './components/sections/BlogPreview';
+import PrivacyPolicy from './components/sections/PrivacyPolicy';
 import Footer from './components/sections/Footer';
 import './App.css';
 
@@ -36,6 +37,7 @@ function App() {
           <ForBusiness />
           <Workshops />
           <BlogPreview />
+          <PrivacyPolicy />
         </main>
         
         <Footer />
