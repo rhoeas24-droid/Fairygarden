@@ -7,12 +7,14 @@ import Navigation from './components/Navigation';
 import CartDrawer from './components/CartDrawer';
 import CookieConsent from './components/CookieConsent';
 import ScrollToTop from './components/ScrollToTop';
+import GoogleAnalytics from './components/GoogleAnalytics';
 import Hero from './components/sections/Hero';
 import MagicalDivider from './components/sections/MagicalDivider';
 import TerrariumGallery from './components/sections/TerrariumGallery';
 import DIYKits from './components/sections/DIYKits';
 import ForBusiness from './components/sections/ForBusiness';
 import Workshops from './components/sections/Workshops';
+import About from './components/sections/About';
 import BlogPreview from './components/sections/BlogPreview';
 import PrivacyPolicy from './components/sections/PrivacyPolicy';
 import Footer from './components/sections/Footer';
@@ -30,6 +32,7 @@ function App() {
         
         <Navigation />
         <CartDrawer />
+        <GoogleAnalytics />
         
         <main>
           <Hero />
@@ -38,6 +41,7 @@ function App() {
           <DIYKits />
           <ForBusiness />
           <Workshops />
+          <About />
           <BlogPreview />
           <PrivacyPolicy />
         </main>
