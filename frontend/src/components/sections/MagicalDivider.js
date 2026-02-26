@@ -149,39 +149,6 @@ const MagicalDivider = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="relative z-10"
             >
-              {/* Magenta tündér - bal oldal */}
-              <motion.div
-                className="absolute -left-16 top-1/2 -translate-y-1/2 pointer-events-none w-12 h-12"
-                animate={{
-                  y: [0, -10, 0],
-                  rotate: [-3, 3, -3]
-                }}
-                transition={{
-                  duration: 2.5,
-                  repeat: Infinity,
-                  ease: 'easeInOut'
-                }}
-              >
-                <FairySilhouette color="#FF1493" className="w-full h-full" />
-              </motion.div>
-
-              {/* Kék tündér - jobb oldal */}
-              <motion.div
-                className="absolute -right-16 top-1/2 -translate-y-1/2 pointer-events-none w-12 h-12"
-                animate={{
-                  y: [0, -12, 0],
-                  rotate: [3, -3, 3]
-                }}
-                transition={{
-                  duration: 2.8,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                  delay: 0.4
-                }}
-              >
-                <FairySilhouette color="#00BFFF" className="w-full h-full" />
-              </motion.div>
-
               <GoldButton onClick={scrollToGallery} dataTestId="explore-magic-button">
                 Explore the Magic
               </GoldButton>
