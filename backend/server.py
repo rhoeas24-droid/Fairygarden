@@ -107,6 +107,7 @@ class CustomTerrariumOrder(BaseModel):
     lighting: bool
     message: Optional[str] = None
     calculated_price: float
+    deposit_amount: Optional[float] = None
     subscribed_to_newsletter: bool = False
     status: str = "pending"  # pending, contacted, in_progress, completed
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
@@ -120,6 +121,7 @@ class CustomTerrariumOrderCreate(BaseModel):
     lighting: bool
     message: Optional[str] = None
     calculated_price: float
+    deposit_amount: Optional[float] = None
     subscribed_to_newsletter: bool = False
 
 class BlogPost(BaseModel):
