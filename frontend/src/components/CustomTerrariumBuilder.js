@@ -4,7 +4,7 @@ import { X, Sparkles, Leaf, Sun, FlaskConical, Calculator } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'sonner';
 import axios from 'axios';
-import GoldButton from '../GoldButton';
+import GoldButton from './GoldButton';
 
 const PRICES = {
   sizes: {
