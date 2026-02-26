@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Star } from 'lucide-react';
 import GoldButton from '../GoldButton';
 
 const MagicalDivider = () => {
@@ -11,22 +10,27 @@ const MagicalDivider = () => {
     }
   };
 
-  // Generate random positions and animation properties for sparkles
-  const generateSparkles = (count) => {
-    return [...Array(count)].map((_, i) => ({
-      id: i,
-      startX: Math.random() * 100 - 50,
-      startY: Math.random() * 100 - 50,
-      endX: Math.random() * 100 - 50,
-      endY: Math.random() * 100 - 50,
-      duration: 3 + Math.random() * 4,
-      delay: Math.random() * 2,
-      size: 3 + Math.random() * 5,
-      color: i % 3 === 0 ? '#c9a84c' : i % 3 === 1 ? '#f0e68c' : '#d4af37'
-    }));
+  // Generate flowing particle trails like fairy dust
+  const generateDustTrails = (count) => {
+    return [...Array(count)].map((_, i) => {
+      const angle = (i / count) * Math.PI * 2;
+      const radius = 200 + Math.random() * 100;
+      return {
+        id: i,
+        path: [
+          { x: Math.cos(angle) * radius, y: Math.sin(angle) * radius },
+          { x: Math.cos(angle + 1) * (radius * 0.7), y: Math.sin(angle + 1) * (radius * 0.7) },
+          { x: Math.cos(angle + 2) * (radius * 1.2), y: Math.sin(angle + 2) * (radius * 1.2) },
+          { x: Math.cos(angle + 3) * radius, y: Math.sin(angle + 3) * radius }
+        ],
+        duration: 4 + Math.random() * 3,
+        delay: i * 0.15,
+        particleCount: 8 + Math.floor(Math.random() * 5)
+      };
+    });
   };
 
-  const sparkles = generateSparkles(20);
+  const dustTrails = generateDustTrails(6);
 
   return (
     <section className="relative py-20 overflow-hidden" style={{
