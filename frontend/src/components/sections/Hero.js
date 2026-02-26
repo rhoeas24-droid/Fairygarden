@@ -29,30 +29,10 @@ const Hero = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.3 }}
       >
-        <motion.img
-          src="/FullLogo_NoBuffer.png"
-          alt="Fairygarden For You"
-          className="w-64 h-64 md:w-80 md:h-80 mx-auto mb-8 drop-shadow-[0_0_30px_rgba(201,168,76,0.5)]"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1 }}
-          data-testid="hero-logo"
-        />
-        
-        <motion.p
-          className="text-2xl md:text-3xl font-playfair italic text-gold-light mb-12 drop-shadow-lg"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.6 }}
-          data-testid="hero-tagline"
-        >
-          A Touch of Magic in a Bottle
-        </motion.p>
-        
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.9 }}
+          transition={{ duration: 1, delay: 0.6 }}
         >
           <GoldButton onClick={scrollToGallery} dataTestId="explore-magic-button">
             Explore the Magic
