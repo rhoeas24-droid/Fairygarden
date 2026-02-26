@@ -14,12 +14,19 @@
   "gallery": {
     "title": "Enchanted Terrariums",
     "subtitle": "Discover our magical collection of handcrafted terrariums, each one a miniature world of wonder",
-    "addToCart": "Add to Cart"
+    "addToCart": "Add to Cart",
+    "addedToCart": "{{name}} added to cart!"
   },
   "diyKits": {
     "title": "Create Your Own Magic",
     "description": "Unleash your creativity with our DIY Terrarium Kits. Everything you need to craft your own enchanted miniature garden, complete with step-by-step instructions and premium materials.",
-    "button": "Shop DIY Kits"
+    "button": "Shop DIY Kits",
+    "premiumTitle": "Premium Materials",
+    "premiumDesc": "Hand-selected plants, decorative elements, and care instructions",
+    "giftTitle": "Perfect Gift",
+    "giftDesc": "Beautifully packaged for gifting to nature lovers",
+    "easyTitle": "Easy to Follow",
+    "easyDesc": "Detailed instructions for all skill levels"
   },
   "forBusiness": {
     "title": "For Business",
@@ -32,7 +39,10 @@
     "privacyLink": "Privacy Policy",
     "newsletterLabel": "Subscribe to our newsletter for updates and special offers",
     "submitButton": "Send Inquiry",
-    "submitting": "Sending..."
+    "submitting": "Sending...",
+    "privacyError": "Please accept the Privacy Policy to continue.",
+    "successMessage": "Thank you! We will contact you soon.",
+    "errorMessage": "Failed to send message. Please try again."
   },
   "workshops": {
     "title": "Terrarium Workshops",
@@ -43,21 +53,47 @@
     "phoneLabel": "Phone",
     "workshopTypeLabel": "Workshop Type",
     "submitButton": "Register Now",
-    "submitting": "Registering..."
+    "submitting": "Registering...",
+    "privacyError": "Please accept the Privacy Policy to continue.",
+    "successMessage": "Registration successful! We will contact you with workshop details.",
+    "errorMessage": "Registration failed. Please try again.",
+    "schedule": "Workshops held every Saturday & Sunday",
+    "location": "123 Enchanted Lane, Garden City",
+    "types": {
+      "beginner": "Beginner - Introduction to Terrariums",
+      "intermediate": "Intermediate - Advanced Techniques",
+      "group": "Group/Corporate - Team Building",
+      "private": "Private - One-on-One Session"
+    }
   },
   "blog": {
     "title": "From Our Garden",
     "subtitle": "Explore our latest articles on terrarium care, plant selection, and the magic of miniature gardens",
     "readMore": "Read More"
   },
+  "cart": {
+    "title": "Your Cart",
+    "empty": "Your cart is empty",
+    "qty": "Qty",
+    "total": "Total",
+    "checkout": "Checkout",
+    "checkoutSuccess": "Thank you for your order! We will contact you soon."
+  },
   "footer": {
     "tagline": "A Touch of Magic in a Bottle",
+    "createdSince": "Creating enchanted miniature worlds since 2020",
     "quickLinks": "Quick Links",
     "contactUs": "Contact Us",
     "newsletter": "Newsletter",
     "newsletterText": "Subscribe for magical updates and exclusive offers",
     "subscribe": "Subscribe",
     "subscribing": "Subscribing...",
+    "subscribeSuccess": "Thank you for subscribing!",
+    "subscribeError": "Subscription failed. Please try again.",
+    "alreadySubscribed": "Email already subscribed!",
+    "privacyError": "Please accept the Privacy Policy to continue.",
+    "privacyLabel": "I accept the",
+    "privacyLink": "Privacy Policy",
     "copyright": "All rights reserved."
   },
   "privacy": {

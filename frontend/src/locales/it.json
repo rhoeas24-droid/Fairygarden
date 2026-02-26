@@ -14,12 +14,19 @@
   "gallery": {
     "title": "Terrari Incantati",
     "subtitle": "Scopri la nostra collezione magica di terrari artigianali, ognuno un mondo in miniatura di meraviglie",
-    "addToCart": "Aggiungi al Carrello"
+    "addToCart": "Aggiungi al Carrello",
+    "addedToCart": "{{name}} aggiunto al carrello!"
   },
   "diyKits": {
     "title": "Crea la Tua Magia",
     "description": "Scatena la tua creatività con i nostri Kit Fai Da Te per Terrari. Tutto ciò di cui hai bisogno per creare il tuo giardino in miniatura incantato, con istruzioni dettagliate e materiali premium.",
-    "button": "Acquista Kit Fai Da Te"
+    "button": "Acquista Kit Fai Da Te",
+    "premiumTitle": "Materiali Premium",
+    "premiumDesc": "Piante selezionate, elementi decorativi e istruzioni per la cura",
+    "giftTitle": "Regalo Perfetto",
+    "giftDesc": "Splendidamente confezionato per gli amanti della natura",
+    "easyTitle": "Facile da Seguire",
+    "easyDesc": "Istruzioni dettagliate per tutti i livelli"
   },
   "forBusiness": {
     "title": "Per Aziende",
@@ -32,7 +39,10 @@
     "privacyLink": "Informativa sulla Privacy",
     "newsletterLabel": "Iscriviti alla nostra newsletter per aggiornamenti e offerte speciali",
     "submitButton": "Invia Richiesta",
-    "submitting": "Invio..."
+    "submitting": "Invio...",
+    "privacyError": "Accetta l'Informativa sulla Privacy per continuare.",
+    "successMessage": "Grazie! Ti contatteremo presto.",
+    "errorMessage": "Invio fallito. Per favore riprova."
   },
   "workshops": {
     "title": "Workshop sui Terrari",
@@ -43,21 +53,47 @@
     "phoneLabel": "Telefono",
     "workshopTypeLabel": "Tipo di Workshop",
     "submitButton": "Registrati Ora",
-    "submitting": "Registrazione..."
+    "submitting": "Registrazione...",
+    "privacyError": "Accetta l'Informativa sulla Privacy per continuare.",
+    "successMessage": "Registrazione completata! Ti contatteremo con i dettagli.",
+    "errorMessage": "Registrazione fallita. Per favore riprova.",
+    "schedule": "Workshop ogni sabato e domenica",
+    "location": "123 Via Incantata, Città Giardino",
+    "types": {
+      "beginner": "Principiante - Introduzione ai Terrari",
+      "intermediate": "Intermedio - Tecniche Avanzate",
+      "group": "Gruppo/Aziendale - Team Building",
+      "private": "Privato - Sessione Individuale"
+    }
   },
   "blog": {
     "title": "Dal Nostro Giardino",
     "subtitle": "Esplora i nostri ultimi articoli sulla cura dei terrari, la selezione delle piante e la magia dei giardini in miniatura",
     "readMore": "Leggi di Più"
   },
+  "cart": {
+    "title": "Il Tuo Carrello",
+    "empty": "Il tuo carrello è vuoto",
+    "qty": "Qtà",
+    "total": "Totale",
+    "checkout": "Acquista",
+    "checkoutSuccess": "Grazie per il tuo ordine! Ti contatteremo presto."
+  },
   "footer": {
     "tagline": "Un Tocco di Magia in una Bottiglia",
+    "createdSince": "Creiamo mondi in miniatura incantati dal 2020",
     "quickLinks": "Link Rapidi",
     "contactUs": "Contattaci",
     "newsletter": "Newsletter",
     "newsletterText": "Iscriviti per aggiornamenti magici e offerte esclusive",
     "subscribe": "Iscriviti",
     "subscribing": "Iscrizione...",
+    "subscribeSuccess": "Grazie per l'iscrizione!",
+    "subscribeError": "Iscrizione fallita. Per favore riprova.",
+    "alreadySubscribed": "Questa email è già iscritta!",
+    "privacyError": "Accetta l'Informativa sulla Privacy per continuare.",
+    "privacyLabel": "Accetto la",
+    "privacyLink": "Informativa sulla Privacy",
     "copyright": "Tutti i diritti riservati."
   },
   "privacy": {

@@ -12,14 +12,21 @@
     "button": "Fedezd Fel a Varázslatot"
   },
   "gallery": {
-    "title": "Varázslatos Terráriu mok",
+    "title": "Varázslatos Terráriumok",
     "subtitle": "Fedezd fel kézzel készített terrárium kollekcióinkat, mindegyik egy miniatűr csodavilág",
-    "addToCart": "Kosárba"
+    "addToCart": "Kosárba",
+    "addedToCart": "{{name}} a kosárba került!"
   },
   "diyKits": {
     "title": "Alkoss Saját Varázslatot",
     "description": "Engedd szabadjára kreativitásodat barkács terrárium készleteinkkel. Minden szükséges a saját varázslatos miniatűr kerted elkészítéséhez, lépésről lépésre útmutatóval és prémium anyagokkal.",
-    "button": "Barkács Készletek"
+    "button": "Barkács Készletek",
+    "premiumTitle": "Prémium Anyagok",
+    "premiumDesc": "Kézzel válogatott növények, dekorációs elemek és gondozási útmutató",
+    "giftTitle": "Tökéletes Ajándék",
+    "giftDesc": "Gyönyörűen csomagolva a természet szerelmeseinek",
+    "easyTitle": "Könnyen Követhető",
+    "easyDesc": "Részletes útmutató minden tudásszinthez"
   },
   "forBusiness": {
     "title": "Vállalkozásoknak",
@@ -32,7 +39,10 @@
     "privacyLink": "Adatvédelmi Szabályzatot",
     "newsletterLabel": "Feliratkozom a hírlevelére frissítésekért és különleges ajánlatokért",
     "submitButton": "Üzenet Küldése",
-    "submitting": "Küldés..."
+    "submitting": "Küldés...",
+    "privacyError": "Kérjük, fogadja el az Adatvédelmi Szabályzatot a folytatáshoz.",
+    "successMessage": "Köszönjük! Hamarosan felvesszük Önnel a kapcsolatot.",
+    "errorMessage": "Az üzenet küldése sikertelen. Kérjük, próbálja újra."
   },
   "workshops": {
     "title": "Terrárium Workshopok",
@@ -43,21 +53,47 @@
     "phoneLabel": "Telefon",
     "workshopTypeLabel": "Workshop Típusa",
     "submitButton": "Jelentkezés",
-    "submitting": "Jelentkezés..."
+    "submitting": "Jelentkezés...",
+    "privacyError": "Kérjük, fogadja el az Adatvédelmi Szabályzatot a folytatáshoz.",
+    "successMessage": "Sikeres jelentkezés! Hamarosan felvesszük Önnel a kapcsolatot a workshop részleteivel.",
+    "errorMessage": "A jelentkezés sikertelen. Kérjük, próbálja újra.",
+    "schedule": "Workshopok minden szombaton és vasárnap",
+    "location": "123 Varázslatos Utca, Kertváros",
+    "types": {
+      "beginner": "Kezdő - Bevezetés a Terráriumokba",
+      "intermediate": "Haladó - Fejlett Technikák",
+      "group": "Csoportos/Céges - Csapatépítés",
+      "private": "Privát - Személyes Foglalkozás"
+    }
   },
   "blog": {
     "title": "Kertünkből",
     "subtitle": "Fedezd fel legújabb cikkeinket a terrárium gondozásáról, növényválasztásról és a miniatűr kertek varázslatáról",
     "readMore": "Tovább"
   },
+  "cart": {
+    "title": "Kosarad",
+    "empty": "A kosarad üres",
+    "qty": "Db",
+    "total": "Összesen",
+    "checkout": "Megrendelés",
+    "checkoutSuccess": "Köszönjük a rendelést! Hamarosan felvesszük Önnel a kapcsolatot."
+  },
   "footer": {
     "tagline": "Egy Csipetnyi Varázslat Egy Üvegben",
+    "createdSince": "Varázslatos miniatűr világokat készítünk 2020 óta",
     "quickLinks": "Gyors Linkek",
     "contactUs": "Kapcsolat",
     "newsletter": "Hírlevél",
     "newsletterText": "Iratkozz fel varázslatos frissítésekért és exkluzív ajánlatokért",
     "subscribe": "Feliratkozás",
     "subscribing": "Feliratkozás...",
+    "subscribeSuccess": "Köszönjük a feliratkozást!",
+    "subscribeError": "A feliratkozás sikertelen. Kérjük, próbálja újra.",
+    "alreadySubscribed": "Ez az email cím már feliratkozott!",
+    "privacyError": "Kérjük, fogadja el az Adatvédelmi Szabályzatot a folytatáshoz.",
+    "privacyLabel": "Elfogadom az",
+    "privacyLink": "Adatvédelmi Szabályzatot",
     "copyright": "Minden jog fenntartva."
   },
   "privacy": {
