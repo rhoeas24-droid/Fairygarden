@@ -30,7 +30,8 @@ const Navigation = () => {
     { label: 'DIY Kits', id: 'diy-kits' },
     { label: 'For Business', id: 'for-business' },
     { label: 'Workshops', id: 'workshops' },
-    { label: 'Blog', id: 'blog' }
+    { label: 'Blog', id: 'blog' },
+    { label: 'Privacy', id: 'privacy-policy' }
   ];
 
   return (
