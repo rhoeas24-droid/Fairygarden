@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import GoldButton from '../GoldButton';
 
 const MagicalDivider = () => {
+  const { t } = useTranslation();
+  
   const scrollToGallery = () => {
     const element = document.getElementById('gallery');
     if (element) {
