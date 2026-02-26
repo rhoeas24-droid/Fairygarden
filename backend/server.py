@@ -246,6 +246,33 @@ async def subscribe_newsletter(subscription: NewsletterSubscriptionCreate):
     await db.newsletter.insert_one(doc)
     return subscription_obj
 
+# Custom Terrarium Orders
+@api_router.post("/custom-terrarium", response_model=CustomTerrariumOrder)
+async def create_custom_terrarium_order(order: CustomTerrariumOrderCreate):
+    order_obj = CustomTerrariumOrder(**order.model_dump())
+    doc = order_obj.model_dump()
+    doc['created_at'] = doc['created_at'].isoformat()
+    await db.custom_terrariums.insert_one(doc)
+    
+    # Also subscribe to newsletter if opted in
+    if order.subscribed_to_newsletter:
+        existing = await db.newsletter.find_one({"email": order.email}, {"_id": 0})
+        if not existing:
+            newsletter_obj = NewsletterSubscription(email=order.email)
+            newsletter_doc = newsletter_obj.model_dump()
+            newsletter_doc['created_at'] = newsletter_doc['created_at'].isoformat()
+            await db.newsletter.insert_one(newsletter_doc)
+    
+    return order_obj
+
+@api_router.get("/custom-terrarium", response_model=List[CustomTerrariumOrder])
+async def get_custom_terrarium_orders():
+    orders = await db.custom_terrariums.find({}, {"_id": 0}).sort("created_at", -1).to_list(100)
+    for order in orders:
+        if isinstance(order.get('created_at'), str):
+            order['created_at'] = datetime.fromisoformat(order['created_at'])
+    return orders
+
 # Blog
 @api_router.get("/blog/posts", response_model=List[BlogPost])
 async def get_blog_posts():
