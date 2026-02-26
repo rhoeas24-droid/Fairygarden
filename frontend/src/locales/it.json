@@ -155,6 +155,39 @@
   "privacy": {
     "title": "Informativa sulla Privacy"
   },
+  "terms": {
+    "title": "Termini e Condizioni",
+    "lastUpdated": "Ultimo aggiornamento: Febbraio 2026",
+    "chapter1": {
+      "title": "1. Disposizioni Generali",
+      "content": "Questi Termini Generali regolano tutte le transazioni e servizi forniti da Fairygarden For You."
+    },
+    "chapter2": {
+      "title": "2. Prodotti e Servizi",
+      "content": "Offriamo terrari artigianali, kit fai da te, workshop e servizi di design."
+    },
+    "chapter3": {
+      "title": "3. Ordini e Pagamenti",
+      "content": "Gli ordini possono essere effettuati tramite il nostro sito web."
+    },
+    "chapter4": {
+      "title": "4. Consegna e Resi",
+      "content": "I tempi di consegna variano in base alla disponibilità."
+    },
+    "chapter5": {
+      "title": "5. Termini Ordini Personalizzati",
+      "intro": "I seguenti termini si applicano agli ordini personalizzati:",
+      "point1": "È richiesto un deposito del 30% per iniziare il lavoro.",
+      "point2": "Ti contatteremo entro 24 ore.",
+      "point3": "Le modifiche al design sono possibili durante la consultazione.",
+      "point4": "Il prezzo finale potrebbe variare.",
+      "point5": "Gli ordini richiedono generalmente 2-4 settimane."
+    },
+    "chapter6": {
+      "title": "6. Contatti",
+      "content": "Contattaci a contact@fairygarden4u.com."
+    }
+  },
   "about": {
     "title": "Chi Siamo",
     "subtitle": "Scopri la magia dietro Fairygarden For You e incontra il team appassionato che porta l'incanto nel tuo mondo",
