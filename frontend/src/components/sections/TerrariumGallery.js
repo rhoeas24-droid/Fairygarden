@@ -11,6 +11,7 @@ const API = `${BACKEND_URL}/api`;
 
 const ProductCard = ({ product, index }) => {
   const { addToCart } = useCart();
+  const { t } = useTranslation();
 
   const handleAddToCart = () => {
     addToCart(product);
