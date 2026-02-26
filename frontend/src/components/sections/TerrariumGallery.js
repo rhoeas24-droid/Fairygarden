@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useCart } from '../../contexts/CartContext';
+import { Sparkles, Wand2 } from 'lucide-react';
 import GoldButton from '../GoldButton';
+import CustomTerrariumBuilder from '../CustomTerrariumBuilder';
 import axios from 'axios';
 import { toast } from 'sonner';
 
