@@ -104,10 +104,10 @@ const TerrariumGallery = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-cinzel font-bold text-gold mb-4" data-testid="gallery-title">
-            Enchanted Terrariums
+            {t('gallery.title')}
           </h2>
           <p className="text-cream/80 font-montserrat text-lg max-w-2xl mx-auto">
-            Discover our magical collection of handcrafted terrariums, each one a miniature world of wonder
+            {t('gallery.subtitle')}
           </p>
         </motion.div>
 
