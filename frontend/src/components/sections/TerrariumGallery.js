@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { useCart } from '../../contexts/CartContext';
 import GoldButton from '../GoldButton';
 import axios from 'axios';
