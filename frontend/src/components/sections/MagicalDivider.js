@@ -10,27 +10,61 @@ const MagicalDivider = () => {
     }
   };
 
-  // Generate flowing particle trails like fairy dust
-  const generateDustTrails = (count) => {
-    return [...Array(count)].map((_, i) => {
-      const angle = (i / count) * Math.PI * 2;
-      const radius = 200 + Math.random() * 100;
-      return {
-        id: i,
-        path: [
-          { x: Math.cos(angle) * radius, y: Math.sin(angle) * radius },
-          { x: Math.cos(angle + 1) * (radius * 0.7), y: Math.sin(angle + 1) * (radius * 0.7) },
-          { x: Math.cos(angle + 2) * (radius * 1.2), y: Math.sin(angle + 2) * (radius * 1.2) },
-          { x: Math.cos(angle + 3) * radius, y: Math.sin(angle + 3) * radius }
-        ],
-        duration: 4 + Math.random() * 3,
-        delay: i * 0.15,
-        particleCount: 8 + Math.floor(Math.random() * 5)
-      };
-    });
+  // Természetes arany színárnyalatok
+  const goldShades = [
+    '#f0e68c', // light gold
+    '#d4af37', // classic gold
+    '#c9a84c', // medium gold
+    '#FFD700', // bright gold
+    '#DAA520', // goldenrod
+    '#FFA500', // orange gold
+    '#FFDF00', // golden yellow
+    '#E6BE8A'  // pale gold
+  ];
+
+  // Organikus fairy dust nyalábok generálása
+  const generateOrganicDust = () => {
+    const particles = [];
+    const streamCount = 5; // Nyalábok száma
+    
+    for (let stream = 0; stream < streamCount; stream++) {
+      const baseAngle = (stream / streamCount) * Math.PI * 2;
+      const particlesInStream = 25 + Math.floor(Math.random() * 35); // 25-60 részecske nyalábonként
+      
+      for (let i = 0; i < particlesInStream; i++) {
+        const progress = i / particlesInStream;
+        const spreadAngle = baseAngle + (Math.random() - 0.5) * 0.8; // Természetes szórás
+        const radius = 120 + Math.random() * 200;
+        
+        // Organikus, hullámos út
+        const wavyPath = [];
+        for (let point = 0; point < 5; point++) {
+          const pointProgress = point / 4;
+          const distance = radius * (0.6 + pointProgress * 0.8);
+          const angle = spreadAngle + Math.sin(pointProgress * Math.PI * 2) * 0.3;
+          
+          wavyPath.push({
+            x: Math.cos(angle) * distance + (Math.random() - 0.5) * 40,
+            y: Math.sin(angle) * distance + (Math.random() - 0.5) * 40
+          });
+        }
+        
+        particles.push({
+          id: `${stream}-${i}`,
+          path: wavyPath,
+          size: 0.5 + Math.random() * 2.5, // Változatos méretek
+          color: goldShades[Math.floor(Math.random() * goldShades.length)],
+          duration: 3 + Math.random() * 4,
+          delay: progress * 2.5 + Math.random() * 1,
+          opacity: 0.3 + Math.random() * 0.7
+        });
+      }
+    }
+    
+    return particles;
   };
 
-  const dustTrails = generateDustTrails(6);
+  const fairyDust = generateOrganicDust();
 
   return (
     <section className="relative py-20 overflow-hidden" style={{
@@ -48,95 +82,47 @@ const MagicalDivider = () => {
           transition={{ duration: 0.8 }}
           className="flex flex-col items-center justify-center"
         >
-          {/* Button with fairy dust trails */}
           <div className="relative">
-            {/* Flowing glitter particle trails */}
-            {dustTrails.map((trail) => (
-              <div key={trail.id}>
-                {[...Array(trail.particleCount)].map((_, particleIdx) => (
-                  <motion.div
-                    key={`${trail.id}-${particleIdx}`}
-                    className="absolute pointer-events-none"
-                    style={{
-                      left: '50%',
-                      top: '50%'
-                    }}
-                    initial={{
-                      x: trail.path[0].x,
-                      y: trail.path[0].y,
-                      opacity: 0,
-                      scale: 0
-                    }}
-                    animate={{
-                      x: trail.path.map(p => p.x),
-                      y: trail.path.map(p => p.y),
-                      opacity: [0, 1, 1, 0.6, 0],
-                      scale: [0, 1, 1.5, 1, 0]
-                    }}
-                    transition={{
-                      duration: trail.duration,
-                      delay: trail.delay + particleIdx * 0.08,
-                      repeat: Infinity,
-                      ease: 'easeInOut'
-                    }}
-                  >
-                    {/* Individual glitter particle with glow */}
-                    <div
-                      className="w-1 h-1 rounded-full"
-                      style={{
-                        backgroundColor: particleIdx % 3 === 0 ? '#f0e68c' : particleIdx % 3 === 1 ? '#c9a84c' : '#d4af37',
-                        boxShadow: `0 0 ${4 + particleIdx % 3}px ${particleIdx % 3 === 0 ? '#f0e68c' : particleIdx % 3 === 1 ? '#c9a84c' : '#d4af37'},
-                                   0 0 ${8 + particleIdx % 3 * 2}px ${particleIdx % 3 === 0 ? '#f0e68c' : particleIdx % 3 === 1 ? '#c9a84c' : '#d4af37'}`
-                      }}
-                    />
-                  </motion.div>
-                ))}
-              </div>
-            ))}
-
-            {/* Additional random floating sparkles */}
-            {[...Array(30)].map((_, i) => {
-              const randomAngle = Math.random() * Math.PI * 2;
-              const randomRadius = 150 + Math.random() * 150;
-              const randomX = Math.cos(randomAngle) * randomRadius;
-              const randomY = Math.sin(randomAngle) * randomRadius;
-              
-              return (
-                <motion.div
-                  key={`float-${i}`}
-                  className="absolute pointer-events-none"
+            {/* Organikus fairy dust részecskék */}
+            {fairyDust.map((particle) => (
+              <motion.div
+                key={particle.id}
+                className="absolute pointer-events-none"
+                style={{
+                  left: '50%',
+                  top: '50%',
+                  width: particle.size,
+                  height: particle.size
+                }}
+                initial={{
+                  x: particle.path[0].x,
+                  y: particle.path[0].y,
+                  opacity: 0,
+                  scale: 0
+                }}
+                animate={{
+                  x: particle.path.map(p => p.x),
+                  y: particle.path.map(p => p.y),
+                  opacity: [0, particle.opacity, particle.opacity * 0.8, particle.opacity, 0],
+                  scale: [0, 1, 1.2, 0.9, 0]
+                }}
+                transition={{
+                  duration: particle.duration,
+                  delay: particle.delay,
+                  repeat: Infinity,
+                  ease: 'easeInOut'
+                }}
+              >
+                <div
+                  className="w-full h-full rounded-full"
                   style={{
-                    left: '50%',
-                    top: '50%'
+                    backgroundColor: particle.color,
+                    boxShadow: `0 0 ${particle.size * 3}px ${particle.color}, 0 0 ${particle.size * 6}px ${particle.color}`,
+                    filter: 'blur(0.5px)'
                   }}
-                  initial={{
-                    x: randomX,
-                    y: randomY,
-                    opacity: 0
-                  }}
-                  animate={{
-                    x: [randomX, randomX + (Math.random() - 0.5) * 100],
-                    y: [randomY, randomY + (Math.random() - 0.5) * 100],
-                    opacity: [0, 0.8, 0.4, 0.8, 0],
-                    scale: [0, 1, 1.2, 0.8, 0]
-                  }}
-                  transition={{
-                    duration: 3 + Math.random() * 3,
-                    delay: Math.random() * 2,
-                    repeat: Infinity,
-                    ease: 'easeInOut'
-                  }}
-                >
-                  <div
-                    className="w-0.5 h-0.5 rounded-full"
-                    style={{
-                      backgroundColor: i % 2 === 0 ? '#f0e68c' : '#c9a84c',
-                      boxShadow: `0 0 3px ${i % 2 === 0 ? '#f0e68c' : '#c9a84c'}, 0 0 6px ${i % 2 === 0 ? '#f0e68c' : '#c9a84c'}`
-                    }}
-                  />
-                </motion.div>
-              );
-            })}
+                />
+              </motion.div>
+            ))}
 
             {/* Button */}
             <motion.div
@@ -150,7 +136,6 @@ const MagicalDivider = () => {
                 Explore the Magic
               </GoldButton>
               
-              {/* Button glow effect */}
               <motion.div
                 className="absolute inset-0 rounded-full bg-gold/30 blur-2xl -z-10"
                 animate={{
