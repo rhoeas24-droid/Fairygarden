@@ -96,6 +96,32 @@ class NewsletterSubscription(BaseModel):
 class NewsletterSubscriptionCreate(BaseModel):
     email: EmailStr
 
+class CustomTerrariumOrder(BaseModel):
+    model_config = ConfigDict(extra="ignore")
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    name: str
+    email: EmailStr
+    size: str  # S, M, L, XL
+    glass_type: str  # container, bottle
+    world: str  # minimal, colorful, fairytale, magical, carnivorous, jungle
+    lighting: bool
+    message: Optional[str] = None
+    calculated_price: float
+    subscribed_to_newsletter: bool = False
+    status: str = "pending"  # pending, contacted, in_progress, completed
+    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+
+class CustomTerrariumOrderCreate(BaseModel):
+    name: str
+    email: EmailStr
+    size: str
+    glass_type: str
+    world: str
+    lighting: bool
+    message: Optional[str] = None
+    calculated_price: float
+    subscribed_to_newsletter: bool = False
+
 class BlogPost(BaseModel):
     model_config = ConfigDict(extra="ignore")
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
