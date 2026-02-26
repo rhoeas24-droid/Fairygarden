@@ -6,6 +6,7 @@ import FloatingFairy from './components/FloatingFairy';
 import Navigation from './components/Navigation';
 import CartDrawer from './components/CartDrawer';
 import Hero from './components/sections/Hero';
+import MagicalDivider from './components/sections/MagicalDivider';
 import TerrariumGallery from './components/sections/TerrariumGallery';
 import DIYKits from './components/sections/DIYKits';
 import ForBusiness from './components/sections/ForBusiness';
@@ -29,6 +30,7 @@ function App() {
         
         <main>
           <Hero />
+          <MagicalDivider />
           <TerrariumGallery />
           <DIYKits />
           <ForBusiness />
