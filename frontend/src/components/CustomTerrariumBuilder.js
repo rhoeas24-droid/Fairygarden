@@ -363,19 +363,34 @@ const CustomTerrariumBuilder = ({ isOpen, onClose }) => {
               <div className="flex items-center gap-3 mb-4">
                 <Calculator className="w-6 h-6 text-gold" />
                 <h3 className="font-cinzel font-bold text-gold text-lg">
-                  {t('customTerrarium.depositTitle')}
+                  {t('customTerrarium.priceTitle')}
                 </h3>
               </div>
-              <div className="flex items-end justify-between">
-                <div className="text-cream/70 font-montserrat text-sm">
-                  {t('customTerrarium.depositDescription')}
-                </div>
-                <div className="text-right">
-                  <div className="text-4xl font-cinzel font-bold text-gold">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between border-b border-gold/20 pb-3">
+                  <div className="text-cream/70 font-montserrat text-sm">
+                    {t('customTerrarium.totalPrice')}
+                  </div>
+                  <div className="text-xl font-cinzel font-bold text-cream">
                     €{calculatedPrice}
                   </div>
-                  <div className="text-cream/50 text-xs font-montserrat">
-                    {t('customTerrarium.depositNote')}
+                </div>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="text-cream font-montserrat font-semibold">
+                      {t('customTerrarium.depositTitle')}
+                    </div>
+                    <div className="text-cream/50 text-xs font-montserrat">
+                      {t('customTerrarium.depositDescription')}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-3xl font-cinzel font-bold text-gold">
+                      €{depositAmount}
+                    </div>
+                    <div className="text-cream/50 text-xs font-montserrat">
+                      (30%)
+                    </div>
                   </div>
                 </div>
               </div>
