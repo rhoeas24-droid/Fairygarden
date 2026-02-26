@@ -90,22 +90,23 @@ Design a single-page website homepage for a magical terrarium brand called "Fair
     - Translated in all 4 languages
     - Located after Workshops, before Blog
 
-### Custom Terrarium Builder (Completed 2026-02-26) ✅
-16. **"Build Your Own Terrarium" feature** with price calculator:
-    - Custom card in Gallery section
-    - Modal form with all options:
-      - Size: S (€35.99), M (€43.99), L (€55.99), XL (€61.99)
-      - Glass type: Container (1.1x), Bottle (1.5x)
-      - World: Minimal (1.2x), Colorful (1.3x), Fairytale (1.4x), Magical (1.6x), Carnivorous (1.6x), Jungle (1.8x)
-      - Lighting: No (1x), Yes (1.05x)
-    - Real-time price calculation
-    - Custom message field (max 1000 chars)
-    - Privacy and newsletter checkboxes
-    - Backend API: POST /api/custom-terrarium
+### Custom Terrarium Builder Updates (Completed 2026-02-26) ✅
+16. **"Build Your Own Terrarium" feature updated**:
+    - Gallery card shows "from €47.51" (minimum price)
+    - Size options without individual prices (S=Kicsi, M=Közepes, L=Nagy, XL=Óriás)
+    - **30% deposit** shown separately as "Tervezési és egyeztetési díj"
+    - Real-time price calculation with total + deposit breakdown
+
+### Terms and Conditions (Completed 2026-02-26) ✅
+17. **Terms and Conditions page added**:
+    - 6 chapters covering general terms, products, ordering, delivery, custom orders, contact
+    - **Chapter 5 highlighted** for custom orders (non-refundable deposit, consultation process, timeline)
+    - New checkbox: "Az ÁSZF tartalmát megismertem és elfogadom, különös tekintettel a jelen tranzakcióra érvényes 5. fejezetre"
+    - Navigation menu includes "ÁSZF" link
     - Translated in all 4 languages
 
 ### Gallery Section Updated (Completed 2026-02-26) ✅
-17. **Updated Gallery description** emphasizing:
+18. **Updated Gallery description** emphasizing:
     - All terrariums are unique and handcrafted
     - Using mostly home-grown plants
     - Custom-developed planting medium
