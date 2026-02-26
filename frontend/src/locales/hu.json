@@ -98,5 +98,12 @@
   },
   "privacy": {
     "title": "Adatvédelmi Szabályzat"
+  },
+  "cookies": {
+    "title": "Cookie Értesítés",
+    "message": "Sütiket használunk a böngészési élmény javítása és a forgalom elemzése érdekében. Az 'Elfogadom' gombra kattintva hozzájárul a sütik használatához. A sütik használatáról további információt talál az",
+    "privacyLink": "Adatvédelmi Szabályzatban",
+    "accept": "Elfogadom",
+    "decline": "Elutasítom"
   }
 }

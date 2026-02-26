@@ -98,5 +98,12 @@
   },
   "privacy": {
     "title": "Informativa sulla Privacy"
+  },
+  "cookies": {
+    "title": "Avviso Cookie",
+    "message": "Utilizziamo i cookie per migliorare la tua esperienza di navigazione e analizzare il traffico. Cliccando su 'Accetta', acconsenti all'uso dei cookie. Per saperne di più, consulta la nostra",
+    "privacyLink": "Informativa sulla Privacy",
+    "accept": "Accetta",
+    "decline": "Rifiuta"
   }
 }
