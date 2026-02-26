@@ -100,6 +100,36 @@
   "privacy": {
     "title": "Adatvédelmi Szabályzat"
   },
+  "about": {
+    "title": "Rólunk",
+    "subtitle": "Fedezd fel a Fairygarden For You mögötti varázslatot és ismerd meg a szenvedélyes csapatot, aki varázslat hoz a világodba",
+    "storyTitle": "Történetünk",
+    "storyParagraph1": "A Fairygarden For You egy egyszerű álomból született: elhozni a természet varázslatát minden otthonba. Ami 2020-ban egy kis szenvedélyprojektként indult, mára szeretett márkává nőtte ki magát, kézzel készített terráriumokat alkotva, amelyek a miniatűr világok varázslatát ragadják meg.",
+    "storyParagraph2": "Minden terráriumunk, amit készítünk, a szeretet munkája, gondosan megtervezve, hogy örömet és nyugalmat hozzon a terekbe. Hiszünk abban, hogy mindenki megérdemel egy csipetnyi varázslatot az életében, és küldetésünk, hogy ezt a varázslatot mindenki számára elérhetővé tegyük.",
+    "missionTitle": "Küldetésünk",
+    "missionText": "Csodálatot és természettel való kapcsolatot inspirálni varázslatos miniatűr kerteken keresztül, amelyek bármely teret varázslatos szentéllyé alakítanak.",
+    "value1Title": "Fenntarthatóság",
+    "value1Desc": "Környezetbarát anyagokat és fenntartható gyakorlatokat használunk minden alkotásunkban.",
+    "value2Title": "Kézművesség",
+    "value2Desc": "Minden terrárium kézzel készül szeretettel és figyelemmel a részletekre.",
+    "value3Title": "Varázslat",
+    "value3Desc": "Hiszünk abban, hogy a csodát és a varázslatot elhozzuk a mindennapi életbe.",
+    "teamTitle": "Ismerd Meg Csapatunkat",
+    "team": {
+      "member1": {
+        "name": "Emma Rose",
+        "role": "Alapító és Vezető Tervező"
+      },
+      "member2": {
+        "name": "David Chen",
+        "role": "Mester Kézműves"
+      },
+      "member3": {
+        "name": "Sophie Miller",
+        "role": "Workshop Koordinátor"
+      }
+    }
+  },
   "cookies": {
     "title": "Cookie Értesítés",
     "message": "Sütiket használunk a böngészési élmény javítása és a forgalom elemzése érdekében. Az alábbi beállításokat testreszabhatja, vagy további információt talál az",
