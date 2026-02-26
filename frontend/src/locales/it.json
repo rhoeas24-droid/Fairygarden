@@ -101,9 +101,18 @@
   },
   "cookies": {
     "title": "Avviso Cookie",
-    "message": "Utilizziamo i cookie per migliorare la tua esperienza di navigazione e analizzare il traffico. Cliccando su 'Accetta', acconsenti all'uso dei cookie. Per saperne di più, consulta la nostra",
+    "message": "Utilizziamo i cookie per migliorare la tua esperienza di navigazione. Puoi personalizzare le tue preferenze qui sotto o saperne di più nella nostra",
     "privacyLink": "Informativa sulla Privacy",
-    "accept": "Accetta",
-    "decline": "Rifiuta"
+    "acceptAll": "Accetta Tutti",
+    "declineOptional": "Solo Necessari",
+    "customize": "Personalizza",
+    "savePreferences": "Salva Preferenze",
+    "necessary": "Cookie Necessari",
+    "necessaryDesc": "Essenziali per il funzionamento base. Non possono essere disattivati.",
+    "functional": "Cookie Funzionali",
+    "functionalDesc": "Abilitano funzionalità aggiuntive come la condivisione social.",
+    "analytical": "Cookie Analitici",
+    "analyticalDesc": "Ci aiutano a capire come i visitatori utilizzano il nostro sito.",
+    "required": "Richiesto"
   }
 }

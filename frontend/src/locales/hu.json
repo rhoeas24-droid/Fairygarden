@@ -101,9 +101,18 @@
   },
   "cookies": {
     "title": "Cookie Értesítés",
-    "message": "Sütiket használunk a böngészési élmény javítása és a forgalom elemzése érdekében. Az 'Elfogadom' gombra kattintva hozzájárul a sütik használatához. A sütik használatáról további információt talál az",
+    "message": "Sütiket használunk a böngészési élmény javítása és a forgalom elemzése érdekében. Az alábbi beállításokat testreszabhatja, vagy további információt talál az",
     "privacyLink": "Adatvédelmi Szabályzatban",
-    "accept": "Elfogadom",
-    "decline": "Elutasítom"
+    "acceptAll": "Összes Elfogadása",
+    "declineOptional": "Csak Szükséges",
+    "customize": "Testreszabás",
+    "savePreferences": "Beállítások Mentése",
+    "necessary": "Szükséges Sütik",
+    "necessaryDesc": "A weboldal alapvető működéséhez szükséges. Nem kapcsolható ki.",
+    "functional": "Funkcionális Sütik",
+    "functionalDesc": "További funkciókat tesznek lehetővé, mint a közösségi megosztás és beágyazott tartalmak.",
+    "analytical": "Analitikai Sütik",
+    "analyticalDesc": "Segítenek megérteni, hogyan használják a látogatók weboldalunkat (Google Analytics).",
+    "required": "Kötelező"
   }
 }
