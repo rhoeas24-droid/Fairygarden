@@ -25,7 +25,7 @@ const Footer = () => {
     e.preventDefault();
     
     if (!formData.privacyAccepted) {
-      toast.error('Please accept the Privacy Policy to continue.');
+      toast.error(t('footer.privacyError'));
       return;
     }
     
@@ -33,13 +33,13 @@ const Footer = () => {
     
     try {
       await axios.post(`${API}/newsletter/subscribe`, { email: formData.email });
-      toast.success(t('footer.subscribing'));
+      toast.success(t('footer.subscribeSuccess'));
       setFormData({ email: '', privacyAccepted: false });
     } catch (error) {
       if (error.response?.status === 400) {
-        toast.error('Email already subscribed!');
+        toast.error(t('footer.alreadySubscribed'));
       } else {
-        toast.error('Subscription failed. Please try again.');
+        toast.error(t('footer.subscribeError'));
       }
       console.error('Error subscribing to newsletter:', error);
     } finally {
@@ -78,7 +78,7 @@ const Footer = () => {
               {t('footer.tagline')}
             </p>
             <p className="font-montserrat text-cream/70 text-sm">
-              Creating enchanted miniature worlds since 2020
+              {t('footer.createdSince')}
             </p>
           </div>
 
@@ -162,13 +162,13 @@ const Footer = () => {
                   data-testid="footer-privacy-checkbox"
                 />
                 <label htmlFor="footer-privacy" className="text-cream/90 font-montserrat text-xs">
-                  I accept the{' '}
+                  {t('footer.privacyLabel')}{' '}
                   <button
                     type="button"
                     onClick={scrollToPrivacy}
                     className="text-gold hover:text-gold-light underline"
                   >
-                    Privacy Policy
+                    {t('footer.privacyLink')}
                   </button>{' '}
                   *
                 </label>
