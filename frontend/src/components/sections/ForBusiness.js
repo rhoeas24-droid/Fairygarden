@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Building2, Mail, Phone } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import GoldButton from '../GoldButton';
 import axios from 'axios';
 import { toast } from 'sonner';

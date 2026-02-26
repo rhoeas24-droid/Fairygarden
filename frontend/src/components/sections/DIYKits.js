@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, Gift, Heart } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import GoldButton from '../GoldButton';
 
 const DIYKits = () => {

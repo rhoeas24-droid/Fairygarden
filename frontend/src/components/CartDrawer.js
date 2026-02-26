@@ -2,6 +2,7 @@ import React from 'react';
 import { X, Trash2 } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import GoldButton from './GoldButton';
 import { toast } from 'sonner';
 
