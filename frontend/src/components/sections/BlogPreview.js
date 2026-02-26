@@ -8,6 +8,8 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 const BlogCard = ({ post, index }) => {
+  const { t } = useTranslation();
+  
   return (
     <motion.article
       initial={{ opacity: 0, y: 50 }}
@@ -51,7 +53,7 @@ const BlogCard = ({ post, index }) => {
         <button className="flex items-center gap-2 text-gold-dark font-montserrat font-semibold text-sm
           group-hover:gap-4 transition-all duration-300"
           data-testid={`blog-read-more-${post.id}`}>
-          Read More
+          {t('blog.readMore')}
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>
@@ -61,6 +63,7 @@ const BlogCard = ({ post, index }) => {
 
 const BlogPreview = () => {
   const [posts, setPosts] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchBlogPosts();
@@ -96,10 +99,10 @@ const BlogPreview = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-cinzel font-bold text-gold mb-4" data-testid="blog-title">
-            From Our Garden
+            {t('blog.title')}
           </h2>
           <p className="text-cream/80 font-montserrat text-lg max-w-2xl mx-auto">
-            Explore our latest articles on terrarium care, plant selection, and the magic of miniature gardens
+            {t('blog.subtitle')}
           </p>
         </motion.div>
 
