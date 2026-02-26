@@ -29,7 +29,7 @@ const LanguageSwitcher = () => {
         data-testid="language-switcher-button"
       >
         <Globe className="w-5 h-5" />
-        <span className="text-sm font-montserrat">{currentLanguage.flag}</span>
+        <span className="text-2xl">{currentLanguage.flag}</span>
       </button>
 
       <AnimatePresence>
@@ -43,18 +43,18 @@ const LanguageSwitcher = () => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              className="absolute right-0 mt-2 w-48 bg-forest/95 backdrop-blur-md border border-gold/30 rounded-lg shadow-xl z-50 overflow-hidden"
+              className="absolute right-0 mt-2 w-52 bg-forest/95 backdrop-blur-md border border-gold/30 rounded-lg shadow-xl z-50 overflow-hidden"
             >
               {languages.map((language) => (
                 <button
                   key={language.code}
                   onClick={() => changeLanguage(language.code)}
-                  className={`w-full flex items-center gap-3 px-4 py-3 text-left font-montserrat text-sm transition-colors
+                  className={`w-full flex items-center gap-4 px-4 py-3 text-left font-montserrat text-sm transition-colors
                     ${i18n.language === language.code ? 'bg-gold/20 text-gold' : 'text-cream hover:bg-gold/10 hover:text-gold'}`}
                   data-testid={`language-option-${language.code}`}
                 >
-                  <span className="text-lg">{language.flag}</span>
-                  <span>{language.name}</span>
+                  <span className="text-3xl">{language.flag}</span>
+                  <span className="text-base">{language.name}</span>
                 </button>
               ))}
             </motion.div>
