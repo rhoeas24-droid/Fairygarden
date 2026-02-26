@@ -93,10 +93,10 @@ const ForBusiness = () => {
         >
           <Building2 className="w-16 h-16 text-gold mx-auto mb-6" />
           <h2 className="text-4xl md:text-5xl font-cinzel font-bold text-gold mb-4" data-testid="for-business-title">
-            For Business
+            {t('forBusiness.title')}
           </h2>
           <p className="text-cream/80 font-montserrat text-lg max-w-2xl mx-auto">
-            Bring a touch of nature to your office, events, or corporate gifts. We create custom terrarium solutions for businesses of all sizes.
+            {t('forBusiness.subtitle')}
           </p>
         </motion.div>
 
@@ -110,7 +110,7 @@ const ForBusiness = () => {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="name" className="block text-cream font-montserrat font-semibold mb-2">
-                Name *
+                {t('forBusiness.nameLabel')} *
               </label>
               <input
                 type="text"
@@ -129,7 +129,7 @@ const ForBusiness = () => {
 
             <div>
               <label htmlFor="email" className="block text-cream font-montserrat font-semibold mb-2">
-                Email *
+                {t('forBusiness.emailLabel')} *
               </label>
               <input
                 type="email"
@@ -148,7 +148,7 @@ const ForBusiness = () => {
 
             <div>
               <label htmlFor="company" className="block text-cream font-montserrat font-semibold mb-2">
-                Company
+                {t('forBusiness.companyLabel')}
               </label>
               <input
                 type="text"
@@ -166,7 +166,7 @@ const ForBusiness = () => {
 
             <div>
               <label htmlFor="message" className="block text-cream font-montserrat font-semibold mb-2">
-                Message *
+                {t('forBusiness.messageLabel')} *
               </label>
               <textarea
                 id="message"
