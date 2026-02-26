@@ -31,6 +31,10 @@ const PRICES = {
   }
 };
 
+// Calculate minimum price for "from" display
+const MIN_PRICE = (PRICES.sizes.S * PRICES.worlds.minimal * PRICES.glassTypes.container * PRICES.lighting.no).toFixed(2);
+const DEPOSIT_PERCENTAGE = 0.30; // 30% deposit
+
 const CustomTerrariumBuilder = ({ isOpen, onClose }) => {
   const { t } = useTranslation();
   const [formData, setFormData] = useState({
