@@ -29,22 +29,17 @@ const ProductCard = ({ product, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="bg-forest/60 backdrop-blur-sm rounded-xl overflow-hidden
-        hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(201,168,76,0.3)]
-        transition-all duration-300 group"
+      className="hover:-translate-y-2 transition-all duration-300 group"
       data-testid={`product-card-${product.id}`}
     >
-      <div className="relative aspect-square p-4">
-        {/* Golden frame as background */}
-        <div className="absolute inset-4">
-          <img
-            src="/ablak.png"
-            alt=""
-            className="w-full h-full object-contain"
-          />
-        </div>
-        {/* Product image inside frame */}
-        <div className="absolute inset-[18%] overflow-hidden rounded-sm">
+      {/* Frame with image */}
+      <div className="relative aspect-square">
+        <img
+          src="/ablak.png"
+          alt=""
+          className="absolute inset-0 w-full h-full object-fill z-10 pointer-events-none"
+        />
+        <div className="absolute inset-[12%] z-0 overflow-hidden">
           <img
             src={product.image}
             alt={product.name}
@@ -53,21 +48,22 @@ const ProductCard = ({ product, index }) => {
         </div>
       </div>
       
-      <div className="p-6 space-y-3">
-        <h3 className="text-xl font-cinzel font-bold text-gold" data-testid={`product-name-${product.id}`}>
+      {/* Product info */}
+      <div className="p-4 space-y-2">
+        <h3 className="text-lg font-cinzel font-bold text-gold" data-testid={`product-name-${product.id}`}>
           {product.name}
         </h3>
-        <p className="text-cream/80 font-montserrat text-sm leading-relaxed">
+        <p className="text-cream/80 font-montserrat text-xs leading-relaxed line-clamp-2">
           {product.description}
         </p>
-        <div className="flex items-center justify-between pt-2">
-          <span className="text-2xl font-cinzel font-bold text-gold-light" data-testid={`product-price-${product.id}`}>
-            ${product.price.toFixed(2)}
+        <div className="flex items-center justify-between pt-1">
+          <span className="text-xl font-cinzel font-bold text-gold-light" data-testid={`product-price-${product.id}`}>
+            €{product.price.toFixed(2)}
           </span>
           <button
             onClick={handleAddToCart}
-            className="px-6 py-2 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
-              text-[#3e2b08] font-bold text-sm uppercase rounded-full
+            className="px-4 py-1.5 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
+              text-[#3e2b08] font-bold text-xs uppercase rounded-full
               shadow-[inset_1px_1px_4px_rgba(255,255,255,0.5),inset_-1px_-1px_4px_rgba(0,0,0,0.5),0_4px_8px_rgba(0,0,0,0.3)]
               hover:shadow-[inset_1px_1px_4px_rgba(255,255,255,0.6),inset_-1px_-1px_4px_rgba(0,0,0,0.6),0_6px_12px_rgba(201,168,76,0.3)]
               active:translate-y-1 transition-all duration-200"
