@@ -15,11 +15,12 @@ const API = `${BACKEND_URL}/api`;
 // Calculate minimum price: S + Minimal + Container + No lighting
 const MIN_CUSTOM_PRICE = (35.99 * 1.2 * 1.1 * 1.0).toFixed(2);
 
-const ProductCard = ({ product, index }) => {
+const ProductCard = ({ product, index, onViewDetails }) => {
   const { addToCart } = useCart();
   const { t } = useTranslation();
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e) => {
+    e.stopPropagation();
     addToCart(product);
     toast.success(t('gallery.addedToCart', { name: product.name }));
   };
@@ -30,7 +31,8 @@ const ProductCard = ({ product, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="hover:-translate-y-2 transition-all duration-300 group"
+      className="hover:-translate-y-2 transition-all duration-300 group cursor-pointer"
+      onClick={() => onViewDetails(product)}
       data-testid={`product-card-${product.id}`}
     >
       {/* Frame with image */}
@@ -46,6 +48,10 @@ const ProductCard = ({ product, index }) => {
             alt={product.name}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           />
+        </div>
+        {/* Hover overlay */}
+        <div className="absolute inset-[12%] z-5 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+          <Eye className="w-12 h-12 text-gold" />
         </div>
       </div>
       
