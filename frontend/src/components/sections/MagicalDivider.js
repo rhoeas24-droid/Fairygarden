@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import GoldButton from '../GoldButton';
 
 const MagicalDivider = () => {
