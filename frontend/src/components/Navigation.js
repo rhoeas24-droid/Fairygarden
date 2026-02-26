@@ -33,6 +33,7 @@ const Navigation = () => {
     { label: t('nav.diyKits'), id: 'diy-kits' },
     { label: t('nav.forBusiness'), id: 'for-business' },
     { label: t('nav.workshops'), id: 'workshops' },
+    { label: t('nav.about'), id: 'about' },
     { label: t('nav.blog'), id: 'blog' },
     { label: t('nav.privacy'), id: 'privacy-policy' }
   ];
