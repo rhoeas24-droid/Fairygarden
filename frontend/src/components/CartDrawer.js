@@ -8,9 +8,10 @@ import { toast } from 'sonner';
 
 const CartDrawer = () => {
   const { cart, removeFromCart, clearCart, cartTotal, isCartOpen, setIsCartOpen } = useCart();
+  const { t } = useTranslation();
 
   const handleCheckout = () => {
-    toast.success('Thank you for your order! We will contact you soon.');
+    toast.success(t('cart.checkoutSuccess'));
     clearCart();
     setIsCartOpen(false);
   };
@@ -35,7 +36,7 @@ const CartDrawer = () => {
           >
             <div className="p-6 border-b border-gold/20">
               <div className="flex items-center justify-between">
-                <h2 className="text-2xl font-cinzel font-bold text-gold" data-testid="cart-drawer-title">Your Cart</h2>
+                <h2 className="text-2xl font-cinzel font-bold text-gold" data-testid="cart-drawer-title">{t('cart.title')}</h2>
                 <button
                   onClick={() => setIsCartOpen(false)}
                   className="text-cream hover:text-gold transition-colors"
@@ -49,7 +50,7 @@ const CartDrawer = () => {
             <div className="flex-1 overflow-y-auto p-6">
               {cart.length === 0 ? (
                 <div className="text-center py-12" data-testid="empty-cart-message">
-                  <p className="text-cream/60 font-montserrat">Your cart is empty</p>
+                  <p className="text-cream/60 font-montserrat">{t('cart.empty')}</p>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -70,7 +71,7 @@ const CartDrawer = () => {
                       <div className="flex-1">
                         <h3 className="font-cinzel text-cream font-semibold">{item.product_name}</h3>
                         <p className="text-gold font-montserrat">${item.product_price.toFixed(2)}</p>
-                        <p className="text-cream/60 text-sm">Qty: {item.quantity}</p>
+                        <p className="text-cream/60 text-sm">{t('cart.qty')}: {item.quantity}</p>
                       </div>
                       <button
                         onClick={() => removeFromCart(item.product_id)}
@@ -88,7 +89,7 @@ const CartDrawer = () => {
             {cart.length > 0 && (
               <div className="p-6 border-t border-gold/20 space-y-4">
                 <div className="flex justify-between items-center">
-                  <span className="text-xl font-cinzel text-cream">Total:</span>
+                  <span className="text-xl font-cinzel text-cream">{t('cart.total')}:</span>
                   <span className="text-2xl font-cinzel font-bold text-gold" data-testid="cart-total">
                     ${cartTotal.toFixed(2)}
                   </span>
@@ -98,7 +99,7 @@ const CartDrawer = () => {
                   className="w-full"
                   dataTestId="checkout-button"
                 >
-                  Checkout
+                  {t('cart.checkout')}
                 </GoldButton>
               </div>
             )}
