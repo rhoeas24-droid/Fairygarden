@@ -61,12 +61,12 @@ const Navigation = () => {
             Fairygarden
           </motion.div>
 
-          <div className="hidden md:flex items-center space-x-6">
+          <div className="hidden md:flex items-center space-x-2">
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className="text-cream hover:text-gold transition-colors font-montserrat text-base font-semibold uppercase tracking-wider px-2"
+                className="text-cream hover:text-gold transition-colors font-montserrat text-xs font-medium uppercase tracking-wide px-1"
                 data-testid={`nav-link-${link.id}`}
               >
                 {link.label}
