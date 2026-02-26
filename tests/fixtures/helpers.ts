@@ -25,8 +25,9 @@ export async function checkForErrors(page: Page): Promise<string[]> {
 }
 
 export async function switchLanguage(page: Page, languageCode: string) {
-  await page.getByTestId('language-switcher-button').click();
-  await page.getByTestId(`language-option-${languageCode}`).click();
+  // Use first() since there may be desktop and mobile language switchers
+  await page.getByTestId('language-switcher-button').first().click();
+  await page.getByTestId(`language-option-${languageCode}`).first().click();
   // Wait for language change to take effect
   await page.waitForLoadState('domcontentloaded');
 }
