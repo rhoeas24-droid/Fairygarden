@@ -159,6 +159,9 @@ const TerrariumGallery = () => {
               <p className="text-cream/80 font-montserrat text-sm leading-relaxed">
                 {t('gallery.customDescription')}
               </p>
+              <p className="text-gold font-cinzel font-bold text-lg">
+                {t('gallery.customFromPrice', { price: MIN_CUSTOM_PRICE })}
+              </p>
               <div className="pt-2">
                 <span className="inline-block px-6 py-2 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
                   text-[#3e2b08] font-bold text-sm uppercase rounded-full
