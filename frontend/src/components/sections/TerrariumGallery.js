@@ -15,7 +15,7 @@ const ProductCard = ({ product, index }) => {
 
   const handleAddToCart = () => {
     addToCart(product);
-    toast.success(`${product.name} added to cart!`);
+    toast.success(t('gallery.addedToCart', { name: product.name }));
   };
 
   return (
