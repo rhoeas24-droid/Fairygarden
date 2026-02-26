@@ -87,6 +87,7 @@ const ProductCard = ({ product, index, onViewDetails }) => {
 const TerrariumGallery = () => {
   const [products, setProducts] = useState([]);
   const [isCustomBuilderOpen, setIsCustomBuilderOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const { t } = useTranslation();
 
   useEffect(() => {
