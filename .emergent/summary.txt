@@ -2,85 +2,99 @@
 Design a single-page website homepage for a magical terrarium brand called Fairygarden For You with the tagline 'A Touch of Magic in a Bottle'. The aesthetic should be a dark enchanted forest with gold accents.
 
 **PRODUCT REQUIREMENTS:**
--   **Sections**: Hero, Terrarium Gallery (3-column grid), DIY Kits (2-column), For Business, Workshops, Blog Preview (3 cards), and Footer.
+-   **Sections**: Hero, Terrarium Gallery, DIY Kits, For Business, Workshops, Blog Preview, About, and Footer.
 -   **Functionality**:
     -   E-commerce capabilities (Add to Cart button, cart management).
-    -   Functional forms for Business Inquiries, Workshop Signups, and a Newsletter Subscription in the footer.
+    -   Build Your Own Terrarium feature with a dynamic price calculator and a 30% deposit fee.
+    -   Functional forms for Business Inquiries, Workshop Signups, and a Newsletter Subscription.
     -   A dynamic blog preview section.
-    -   A sticky navigation header.
+    -   A sticky navigation header with a Scroll to Top button.
 -   **Aesthetics & Animations**:
-    -   An animated magical divider section with flowing, multi-colored sparkles (gold, blue, magenta).
-    -   Elegant serif fonts for headings, with a larger, more prominent font for the navigation menu.
+    -   An animated magical divider section with flowing, multi-colored sparkles.
+    -   Elegant serif fonts for headings.
 -   **Compliance & Internationalization**:
-    -   A dedicated Privacy Policy page with user-provided text.
-    -   A mandatory I have read the Privacy Policy checkbox on all forms.
-    -   An optional Subscribe to our newsletter checkbox on all forms.
+    -   Dedicated Privacy Policy and Terms and Conditions pages.
+    -   Mandatory privacy and terms checkboxes on all forms.
+    -   An optional newsletter subscription checkbox.
     -   A language switcher for English, Hungarian, Greek, and Italian.
--   **Footer**: Must contain contact info, updated social media links (Instagram, YouTube), and a newsletter signup form with a privacy checkbox.
+    -   A GDPR-compliant cookie consent banner with granular controls (Necessary, Functional, Analytical).
+-   **Integrations**:
+    -   Google Analytics integration, conditional on user consent.
 
-**User's preferred language**: Hungarian (Magyar). The user started in English but switched to Hungarian. The next agent **MUST** respond in Hungarian.
+**User's preferred language**: Hungarian. The user consistently communicates in Hungarian. The next agent **MUST** respond in Hungarian.
 
 **what currently exists?**
-A full-stack single-page application has been developed using React for the frontend and FastAPI for the backend. Most of the UI sections and core functionalities are implemented, including the e-commerce cart, functional forms (partially updated), and the backend API with a seeded MongoDB database. A complex, animated Magical Divider section with multi-colored sparkles has been created. The language switcher UI is in the navigation bar, and the Privacy Policy page exists with the user-provided content.
+A full-stack single-page application (React frontend, FastAPI backend) is nearly complete. All major UI sections and features are implemented, including a 4-language internationalization (i18n) system, a detailed Build Your Own Terrarium modal with a price calculator, a GDPR-compliant cookie banner with granular settings, an About Us section, and a Scroll to Top button. The backend has API endpoints for all forms. The user is now attempting to deploy the application to Vercel and Railway, but the frontend deployment is failing.
 
 **Last working item**:
--   **Last item agent was working**: The agent was in the middle of a large, multi-part task: implementing internationalization (i18n) across the entire application and adding required privacy/newsletter checkboxes to all forms. A system crash occurred, and upon restart, the agent resumed this work, starting with updating the  form and then applying i18n to other components.
+-   **Last item agent was working**: Troubleshooting a Vercel deployment failure. The build log showed the error , indicating that the path alias  is not configured correctly for Vercel's build environment. The agent correctly identified this as the root cause and was about to fix it.
 -   **Status**: IN PROGRESS
--   **Agent Testing Done**: Y (Partial visual checks via screenshots, but no comprehensive end-to-end testing of i18n or form submissions).
--   **Which testing method agent to use?**: Frontend testing agent. This is needed to systematically verify that all text content changes correctly for all four languages across all components and to test the submission logic of all forms (For Business, Workshops, Footer) ensuring the privacy and newsletter checkboxes function as required.
+-   **Agent Testing Done**: N (Build is failing)
+-   **Which testing method agent to use?**: Manual testing. After the fix, the agent should guide the user to redeploy on Vercel and verify the live URL.
 -   **User Testing Done**: N
 
 **All Pending/In progress Issue list**:
--   **Issue 1**: Incomplete Internationalization (i18n) (P0)
--   **Issue 2**: Incomplete Form Updates with Checkboxes (P1)
+-   **Issue 1**: Vercel Deployment Fails Due to Path Alias (P0)
 
 **Issues Detail**:
 -   **Issue 1**:
-    -   **Attempted fixes**: The agent set up the  library, created translation files (), built a  component, and began wrapping text in some components with the  translation function. The approach is correct but was not finished.
+    -   **Attempted fixes**: The agent analyzed the Vercel build log provided by the user and identified the exact error message related to the unresolved path alias.
     -   **Next debug checklist**:
-        1.  Systematically review all components in  and .
-        2.  Ensure every user-facing string is wrapped in a  function.
-        3.  Populate the  files for all four languages (, , , ) with all the required keys and their corresponding translations.
-    -   **Why fix this issue and what will be achieved with the fix?**: To fulfill the user's explicit requirement for a fully multilingual website.
+        1.  Locate the file importing . This is likely  or a similar root component.
+        2.  Use the  tool to change the import path from  to the correct relative path, which should be .
+        3.  Explain the fix to the user and instruct them to try deploying on Vercel again.
+    -   **Why fix this issue and what will be achieved with the fix?**: To resolve the build error and enable the user to successfully deploy the frontend to their Vercel hosting, as requested.
     -   **Status**: IN PROGRESS
     -   **Is recurring issue?**: N
-    -   **Should Test frontend/backend/both after fix?**: Frontend
-    -   **Blocked on other issue**: None
-
--   **Issue 2**:
-    -   **Attempted fixes**: The agent successfully added the Privacy Policy and Newsletter checkboxes to the  and  components. It started the update for the  component, but its completion and testing are unverified.
-    -   **Next debug checklist**:
-        1.  Inspect  to confirm the two checkboxes are present.
-        2.  Verify the form's submission logic correctly handles the states of both checkboxes (privacy is mandatory, newsletter is optional).
-        3.  Ensure the labels for the checkboxes and any associated validation messages are translated using .
-    -   **Why fix this issue and what will be achieved with the fix?**: To meet legal compliance (privacy consent) and marketing requirements (newsletter opt-in) across all user data collection points.
-    -   **Status**: IN PROGRESS
-    -   **Is recurring issue?**: N
-    -   **Should Test frontend/backend/both after fix?**: Both (Frontend for UI validation, Backend to confirm newsletter subscription data is correctly processed).
-    -   **Blocked on other issue**: None
+    -   **Should Test frontend/backend/both after fix?**: Frontend (by checking the Vercel deployment URL).
+    -   **Blocked on other issue**: None. This is the primary blocker.
 
 **In progress Task List**:
--   **Task 1**: Complete Internationalization and Form Updates (P0)
-    -   **Where to resume**: Continue the process of wrapping all static text in  functions and populating the translation JSON files. Finalize the addition of checkboxes to the  form.
-    -   **What will be achieved with this?**: A fully functional, multilingual website that meets all user-specified compliance and feature requirements.
-    -   **Status**: IN PROGRESS
-    -   **Should Test frontend/backend/both after fix?**: Both
-    -   **Blocked on something**: No
+-   None. The deployment issue is the only active task.
 
 **Upcoming and Future Tasks**
--   None specified. The current tasks are comprehensive and must be completed first.
+The agent and user have compiled a detailed backlog.
+
+-   **🔴 Critical Content Uploads**:
+    -   **P0**: Provide the final English text for the **Terms & Conditions** page.
+    -   **P1**: Replace placeholder images for **Team Photos**, **Product Gallery**, and **DIY Kits**.
+    -   **P1**: Write the real brand **Story/Mission** text for the About section.
+    -   **P2**: Add actual **Blog** articles.
+
+-   🟡 **Important Configuration**:
+    -   **P1**: Update placeholder contact details (Workshop address, phone number).
+    -   **P1**: Add real URLs for **Instagram/YouTube** links in the footer.
+    -   **P2**: Verify the **Google Analytics ID** () is correct for the production domain.
+
+-   🟢 **Future Features (Backlog)**:
+    -   **P1**: **Stripe integration** for real payments.
+    -   **P1**: **Admin dashboard** to manage products, orders, and blog posts.
+    -   **P2**: **User accounts** (registration, login, order history).
+    -   **P2**: **Full blog page** with detailed post views.
+    -   **P3**: **Product filtering** and search functionality.
+    -   **P3**: **Wishlist** feature.
+
+-   🔵 **Technical Enhancements**:
+    -   **P2**: Implement **SEO meta tags** for better search engine visibility.
+    -   **P3**: Add a custom **Favicon**.
 
 **Completed work in this session**
--   **Full-stack application created**: React frontend, FastAPI backend, and MongoDB database.
--   **UI implemented**: All sections (Hero, Gallery, DIY Kits, etc.) built with a dark forest aesthetic.
--   **E-commerce cart**: Implemented Add to Cart functionality with a slide-in cart drawer.
--   **Animated Divider**: Created the  component with a highly customized, multi-colored sparkle animation.
--   **Privacy Policy page**: Created at  with user-provided text ().
--   **Navigation updates**: Increased menu font size and integrated the UI for the language switcher.
--   **Footer updates**: Changed social media icons to Instagram/YouTube, updated contact details, and added the newsletter form with a privacy checkbox.
+-   **Internationalization (i18n)**: Fully implemented and tested across all components for 4 languages (EN, HU, EL, IT).
+-   **Cookie Consent Banner**: Created a GDPR-compliant banner with granular controls (Functional, Analytical) and integrated it with Google Analytics loading.
+-   **About Us Section**: Added a new page section with placeholders for a brand story, mission, and team members.
+-   **Google Analytics Integration**: Implemented GA script loading, conditional on user's cookie consent.
+-   **Build Your Own Terrarium Feature**:
+    -   Created a modal form for custom orders with a dynamic price calculator.
+    -   Updated the logic to calculate a 30% deposit fee.
+    -   Added a new Terms and Conditions page and a mandatory checkbox on the form.
+    -   Updated the gallery card to display a From €X starting price.
+-   **UI/UX Improvements**:
+    -   Added a floating Scroll to Top button.
+    -   Increased the size of the language switcher flags by 2x.
+-   **Deployment Support**: Provided a detailed guide for deploying the frontend to Vercel and the backend to Railway.
 
 **Earlier issues found/mentioned but not fixed**
--   None. The agent has been actively addressing all user feedback.
+-   All issues raised during the session were addressed. The remaining work is captured in the Upcoming and Future Tasks backlog.
 
 **Known issue recurrence from previous fork**
 -   N/A
@@ -89,79 +103,84 @@ A full-stack single-page application has been developed using React for the fron
 
 
 **Key Technical Concepts**
--   **Frontend**: React, Tailwind CSS, Framer Motion, .
+-   **Frontend**: React, Tailwind CSS, Framer Motion, , .
 -   **Backend**: FastAPI (Python).
 -   **Database**: MongoDB.
--   **Architecture**: Single Page Application (SPA).
+-   **Deployment**: Vercel (Frontend), Railway (Backend).
+-   **Path Alias**: The use of  in imports, which caused the current build issue.
 
 **key DB schema**
 -   **inquiries**: 
 -   **workshop_registrations**: 
 -   **newsletter_subscriptions**: 
+-   **custom_terrarium_orders**: 
 
 **changes in tech stack**
 -   None.
 
 **All files of reference**
--   : Configuration for the  library.
--   : Directory containing all translation files.
--   : The language selector dropdown component.
--   : The component for the new privacy page.
--   : Contains the complex, multi-colored sparkle animation.
--   : The last form component that needs updating with checkboxes and i18n.
--   : Contains API endpoints, including logic to handle newsletter subscriptions.
+-   : Imports  and all major components. The place to fix the path alias.
+-   : Contains the logic for the custom builder and price calculation.
+-   : Manages cookie preferences and state.
+-   : The newly created About Us section.
+-   : Handles the conditional loading of the GA script.
+-   : The main FastAPI application file, which now includes the  endpoint.
+-   : Directory containing all translation JSON files.
 
 **Areas that need refactoring**:
--   The form logic (state management, submission, and checkbox handling) is duplicated across , , and . This could be abstracted into a reusable custom hook or component to improve maintainability.
+-   The path alias  is not configured for production builds. This must be fixed by changing the import to a relative path ().
+-   Form logic is still duplicated across several components. This could be abstracted into a reusable hook for better maintainability in the future.
 
 **key api endpoints**
--   : Submits the business contact form.
--   : Submits the workshop registration form.
--   : Subscribes a user to the newsletter.
--   : Fetches product data for the gallery.
--   : Fetches data for the blog preview.
+-   
+-   
+-   
+-   : Submits the Build Your Own Terrarium form.
+-   
+-   
 
 **Critical Info for New Agent**
 -   **You MUST respond in Hungarian.**
--   The highest priority is to complete the in-progress internationalization and form updates. Do not start new tasks until these are finished and verified.
--   A pod crash occurred mid-task. The next step is to verify the state of the  component and then systematically apply i18n to all remaining untranslated components.
--   The user is very detail-oriented about visual aesthetics, especially animations. The current sparkle animation in  is the result of many revisions.
--   The agent has already informed the user that the Made with Emergent badge cannot be removed. Do not revisit this topic.
+-   The immediate priority is to fix the Vercel deployment error by changing the  import to .
+-   The user is actively trying to deploy the site. Provide clear, step-by-step instructions and explanations regarding the deployment process.
+-   The user has already created a GitHub repository and configured a Vercel project. Your fix will unblock their progress.
+-   After the deployment fix, refer to the detailed backlog created in chat message #324 for the next steps and confirm priorities with the user.
 
 **documents and test reports created in this job**
--   None.
+-   : A successful test report from the testing agent, verifying the full i18n implementation and form functionality.
+-   The agent provided a detailed backlog and deployment guide in plain text within the chat history (messages #324, #332).
 
 **Last 10 User Messages and any pending HUMAN messages**
-1.  **User (Msg 243):** Provided specific URLs/emails for the privacy policy, noted a missing privacy checkbox in the footer, and requested Instagram/YouTube icons. **Status: Implemented.**
-2.  **User (Msg 224):** Confirmed yes to proceed with i18n implementation. **Status: IN PROGRESS.**
-3.  **User (Msg 209):** Rejected cheesy fairy designs, requesting they be replaced with more sparkles (including blue/magenta). Asked for a language selector and provided full text for the Privacy Policy. **Status: Implemented.**
-4.  **User (Msg 188):** Reported a syntax error in . **Status: Resolved.**
-5.  **User (Msg 167):** Requested new fairy designs, a larger menu font, a Privacy Policy page, and privacy/newsletter checkboxes on all forms. **Status: Partially Implemented (fairies were later rejected, form updates are in progress).**
-6.  **User (Msg 155):** Asked for more particles and animated fairies on the button. **Status: Implemented, then revised per later feedback.**
-7.  **User (Msg 143):** Switched to Hungarian. Requested more space between menu items and a more organic particle effect. **Status: Resolved.**
-8.  **User (Msg 131):** Provided an Envato link as a reference for the particle animation. **Status: Implemented.**
-9.  **User (Msg 123):** Rejected a design element and asked for a new sparkle animation. **Status: Resolved.**
-10. **User (Msg 109):** Requested moving the main CTA button to a new divider section. **Status: Implemented.**
+1.  **User**: . **Status**: Pending Fix. The agent is about to fix this.
+2.  **User**:  is the command that Vercel allows. **Status**: Actioned.
+3.  **User**: Mentions the deploy button is inactive without an error message. **Status**: Resolved. The agent helped diagnose it was a placeholder URL issue.
+4.  **User**: Provides a screenshot of Vercel settings where the deploy button is greyed out. **Status**: Resolved.
+5.  **User**: Asks if the  is needed for Vercel. **Status**: Resolved. The agent confirmed it's needed.
+6.  **User**: Asks for a detailed guide on deploying to Vercel and Railway. **Status**: Completed. The agent provided a step-by-step guide.
+7.  **User**: Asks if they can upload the site to their own hosting. **Status**: Completed. The agent explained how.
+8.  **User**: Clarifies that the site is a pre-launch/preparatory version and the blog should remain. **Status**: Acknowledged.
+9.  **User**: Asks for a list of backlog items and for the language flags to be made 2x larger. **Status**: Completed. Flags resized, backlog provided.
+10. **User**: Provides detailed requirements for updating the Build your own feature (30% deposit, from price, Terms checkbox). **Status**: Completed.
 
 **Project Health Check:**
 -   **Broken**:
-    -   Internationalization (i18n) is incomplete. Switching languages will show a mix of translated and untranslated content.
-    -   The  form is likely missing the required privacy/newsletter checkboxes.
+    -   The production build process on Vercel is broken due to an incorrect path alias in an import statement.
 -   **Mocked**:
-    -   The e-commerce cart does not integrate with a real payment processor.
-    -   There is no admin interface to manage blog posts or products.
+    -   The application is filled with placeholder content (text, images, prices, contact info) and is not yet ready for a full public launch.
+    -   The e-commerce cart has no payment gateway integration.
 
 **3rd Party Integrations**
--   **react-i18next**: For handling website internationalization.
+-   **react-i18next**: Used for internationalization.
+-   **Google Analytics**: Integrated but loads conditionally based on user cookie consent.
 
 **Testing status**
--   Testing agent used after significant changes: NO
--   Troubleshoot agent used after agent stuck in loop: NO
--   Test files created: None.
--   Known regressions: None.
+-   **Testing agent used after significant changes**: YES (For the i18n and forms update, which passed 30/30 tests).
+-   **Troubleshoot agent used after agent stuck in loop**: NO
+-   **Test files created**: None. The testing agent ran its own tests.
+-   **Known regressions**: None. The current issue is a build-time error, not a runtime regression.
 
 **Credentials to test flow:**
--   N/A. The application has no authentication flow.
+-   N/A. No authentication is required.
 
 **What agent forgot to execute**
--   The agent did not forget any requests but was unable to complete the most recent large ones (full i18n implementation and adding checkboxes to all forms) before the session ended. These tasks are correctly identified as in-progress.</analysis>
+-   The agent did not forget anything. It was actively debugging a live user problem (Vercel deployment) when the session ended. The next step is to execute the fix it had just identified.</analysis>
