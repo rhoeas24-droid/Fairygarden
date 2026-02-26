@@ -23,18 +23,18 @@ const MagicalDivider = () => {
     '#E6BE8A'  // pale gold
   ];
 
-  // Organikus fairy dust nyalábok generálása
+  // Organikus fairy dust nyalábok generálása - DUPLA mennyiség + kék/magenta
   const generateOrganicDust = () => {
     const particles = [];
-    const streamCount = 8; // Több nyaláb
+    const streamCount = 12; // Több nyaláb a dupla csillaghoz
     
     for (let stream = 0; stream < streamCount; stream++) {
       const baseAngle = (stream / streamCount) * Math.PI * 2;
-      const particlesInStream = 40 + Math.floor(Math.random() * 40); // 40-80 részecske nyalábonként
+      const particlesInStream = 60 + Math.floor(Math.random() * 50); // 60-110 részecske nyalábonként
       
       for (let i = 0; i < particlesInStream; i++) {
         const progress = i / particlesInStream;
-        const spreadAngle = baseAngle + (Math.random() - 0.5) * 0.8; // Természetes szórás
+        const spreadAngle = baseAngle + (Math.random() - 0.5) * 0.8;
         const radius = 120 + Math.random() * 200;
         
         // Organikus, hullámos út
@@ -50,11 +50,27 @@ const MagicalDivider = () => {
           });
         }
         
+        // Szín kiválasztása: 10% kék, 10% magenta, 80% arany
+        const colorRandom = Math.random();
+        let color;
+        if (colorRandom < 0.1) {
+          // Kék árnyalatok (10%)
+          const blueShades = ['#00BFFF', '#1E90FF', '#4169E1', '#6495ED', '#87CEEB'];
+          color = blueShades[Math.floor(Math.random() * blueShades.length)];
+        } else if (colorRandom < 0.2) {
+          // Magenta árnyalatok (10%)
+          const magentaShades = ['#FF1493', '#FF69B4', '#DB7093', '#C71585', '#FF00FF'];
+          color = magentaShades[Math.floor(Math.random() * magentaShades.length)];
+        } else {
+          // Arany árnyalatok (80%)
+          color = goldShades[Math.floor(Math.random() * goldShades.length)];
+        }
+        
         particles.push({
           id: `${stream}-${i}`,
           path: wavyPath,
-          size: 0.5 + Math.random() * 2.5, // Változatos méretek
-          color: goldShades[Math.floor(Math.random() * goldShades.length)],
+          size: 0.5 + Math.random() * 2.5,
+          color: color,
           duration: 3 + Math.random() * 4,
           delay: progress * 2.5 + Math.random() * 1,
           opacity: 0.3 + Math.random() * 0.7
