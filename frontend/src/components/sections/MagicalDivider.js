@@ -48,117 +48,95 @@ const MagicalDivider = () => {
           transition={{ duration: 0.8 }}
           className="flex flex-col items-center justify-center"
         >
-          {/* Button with magical sparkles */}
+          {/* Button with fairy dust trails */}
           <div className="relative">
-            {/* Animated sparkles around button */}
-            {sparkles.map((sparkle) => (
-              <motion.div
-                key={sparkle.id}
-                className="absolute pointer-events-none"
-                initial={{
-                  x: sparkle.startX,
-                  y: sparkle.startY,
-                  opacity: 0,
-                  scale: 0
-                }}
-                animate={{
-                  x: [sparkle.startX, sparkle.endX, sparkle.startX],
-                  y: [sparkle.startY, sparkle.endY, sparkle.startY],
-                  opacity: [0, 1, 0.8, 1, 0],
-                  scale: [0, 1, 1.2, 1, 0],
-                  rotate: [0, 180, 360]
-                }}
-                transition={{
-                  duration: sparkle.duration,
-                  repeat: Infinity,
-                  delay: sparkle.delay,
-                  ease: 'easeInOut'
-                }}
-                style={{
-                  left: '50%',
-                  top: '50%'
-                }}
-              >
-                {/* Sparkle with trail effect */}
-                <div className="relative">
+            {/* Flowing glitter particle trails */}
+            {dustTrails.map((trail) => (
+              <div key={trail.id}>
+                {[...Array(trail.particleCount)].map((_, particleIdx) => (
                   <motion.div
-                    className="w-1 h-1 rounded-full"
+                    key={`${trail.id}-${particleIdx}`}
+                    className="absolute pointer-events-none"
                     style={{
-                      backgroundColor: sparkle.color,
-                      boxShadow: `0 0 ${sparkle.size * 2}px ${sparkle.color}, 0 0 ${sparkle.size * 4}px ${sparkle.color}`
+                      left: '50%',
+                      top: '50%'
+                    }}
+                    initial={{
+                      x: trail.path[0].x,
+                      y: trail.path[0].y,
+                      opacity: 0,
+                      scale: 0
                     }}
                     animate={{
-                      boxShadow: [
-                        `0 0 ${sparkle.size * 2}px ${sparkle.color}, 0 0 ${sparkle.size * 4}px ${sparkle.color}`,
-                        `0 0 ${sparkle.size * 4}px ${sparkle.color}, 0 0 ${sparkle.size * 8}px ${sparkle.color}`,
-                        `0 0 ${sparkle.size * 2}px ${sparkle.color}, 0 0 ${sparkle.size * 4}px ${sparkle.color}`
-                      ]
+                      x: trail.path.map(p => p.x),
+                      y: trail.path.map(p => p.y),
+                      opacity: [0, 1, 1, 0.6, 0],
+                      scale: [0, 1, 1.5, 1, 0]
                     }}
                     transition={{
-                      duration: 1,
+                      duration: trail.duration,
+                      delay: trail.delay + particleIdx * 0.08,
                       repeat: Infinity,
                       ease: 'easeInOut'
                     }}
-                  />
-                  {/* Trail */}
-                  <motion.div
-                    className="absolute top-0 left-0 w-8 h-0.5 rounded-full"
-                    style={{
-                      background: `linear-gradient(to right, transparent, ${sparkle.color}, transparent)`,
-                      filter: 'blur(1px)'
-                    }}
-                    animate={{
-                      opacity: [0.3, 0.7, 0.3],
-                      scaleX: [0.5, 1, 0.5]
-                    }}
-                    transition={{
-                      duration: 1.5,
-                      repeat: Infinity,
-                      ease: 'easeInOut'
-                    }}
-                  />
-                </div>
-              </motion.div>
+                  >
+                    {/* Individual glitter particle with glow */}
+                    <div
+                      className="w-1 h-1 rounded-full"
+                      style={{
+                        backgroundColor: particleIdx % 3 === 0 ? '#f0e68c' : particleIdx % 3 === 1 ? '#c9a84c' : '#d4af37',
+                        boxShadow: `0 0 ${4 + particleIdx % 3}px ${particleIdx % 3 === 0 ? '#f0e68c' : particleIdx % 3 === 1 ? '#c9a84c' : '#d4af37'},
+                                   0 0 ${8 + particleIdx % 3 * 2}px ${particleIdx % 3 === 0 ? '#f0e68c' : particleIdx % 3 === 1 ? '#c9a84c' : '#d4af37'}`
+                      }}
+                    />
+                  </motion.div>
+                ))}
+              </div>
             ))}
 
-            {/* Larger floating stars */}
-            {[...Array(8)].map((_, i) => (
-              <motion.div
-                key={`star-${i}`}
-                className="absolute pointer-events-none"
-                initial={{
-                  x: (i % 4 - 1.5) * 150,
-                  y: Math.floor(i / 4) * 100 - 50,
-                  opacity: 0
-                }}
-                animate={{
-                  x: [(i % 4 - 1.5) * 150, (i % 4 - 1.5) * 150 + (Math.random() - 0.5) * 50],
-                  y: [Math.floor(i / 4) * 100 - 50, Math.floor(i / 4) * 100 - 50 + (Math.random() - 0.5) * 50],
-                  opacity: [0, 1, 0.7, 1, 0],
-                  scale: [0, 1.5, 1, 1.5, 0],
-                  rotate: [0, 90, 180, 270, 360]
-                }}
-                transition={{
-                  duration: 4 + i * 0.3,
-                  repeat: Infinity,
-                  delay: i * 0.3,
-                  ease: 'easeInOut'
-                }}
-                style={{
-                  left: '50%',
-                  top: '50%'
-                }}
-              >
-                <Star
-                  className="text-gold"
-                  fill="currentColor"
+            {/* Additional random floating sparkles */}
+            {[...Array(30)].map((_, i) => {
+              const randomAngle = Math.random() * Math.PI * 2;
+              const randomRadius = 150 + Math.random() * 150;
+              const randomX = Math.cos(randomAngle) * randomRadius;
+              const randomY = Math.sin(randomAngle) * randomRadius;
+              
+              return (
+                <motion.div
+                  key={`float-${i}`}
+                  className="absolute pointer-events-none"
                   style={{
-                    filter: 'drop-shadow(0 0 8px rgba(201, 168, 76, 0.9))'
+                    left: '50%',
+                    top: '50%'
                   }}
-                  size={6 + (i % 3) * 2}
-                />
-              </motion.div>
-            ))}
+                  initial={{
+                    x: randomX,
+                    y: randomY,
+                    opacity: 0
+                  }}
+                  animate={{
+                    x: [randomX, randomX + (Math.random() - 0.5) * 100],
+                    y: [randomY, randomY + (Math.random() - 0.5) * 100],
+                    opacity: [0, 0.8, 0.4, 0.8, 0],
+                    scale: [0, 1, 1.2, 0.8, 0]
+                  }}
+                  transition={{
+                    duration: 3 + Math.random() * 3,
+                    delay: Math.random() * 2,
+                    repeat: Infinity,
+                    ease: 'easeInOut'
+                  }}
+                >
+                  <div
+                    className="w-0.5 h-0.5 rounded-full"
+                    style={{
+                      backgroundColor: i % 2 === 0 ? '#f0e68c' : '#c9a84c',
+                      boxShadow: `0 0 3px ${i % 2 === 0 ? '#f0e68c' : '#c9a84c'}, 0 0 6px ${i % 2 === 0 ? '#f0e68c' : '#c9a84c'}`
+                    }}
+                  />
+                </motion.div>
+              );
+            })}
 
             {/* Button */}
             <motion.div
