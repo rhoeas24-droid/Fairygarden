@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Users, Calendar, MapPin } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import GoldButton from '../GoldButton';
 import axios from 'axios';
 import { toast } from 'sonner';
@@ -9,31 +10,64 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 const Workshops = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    workshop_type: 'beginner'
+    workshop_type: 'beginner',
+    privacyAccepted: false,
+    subscribeNewsletter: false
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setFormData({ ...formData, [e.target.name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!formData.privacyAccepted) {
+      toast.error('Please accept the Privacy Policy to continue.');
+      return;
+    }
+    
     setIsSubmitting(true);
     
     try {
-      await axios.post(`${API}/workshop/register`, formData);
+      await axios.post(`${API}/workshop/register`, {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        workshop_type: formData.workshop_type
+      });
+      
+      if (formData.subscribeNewsletter) {
+        try {
+          await axios.post(`${API}/newsletter/subscribe`, {
+            email: formData.email
+          });
+        } catch (err) {
+          console.log('Newsletter subscription error:', err);
+        }
+      }
+      
       toast.success('Registration successful! We will contact you with workshop details.');
-      setFormData({ name: '', email: '', phone: '', workshop_type: 'beginner' });
+      setFormData({ name: '', email: '', phone: '', workshop_type: 'beginner', privacyAccepted: false, subscribeNewsletter: false });
     } catch (error) {
       toast.error('Registration failed. Please try again.');
       console.error('Error submitting workshop registration:', error);
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const scrollToPrivacy = () => {
+    const element = document.getElementById('privacy-policy');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -48,10 +82,10 @@ const Workshops = () => {
         >
           <Users className="w-16 h-16 text-gold-dark mx-auto mb-6" />
           <h2 className="text-4xl md:text-5xl font-cinzel font-bold text-forest mb-4" data-testid="workshops-title">
-            Terrarium Workshops
+            {t('workshops.title')}
           </h2>
           <p className="text-forest/80 font-montserrat text-lg max-w-2xl mx-auto">
-            Join our magical workshops and learn to create your own enchanted terrarium. Perfect for team building, parties, or personal enrichment.
+            {t('workshops.subtitle')}
           </p>
         </motion.div>
 
@@ -76,12 +110,12 @@ const Workshops = () => {
             transition={{ duration: 0.8 }}
             className="bg-forest/10 border border-gold/30 rounded-2xl p-8"
           >
-            <h3 className="text-2xl font-cinzel font-bold text-forest mb-6">Register for Workshop</h3>
+            <h3 className="text-2xl font-cinzel font-bold text-forest mb-6">{t('workshops.registerTitle')}</h3>
             
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label htmlFor="ws-name" className="block text-forest font-montserrat font-semibold mb-2">
-                  Name *
+                  {t('workshops.nameLabel')} *
                 </label>
                 <input
                   type="text"
@@ -99,7 +133,7 @@ const Workshops = () => {
 
               <div>
                 <label htmlFor="ws-email" className="block text-forest font-montserrat font-semibold mb-2">
-                  Email *
+                  {t('workshops.emailLabel')} *
                 </label>
                 <input
                   type="email"
@@ -117,7 +151,7 @@ const Workshops = () => {
 
               <div>
                 <label htmlFor="ws-phone" className="block text-forest font-montserrat font-semibold mb-2">
-                  Phone
+                  {t('workshops.phoneLabel')}
                 </label>
                 <input
                   type="tel"
@@ -134,7 +168,7 @@ const Workshops = () => {
 
               <div>
                 <label htmlFor="ws-type" className="block text-forest font-montserrat font-semibold mb-2">
-                  Workshop Type *
+                  {t('workshops.workshopTypeLabel')} *
                 </label>
                 <select
                   id="ws-type"
@@ -153,8 +187,51 @@ const Workshops = () => {
                 </select>
               </div>
 
+              <div className="space-y-3 pt-2">
+                <div className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    id="ws-privacyAccepted"
+                    name="privacyAccepted"
+                    checked={formData.privacyAccepted}
+                    onChange={handleChange}
+                    required
+                    className="mt-1 w-4 h-4 rounded border-gold/40 bg-white text-gold
+                      focus:ring-gold focus:ring-offset-0"
+                    data-testid="workshop-privacy-checkbox"
+                  />
+                  <label htmlFor="ws-privacyAccepted" className="text-forest/90 font-montserrat text-sm">
+                    {t('forBusiness.privacyLabel')}{' '}
+                    <button
+                      type="button"
+                      onClick={scrollToPrivacy}
+                      className="text-gold-dark hover:text-gold underline"
+                    >
+                      {t('forBusiness.privacyLink')}
+                    </button>{' '}
+                    *
+                  </label>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    id="ws-subscribeNewsletter"
+                    name="subscribeNewsletter"
+                    checked={formData.subscribeNewsletter}
+                    onChange={handleChange}
+                    className="mt-1 w-4 h-4 rounded border-gold/40 bg-white text-gold
+                      focus:ring-gold focus:ring-offset-0"
+                    data-testid="workshop-newsletter-checkbox"
+                  />
+                  <label htmlFor="ws-subscribeNewsletter" className="text-forest/90 font-montserrat text-sm">
+                    {t('forBusiness.newsletterLabel')}
+                  </label>
+                </div>
+              </div>
+
               <GoldButton type="submit" className="w-full" dataTestId="workshop-submit-button" disabled={isSubmitting}>
-                {isSubmitting ? 'Registering...' : 'Register Now'}
+                {isSubmitting ? t('workshops.submitting') : t('workshops.submitButton')}
               </GoldButton>
             </form>
 
