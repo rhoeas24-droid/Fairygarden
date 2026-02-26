@@ -131,46 +131,53 @@ const TerrariumGallery = () => {
             <ProductCard key={product.id} product={product} index={index} />
           ))}
           
-          {/* Custom Terrarium Card */}
+          {/* Custom Terrarium Card - same style as products */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: products.length * 0.1 }}
-            className="bg-gradient-to-br from-gold/20 to-forest/80 backdrop-blur-md border-2 border-gold/50 border-dashed rounded-xl overflow-hidden
-              hover:border-gold hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(201,168,76,0.4)]
-              transition-all duration-300 group cursor-pointer"
+            className="hover:-translate-y-2 transition-all duration-300 group cursor-pointer"
             onClick={() => setIsCustomBuilderOpen(true)}
             data-testid="custom-terrarium-card"
           >
-            <div className="relative overflow-hidden aspect-square flex items-center justify-center bg-forest/60">
-              <motion.div
-                animate={{
-                  scale: [1, 1.1, 1],
-                  rotate: [0, 5, -5, 0]
-                }}
-                transition={{ duration: 4, repeat: Infinity }}
-                className="text-center"
-              >
-                <Wand2 className="w-20 h-20 text-gold mx-auto mb-4" />
-                <Sparkles className="w-8 h-8 text-gold-light absolute top-1/4 right-1/4 animate-pulse" />
-                <Sparkles className="w-6 h-6 text-gold-light absolute bottom-1/3 left-1/4 animate-pulse" style={{ animationDelay: '0.5s' }} />
-              </motion.div>
+            {/* Frame with wand icon */}
+            <div className="relative aspect-square">
+              <img
+                src="/ablak.png"
+                alt=""
+                className="absolute inset-0 w-full h-full object-fill z-10 pointer-events-none"
+              />
+              <div className="absolute inset-[12%] z-0 overflow-hidden flex items-center justify-center bg-forest/80">
+                <motion.div
+                  animate={{
+                    scale: [1, 1.1, 1],
+                    rotate: [0, 5, -5, 0]
+                  }}
+                  transition={{ duration: 4, repeat: Infinity }}
+                  className="text-center relative"
+                >
+                  <Wand2 className="w-16 h-16 text-gold mx-auto" />
+                  <Sparkles className="w-6 h-6 text-gold-light absolute -top-2 -right-2 animate-pulse" />
+                  <Sparkles className="w-4 h-4 text-gold-light absolute -bottom-1 -left-2 animate-pulse" style={{ animationDelay: '0.5s' }} />
+                </motion.div>
+              </div>
             </div>
             
-            <div className="p-6 space-y-3 text-center">
-              <h3 className="text-xl font-cinzel font-bold text-gold">
+            {/* Custom info */}
+            <div className="p-4 space-y-2 text-center">
+              <h3 className="text-lg font-cinzel font-bold text-gold">
                 {t('gallery.customTitle')}
               </h3>
-              <p className="text-cream/80 font-montserrat text-sm leading-relaxed">
+              <p className="text-cream/80 font-montserrat text-xs leading-relaxed line-clamp-2">
                 {t('gallery.customDescription')}
               </p>
-              <p className="text-gold font-cinzel font-bold text-lg">
-                {t('gallery.customFromPrice', { price: MIN_CUSTOM_PRICE })}
-              </p>
-              <div className="pt-2">
-                <span className="inline-block px-6 py-2 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
-                  text-[#3e2b08] font-bold text-sm uppercase rounded-full
+              <div className="flex items-center justify-center gap-4 pt-1">
+                <span className="text-xl font-cinzel font-bold text-gold-light">
+                  {t('gallery.customFromPrice', { price: MIN_CUSTOM_PRICE })}
+                </span>
+                <span className="px-4 py-1.5 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
+                  text-[#3e2b08] font-bold text-xs uppercase rounded-full
                   shadow-[inset_1px_1px_4px_rgba(255,255,255,0.5),inset_-1px_-1px_4px_rgba(0,0,0,0.5),0_4px_8px_rgba(0,0,0,0.3)]
                   group-hover:shadow-[inset_1px_1px_4px_rgba(255,255,255,0.6),inset_-1px_-1px_4px_rgba(0,0,0,0.6),0_6px_12px_rgba(201,168,76,0.3)]
                   transition-all duration-200"
