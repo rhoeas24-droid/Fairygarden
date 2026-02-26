@@ -10,6 +10,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 const ForBusiness = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -29,7 +30,7 @@ const ForBusiness = () => {
     e.preventDefault();
     
     if (!formData.privacyAccepted) {
-      toast.error('Please accept the Privacy Policy to continue.');
+      toast.error(t('forBusiness.privacyError'));
       return;
     }
     
@@ -53,10 +54,10 @@ const ForBusiness = () => {
         }
       }
       
-      toast.success('Thank you! We will contact you soon.');
+      toast.success(t('forBusiness.successMessage'));
       setFormData({ name: '', email: '', company: '', message: '', privacyAccepted: false, subscribeNewsletter: false });
     } catch (error) {
-      toast.error('Failed to send message. Please try again.');
+      toast.error(t('forBusiness.errorMessage'));
       console.error('Error submitting contact form:', error);
     } finally {
       setIsSubmitting(false);
