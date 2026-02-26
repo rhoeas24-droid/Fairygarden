@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { cartCount, setIsCartOpen } = useCart();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,13 +28,13 @@ const Navigation = () => {
   };
 
   const navLinks = [
-    { label: 'Home', id: 'hero' },
-    { label: 'Shop', id: 'gallery' },
-    { label: 'DIY Kits', id: 'diy-kits' },
-    { label: 'For Business', id: 'for-business' },
-    { label: 'Workshops', id: 'workshops' },
-    { label: 'Blog', id: 'blog' },
-    { label: 'Privacy', id: 'privacy-policy' }
+    { label: t('nav.home'), id: 'hero' },
+    { label: t('nav.shop'), id: 'gallery' },
+    { label: t('nav.diyKits'), id: 'diy-kits' },
+    { label: t('nav.forBusiness'), id: 'for-business' },
+    { label: t('nav.workshops'), id: 'workshops' },
+    { label: t('nav.blog'), id: 'blog' },
+    { label: t('nav.privacy'), id: 'privacy-policy' }
   ];
 
   return (
@@ -56,7 +59,7 @@ const Navigation = () => {
             Fairygarden
           </motion.div>
 
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
               <button
                 key={link.id}
@@ -67,6 +70,7 @@ const Navigation = () => {
                 {link.label}
               </button>
             ))}
+            <LanguageSwitcher />
             <button
               onClick={() => setIsCartOpen(true)}
               className="relative p-2 text-cream hover:text-gold transition-colors"
@@ -82,6 +86,7 @@ const Navigation = () => {
           </div>
 
           <div className="md:hidden flex items-center space-x-4">
+            <LanguageSwitcher />
             <button
               onClick={() => setIsCartOpen(true)}
               className="relative p-2 text-cream"
