@@ -44,6 +44,8 @@ const CookieConsent = () => {
     }));
     setPreferences(allAccepted);
     setIsVisible(false);
+    // Dispatch event for Google Analytics
+    window.dispatchEvent(new Event('cookieConsentChanged'));
   };
 
   const handleSavePreferences = () => {
@@ -53,6 +55,8 @@ const CookieConsent = () => {
       timestamp: new Date().toISOString()
     }));
     setIsVisible(false);
+    // Dispatch event for Google Analytics
+    window.dispatchEvent(new Event('cookieConsentChanged'));
   };
 
   const handleDeclineAll = () => {
@@ -68,6 +72,8 @@ const CookieConsent = () => {
     }));
     setPreferences(onlyNecessary);
     setIsVisible(false);
+    // Dispatch event for Google Analytics
+    window.dispatchEvent(new Event('cookieConsentChanged'));
   };
 
   const togglePreference = (key) => {
