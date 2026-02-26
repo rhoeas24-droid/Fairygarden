@@ -5,6 +5,7 @@ import SparkleBackground from './components/SparkleBackground';
 import FloatingFairy from './components/FloatingFairy';
 import Navigation from './components/Navigation';
 import CartDrawer from './components/CartDrawer';
+import CookieConsent from './components/CookieConsent';
 import Hero from './components/sections/Hero';
 import MagicalDivider from './components/sections/MagicalDivider';
 import TerrariumGallery from './components/sections/TerrariumGallery';
@@ -42,6 +43,7 @@ function App() {
         
         <Footer />
         
+        <CookieConsent />
         <Toaster position="top-right" richColors />
       </div>
     </CartProvider>
