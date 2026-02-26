@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import GoldButton from '../GoldButton';
 
 const DIYKits = () => {
+  const { t } = useTranslation();
+  
   const scrollToGallery = () => {
     const element = document.getElementById('gallery');
     if (element) {
@@ -24,10 +26,10 @@ const DIYKits = () => {
             className="space-y-6"
           >
             <h2 className="text-4xl md:text-5xl font-cinzel font-bold text-forest" data-testid="diy-kits-title">
-              Create Your Own Magic
+              {t('diyKits.title')}
             </h2>
             <p className="text-forest/80 font-montserrat text-lg leading-relaxed">
-              Unleash your creativity with our DIY Terrarium Kits. Everything you need to craft your own enchanted miniature garden, complete with step-by-step instructions and premium materials.
+              {t('diyKits.description')}
             </p>
             
             <div className="space-y-4">
@@ -36,8 +38,8 @@ const DIYKits = () => {
                   <Sparkles className="w-6 h-6 text-gold-dark" />
                 </div>
                 <div>
-                  <h3 className="font-cinzel font-bold text-forest text-lg">Premium Materials</h3>
-                  <p className="text-forest/70 font-montserrat">Hand-selected plants, decorative elements, and care instructions</p>
+                  <h3 className="font-cinzel font-bold text-forest text-lg">{t('diyKits.premiumTitle')}</h3>
+                  <p className="text-forest/70 font-montserrat">{t('diyKits.premiumDesc')}</p>
                 </div>
               </div>
               
@@ -46,8 +48,8 @@ const DIYKits = () => {
                   <Gift className="w-6 h-6 text-gold-dark" />
                 </div>
                 <div>
-                  <h3 className="font-cinzel font-bold text-forest text-lg">Perfect Gift</h3>
-                  <p className="text-forest/70 font-montserrat">Beautifully packaged for gifting to nature lovers</p>
+                  <h3 className="font-cinzel font-bold text-forest text-lg">{t('diyKits.giftTitle')}</h3>
+                  <p className="text-forest/70 font-montserrat">{t('diyKits.giftDesc')}</p>
                 </div>
               </div>
               
@@ -56,15 +58,15 @@ const DIYKits = () => {
                   <Heart className="w-6 h-6 text-gold-dark" />
                 </div>
                 <div>
-                  <h3 className="font-cinzel font-bold text-forest text-lg">Easy to Follow</h3>
-                  <p className="text-forest/70 font-montserrat">Detailed instructions for all skill levels</p>
+                  <h3 className="font-cinzel font-bold text-forest text-lg">{t('diyKits.easyTitle')}</h3>
+                  <p className="text-forest/70 font-montserrat">{t('diyKits.easyDesc')}</p>
                 </div>
               </div>
             </div>
             
             <div className="pt-4">
               <GoldButton onClick={scrollToGallery} dataTestId="shop-diy-kits-button">
-                Shop DIY Kits
+                {t('diyKits.button')}
               </GoldButton>
             </div>
           </motion.div>
