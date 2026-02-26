@@ -100,6 +100,36 @@
   "privacy": {
     "title": "Privacy Policy"
   },
+  "about": {
+    "title": "About Us",
+    "subtitle": "Discover the magic behind Fairygarden For You and meet the passionate team bringing enchantment to your world",
+    "storyTitle": "Our Story",
+    "storyParagraph1": "Fairygarden For You was born from a simple dream: to bring the enchantment of nature into every home. What started as a small passion project in 2020 has blossomed into a beloved brand, creating handcrafted terrariums that capture the magic of miniature worlds.",
+    "storyParagraph2": "Each terrarium we create is a labor of love, carefully designed to bring joy and tranquility to your space. We believe that everyone deserves a touch of magic in their lives, and our mission is to make that magic accessible to all.",
+    "missionTitle": "Our Mission",
+    "missionText": "To inspire wonder and connection with nature through enchanting miniature gardens that transform any space into a magical sanctuary.",
+    "value1Title": "Sustainability",
+    "value1Desc": "We use eco-friendly materials and sustainable practices in all our creations.",
+    "value2Title": "Craftsmanship",
+    "value2Desc": "Every terrarium is handcrafted with love and attention to detail.",
+    "value3Title": "Magic",
+    "value3Desc": "We believe in bringing wonder and enchantment to everyday life.",
+    "teamTitle": "Meet Our Team",
+    "team": {
+      "member1": {
+        "name": "Emma Rose",
+        "role": "Founder & Lead Designer"
+      },
+      "member2": {
+        "name": "David Chen",
+        "role": "Master Craftsman"
+      },
+      "member3": {
+        "name": "Sophie Miller",
+        "role": "Workshop Coordinator"
+      }
+    }
+  },
   "cookies": {
     "title": "Cookie Notice",
     "message": "We use cookies to enhance your browsing experience and analyze our traffic. You can customize your preferences below or learn more in our",
