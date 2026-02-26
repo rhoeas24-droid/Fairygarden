@@ -25,11 +25,11 @@ const MagicalDivider = () => {
   // Organikus fairy dust nyalábok generálása
   const generateOrganicDust = () => {
     const particles = [];
-    const streamCount = 5; // Nyalábok száma
+    const streamCount = 8; // Több nyaláb
     
     for (let stream = 0; stream < streamCount; stream++) {
       const baseAngle = (stream / streamCount) * Math.PI * 2;
-      const particlesInStream = 25 + Math.floor(Math.random() * 35); // 25-60 részecske nyalábonként
+      const particlesInStream = 40 + Math.floor(Math.random() * 40); // 40-80 részecske nyalábonként
       
       for (let i = 0; i < particlesInStream; i++) {
         const progress = i / particlesInStream;
