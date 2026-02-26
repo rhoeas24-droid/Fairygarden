@@ -1,0 +1,66 @@
+{
+  "nav": {
+    "home": "Kezdőlap",
+    "shop": "Bolt",
+    "diyKits": "Barkács Készletek",
+    "forBusiness": "Vállalkozásoknak",
+    "workshops": "Workshopok",
+    "blog": "Blog",
+    "privacy": "Adatvédelem"
+  },
+  "hero": {
+    "button": "Fedezd Fel a Varázslatot"
+  },
+  "gallery": {
+    "title": "Varázslatos Terráriu mok",
+    "subtitle": "Fedezd fel kézzel készített terrárium kollekcióinkat, mindegyik egy miniatűr csodavilág",
+    "addToCart": "Kosárba"
+  },
+  "diyKits": {
+    "title": "Alkoss Saját Varázslatot",
+    "description": "Engedd szabadjára kreativitásodat barkács terrárium készleteinkkel. Minden szükséges a saját varázslatos miniatűr kerted elkészítéséhez, lépésről lépésre útmutatóval és prémium anyagokkal.",
+    "button": "Barkács Készletek"
+  },
+  "forBusiness": {
+    "title": "Vállalkozásoknak",
+    "subtitle": "Hozz egy csipetnyi természetet az irodádba, eseményeidre vagy céges ajándékokba. Egyedi terrárium megoldásokat készítünk minden méretű vállalkozás számára.",
+    "nameLabel": "Név",
+    "emailLabel": "Email",
+    "companyLabel": "Cég",
+    "messageLabel": "Üzenet",
+    "privacyLabel": "Elolvastam és elfogadom az",
+    "privacyLink": "Adatvédelmi Szabályzatot",
+    "newsletterLabel": "Feliratkozom a hírlevelére frissítésekért és különleges ajánlatokért",
+    "submitButton": "Üzenet Küldése",
+    "submitting": "Küldés..."
+  },
+  "workshops": {
+    "title": "Terrárium Workshopok",
+    "subtitle": "Csatlakozz varázslatos workshopjainkhoz és tanuld meg, hogyan készíts saját varázslatos terráriumot. Tökéletes csapatépítéshez, bulikhoz vagy személyes fejlődéshez.",
+    "registerTitle": "Jelentkezés Workshopra",
+    "nameLabel": "Név",
+    "emailLabel": "Email",
+    "phoneLabel": "Telefon",
+    "workshopTypeLabel": "Workshop Típusa",
+    "submitButton": "Jelentkezés",
+    "submitting": "Jelentkezés..."
+  },
+  "blog": {
+    "title": "Kertünkből",
+    "subtitle": "Fedezd fel legújabb cikkeinket a terrárium gondozásáról, növényválasztásról és a miniatűr kertek varázslatáról",
+    "readMore": "Tovább"
+  },
+  "footer": {
+    "tagline": "Egy Csipetnyi Varázslat Egy Üvegben",
+    "quickLinks": "Gyors Linkek",
+    "contactUs": "Kapcsolat",
+    "newsletter": "Hírlevél",
+    "newsletterText": "Iratkozz fel varázslatos frissítésekért és exkluzív ajánlatokért",
+    "subscribe": "Feliratkozás",
+    "subscribing": "Feliratkozás...",
+    "copyright": "Minden jog fenntartva."
+  },
+  "privacy": {
+    "title": "Adatvédelmi Szabályzat"
+  }
+}

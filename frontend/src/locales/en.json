@@ -1,0 +1,66 @@
+{
+  "nav": {
+    "home": "Home",
+    "shop": "Shop",
+    "diyKits": "DIY Kits",
+    "forBusiness": "For Business",
+    "workshops": "Workshops",
+    "blog": "Blog",
+    "privacy": "Privacy"
+  },
+  "hero": {
+    "button": "Explore the Magic"
+  },
+  "gallery": {
+    "title": "Enchanted Terrariums",
+    "subtitle": "Discover our magical collection of handcrafted terrariums, each one a miniature world of wonder",
+    "addToCart": "Add to Cart"
+  },
+  "diyKits": {
+    "title": "Create Your Own Magic",
+    "description": "Unleash your creativity with our DIY Terrarium Kits. Everything you need to craft your own enchanted miniature garden, complete with step-by-step instructions and premium materials.",
+    "button": "Shop DIY Kits"
+  },
+  "forBusiness": {
+    "title": "For Business",
+    "subtitle": "Bring a touch of nature to your office, events, or corporate gifts. We create custom terrarium solutions for businesses of all sizes.",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "companyLabel": "Company",
+    "messageLabel": "Message",
+    "privacyLabel": "I have read and accept the",
+    "privacyLink": "Privacy Policy",
+    "newsletterLabel": "Subscribe to our newsletter for updates and special offers",
+    "submitButton": "Send Inquiry",
+    "submitting": "Sending..."
+  },
+  "workshops": {
+    "title": "Terrarium Workshops",
+    "subtitle": "Join our magical workshops and learn to create your own enchanted terrarium. Perfect for team building, parties, or personal enrichment.",
+    "registerTitle": "Register for Workshop",
+    "nameLabel": "Name",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "workshopTypeLabel": "Workshop Type",
+    "submitButton": "Register Now",
+    "submitting": "Registering..."
+  },
+  "blog": {
+    "title": "From Our Garden",
+    "subtitle": "Explore our latest articles on terrarium care, plant selection, and the magic of miniature gardens",
+    "readMore": "Read More"
+  },
+  "footer": {
+    "tagline": "A Touch of Magic in a Bottle",
+    "quickLinks": "Quick Links",
+    "contactUs": "Contact Us",
+    "newsletter": "Newsletter",
+    "newsletterText": "Subscribe for magical updates and exclusive offers",
+    "subscribe": "Subscribe",
+    "subscribing": "Subscribing...",
+    "copyright": "All rights reserved."
+  },
+  "privacy": {
+    "title": "Privacy Policy"
+  }
+}

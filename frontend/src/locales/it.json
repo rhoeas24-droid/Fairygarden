@@ -1,0 +1,66 @@
+{
+  "nav": {
+    "home": "Home",
+    "shop": "Negozio",
+    "diyKits": "Kit Fai Da Te",
+    "forBusiness": "Per Aziende",
+    "workshops": "Workshop",
+    "blog": "Blog",
+    "privacy": "Privacy"
+  },
+  "hero": {
+    "button": "Esplora la Magia"
+  },
+  "gallery": {
+    "title": "Terrari Incantati",
+    "subtitle": "Scopri la nostra collezione magica di terrari artigianali, ognuno un mondo in miniatura di meraviglie",
+    "addToCart": "Aggiungi al Carrello"
+  },
+  "diyKits": {
+    "title": "Crea la Tua Magia",
+    "description": "Scatena la tua creatività con i nostri Kit Fai Da Te per Terrari. Tutto ciò di cui hai bisogno per creare il tuo giardino in miniatura incantato, con istruzioni dettagliate e materiali premium.",
+    "button": "Acquista Kit Fai Da Te"
+  },
+  "forBusiness": {
+    "title": "Per Aziende",
+    "subtitle": "Porta un tocco di natura nel tuo ufficio, eventi o regali aziendali. Creiamo soluzioni personalizzate di terrari per aziende di tutte le dimensioni.",
+    "nameLabel": "Nome",
+    "emailLabel": "Email",
+    "companyLabel": "Azienda",
+    "messageLabel": "Messaggio",
+    "privacyLabel": "Ho letto e accetto la",
+    "privacyLink": "Informativa sulla Privacy",
+    "newsletterLabel": "Iscriviti alla nostra newsletter per aggiornamenti e offerte speciali",
+    "submitButton": "Invia Richiesta",
+    "submitting": "Invio..."
+  },
+  "workshops": {
+    "title": "Workshop sui Terrari",
+    "subtitle": "Partecipa ai nostri workshop magici e impara a creare il tuo terrario incantato. Perfetto per team building, feste o arricchimento personale.",
+    "registerTitle": "Registrati al Workshop",
+    "nameLabel": "Nome",
+    "emailLabel": "Email",
+    "phoneLabel": "Telefono",
+    "workshopTypeLabel": "Tipo di Workshop",
+    "submitButton": "Registrati Ora",
+    "submitting": "Registrazione..."
+  },
+  "blog": {
+    "title": "Dal Nostro Giardino",
+    "subtitle": "Esplora i nostri ultimi articoli sulla cura dei terrari, la selezione delle piante e la magia dei giardini in miniatura",
+    "readMore": "Leggi di Più"
+  },
+  "footer": {
+    "tagline": "Un Tocco di Magia in una Bottiglia",
+    "quickLinks": "Link Rapidi",
+    "contactUs": "Contattaci",
+    "newsletter": "Newsletter",
+    "newsletterText": "Iscriviti per aggiornamenti magici e offerte esclusive",
+    "subscribe": "Iscriviti",
+    "subscribing": "Iscrizione...",
+    "copyright": "Tutti i diritti riservati."
+  },
+  "privacy": {
+    "title": "Informativa sulla Privacy"
+  }
+}
