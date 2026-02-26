@@ -13,27 +13,59 @@ const ForBusiness = () => {
     name: '',
     email: '',
     company: '',
-    message: ''
+    message: '',
+    privacyAccepted: false,
+    subscribeNewsletter: false
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setFormData({ ...formData, [e.target.name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!formData.privacyAccepted) {
+      toast.error('Please accept the Privacy Policy to continue.');
+      return;
+    }
+    
     setIsSubmitting(true);
     
     try {
-      await axios.post(`${API}/contact`, formData);
+      await axios.post(`${API}/contact`, {
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        message: formData.message
+      });
+      
+      if (formData.subscribeNewsletter) {
+        try {
+          await axios.post(`${API}/newsletter/subscribe`, {
+            email: formData.email
+          });
+        } catch (err) {
+          console.log('Newsletter subscription error:', err);
+        }
+      }
+      
       toast.success('Thank you! We will contact you soon.');
-      setFormData({ name: '', email: '', company: '', message: '' });
+      setFormData({ name: '', email: '', company: '', message: '', privacyAccepted: false, subscribeNewsletter: false });
     } catch (error) {
       toast.error('Failed to send message. Please try again.');
       console.error('Error submitting contact form:', error);
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const scrollToPrivacy = () => {
+    const element = document.getElementById('privacy-policy');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -147,6 +179,49 @@ const ForBusiness = () => {
                 placeholder="Tell us about your project or inquiry..."
                 data-testid="contact-message-input"
               />
+            </div>
+
+            <div className="space-y-3 pt-2">
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="privacyAccepted"
+                  name="privacyAccepted"
+                  checked={formData.privacyAccepted}
+                  onChange={handleChange}
+                  required
+                  className="mt-1 w-4 h-4 rounded border-gold/40 bg-black/20 text-gold
+                    focus:ring-gold focus:ring-offset-0"
+                  data-testid="privacy-checkbox"
+                />
+                <label htmlFor="privacyAccepted" className="text-cream/90 font-montserrat text-sm">
+                  I have read and accept the{' '}
+                  <button
+                    type="button"
+                    onClick={scrollToPrivacy}
+                    className="text-gold hover:text-gold-light underline"
+                  >
+                    Privacy Policy
+                  </button>{' '}
+                  *
+                </label>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  id="subscribeNewsletter"
+                  name="subscribeNewsletter"
+                  checked={formData.subscribeNewsletter}
+                  onChange={handleChange}
+                  className="mt-1 w-4 h-4 rounded border-gold/40 bg-black/20 text-gold
+                    focus:ring-gold focus:ring-offset-0"
+                  data-testid="newsletter-checkbox"
+                />
+                <label htmlFor="subscribeNewsletter" className="text-cream/90 font-montserrat text-sm">
+                  Subscribe to our newsletter for updates and special offers
+                </label>
+              </div>
             </div>
 
             <GoldButton type="submit" className="w-full" dataTestId="contact-submit-button" disabled={isSubmitting}>
