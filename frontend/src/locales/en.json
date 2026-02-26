@@ -155,6 +155,39 @@
   "privacy": {
     "title": "Privacy Policy"
   },
+  "terms": {
+    "title": "Terms and Conditions",
+    "lastUpdated": "Last updated: February 2026",
+    "chapter1": {
+      "title": "1. General Provisions",
+      "content": "These General Terms and Conditions (GTC) govern all transactions and services provided by Fairygarden For You. By placing an order or using our services, you agree to be bound by these terms."
+    },
+    "chapter2": {
+      "title": "2. Products and Services",
+      "content": "We offer handcrafted terrariums, DIY kits, workshops, and custom terrarium design services. All products are unique and may vary slightly from displayed images due to their handmade nature."
+    },
+    "chapter3": {
+      "title": "3. Ordering and Payment",
+      "content": "Orders can be placed through our website or by contacting us directly. Payment is required at the time of order unless otherwise agreed. We accept major credit cards and bank transfers."
+    },
+    "chapter4": {
+      "title": "4. Delivery and Returns",
+      "content": "Delivery times vary based on product availability and location. Due to the living nature of our products, returns are only accepted for damaged items. Please inspect your order upon delivery and report any issues within 48 hours."
+    },
+    "chapter5": {
+      "title": "5. Custom Order Terms",
+      "intro": "The following terms apply specifically to custom terrarium orders:",
+      "point1": "A 30% non-refundable deposit is required to begin work on custom orders. This covers design consultation and initial material procurement.",
+      "point2": "After receiving your deposit, we will contact you within 24 hours to discuss your vision and requirements in detail.",
+      "point3": "Design changes are possible during the consultation phase. Once production begins, major changes may incur additional costs.",
+      "point4": "The final price may vary from the initial estimate based on material availability and design complexity agreed upon during consultation.",
+      "point5": "Custom orders typically take 2-4 weeks to complete. You will be notified when your terrarium is ready for pickup or delivery."
+    },
+    "chapter6": {
+      "title": "6. Contact Information",
+      "content": "For any questions regarding these terms, please contact us at contact@fairygarden4u.com or through our website contact form."
+    }
+  },
   "about": {
     "title": "About Us",
     "subtitle": "Discover the magic behind Fairygarden For You and meet the passionate team bringing enchantment to your world",
