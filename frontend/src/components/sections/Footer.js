@@ -40,7 +40,10 @@ const Footer = () => {
 
   return (
     <footer className="relative bg-forest-dark text-cream">
-      <div className="absolute inset-0 bg-[url(/BG_TILE_FINAL.jpg)] opacity-10 bg-cover bg-center" />
+      <div 
+        className="absolute inset-0 opacity-10 bg-cover bg-center"
+        style={{ backgroundImage: 'url(/BG_TILE_FINAL.jpg)' }}
+      />
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
