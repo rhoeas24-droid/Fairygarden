@@ -100,6 +100,36 @@
   "privacy": {
     "title": "Informativa sulla Privacy"
   },
+  "about": {
+    "title": "Chi Siamo",
+    "subtitle": "Scopri la magia dietro Fairygarden For You e incontra il team appassionato che porta l'incanto nel tuo mondo",
+    "storyTitle": "La Nostra Storia",
+    "storyParagraph1": "Fairygarden For You è nato da un sogno semplice: portare l'incanto della natura in ogni casa. Quello che è iniziato come un piccolo progetto nel 2020 è diventato un marchio amato.",
+    "storyParagraph2": "Ogni terrario che creiamo è un lavoro d'amore, progettato con cura per portare gioia e tranquillità nel tuo spazio.",
+    "missionTitle": "La Nostra Missione",
+    "missionText": "Ispirare meraviglia e connessione con la natura attraverso incantevoli giardini in miniatura.",
+    "value1Title": "Sostenibilità",
+    "value1Desc": "Utilizziamo materiali ecologici in tutte le nostre creazioni.",
+    "value2Title": "Artigianato",
+    "value2Desc": "Ogni terrario è fatto a mano con amore.",
+    "value3Title": "Magia",
+    "value3Desc": "Crediamo nel portare l'incanto nella vita quotidiana.",
+    "teamTitle": "Il Nostro Team",
+    "team": {
+      "member1": {
+        "name": "Emma Rose",
+        "role": "Fondatrice & Designer"
+      },
+      "member2": {
+        "name": "David Chen",
+        "role": "Maestro Artigiano"
+      },
+      "member3": {
+        "name": "Sophie Miller",
+        "role": "Coordinatrice Workshop"
+      }
+    }
+  },
   "cookies": {
     "title": "Avviso Cookie",
     "message": "Utilizziamo i cookie per migliorare la tua esperienza di navigazione. Puoi personalizzare le tue preferenze qui sotto o saperne di più nella nostra",
