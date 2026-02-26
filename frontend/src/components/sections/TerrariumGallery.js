@@ -68,6 +68,7 @@ const ProductCard = ({ product, index }) => {
 
 const TerrariumGallery = () => {
   const [products, setProducts] = useState([]);
+  const { t } = useTranslation();
 
   useEffect(() => {
     fetchProducts();
