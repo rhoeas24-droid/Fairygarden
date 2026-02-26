@@ -29,18 +29,26 @@ const ProductCard = ({ product, index }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="bg-forest/80 backdrop-blur-md border border-gold/30 rounded-xl overflow-hidden
-        hover:border-gold hover:-translate-y-2 hover:shadow-[0_0_20px_rgba(201,168,76,0.3)]
+      className="bg-forest/80 backdrop-blur-md rounded-xl overflow-hidden
+        hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(201,168,76,0.4)]
         transition-all duration-300 group"
       data-testid={`product-card-${product.id}`}
     >
       <div className="relative overflow-hidden aspect-square">
+        {/* Golden frame background */}
         <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          src="/ablak.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-forest via-transparent to-transparent opacity-60" />
+        {/* Product image inside frame */}
+        <div className="absolute inset-[12%] overflow-hidden rounded-lg">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+        </div>
       </div>
       
       <div className="p-6 space-y-3">
