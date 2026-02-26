@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import GoldButton from '../GoldButton';
-import FairySilhouette from '../FairySilhouette';
 
 const MagicalDivider = () => {
   const scrollToGallery = () => {
