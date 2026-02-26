@@ -46,6 +46,7 @@ const CustomTerrariumBuilder = ({ isOpen, onClose }) => {
     lighting: 'no',
     message: '',
     privacyAccepted: false,
+    termsAccepted: false,
     subscribeNewsletter: false
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -59,6 +60,10 @@ const CustomTerrariumBuilder = ({ isOpen, onClose }) => {
     return (basePrice * worldMultiplier * glassMultiplier * lightingMultiplier).toFixed(2);
   }, [formData.size, formData.world, formData.glassType, formData.lighting]);
 
+  const depositAmount = useMemo(() => {
+    return (parseFloat(calculatedPrice) * DEPOSIT_PERCENTAGE).toFixed(2);
+  }, [calculatedPrice]);
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
@@ -71,6 +76,16 @@ const CustomTerrariumBuilder = ({ isOpen, onClose }) => {
     onClose();
     setTimeout(() => {
       const element = document.getElementById('privacy-policy');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 300);
+  };
+
+  const scrollToTerms = () => {
+    onClose();
+    setTimeout(() => {
+      const element = document.getElementById('terms-conditions');
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
       }
