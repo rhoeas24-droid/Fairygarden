@@ -133,6 +133,74 @@ const MagicalDivider = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="relative z-10"
             >
+              {/* Magenta tündér - bal oldal */}
+              <motion.div
+                className="absolute -left-12 top-1/2 -translate-y-1/2 pointer-events-none"
+                animate={{
+                  y: [0, -8, 0],
+                  rotate: [-5, 5, -5]
+                }}
+                transition={{
+                  duration: 2.5,
+                  repeat: Infinity,
+                  ease: 'easeInOut'
+                }}
+              >
+                <motion.div
+                  animate={{
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{
+                    duration: 0.6,
+                    repeat: Infinity,
+                    ease: 'easeInOut'
+                  }}
+                >
+                  <Sparkles 
+                    className="w-8 h-8 text-[#FF1493]" 
+                    fill="#FF1493"
+                    style={{
+                      filter: 'drop-shadow(0 0 8px rgba(255, 20, 147, 0.8)) drop-shadow(0 0 4px rgba(255, 20, 147, 0.6))'
+                    }}
+                  />
+                </motion.div>
+              </motion.div>
+
+              {/* Kék tündér - jobb oldal */}
+              <motion.div
+                className="absolute -right-12 top-1/2 -translate-y-1/2 pointer-events-none"
+                animate={{
+                  y: [0, -10, 0],
+                  rotate: [5, -5, 5]
+                }}
+                transition={{
+                  duration: 2.8,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                  delay: 0.4
+                }}
+              >
+                <motion.div
+                  animate={{
+                    scale: [1, 1.15, 1]
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                    delay: 0.2
+                  }}
+                >
+                  <Sparkles 
+                    className="w-8 h-8 text-[#00BFFF]" 
+                    fill="#00BFFF"
+                    style={{
+                      filter: 'drop-shadow(0 0 8px rgba(0, 191, 255, 0.8)) drop-shadow(0 0 4px rgba(0, 191, 255, 0.6))'
+                    }}
+                  />
+                </motion.div>
+              </motion.div>
+
               <GoldButton onClick={scrollToGallery} dataTestId="explore-magic-button">
                 Explore the Magic
               </GoldButton>
