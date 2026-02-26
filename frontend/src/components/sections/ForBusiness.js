@@ -197,13 +197,13 @@ const ForBusiness = () => {
                   data-testid="privacy-checkbox"
                 />
                 <label htmlFor="privacyAccepted" className="text-cream/90 font-montserrat text-sm">
-                  I have read and accept the{' '}
+                  {t('forBusiness.privacyLabel')}{' '}
                   <button
                     type="button"
                     onClick={scrollToPrivacy}
                     className="text-gold hover:text-gold-light underline"
                   >
-                    Privacy Policy
+                    {t('forBusiness.privacyLink')}
                   </button>{' '}
                   *
                 </label>
@@ -221,20 +221,20 @@ const ForBusiness = () => {
                   data-testid="newsletter-checkbox"
                 />
                 <label htmlFor="subscribeNewsletter" className="text-cream/90 font-montserrat text-sm">
-                  Subscribe to our newsletter for updates and special offers
+                  {t('forBusiness.newsletterLabel')}
                 </label>
               </div>
             </div>
 
             <GoldButton type="submit" className="w-full" dataTestId="contact-submit-button" disabled={isSubmitting}>
-              {isSubmitting ? 'Sending...' : 'Send Inquiry'}
+              {isSubmitting ? t('forBusiness.submitting') : t('forBusiness.submitButton')}
             </GoldButton>
           </form>
 
           <div className="mt-8 pt-8 border-t border-gold/20 flex flex-col sm:flex-row gap-6 justify-center">
             <div className="flex items-center gap-3 text-cream/80">
               <Mail className="w-5 h-5 text-gold" />
-              <span className="font-montserrat text-sm">contact@fairygarden.com</span>
+              <span className="font-montserrat text-sm">contact@fairygarden4u.com</span>
             </div>
             <div className="flex items-center gap-3 text-cream/80">
               <Phone className="w-5 h-5 text-gold" />
