@@ -35,30 +35,30 @@ const ProductCard = ({ product, index, onViewDetails }) => {
       onClick={() => onViewDetails(product)}
       data-testid={`product-card-${product.id}`}
     >
-      {/* Product image - clean white/light background */}
-      <div className="relative aspect-square bg-white/80 p-4 sm:p-6">
+      {/* Product image */}
+      <div className="relative aspect-square overflow-hidden">
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
       </div>
       
-      {/* Product info - dark text on light background */}
-      <div className="p-4 sm:p-5 space-y-2">
-        <h3 className="text-base sm:text-lg font-cinzel font-bold text-forest uppercase tracking-wide" data-testid={`product-name-${product.id}`}>
+      {/* Product info */}
+      <div className="p-3 sm:p-4 space-y-2">
+        <h3 className="text-sm sm:text-base font-cinzel font-bold text-forest uppercase tracking-wide" data-testid={`product-name-${product.id}`}>
           {product.name}
         </h3>
-        <p className="text-forest/70 font-montserrat text-xs sm:text-sm leading-relaxed line-clamp-2">
+        <p className="text-forest/70 font-montserrat text-xs leading-relaxed line-clamp-2">
           {product.description}
         </p>
-        <div className="flex items-center justify-between pt-2">
-          <span className="text-lg sm:text-xl font-cinzel font-bold text-forest" data-testid={`product-price-${product.id}`}>
+        <div className="flex items-center justify-between pt-1">
+          <span className="text-base sm:text-lg font-cinzel font-bold text-forest" data-testid={`product-price-${product.id}`}>
             €{product.price.toFixed(2)}
           </span>
           <button
             onClick={handleAddToCart}
-            className="px-4 sm:px-5 py-2 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
+            className="px-3 sm:px-4 py-1.5 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
               text-[#3e2b08] font-bold text-[10px] sm:text-xs uppercase rounded-full tracking-wider
               shadow-[0_4px_8px_rgba(0,0,0,0.2)]
               hover:shadow-[0_6px_12px_rgba(201,168,76,0.4)]
