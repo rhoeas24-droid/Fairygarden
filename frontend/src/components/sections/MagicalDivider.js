@@ -16,7 +16,7 @@ const MagicalDivider = () => {
   // Smooth flowing particles - elegant gold dust
   const generateFlowingParticles = () => {
     const particles = [];
-    const count = 180;
+    const count = 360;
     
     for (let i = 0; i < count; i++) {
       const angle = (i / count) * Math.PI * 2;
