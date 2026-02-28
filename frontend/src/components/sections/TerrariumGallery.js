@@ -139,18 +139,17 @@ const TerrariumGallery = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: products.length * 0.1 }}
-            className="hover:-translate-y-2 transition-all duration-300 group cursor-pointer"
+            className="bg-cream/95 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group cursor-pointer"
             onClick={() => setIsCustomBuilderOpen(true)}
             data-testid="custom-terrarium-card"
           >
             {/* Build Your Own card with image */}
-            <div className="relative aspect-square rounded-xl overflow-hidden bg-forest/50 border border-gold/30">
+            <div className="relative aspect-square bg-white/80 p-4 sm:p-6">
               <img
                 src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400"
                 alt="Build Your Own Terrarium"
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-forest via-forest/50 to-transparent" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <motion.div
                   animate={{
@@ -158,31 +157,30 @@ const TerrariumGallery = () => {
                     rotate: [0, 5, -5, 0]
                   }}
                   transition={{ duration: 4, repeat: Infinity }}
-                  className="text-center relative"
+                  className="text-center relative bg-forest/80 rounded-full p-4"
                 >
-                  <Wand2 className="w-16 h-16 text-gold mx-auto drop-shadow-lg" />
-                  <Sparkles className="w-6 h-6 text-gold-light absolute -top-2 -right-2 animate-pulse" />
-                  <Sparkles className="w-4 h-4 text-gold-light absolute -bottom-1 -left-2 animate-pulse" style={{ animationDelay: '0.5s' }} />
+                  <Wand2 className="w-10 h-10 sm:w-12 sm:h-12 text-gold drop-shadow-lg" />
+                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-gold-light absolute -top-1 -right-1 animate-pulse" />
                 </motion.div>
               </div>
             </div>
             
-            {/* Custom info */}
-            <div className="p-3 sm:p-4 space-y-1 sm:space-y-2 text-center">
-              <h3 className="text-base sm:text-lg font-cinzel font-bold text-gold">
+            {/* Custom info - dark text on light background */}
+            <div className="p-4 sm:p-5 space-y-2 text-center">
+              <h3 className="text-base sm:text-lg font-cinzel font-bold text-forest uppercase tracking-wide">
                 {t('gallery.customTitle')}
               </h3>
-              <p className="text-cream/80 font-montserrat text-xs leading-relaxed">
+              <p className="text-forest/70 font-montserrat text-xs sm:text-sm leading-relaxed">
                 {t('gallery.customDescription')}
               </p>
-              <div className="flex items-center justify-center gap-2 sm:gap-4 pt-1 flex-wrap">
-                <span className="text-lg sm:text-xl font-cinzel font-bold text-gold-light">
+              <div className="flex items-center justify-center gap-3 sm:gap-4 pt-2 flex-wrap">
+                <span className="text-lg sm:text-xl font-cinzel font-bold text-forest">
                   {t('gallery.customFromPrice', { price: MIN_CUSTOM_PRICE })}
                 </span>
-                <span className="px-3 sm:px-4 py-1.5 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
-                  text-[#3e2b08] font-bold text-[10px] sm:text-xs uppercase rounded-full
-                  shadow-[inset_1px_1px_4px_rgba(255,255,255,0.5),inset_-1px_-1px_4px_rgba(0,0,0,0.5),0_4px_8px_rgba(0,0,0,0.3)]
-                  group-hover:shadow-[inset_1px_1px_4px_rgba(255,255,255,0.6),inset_-1px_-1px_4px_rgba(0,0,0,0.6),0_6px_12px_rgba(201,168,76,0.3)]
+                <span className="px-4 sm:px-5 py-2 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
+                  text-[#3e2b08] font-bold text-[10px] sm:text-xs uppercase rounded-full tracking-wider
+                  shadow-[0_4px_8px_rgba(0,0,0,0.2)]
+                  group-hover:shadow-[0_6px_12px_rgba(201,168,76,0.4)]
                   transition-all duration-200"
                 >
                   {t('gallery.customButton')}
