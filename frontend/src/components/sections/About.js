@@ -141,7 +141,7 @@ const About = () => {
             {t('about.teamTitle')}
           </h3>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
+          <div className="flex justify-center">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={member.id}
@@ -149,7 +149,7 @@ const About = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 * index }}
-                className="group"
+                className="group max-w-sm"
                 data-testid={`team-member-${member.id}`}
               >
                 <div className="relative rounded-2xl overflow-hidden mb-4">
