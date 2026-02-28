@@ -187,7 +187,6 @@ const TerrariumGallery = () => {
                 className="absolute inset-0 w-full h-full object-contain pointer-events-none z-10"
               />
             </div>
-            </div>
             
             {/* Custom info */}
             <div className="p-3 sm:p-4 space-y-2 text-center">
