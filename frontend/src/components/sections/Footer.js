@@ -65,26 +65,26 @@ const Footer = () => {
         style={{ backgroundImage: 'url(/BG_TILE_FINAL.jpg)' }}
       />
       
-      <div className="relative z-10 max-w-7xl mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-          <div className="space-y-4">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 py-8 sm:py-12 lg:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12 mb-8 sm:mb-12">
+          <div className="space-y-4 text-center sm:text-left">
             <img
               src="/FullLogo_NoBuffer.png"
               alt="Fairygarden For You"
-              className="w-32 h-32"
+              className="w-24 h-24 sm:w-32 sm:h-32 mx-auto sm:mx-0"
               data-testid="footer-logo"
             />
-            <p className="font-playfair italic text-gold-light text-lg">
+            <p className="font-playfair italic text-gold-light text-base sm:text-lg">
               {t('footer.tagline')}
             </p>
-            <p className="font-montserrat text-cream/70 text-sm">
+            <p className="font-montserrat text-cream/70 text-xs sm:text-sm">
               {t('footer.createdSince')}
             </p>
           </div>
 
-          <div>
-            <h3 className="font-cinzel font-bold text-gold text-lg mb-4">{t('footer.quickLinks')}</h3>
-            <ul className="space-y-2 font-montserrat text-sm">
+          <div className="text-center sm:text-left">
+            <h3 className="font-cinzel font-bold text-gold text-base sm:text-lg mb-3 sm:mb-4">{t('footer.quickLinks')}</h3>
+            <ul className="space-y-2 font-montserrat text-xs sm:text-sm">
               <li>
                 <button onClick={() => scrollToSection('hero')} className="hover:text-gold transition-colors" data-testid="footer-link-home">
                   {t('nav.home')}
@@ -113,27 +113,27 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div>
-            <h3 className="font-cinzel font-bold text-gold text-lg mb-4">{t('footer.contactUs')}</h3>
-            <ul className="space-y-3 font-montserrat text-sm">
-              <li className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-gold flex-shrink-0 mt-0.5" />
+          <div className="text-center sm:text-left">
+            <h3 className="font-cinzel font-bold text-gold text-base sm:text-lg mb-3 sm:mb-4">{t('footer.contactUs')}</h3>
+            <ul className="space-y-3 font-montserrat text-xs sm:text-sm">
+              <li className="flex items-start gap-3 justify-center sm:justify-start">
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-gold flex-shrink-0 mt-0.5" />
                 <span>123 Enchanted Lane<br />Garden City, GC 12345</span>
               </li>
-              <li className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-gold flex-shrink-0" />
+              <li className="flex items-center gap-3 justify-center sm:justify-start">
+                <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-gold flex-shrink-0" />
                 <span>+1 (555) 123-4567</span>
               </li>
-              <li className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-gold flex-shrink-0" />
-                <span>contact@fairygarden4u.com</span>
+              <li className="flex items-center gap-3 justify-center sm:justify-start">
+                <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-gold flex-shrink-0" />
+                <span className="break-all">contact@fairygarden4u.com</span>
               </li>
             </ul>
           </div>
 
-          <div>
-            <h3 className="font-cinzel font-bold text-gold text-lg mb-4">{t('footer.newsletter')}</h3>
-            <p className="font-montserrat text-cream/70 text-sm mb-4">
+          <div className="text-center sm:text-left sm:col-span-2 lg:col-span-1">
+            <h3 className="font-cinzel font-bold text-gold text-base sm:text-lg mb-3 sm:mb-4">{t('footer.newsletter')}</h3>
+            <p className="font-montserrat text-cream/70 text-xs sm:text-sm mb-4">
               {t('footer.newsletterText')}
             </p>
             <form onSubmit={handleNewsletterSubmit} className="space-y-3">
@@ -190,9 +190,9 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-gold/20">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="font-montserrat text-cream/60 text-sm">
+        <div className="pt-6 sm:pt-8 border-t border-gold/20">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="font-montserrat text-cream/60 text-xs sm:text-sm text-center sm:text-left">
               © 2024 Fairygarden For You. {t('footer.copyright')}
             </p>
             <div className="flex items-center gap-6">
@@ -205,7 +205,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="text-center mt-4">
-            <p className="font-montserrat text-cream/50 text-xs">
+            <p className="font-montserrat text-cream/50 text-[10px] sm:text-xs break-all sm:break-normal">
               Newsletter: newsletter@fairygarden4u.com | Website: https://fairygarden4u.com
             </p>
           </div>
