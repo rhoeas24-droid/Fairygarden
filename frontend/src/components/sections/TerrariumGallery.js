@@ -35,27 +35,14 @@ const ProductCard = ({ product, index, onViewDetails }) => {
       onClick={() => onViewDetails(product)}
       data-testid={`product-card-${product.id}`}
     >
-      {/* Product image with frame */}
-      <div className="relative aspect-square bg-forest/50 rounded-lg overflow-hidden">
-        {/* Product image */}
+      {/* Simple product card - no frame */}
+      <div className="relative aspect-square rounded-xl overflow-hidden bg-forest/50 border border-gold/30">
         <img
           src={product.image}
           alt={product.name}
           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-          onError={(e) => {
-            e.target.src = 'https://via.placeholder.com/400x400/1a2f1a/c9a84c?text=Terrarium';
-          }}
         />
-        {/* Golden frame overlay */}
-        <img
-          src="/ablak.png"
-          alt=""
-          className="absolute inset-0 w-full h-full object-fill pointer-events-none"
-        />
-        {/* Hover overlay */}
-        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-          <Eye className="w-12 h-12 text-gold" />
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-forest via-transparent to-transparent opacity-60" />
       </div>
       
       {/* Product info */}
