@@ -24,10 +24,10 @@ const SparkleBackground = () => {
         fpsLimit: 60,
         particles: {
           number: {
-            value: 80,
+            value: 200,
             density: {
               enable: true,
-              area: 1000
+              area: 800
             }
           },
           color: {

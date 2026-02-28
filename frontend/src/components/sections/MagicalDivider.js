@@ -16,32 +16,32 @@ const MagicalDivider = () => {
   // Smooth flowing particles - elegant gold dust
   const generateFlowingParticles = () => {
     const particles = [];
-    const count = 60;
+    const count = 180;
     
     for (let i = 0; i < count; i++) {
       const angle = (i / count) * Math.PI * 2;
-      const baseRadius = 80 + Math.random() * 150;
+      const baseRadius = 60 + Math.random() * 200;
       
-      // Color distribution: 80% gold, 10% blue, 10% magenta
+      // Color distribution: 70% gold, 15% blue, 15% magenta
       const colorRand = Math.random();
       let color;
-      if (colorRand < 0.1) {
-        color = ['#00BFFF', '#1E90FF', '#87CEEB'][Math.floor(Math.random() * 3)];
-      } else if (colorRand < 0.2) {
-        color = ['#FF69B4', '#DB7093', '#FF1493'][Math.floor(Math.random() * 3)];
+      if (colorRand < 0.15) {
+        color = ['#00BFFF', '#1E90FF', '#87CEEB', '#4169E1', '#6495ED'][Math.floor(Math.random() * 5)];
+      } else if (colorRand < 0.30) {
+        color = ['#FF69B4', '#DB7093', '#FF1493', '#C71585', '#FF00FF'][Math.floor(Math.random() * 5)];
       } else {
-        color = ['#f0e68c', '#d4af37', '#c9a84c', '#FFD700', '#DAA520'][Math.floor(Math.random() * 5)];
+        color = ['#f0e68c', '#d4af37', '#c9a84c', '#FFD700', '#DAA520', '#FFDF00'][Math.floor(Math.random() * 6)];
       }
       
       particles.push({
         id: i,
         angle,
         radius: baseRadius,
-        size: 1 + Math.random() * 2.5,
+        size: 1 + Math.random() * 3,
         color,
-        duration: 8 + Math.random() * 6,
-        delay: (i / count) * 4,
-        opacity: 0.4 + Math.random() * 0.5
+        duration: 6 + Math.random() * 8,
+        delay: (i / count) * 3,
+        opacity: 0.5 + Math.random() * 0.5
       });
     }
     
