@@ -11,7 +11,7 @@ export default defineConfig({
     ['json', { outputFile: '/root/.emergent/automation_output/20260226_035616/results.json' }],
   ],
   use: {
-    baseURL: 'https://fairygarden-staging.preview.emergentagent.com',
+    baseURL: 'https://forest-build.preview.emergentagent.com',
     screenshot: 'only-on-failure',
     trace: 'off',
     headless: true,
