@@ -31,29 +31,38 @@ const ProductCard = ({ product, index, onViewDetails }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="bg-cream/95 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group cursor-pointer"
+      className="hover:-translate-y-2 transition-all duration-300 group cursor-pointer"
       onClick={() => onViewDetails(product)}
       data-testid={`product-card-${product.id}`}
     >
-      {/* Product image */}
-      <div className="relative aspect-square overflow-hidden">
+      {/* Product image with gold frame overlay */}
+      <div className="relative" style={{ aspectRatio: '867/1535' }}>
+        {/* Product image - behind the frame */}
+        <div className="absolute inset-0 flex items-center justify-center p-[10%] pt-[9.5%] pb-[7%]">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover rounded-sm"
+          />
+        </div>
+        {/* Gold frame overlay - on top */}
         <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          src="https://fairygarden4u.com/ablak_frame.png"
+          alt=""
+          className="absolute inset-0 w-full h-full object-contain pointer-events-none z-10"
         />
       </div>
       
       {/* Product info */}
-      <div className="p-3 sm:p-4 space-y-2">
-        <h3 className="text-sm sm:text-base font-cinzel font-bold text-forest uppercase tracking-wide" data-testid={`product-name-${product.id}`}>
+      <div className="p-3 sm:p-4 space-y-2 text-center">
+        <h3 className="text-sm sm:text-base font-cinzel font-bold text-gold uppercase tracking-wide" data-testid={`product-name-${product.id}`}>
           {product.name}
         </h3>
-        <p className="text-forest/70 font-montserrat text-xs leading-relaxed line-clamp-2">
+        <p className="text-cream/70 font-montserrat text-xs leading-relaxed line-clamp-2">
           {product.description}
         </p>
-        <div className="flex items-center justify-between pt-1">
-          <span className="text-base sm:text-lg font-cinzel font-bold text-forest" data-testid={`product-price-${product.id}`}>
+        <div className="flex items-center justify-center gap-3 pt-1">
+          <span className="text-base sm:text-lg font-cinzel font-bold text-gold" data-testid={`product-price-${product.id}`}>
             €{product.price.toFixed(2)}
           </span>
           <button
