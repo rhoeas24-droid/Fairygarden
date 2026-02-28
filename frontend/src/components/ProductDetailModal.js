@@ -55,18 +55,20 @@ const ProductDetailModal = ({ isOpen, onClose, product }) => {
               {/* Left - Image with frame */}
               <div className="relative p-8 bg-forest/50">
                 <div className="relative aspect-square">
-                  <img
-                    src="/ablak.png"
-                    alt=""
-                    className="absolute inset-0 w-full h-full object-fill z-10 pointer-events-none"
-                  />
-                  <div className="absolute inset-[12%] z-0 overflow-hidden">
+                  {/* Product image - behind frame */}
+                  <div className="absolute inset-[12%] overflow-hidden">
                     <img
                       src={product.image}
                       alt={product.name}
                       className="w-full h-full object-cover"
                     />
                   </div>
+                  {/* Golden frame - on top */}
+                  <img
+                    src="/ablak.png"
+                    alt=""
+                    className="absolute inset-0 w-full h-full object-fill pointer-events-none"
+                  />
                 </div>
               </div>
 
