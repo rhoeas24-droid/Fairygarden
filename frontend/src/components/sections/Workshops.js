@@ -72,34 +72,35 @@ const Workshops = () => {
   };
 
   return (
-    <section id="workshops" className="relative py-24 px-4 bg-cream">
+    <section id="workshops" className="relative py-12 sm:py-16 lg:py-24 px-3 sm:px-4 bg-cream">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
-          <Users className="w-16 h-16 text-gold-dark mx-auto mb-6" />
-          <h2 className="text-4xl md:text-5xl font-cinzel font-bold text-forest mb-4" data-testid="workshops-title">
+          <Users className="w-12 h-12 sm:w-16 sm:h-16 text-gold-dark mx-auto mb-4 sm:mb-6" />
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-cinzel font-bold text-forest mb-3 sm:mb-4" data-testid="workshops-title">
             {t('workshops.title')}
           </h2>
-          <p className="text-forest/80 font-montserrat text-lg max-w-2xl mx-auto">
+          <p className="text-forest/80 font-montserrat text-sm sm:text-base lg:text-lg max-w-2xl mx-auto px-2">
             {t('workshops.subtitle')}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
+            className="order-2 lg:order-1"
           >
             <img
               src="https://images.unsplash.com/photo-1550836017-e1b9f7894f38?auto=format&fit=crop&w=800&q=80"
               alt="Terrarium Workshop"
-              className="w-full h-96 object-cover rounded-2xl shadow-2xl"
+              className="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-2xl shadow-2xl"
             />
           </motion.div>
 
@@ -108,13 +109,13 @@ const Workshops = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="bg-forest/10 border border-gold/30 rounded-2xl p-8"
+            className="bg-forest/10 border border-gold/30 rounded-2xl p-4 sm:p-6 lg:p-8 order-1 lg:order-2"
           >
-            <h3 className="text-2xl font-cinzel font-bold text-forest mb-6">{t('workshops.registerTitle')}</h3>
+            <h3 className="text-xl sm:text-2xl font-cinzel font-bold text-forest mb-4 sm:mb-6">{t('workshops.registerTitle')}</h3>
             
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
               <div>
-                <label htmlFor="ws-name" className="block text-forest font-montserrat font-semibold mb-2">
+                <label htmlFor="ws-name" className="block text-forest font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
                   {t('workshops.nameLabel')} *
                 </label>
                 <input
@@ -124,15 +125,15 @@ const Workshops = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-white border border-gold/40 text-forest placeholder:text-forest/50
-                    focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white border border-gold/40 text-forest placeholder:text-forest/50
+                    focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base"
                   placeholder="Your full name"
                   data-testid="workshop-name-input"
                 />
               </div>
 
               <div>
-                <label htmlFor="ws-email" className="block text-forest font-montserrat font-semibold mb-2">
+                <label htmlFor="ws-email" className="block text-forest font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
                   {t('workshops.emailLabel')} *
                 </label>
                 <input
@@ -142,15 +143,15 @@ const Workshops = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-white border border-gold/40 text-forest placeholder:text-forest/50
-                    focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white border border-gold/40 text-forest placeholder:text-forest/50
+                    focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base"
                   placeholder="your@email.com"
                   data-testid="workshop-email-input"
                 />
               </div>
 
               <div>
-                <label htmlFor="ws-phone" className="block text-forest font-montserrat font-semibold mb-2">
+                <label htmlFor="ws-phone" className="block text-forest font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
                   {t('workshops.phoneLabel')}
                 </label>
                 <input
@@ -159,15 +160,15 @@ const Workshops = () => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white border border-gold/40 text-forest placeholder:text-forest/50
-                    focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white border border-gold/40 text-forest placeholder:text-forest/50
+                    focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base"
                   placeholder="(555) 123-4567"
                   data-testid="workshop-phone-input"
                 />
               </div>
 
               <div>
-                <label htmlFor="ws-type" className="block text-forest font-montserrat font-semibold mb-2">
+                <label htmlFor="ws-type" className="block text-forest font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
                   {t('workshops.workshopTypeLabel')} *
                 </label>
                 <select
@@ -176,8 +177,8 @@ const Workshops = () => {
                   value={formData.workshop_type}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-white border border-gold/40 text-forest
-                    focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white border border-gold/40 text-forest
+                    focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base"
                   data-testid="workshop-type-select"
                 >
                   <option value="beginner">{t('workshops.types.beginner')}</option>
@@ -187,8 +188,8 @@ const Workshops = () => {
                 </select>
               </div>
 
-              <div className="space-y-3 pt-2">
-                <div className="flex items-start gap-3">
+              <div className="space-y-2 sm:space-y-3 pt-2">
+                <div className="flex items-start gap-2 sm:gap-3">
                   <input
                     type="checkbox"
                     id="ws-privacyAccepted"
@@ -200,7 +201,7 @@ const Workshops = () => {
                       focus:ring-gold focus:ring-offset-0"
                     data-testid="workshop-privacy-checkbox"
                   />
-                  <label htmlFor="ws-privacyAccepted" className="text-forest/90 font-montserrat text-sm">
+                  <label htmlFor="ws-privacyAccepted" className="text-forest/90 font-montserrat text-xs sm:text-sm">
                     {t('forBusiness.privacyLabel')}{' '}
                     <button
                       type="button"
@@ -213,7 +214,7 @@ const Workshops = () => {
                   </label>
                 </div>
 
-                <div className="flex items-start gap-3">
+                <div className="flex items-start gap-2 sm:gap-3">
                   <input
                     type="checkbox"
                     id="ws-subscribeNewsletter"
@@ -224,7 +225,7 @@ const Workshops = () => {
                       focus:ring-gold focus:ring-offset-0"
                     data-testid="workshop-newsletter-checkbox"
                   />
-                  <label htmlFor="ws-subscribeNewsletter" className="text-forest/90 font-montserrat text-sm">
+                  <label htmlFor="ws-subscribeNewsletter" className="text-forest/90 font-montserrat text-xs sm:text-sm">
                     {t('forBusiness.newsletterLabel')}
                   </label>
                 </div>
@@ -235,13 +236,13 @@ const Workshops = () => {
               </GoldButton>
             </form>
 
-            <div className="mt-6 space-y-3 text-forest/70 font-montserrat text-sm">
-              <div className="flex items-center gap-3">
-                <Calendar className="w-5 h-5 text-gold-dark" />
+            <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-3 text-forest/70 font-montserrat text-xs sm:text-sm">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-gold-dark flex-shrink-0" />
                 <span>{t('workshops.schedule')}</span>
               </div>
-              <div className="flex items-center gap-3">
-                <MapPin className="w-5 h-5 text-gold-dark" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-gold-dark flex-shrink-0" />
                 <span>{t('workshops.location')}</span>
               </div>
             </div>
