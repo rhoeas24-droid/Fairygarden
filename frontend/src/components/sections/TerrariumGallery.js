@@ -35,24 +35,25 @@ const ProductCard = ({ product, index, onViewDetails }) => {
       onClick={() => onViewDetails(product)}
       data-testid={`product-card-${product.id}`}
     >
-      {/* Frame with image */}
-      <div className="relative aspect-square">
-        {/* Golden frame - background */}
+      {/* Product image with frame */}
+      <div className="relative aspect-square bg-forest/50 rounded-lg overflow-hidden">
+        {/* Product image */}
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          onError={(e) => {
+            e.target.src = 'https://via.placeholder.com/400x400/1a2f1a/c9a84c?text=Terrarium';
+          }}
+        />
+        {/* Golden frame overlay */}
         <img
           src="/ablak.png"
           alt=""
-          className="absolute inset-0 w-full h-full object-fill"
+          className="absolute inset-0 w-full h-full object-fill pointer-events-none"
         />
-        {/* Product image - on top in center */}
-        <div className="absolute inset-[15%] overflow-hidden rounded-lg shadow-lg">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-          />
-        </div>
         {/* Hover overlay */}
-        <div className="absolute inset-[15%] rounded-lg bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
           <Eye className="w-12 h-12 text-gold" />
         </div>
       </div>
