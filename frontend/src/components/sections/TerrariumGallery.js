@@ -144,20 +144,28 @@ const TerrariumGallery = () => {
             onClick={() => setIsCustomBuilderOpen(true)}
             data-testid="custom-terrarium-card"
           >
-            {/* Simple Build Your Own card */}
-            <div className="relative aspect-square rounded-xl overflow-hidden bg-forest/80 border border-gold/30 flex items-center justify-center">
-              <motion.div
-                animate={{
-                  scale: [1, 1.1, 1],
-                  rotate: [0, 5, -5, 0]
-                }}
-                transition={{ duration: 4, repeat: Infinity }}
-                className="text-center relative"
-              >
-                <Wand2 className="w-20 h-20 text-gold mx-auto" />
-                <Sparkles className="w-8 h-8 text-gold-light absolute -top-2 -right-2 animate-pulse" />
-                <Sparkles className="w-6 h-6 text-gold-light absolute -bottom-1 -left-2 animate-pulse" style={{ animationDelay: '0.5s' }} />
-              </motion.div>
+            {/* Build Your Own card with image */}
+            <div className="relative aspect-square rounded-xl overflow-hidden bg-forest/50 border border-gold/30">
+              <img
+                src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400"
+                alt="Build Your Own Terrarium"
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-forest via-forest/50 to-transparent" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <motion.div
+                  animate={{
+                    scale: [1, 1.1, 1],
+                    rotate: [0, 5, -5, 0]
+                  }}
+                  transition={{ duration: 4, repeat: Infinity }}
+                  className="text-center relative"
+                >
+                  <Wand2 className="w-16 h-16 text-gold mx-auto drop-shadow-lg" />
+                  <Sparkles className="w-6 h-6 text-gold-light absolute -top-2 -right-2 animate-pulse" />
+                  <Sparkles className="w-4 h-4 text-gold-light absolute -bottom-1 -left-2 animate-pulse" style={{ animationDelay: '0.5s' }} />
+                </motion.div>
+              </div>
             </div>
             
             {/* Custom info */}
