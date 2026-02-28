@@ -8,19 +8,7 @@ const teamMembers = [
     id: 1,
     nameKey: 'about.team.member1.name',
     roleKey: 'about.team.member1.role',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80',
-  },
-  {
-    id: 2,
-    nameKey: 'about.team.member2.name',
-    roleKey: 'about.team.member2.role',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-  },
-  {
-    id: 3,
-    nameKey: 'about.team.member3.name',
-    roleKey: 'about.team.member3.role',
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&q=80',
+    image: 'https://fairygarden4u.com/team_founder.jpg',
   },
 ];
 
