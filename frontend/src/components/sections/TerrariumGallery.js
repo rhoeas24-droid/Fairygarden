@@ -158,8 +158,14 @@ const TerrariumGallery = () => {
           >
             {/* Frame with wand icon */}
             <div className="relative aspect-square">
-              {/* Background inside frame */}
-              <div className="absolute inset-[12%] overflow-hidden flex items-center justify-center bg-forest/80">
+              {/* Golden frame - background */}
+              <img
+                src="/ablak.png"
+                alt=""
+                className="absolute inset-0 w-full h-full object-fill"
+              />
+              {/* Wand icon - on top in center */}
+              <div className="absolute inset-[15%] overflow-hidden rounded-lg bg-forest/90 flex items-center justify-center">
                 <motion.div
                   animate={{
                     scale: [1, 1.1, 1],
@@ -173,12 +179,6 @@ const TerrariumGallery = () => {
                   <Sparkles className="w-4 h-4 text-gold-light absolute -bottom-1 -left-2 animate-pulse" style={{ animationDelay: '0.5s' }} />
                 </motion.div>
               </div>
-              {/* Golden frame - on top */}
-              <img
-                src="/ablak.png"
-                alt=""
-                className="absolute inset-0 w-full h-full object-fill pointer-events-none"
-              />
             </div>
             
             {/* Custom info */}
