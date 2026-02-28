@@ -31,39 +31,38 @@ const ProductCard = ({ product, index, onViewDetails }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="hover:-translate-y-2 transition-all duration-300 group cursor-pointer"
+      className="bg-cream/95 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group cursor-pointer"
       onClick={() => onViewDetails(product)}
       data-testid={`product-card-${product.id}`}
     >
-      {/* Simple product card - no frame */}
-      <div className="relative aspect-square rounded-xl overflow-hidden bg-forest/50 border border-gold/30">
+      {/* Product image - clean white/light background */}
+      <div className="relative aspect-square bg-white/80 p-4 sm:p-6">
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-forest via-transparent to-transparent opacity-60" />
       </div>
       
-      {/* Product info */}
-      <div className="p-3 sm:p-4 space-y-1 sm:space-y-2">
-        <h3 className="text-base sm:text-lg font-cinzel font-bold text-gold" data-testid={`product-name-${product.id}`}>
+      {/* Product info - dark text on light background */}
+      <div className="p-4 sm:p-5 space-y-2">
+        <h3 className="text-base sm:text-lg font-cinzel font-bold text-forest uppercase tracking-wide" data-testid={`product-name-${product.id}`}>
           {product.name}
         </h3>
-        <p className="text-cream/80 font-montserrat text-xs leading-relaxed line-clamp-2">
+        <p className="text-forest/70 font-montserrat text-xs sm:text-sm leading-relaxed line-clamp-2">
           {product.description}
         </p>
-        <div className="flex items-center justify-between pt-1">
-          <span className="text-lg sm:text-xl font-cinzel font-bold text-gold-light" data-testid={`product-price-${product.id}`}>
+        <div className="flex items-center justify-between pt-2">
+          <span className="text-lg sm:text-xl font-cinzel font-bold text-forest" data-testid={`product-price-${product.id}`}>
             €{product.price.toFixed(2)}
           </span>
           <button
             onClick={handleAddToCart}
-            className="px-3 sm:px-4 py-1.5 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
-              text-[#3e2b08] font-bold text-[10px] sm:text-xs uppercase rounded-full
-              shadow-[inset_1px_1px_4px_rgba(255,255,255,0.5),inset_-1px_-1px_4px_rgba(0,0,0,0.5),0_4px_8px_rgba(0,0,0,0.3)]
-              hover:shadow-[inset_1px_1px_4px_rgba(255,255,255,0.6),inset_-1px_-1px_4px_rgba(0,0,0,0.6),0_6px_12px_rgba(201,168,76,0.3)]
-              active:translate-y-1 transition-all duration-200"
+            className="px-4 sm:px-5 py-2 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
+              text-[#3e2b08] font-bold text-[10px] sm:text-xs uppercase rounded-full tracking-wider
+              shadow-[0_4px_8px_rgba(0,0,0,0.2)]
+              hover:shadow-[0_6px_12px_rgba(201,168,76,0.4)]
+              active:translate-y-0.5 transition-all duration-200"
             data-testid={`add-to-cart-${product.id}`}
           >
             {t('gallery.addToCart')}
