@@ -20,7 +20,7 @@ const BlogCard = ({ post, index }) => {
         hover:-translate-y-2 group"
       data-testid={`blog-card-${post.id}`}
     >
-      <div className="relative overflow-hidden h-56">
+      <div className="relative overflow-hidden h-40 sm:h-48 lg:h-56">
         <img
           src={post.image}
           alt={post.title}
@@ -29,32 +29,32 @@ const BlogCard = ({ post, index }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-forest/60 to-transparent" />
       </div>
       
-      <div className="p-6 space-y-4">
-        <div className="flex items-center gap-4 text-forest/60 text-sm font-montserrat">
-          <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4" />
+      <div className="p-4 sm:p-5 lg:p-6 space-y-3 sm:space-y-4">
+        <div className="flex items-center gap-3 sm:gap-4 text-forest/60 text-xs sm:text-sm font-montserrat flex-wrap">
+          <div className="flex items-center gap-1 sm:gap-2">
+            <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
             <span>{new Date(post.published_at).toLocaleDateString()}</span>
           </div>
-          <div className="flex items-center gap-2">
-            <User className="w-4 h-4" />
+          <div className="flex items-center gap-1 sm:gap-2">
+            <User className="w-3 h-3 sm:w-4 sm:h-4" />
             <span>{post.author}</span>
           </div>
         </div>
         
-        <h3 className="text-xl font-cinzel font-bold text-forest group-hover:text-gold-dark transition-colors"
+        <h3 className="text-lg sm:text-xl font-cinzel font-bold text-forest group-hover:text-gold-dark transition-colors"
             data-testid={`blog-title-${post.id}`}>
           {post.title}
         </h3>
         
-        <p className="text-forest/70 font-montserrat text-sm leading-relaxed">
+        <p className="text-forest/70 font-montserrat text-xs sm:text-sm leading-relaxed line-clamp-2 sm:line-clamp-3">
           {post.excerpt}
         </p>
         
-        <button className="flex items-center gap-2 text-gold-dark font-montserrat font-semibold text-sm
+        <button className="flex items-center gap-2 text-gold-dark font-montserrat font-semibold text-xs sm:text-sm
           group-hover:gap-4 transition-all duration-300"
           data-testid={`blog-read-more-${post.id}`}>
           {t('blog.readMore')}
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
         </button>
       </div>
     </motion.article>
@@ -81,7 +81,7 @@ const BlogPreview = () => {
   return (
     <section
       id="blog"
-      className="relative py-24 px-4"
+      className="relative py-12 sm:py-16 lg:py-24 px-3 sm:px-4"
       style={{
         backgroundImage: 'url(/BG_TILE_FINAL.jpg)',
         backgroundSize: 'cover',
@@ -96,17 +96,17 @@ const BlogPreview = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-cinzel font-bold text-gold mb-4" data-testid="blog-title">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-cinzel font-bold text-gold mb-3 sm:mb-4" data-testid="blog-title">
             {t('blog.title')}
           </h2>
-          <p className="text-cream/80 font-montserrat text-lg max-w-2xl mx-auto">
+          <p className="text-cream/80 font-montserrat text-sm sm:text-base lg:text-lg max-w-2xl mx-auto px-2">
             {t('blog.subtitle')}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {posts.map((post, index) => (
             <BlogCard key={post.id} post={post} index={index} />
           ))}
