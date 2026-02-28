@@ -74,7 +74,7 @@ const ForBusiness = () => {
   return (
     <section
       id="for-business"
-      className="relative py-24 px-4"
+      className="relative py-12 sm:py-16 lg:py-24 px-3 sm:px-4"
       style={{
         backgroundImage: 'url(/BG_TILE_FINAL.jpg)',
         backgroundSize: 'cover',
@@ -89,13 +89,13 @@ const ForBusiness = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
-          <Building2 className="w-16 h-16 text-gold mx-auto mb-6" />
-          <h2 className="text-4xl md:text-5xl font-cinzel font-bold text-gold mb-4" data-testid="for-business-title">
+          <Building2 className="w-12 h-12 sm:w-16 sm:h-16 text-gold mx-auto mb-4 sm:mb-6" />
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-cinzel font-bold text-gold mb-3 sm:mb-4" data-testid="for-business-title">
             {t('forBusiness.title')}
           </h2>
-          <p className="text-cream/80 font-montserrat text-lg max-w-2xl mx-auto">
+          <p className="text-cream/80 font-montserrat text-sm sm:text-base lg:text-lg max-w-2xl mx-auto px-2">
             {t('forBusiness.subtitle')}
           </p>
         </motion.div>
@@ -105,11 +105,11 @@ const ForBusiness = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="bg-forest/60 backdrop-blur-md border border-gold/30 rounded-2xl p-8 md:p-12 max-w-2xl mx-auto"
+          className="bg-forest/60 backdrop-blur-md border border-gold/30 rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12 max-w-2xl mx-auto"
         >
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             <div>
-              <label htmlFor="name" className="block text-cream font-montserrat font-semibold mb-2">
+              <label htmlFor="name" className="block text-cream font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
                 {t('forBusiness.nameLabel')} *
               </label>
               <input
@@ -119,8 +119,8 @@ const ForBusiness = () => {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-black/20 border border-gold/40 text-cream placeholder:text-cream/50
-                  focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black/20 border border-gold/40 text-cream placeholder:text-cream/50
+                  focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base
                   transition-all duration-200"
                 placeholder="Your full name"
                 data-testid="contact-name-input"
@@ -128,7 +128,7 @@ const ForBusiness = () => {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-cream font-montserrat font-semibold mb-2">
+              <label htmlFor="email" className="block text-cream font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
                 {t('forBusiness.emailLabel')} *
               </label>
               <input
@@ -138,8 +138,8 @@ const ForBusiness = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-3 bg-black/20 border border-gold/40 text-cream placeholder:text-cream/50
-                  focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black/20 border border-gold/40 text-cream placeholder:text-cream/50
+                  focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base
                   transition-all duration-200"
                 placeholder="your.email@company.com"
                 data-testid="contact-email-input"
@@ -147,7 +147,7 @@ const ForBusiness = () => {
             </div>
 
             <div>
-              <label htmlFor="company" className="block text-cream font-montserrat font-semibold mb-2">
+              <label htmlFor="company" className="block text-cream font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
                 {t('forBusiness.companyLabel')}
               </label>
               <input
@@ -156,8 +156,8 @@ const ForBusiness = () => {
                 name="company"
                 value={formData.company}
                 onChange={handleChange}
-                className="w-full px-4 py-3 bg-black/20 border border-gold/40 text-cream placeholder:text-cream/50
-                  focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black/20 border border-gold/40 text-cream placeholder:text-cream/50
+                  focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base
                   transition-all duration-200"
                 placeholder="Your company name"
                 data-testid="contact-company-input"
@@ -165,7 +165,7 @@ const ForBusiness = () => {
             </div>
 
             <div>
-              <label htmlFor="message" className="block text-cream font-montserrat font-semibold mb-2">
+              <label htmlFor="message" className="block text-cream font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
                 {t('forBusiness.messageLabel')} *
               </label>
               <textarea
@@ -174,17 +174,17 @@ const ForBusiness = () => {
                 value={formData.message}
                 onChange={handleChange}
                 required
-                rows={5}
-                className="w-full px-4 py-3 bg-black/20 border border-gold/40 text-cream placeholder:text-cream/50
-                  focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat
+                rows={4}
+                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black/20 border border-gold/40 text-cream placeholder:text-cream/50
+                  focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base
                   transition-all duration-200"
                 placeholder="Tell us about your project or inquiry..."
                 data-testid="contact-message-input"
               />
             </div>
 
-            <div className="space-y-3 pt-2">
-              <div className="flex items-start gap-3">
+            <div className="space-y-2 sm:space-y-3 pt-2">
+              <div className="flex items-start gap-2 sm:gap-3">
                 <input
                   type="checkbox"
                   id="privacyAccepted"
@@ -196,7 +196,7 @@ const ForBusiness = () => {
                     focus:ring-gold focus:ring-offset-0"
                   data-testid="privacy-checkbox"
                 />
-                <label htmlFor="privacyAccepted" className="text-cream/90 font-montserrat text-sm">
+                <label htmlFor="privacyAccepted" className="text-cream/90 font-montserrat text-xs sm:text-sm">
                   {t('forBusiness.privacyLabel')}{' '}
                   <button
                     type="button"
@@ -209,7 +209,7 @@ const ForBusiness = () => {
                 </label>
               </div>
 
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-2 sm:gap-3">
                 <input
                   type="checkbox"
                   id="subscribeNewsletter"
@@ -220,7 +220,7 @@ const ForBusiness = () => {
                     focus:ring-gold focus:ring-offset-0"
                   data-testid="newsletter-checkbox"
                 />
-                <label htmlFor="subscribeNewsletter" className="text-cream/90 font-montserrat text-sm">
+                <label htmlFor="subscribeNewsletter" className="text-cream/90 font-montserrat text-xs sm:text-sm">
                   {t('forBusiness.newsletterLabel')}
                 </label>
               </div>
@@ -231,14 +231,14 @@ const ForBusiness = () => {
             </GoldButton>
           </form>
 
-          <div className="mt-8 pt-8 border-t border-gold/20 flex flex-col sm:flex-row gap-6 justify-center">
-            <div className="flex items-center gap-3 text-cream/80">
-              <Mail className="w-5 h-5 text-gold" />
-              <span className="font-montserrat text-sm">contact@fairygarden4u.com</span>
+          <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-gold/20 flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
+            <div className="flex items-center gap-2 sm:gap-3 text-cream/80 justify-center">
+              <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-gold" />
+              <span className="font-montserrat text-xs sm:text-sm break-all">contact@fairygarden4u.com</span>
             </div>
-            <div className="flex items-center gap-3 text-cream/80">
-              <Phone className="w-5 h-5 text-gold" />
-              <span className="font-montserrat text-sm">+1 (555) 123-4567</span>
+            <div className="flex items-center gap-2 sm:gap-3 text-cream/80 justify-center">
+              <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-gold" />
+              <span className="font-montserrat text-xs sm:text-sm">+1 (555) 123-4567</span>
             </div>
           </div>
         </motion.div>
