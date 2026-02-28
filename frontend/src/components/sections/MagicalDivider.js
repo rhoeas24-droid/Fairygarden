@@ -13,77 +13,42 @@ const MagicalDivider = () => {
     }
   };
 
-  // Természetes arany színárnyalatok
-  const goldShades = [
-    '#f0e68c', // light gold
-    '#d4af37', // classic gold
-    '#c9a84c', // medium gold
-    '#FFD700', // bright gold
-    '#DAA520', // goldenrod
-    '#FFA500', // orange gold
-    '#FFDF00', // golden yellow
-    '#E6BE8A'  // pale gold
-  ];
-
-  // Organikus fairy dust nyalábok generálása - DUPLA mennyiség + kék/magenta
-  const generateOrganicDust = () => {
+  // Smooth flowing particles - elegant gold dust
+  const generateFlowingParticles = () => {
     const particles = [];
-    const streamCount = 12; // Több nyaláb a dupla csillaghoz
+    const count = 60;
     
-    for (let stream = 0; stream < streamCount; stream++) {
-      const baseAngle = (stream / streamCount) * Math.PI * 2;
-      const particlesInStream = 60 + Math.floor(Math.random() * 50); // 60-110 részecske nyalábonként
+    for (let i = 0; i < count; i++) {
+      const angle = (i / count) * Math.PI * 2;
+      const baseRadius = 80 + Math.random() * 150;
       
-      for (let i = 0; i < particlesInStream; i++) {
-        const progress = i / particlesInStream;
-        const spreadAngle = baseAngle + (Math.random() - 0.5) * 0.8;
-        const radius = 120 + Math.random() * 200;
-        
-        // Organikus, hullámos út
-        const wavyPath = [];
-        for (let point = 0; point < 5; point++) {
-          const pointProgress = point / 4;
-          const distance = radius * (0.6 + pointProgress * 0.8);
-          const angle = spreadAngle + Math.sin(pointProgress * Math.PI * 2) * 0.3;
-          
-          wavyPath.push({
-            x: Math.cos(angle) * distance + (Math.random() - 0.5) * 40,
-            y: Math.sin(angle) * distance + (Math.random() - 0.5) * 40
-          });
-        }
-        
-        // Szín kiválasztása: 10% kék, 10% magenta, 80% arany
-        const colorRandom = Math.random();
-        let color;
-        if (colorRandom < 0.1) {
-          // Kék árnyalatok (10%)
-          const blueShades = ['#00BFFF', '#1E90FF', '#4169E1', '#6495ED', '#87CEEB'];
-          color = blueShades[Math.floor(Math.random() * blueShades.length)];
-        } else if (colorRandom < 0.2) {
-          // Magenta árnyalatok (10%)
-          const magentaShades = ['#FF1493', '#FF69B4', '#DB7093', '#C71585', '#FF00FF'];
-          color = magentaShades[Math.floor(Math.random() * magentaShades.length)];
-        } else {
-          // Arany árnyalatok (80%)
-          color = goldShades[Math.floor(Math.random() * goldShades.length)];
-        }
-        
-        particles.push({
-          id: `${stream}-${i}`,
-          path: wavyPath,
-          size: 0.5 + Math.random() * 2.5,
-          color: color,
-          duration: 3 + Math.random() * 4,
-          delay: progress * 2.5 + Math.random() * 1,
-          opacity: 0.3 + Math.random() * 0.7
-        });
+      // Color distribution: 80% gold, 10% blue, 10% magenta
+      const colorRand = Math.random();
+      let color;
+      if (colorRand < 0.1) {
+        color = ['#00BFFF', '#1E90FF', '#87CEEB'][Math.floor(Math.random() * 3)];
+      } else if (colorRand < 0.2) {
+        color = ['#FF69B4', '#DB7093', '#FF1493'][Math.floor(Math.random() * 3)];
+      } else {
+        color = ['#f0e68c', '#d4af37', '#c9a84c', '#FFD700', '#DAA520'][Math.floor(Math.random() * 5)];
       }
+      
+      particles.push({
+        id: i,
+        angle,
+        radius: baseRadius,
+        size: 1 + Math.random() * 2.5,
+        color,
+        duration: 8 + Math.random() * 6,
+        delay: (i / count) * 4,
+        opacity: 0.4 + Math.random() * 0.5
+      });
     }
     
     return particles;
   };
 
-  const fairyDust = generateOrganicDust();
+  const particles = generateFlowingParticles();
 
   return (
     <section className="relative py-20 overflow-hidden" style={{
@@ -102,8 +67,8 @@ const MagicalDivider = () => {
           className="flex flex-col items-center justify-center"
         >
           <div className="relative">
-            {/* Organikus fairy dust részecskék */}
-            {fairyDust.map((particle) => (
+            {/* Smooth flowing particles in circular orbit */}
+            {particles.map((particle) => (
               <motion.div
                 key={particle.id}
                 className="absolute pointer-events-none"
@@ -111,19 +76,33 @@ const MagicalDivider = () => {
                   left: '50%',
                   top: '50%',
                   width: particle.size,
-                  height: particle.size
-                }}
-                initial={{
-                  x: particle.path[0].x,
-                  y: particle.path[0].y,
-                  opacity: 0,
-                  scale: 0
+                  height: particle.size,
+                  marginLeft: -particle.size / 2,
+                  marginTop: -particle.size / 2,
                 }}
                 animate={{
-                  x: particle.path.map(p => p.x),
-                  y: particle.path.map(p => p.y),
-                  opacity: [0, particle.opacity, particle.opacity * 0.8, particle.opacity, 0],
-                  scale: [0, 1, 1.2, 0.9, 0]
+                  x: [
+                    Math.cos(particle.angle) * particle.radius,
+                    Math.cos(particle.angle + Math.PI * 0.5) * particle.radius * 1.1,
+                    Math.cos(particle.angle + Math.PI) * particle.radius,
+                    Math.cos(particle.angle + Math.PI * 1.5) * particle.radius * 0.9,
+                    Math.cos(particle.angle + Math.PI * 2) * particle.radius,
+                  ],
+                  y: [
+                    Math.sin(particle.angle) * particle.radius * 0.6,
+                    Math.sin(particle.angle + Math.PI * 0.5) * particle.radius * 0.7,
+                    Math.sin(particle.angle + Math.PI) * particle.radius * 0.6,
+                    Math.sin(particle.angle + Math.PI * 1.5) * particle.radius * 0.5,
+                    Math.sin(particle.angle + Math.PI * 2) * particle.radius * 0.6,
+                  ],
+                  opacity: [
+                    particle.opacity * 0.5,
+                    particle.opacity,
+                    particle.opacity * 0.8,
+                    particle.opacity,
+                    particle.opacity * 0.5
+                  ],
+                  scale: [0.8, 1.2, 1, 1.1, 0.8]
                 }}
                 transition={{
                   duration: particle.duration,
@@ -136,8 +115,7 @@ const MagicalDivider = () => {
                   className="w-full h-full rounded-full"
                   style={{
                     backgroundColor: particle.color,
-                    boxShadow: `0 0 ${particle.size * 3}px ${particle.color}, 0 0 ${particle.size * 6}px ${particle.color}`,
-                    filter: 'blur(0.5px)'
+                    boxShadow: `0 0 ${particle.size * 4}px ${particle.color}`,
                   }}
                 />
               </motion.div>
@@ -158,11 +136,11 @@ const MagicalDivider = () => {
               <motion.div
                 className="absolute inset-0 rounded-full bg-gold/30 blur-2xl -z-10"
                 animate={{
-                  scale: [1, 1.3, 1],
-                  opacity: [0.4, 0.7, 0.4]
+                  scale: [1, 1.2, 1],
+                  opacity: [0.3, 0.5, 0.3]
                 }}
                 transition={{
-                  duration: 2.5,
+                  duration: 3,
                   repeat: Infinity,
                   ease: 'easeInOut'
                 }}
