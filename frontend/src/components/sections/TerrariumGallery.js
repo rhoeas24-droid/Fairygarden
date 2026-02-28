@@ -159,28 +159,18 @@ const TerrariumGallery = () => {
           >
             {/* Build Your Own with gold frame overlay */}
             <div className="relative" style={{ aspectRatio: '867/1535' }}>
-              {/* Background with icon - positioned inside the transparent area */}
-              <div 
-                className="absolute bg-forest/50 flex items-center justify-center"
+              {/* Build Your Own image - positioned inside the transparent area */}
+              <img
+                src="https://fairygarden4u.com/build_your_own.jpg"
+                alt="Build Your Own Terrarium"
+                className="absolute object-cover z-0"
                 style={{
                   left: '9.8%',
                   top: '9.4%',
                   width: '80.4%',
                   height: '83.4%',
                 }}
-              >
-                <motion.div
-                  animate={{
-                    scale: [1, 1.1, 1],
-                    rotate: [0, 5, -5, 0]
-                  }}
-                  transition={{ duration: 4, repeat: Infinity }}
-                  className="text-center relative"
-                >
-                  <Wand2 className="w-16 h-16 sm:w-20 sm:h-20 text-gold drop-shadow-lg" />
-                  <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-gold-light absolute -top-2 -right-2 animate-pulse" />
-                </motion.div>
-              </div>
+              />
               {/* Gold frame overlay - on top */}
               <img
                 src="https://fairygarden4u.com/ablak_frame.png"
