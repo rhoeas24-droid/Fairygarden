@@ -173,8 +173,8 @@ const TerrariumGallery = () => {
               <h3 className="text-lg font-cinzel font-bold text-gold">
                 {t('gallery.customTitle')}
               </h3>
-              <p className="text-cream/80 font-montserrat text-xs leading-relaxed line-clamp-2">
-                {t('gallery.customDescription')}
+              <p className="text-cream/80 font-montserrat text-xs leading-relaxed">
+                Dream your own. Choose options, we build it for you.
               </p>
               <div className="flex items-center justify-center gap-4 pt-1">
                 <span className="text-xl font-cinzel font-bold text-gold-light">
