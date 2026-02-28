@@ -148,42 +148,46 @@ const TerrariumGallery = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: products.length * 0.1 }}
-            className="bg-cream/95 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 group cursor-pointer"
+            className="hover:-translate-y-2 transition-all duration-300 group cursor-pointer"
             onClick={() => setIsCustomBuilderOpen(true)}
             data-testid="custom-terrarium-card"
           >
-            {/* Build Your Own card with image */}
-            <div className="relative aspect-square overflow-hidden bg-forest/30">
-              <img
-                src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400"
-                alt="Build Your Own Terrarium"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60"
-              />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <motion.div
-                  animate={{
-                    scale: [1, 1.1, 1],
-                    rotate: [0, 5, -5, 0]
-                  }}
-                  transition={{ duration: 4, repeat: Infinity }}
-                  className="text-center relative bg-forest/80 rounded-full p-4"
-                >
-                  <Wand2 className="w-10 h-10 sm:w-12 sm:h-12 text-gold drop-shadow-lg" />
-                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-gold-light absolute -top-1 -right-1 animate-pulse" />
-                </motion.div>
+            {/* Build Your Own with gold frame overlay */}
+            <div className="relative" style={{ aspectRatio: '867/1535' }}>
+              {/* Background with icon - behind the frame */}
+              <div className="absolute inset-0 flex items-center justify-center p-[10%] pt-[9.5%] pb-[7%] bg-forest/50">
+                <div className="w-full h-full flex items-center justify-center">
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.1, 1],
+                      rotate: [0, 5, -5, 0]
+                    }}
+                    transition={{ duration: 4, repeat: Infinity }}
+                    className="text-center relative"
+                  >
+                    <Wand2 className="w-16 h-16 sm:w-20 sm:h-20 text-gold drop-shadow-lg" />
+                    <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 text-gold-light absolute -top-2 -right-2 animate-pulse" />
+                  </motion.div>
+                </div>
               </div>
+              {/* Gold frame overlay - on top */}
+              <img
+                src="https://fairygarden4u.com/ablak_frame.png"
+                alt=""
+                className="absolute inset-0 w-full h-full object-contain pointer-events-none z-10"
+              />
             </div>
             
             {/* Custom info */}
             <div className="p-3 sm:p-4 space-y-2 text-center">
-              <h3 className="text-sm sm:text-base font-cinzel font-bold text-forest uppercase tracking-wide">
+              <h3 className="text-sm sm:text-base font-cinzel font-bold text-gold uppercase tracking-wide">
                 {t('gallery.customTitle')}
               </h3>
-              <p className="text-forest/70 font-montserrat text-xs leading-relaxed">
+              <p className="text-cream/70 font-montserrat text-xs leading-relaxed">
                 {t('gallery.customDescription')}
               </p>
               <div className="flex items-center justify-center gap-2 sm:gap-3 pt-1 flex-wrap">
-                <span className="text-base sm:text-lg font-cinzel font-bold text-forest">
+                <span className="text-base sm:text-lg font-cinzel font-bold text-gold">
                   {t('gallery.customFromPrice', { price: MIN_CUSTOM_PRICE })}
                 </span>
                 <span className="px-3 sm:px-4 py-1.5 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
@@ -192,6 +196,11 @@ const TerrariumGallery = () => {
                   group-hover:shadow-[0_6px_12px_rgba(201,168,76,0.4)]
                   transition-all duration-200"
                 >
+                  {t('gallery.customButton')}
+                </span>
+              </div>
+            </div>
+          </motion.div>
                 >
                   {t('gallery.customButton')}
                 </span>
