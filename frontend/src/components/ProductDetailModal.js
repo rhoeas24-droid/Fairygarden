@@ -52,23 +52,14 @@ const ProductDetailModal = ({ isOpen, onClose, product }) => {
             </button>
 
             <div className="grid md:grid-cols-2 gap-0">
-              {/* Left - Image with frame */}
-              <div className="relative p-8 bg-forest/50">
-                <div className="relative aspect-square">
-                  {/* Golden frame - background */}
+              {/* Left - Image */}
+              <div className="relative p-8 bg-forest/50 flex items-center justify-center">
+                <div className="relative w-full max-w-sm">
                   <img
-                    src="/ablak.png"
-                    alt=""
-                    className="absolute inset-0 w-full h-full object-fill"
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-auto rounded-lg shadow-lg border-2 border-gold/30"
                   />
-                  {/* Product image - on top in center */}
-                  <div className="absolute inset-[15%] overflow-hidden rounded-lg shadow-lg">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
                 </div>
               </div>
 
