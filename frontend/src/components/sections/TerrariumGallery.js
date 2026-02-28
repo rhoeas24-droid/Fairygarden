@@ -37,17 +37,18 @@ const ProductCard = ({ product, index, onViewDetails }) => {
     >
       {/* Product image with gold frame overlay */}
       <div className="relative" style={{ aspectRatio: '867/1535' }}>
-        {/* Product image - behind the frame, positioned inside the transparent area */}
+        {/* Product image - positioned inside the transparent area */}
         <img
           src={product.image}
           alt={product.name}
-          className="absolute object-cover"
+          className="absolute object-cover z-0"
           style={{
             left: '9.8%',
             top: '9.4%',
             width: '80.4%',
             height: '83.4%',
           }}
+          onError={(e) => { e.target.style.display = 'none'; }}
         />
         {/* Gold frame overlay - on top */}
         <img
