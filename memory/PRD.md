@@ -3,194 +3,103 @@
 ## Original Problem Statement
 Design a single-page website homepage for a magical terrarium brand called "Fairygarden For You" with the tagline 'A Touch of Magic in a Bottle'. The aesthetic should be a dark enchanted forest with gold accents.
 
-## Core Requirements
-- **Sections**: Hero, Terrarium Gallery (3-column grid), DIY Kits (2-column), For Business, Workshops, Blog Preview (3 cards), and Footer
-- **Functionality**:
-  - E-commerce capabilities ("Add to Cart" button, cart management)
-  - Functional forms for Business Inquiries, Workshop Signups, and Newsletter Subscription
-  - Dynamic blog preview section
-  - Sticky navigation header
-- **Aesthetics & Animations**:
-  - Animated "magical divider" section with flowing, multi-colored sparkles (gold, blue, magenta)
-  - Elegant serif fonts for headings
-- **Compliance & Internationalization**:
-  - Privacy Policy page with user-provided text
-  - Mandatory "I have read the Privacy Policy" checkbox on all forms
-  - Optional "Subscribe to our newsletter" checkbox on all forms
-  - Language switcher for English, Hungarian, Greek, and Italian
-- **Footer**: Contact info, social media links (Instagram, YouTube), newsletter signup with privacy checkbox
-
 ## Tech Stack
-- **Frontend**: React, Tailwind CSS, Framer Motion, react-i18next
+- **Frontend**: React, Tailwind CSS, Framer Motion
 - **Backend**: FastAPI (Python)
-- **Database**: MongoDB
+- **Database**: MySQL on cPanel
+- **Deployment**: cPanel with Phusion Passenger
 
-## What's Been Implemented
+## Live URLs
+- **Website**: https://fairygarden4u.com
+- **Backend API**: https://fairygarden4u.com/api
 
-### Completed Features ✅
-1. **Full-stack application** - React frontend, FastAPI backend, MongoDB database
-2. **All UI sections** - Hero, Gallery, DIY Kits, For Business, Workshops, Blog Preview, Footer
-3. **Dark enchanted forest aesthetic** with gold accents
-4. **E-commerce cart functionality** - Add to cart, cart drawer, checkout flow
-5. **Animated Magical Divider** - Multi-colored sparkle animation (gold, blue, magenta)
-6. **Privacy Policy page** - Complete with user-provided text at `/privacy`
-7. **Sticky navigation header** with smooth scroll to sections
-8. **Social media icons** - Instagram and YouTube in footer
+---
 
-### i18n Implementation (Completed 2026-02-26) ✅
-9. **Complete internationalization** across all components:
-   - Language switcher in navigation (EN, HU, EL, IT)
-   - Navigation menu translations
-   - DIY Kits section translations
-   - For Business section translations
-   - Workshops section translations (including workshop types dropdown)
-   - Blog section translations
-   - Cart drawer translations
-   - Footer translations
-   - All toast messages translated
+## What's Been Implemented ✅
 
-### Form Compliance (Completed 2026-02-26) ✅
-10. **Privacy & Newsletter checkboxes** on all forms:
-    - For Business form - privacy (required) + newsletter (optional)
-    - Workshops form - privacy (required) + newsletter (optional)  
-    - Footer newsletter form - privacy (required)
+### Core Features
+- [x] Hero section with animated stars/sparkles
+- [x] Terrarium Gallery with golden window frame design
+- [x] Product Detail Modal (fixed broken frame image)
+- [x] "Build Your Own Terrarium" configurator with price calculator
+- [x] Shopping cart functionality
+- [x] DIY Kits section
+- [x] For Business section with inquiry form
+- [x] Workshops section with signup form
+- [x] Blog Preview section
+- [x] About section
+- [x] Footer with newsletter signup
+- [x] Sticky navigation header
+- [x] Scroll to Top button
+- [x] Cookie consent banner (GDPR)
+- [x] Language switcher (EN, HU, GR, IT)
+- [x] Privacy Policy page
+- [x] Responsive design (mobile, tablet, desktop)
 
-### Cookie Consent Banner (Completed 2026-02-26) ✅
-11. **GDPR-compliant cookie banner with granular controls**:
-    - Appears on first visit (after 1 second delay)
-    - Translated in all 4 languages (EN, HU, EL, IT)
-    - Three cookie categories:
-      - **Necessary** (always on, cannot be disabled)
-      - **Functional** (optional toggle)
-      - **Analytical** (optional toggle)
-    - "Accept All", "Customize", "Only Necessary" buttons
-    - Stores user preferences in localStorage with timestamp
-    - Links to Privacy Policy
+### Recent Updates (Feb 28, 2025)
+- [x] Doubled stars and sparkles density (60 stars in Hero, 360 particles in MagicalDivider)
+- [x] Smooth, flowing animations (linear easing, 12-22 second cycles, elliptical paths)
+- [x] Fixed Product Detail Modal broken frame image
+- [x] Updated Premium Collection product image
 
-### Scroll to Top Button (Completed 2026-02-26) ✅
-12. **Magical floating scroll-to-top button**:
-    - Appears when scrolled down 400px
-    - Animated sparkles around the button
-    - Smooth scroll animation to top
-    - Gold gradient matching site aesthetic
-    - Hover and pulse animations
+---
 
-### Google Analytics Integration (Completed 2026-02-26) ✅
-13. **GDPR-compliant Google Analytics (G-MBM9181SNV)**:
-    - Only loads when analytical cookies are accepted
-    - Uses anonymize_ip for GDPR compliance
-    - Listens for cookie consent changes
-    - No tracking without explicit user consent
+## Pending Tasks
 
-### About Section (Completed 2026-02-26) ✅
-14. **About Us page** with brand story and team:
-    - Brand history and mission statement
-    - Three core values: Sustainability, Craftsmanship, Magic
-    - Team member profiles with photos
-    - Translated in all 4 languages
-    - Located after Workshops, before Blog
+### P1 - High Priority
+- [ ] Finalize Terms & Conditions page content (user provided text in earlier session)
+- [ ] Stripe payment integration
+- [ ] Admin dashboard (products, orders, blog management)
+- [ ] Replace remaining placeholder content (About Us, contact info)
 
-### Custom Terrarium Builder Updates (Completed 2026-02-26) ✅
-16. **"Build Your Own Terrarium" feature updated**:
-    - Gallery card shows "from €47.51" (minimum price)
-    - Size options without individual prices (S=Kicsi, M=Közepes, L=Nagy, XL=Óriás)
-    - **30% deposit** shown separately as "Tervezési és egyeztetési díj"
-    - Real-time price calculation with total + deposit breakdown
+### P2 - Medium Priority
+- [ ] User accounts (registration, login, order history)
+- [ ] Full blog page with detailed post views
+- [ ] SEO meta tags implementation
 
-### Terms and Conditions (Completed 2026-02-26) ✅
-17. **Terms and Conditions page added**:
-    - 6 chapters covering general terms, products, ordering, delivery, custom orders, contact
-    - **Chapter 5 highlighted** for custom orders (non-refundable deposit, consultation process, timeline)
-    - New checkbox: "Az ÁSZF tartalmát megismertem és elfogadom, különös tekintettel a jelen tranzakcióra érvényes 5. fejezetre"
-    - Navigation menu includes "ÁSZF" link
-    - Translated in all 4 languages
+### P3 - Low Priority
+- [ ] Database cleanup (remove duplicate product entries)
 
-### Gallery Section Updated (Completed 2026-02-26) ✅
-18. **Updated Gallery description** emphasizing:
-    - All terrariums are unique and handcrafted
-    - Using mostly home-grown plants
-    - Custom-developed planting medium
-
-### Responsive Design (Completed 2026-02-28) ✅
-19. **Full mobile and tablet optimization**:
-    - Navigation: Hamburger menu on mobile/tablet (lg: breakpoint)
-    - Gallery: 1 column mobile, 2 columns tablet, 3 columns desktop
-    - Footer: Centered on mobile, 4-column grid on desktop
-    - All forms: Responsive padding and font sizes
-    - DIY Kits: Image on top for mobile, side-by-side on desktop
-    - Workshops: Form first on mobile/tablet, image first on desktop
-    - About: Story and team sections responsive
-    - Blog: 1-3 columns responsive grid
-    - Terms & Privacy: Responsive text and spacing
-    - "Build Your Own" card text shortened for visual consistency
-
-## API Endpoints
-- `GET /api/products` - Fetch product data for gallery
-- `GET /api/blog/posts` - Fetch blog preview data
-- `POST /api/contact` - Submit business contact form
-- `POST /api/workshop/register` - Submit workshop registration
-- `POST /api/newsletter/subscribe` - Subscribe to newsletter
+---
 
 ## Database Schema
-- **products**: { id, name, description, price, image, category }
-- **blog_posts**: { id, title, excerpt, image, author, published_at }
-- **inquiries**: { id, name, email, company, message, created_at }
-- **workshop_registrations**: { id, name, email, phone, workshop_type, created_at }
-- **newsletter_subscriptions**: { id, email, created_at }
 
-## Test Coverage
-- **30/30 tests passing** (100% success rate)
-- Backend: pytest tests for all API endpoints
-- Frontend: Playwright e2e tests for:
-  - Language switching (all 4 languages)
-  - Section translations
-  - Form validation with checkboxes
-  - Cart and footer i18n
+**Table**: `products` in `medisolu_fairygarden`
+- `id` (UUID)
+- `name` (VARCHAR)
+- `description` (TEXT)
+- `price` (DECIMAL)
+- `image` (VARCHAR - absolute URL)
+- `category` (VARCHAR)
+- `created_at` (DATETIME)
 
-## File Structure
+---
+
+## Deployment Notes
+
+### Critical: cPanel Deployment Process
+1. Build frontend: `yarn build`
+2. Upload JS/CSS to file hosting (litterbox.catbox.moe)
+3. User runs `curl -L -o` commands in cPanel Terminal
+4. Update `index.html` with new filenames via `sed`
+5. Backend restart: `touch ~/fairygarden-backend/tmp/restart.txt`
+
+### Important Files on cPanel
 ```
-/app/
-├── backend/
-│   ├── server.py
-│   ├── seed.py
-│   └── tests/
-│       └── test_api.py
-└── frontend/
-    ├── public/
-    │   └── assets/
-    └── src/
-        ├── App.js
-        ├── i18n.js
-        ├── components/
-        │   ├── LanguageSwitcher.js
-        │   ├── Navigation.js
-        │   ├── CartDrawer.js
-        │   └── sections/
-        │       ├── BlogPreview.js
-        │       ├── DIYKits.js
-        │       ├── Footer.js
-        │       ├── ForBusiness.js
-        │       ├── Hero.js
-        │       ├── MagicalDivider.js
-        │       ├── PrivacyPolicy.js
-        │       ├── TerrariumGallery.js
-        │       └── Workshops.js
-        └── locales/
-            ├── en.json
-            ├── hu.json
-            ├── el.json
-            └── it.json
+/home/medisolu/
+├── fairygarden4u.com/          # Frontend webroot
+│   ├── static/css/main.*.css
+│   ├── static/js/main.*.js
+│   ├── ablak_frame.png         # Golden window frame
+│   └── [product images].jpg
+│
+└── fairygarden-backend/        # Backend
+    ├── server.py
+    └── tmp/restart.txt         # Touch to restart
 ```
 
-## Known Limitations
-- E-commerce cart does not integrate with a real payment processor (MOCKED)
-- No admin interface to manage blog posts or products (MOCKED)
-- Blog posts and products are seeded from seed.py
-
-## Future Enhancements (Backlog)
-- P1: Payment processor integration (Stripe)
-- P1: Admin dashboard for content management
-- P2: User authentication and order history
-- P2: Blog post full page view
-- P3: Product filtering and search
-- P3: Wishlist functionality
+### Cache Issues
+Always instruct user to:
+1. Restart backend: `touch ~/fairygarden-backend/tmp/restart.txt`
+2. Hard refresh: Ctrl+Shift+R
+3. Check in incognito window
