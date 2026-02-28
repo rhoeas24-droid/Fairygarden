@@ -201,12 +201,6 @@ const TerrariumGallery = () => {
               </div>
             </div>
           </motion.div>
-                >
-                  {t('gallery.customButton')}
-                </span>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </div>
       
