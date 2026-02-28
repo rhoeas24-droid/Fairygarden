@@ -37,14 +37,18 @@ const ProductCard = ({ product, index, onViewDetails }) => {
     >
       {/* Product image with gold frame overlay */}
       <div className="relative" style={{ aspectRatio: '867/1535' }}>
-        {/* Product image - behind the frame */}
-        <div className="absolute inset-0 flex items-center justify-center p-[10%] pt-[9.5%] pb-[7%]">
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-full object-cover rounded-sm"
-          />
-        </div>
+        {/* Product image - behind the frame, positioned inside the transparent area */}
+        <img
+          src={product.image}
+          alt={product.name}
+          className="absolute object-cover"
+          style={{
+            left: '9.8%',
+            top: '9.4%',
+            width: '80.4%',
+            height: '83.4%',
+          }}
+        />
         {/* Gold frame overlay - on top */}
         <img
           src="https://fairygarden4u.com/ablak_frame.png"
