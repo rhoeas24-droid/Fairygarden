@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
   return (
     <section
       id="privacy-policy"
-      className="relative py-24 px-4 min-h-screen"
+      className="relative py-12 sm:py-16 lg:py-24 px-3 sm:px-4 min-h-screen"
       style={{
         backgroundImage: 'url(/BG_TILE_FINAL.jpg)',
         backgroundSize: 'cover',
@@ -24,16 +24,16 @@ const PrivacyPolicy = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
-          <Shield className="w-16 h-16 text-gold mx-auto mb-6" />
-          <h1 className="text-4xl md:text-5xl font-cinzel font-bold text-gold mb-4" data-testid="privacy-policy-title">
+          <Shield className="w-12 h-12 sm:w-16 sm:h-16 text-gold mx-auto mb-4 sm:mb-6" />
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-cinzel font-bold text-gold mb-3 sm:mb-4 px-2" data-testid="privacy-policy-title">
             {i18n.language === 'hu' ? 'ADATKEZELÉSI ÉS ADATVÉDELMI TÁJÉKOZTATÓ' : 
              i18n.language === 'el' ? 'ΠΟΛΙΤΙΚΗ ΔΙΑΧΕΙΡΙΣΗΣ ΚΑΙ ΠΡΟΣΤΑΣΙΑΣ ΔΕΔΟΜΕΝΩΝ' :
              i18n.language === 'it' ? 'INFORMATIVA SULLA GESTIONE E PROTEZIONE DEI DATI' :
              'DATA MANAGEMENT AND PRIVACY POLICY'}
           </h1>
-          <p className="text-cream/80 font-montserrat text-lg">
+          <p className="text-cream/80 font-montserrat text-sm sm:text-base lg:text-lg">
             {i18n.language === 'hu' ? 'Utolsó frissítés: 2026. február 25.' :
              i18n.language === 'el' ? 'Τελευταία ενημέρωση: 25 Φεβρουαρίου 2026' :
              i18n.language === 'it' ? 'Ultimo aggiornamento: 25 febbraio 2026' :
@@ -45,14 +45,14 @@ const PrivacyPolicy = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="bg-forest/60 backdrop-blur-md border border-gold/30 rounded-2xl p-8 md:p-12 space-y-8"
+          className="bg-forest/60 backdrop-blur-md border border-gold/30 rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12 space-y-6 sm:space-y-8"
         >
           {/* Introduction */}
-          <div className="space-y-4">
-            <div className="flex items-start gap-4">
-              <FileText className="w-6 h-6 text-gold flex-shrink-0 mt-1" />
-              <div className="text-cream/90 font-montserrat leading-relaxed text-justify">
-                <h2 className="text-2xl font-cinzel font-bold text-gold mb-4">1. Introduction</h2>
+          <div className="space-y-3 sm:space-y-4">
+            <div className="flex items-start gap-2 sm:gap-4">
+              <FileText className="w-5 h-5 sm:w-6 sm:h-6 text-gold flex-shrink-0 mt-1" />
+              <div className="text-cream/90 font-montserrat leading-relaxed text-justify text-sm sm:text-base">
+                <h2 className="text-xl sm:text-2xl font-cinzel font-bold text-gold mb-3 sm:mb-4">1. Introduction</h2>
                 <p className="mb-3">
                   This Data Management and Privacy Policy (hereinafter: "Policy") defines the manner and conditions of processing personal data for visitors, subscribers, and customers of the website operated by [Company Name] (hereinafter: "Data Controller").
                 </p>
@@ -76,11 +76,11 @@ const PrivacyPolicy = () => {
           </div>
 
           {/* Legal Background */}
-          <div className="space-y-4">
-            <div className="flex items-start gap-4">
-              <Lock className="w-6 h-6 text-gold flex-shrink-0 mt-1" />
-              <div className="text-cream/90 font-montserrat leading-relaxed text-justify">
-                <h2 className="text-2xl font-cinzel font-bold text-gold mb-4">2. Legal Background</h2>
+          <div className="space-y-3 sm:space-y-4">
+            <div className="flex items-start gap-2 sm:gap-4">
+              <Lock className="w-5 h-5 sm:w-6 sm:h-6 text-gold flex-shrink-0 mt-1" />
+              <div className="text-cream/90 font-montserrat leading-relaxed text-justify text-sm sm:text-base">
+                <h2 className="text-xl sm:text-2xl font-cinzel font-bold text-gold mb-3 sm:mb-4">2. Legal Background</h2>
                 <p className="mb-2">Data processing is carried out in accordance with the following legislation:</p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
                   <li>EU Regulation 2016/679 (GDPR) – Regulation of the European Parliament and of the Council on the protection of individuals with regard to the processing of personal data.</li>
@@ -92,11 +92,11 @@ const PrivacyPolicy = () => {
           </div>
 
           {/* Definitions */}
-          <div className="space-y-4">
-            <div className="flex items-start gap-4">
-              <Eye className="w-6 h-6 text-gold flex-shrink-0 mt-1" />
-              <div className="text-cream/90 font-montserrat leading-relaxed text-justify">
-                <h2 className="text-2xl font-cinzel font-bold text-gold mb-4">3. Definitions</h2>
+          <div className="space-y-3 sm:space-y-4">
+            <div className="flex items-start gap-2 sm:gap-4">
+              <Eye className="w-5 h-5 sm:w-6 sm:h-6 text-gold flex-shrink-0 mt-1" />
+              <div className="text-cream/90 font-montserrat leading-relaxed text-justify text-sm sm:text-base">
+                <h2 className="text-xl sm:text-2xl font-cinzel font-bold text-gold mb-3 sm:mb-4">3. Definitions</h2>
                 <ul className="space-y-2">
                   <li><strong className="text-gold">Personal data:</strong> Any information on the basis of which a natural person can be directly or indirectly identified (e.g. name, email address, IP address).</li>
                   <li><strong className="text-gold">Data Controller:</strong> The person or organisation that determines the purposes and means of processing personal data – in this case, [Company Name].</li>
@@ -109,11 +109,11 @@ const PrivacyPolicy = () => {
           </div>
 
           {/* Cookies */}
-          <div className="space-y-4">
-            <div className="flex items-start gap-4">
-              <Cookie className="w-6 h-6 text-gold flex-shrink-0 mt-1" />
-              <div className="text-cream/90 font-montserrat leading-relaxed text-justify">
-                <h2 className="text-2xl font-cinzel font-bold text-gold mb-4">5. Cookies</h2>
+          <div className="space-y-3 sm:space-y-4">
+            <div className="flex items-start gap-2 sm:gap-4">
+              <Cookie className="w-5 h-5 sm:w-6 sm:h-6 text-gold flex-shrink-0 mt-1" />
+              <div className="text-cream/90 font-montserrat leading-relaxed text-justify text-sm sm:text-base">
+                <h2 className="text-xl sm:text-2xl font-cinzel font-bold text-gold mb-3 sm:mb-4">5. Cookies</h2>
                 <p className="mb-3">
                   A cookie is a small text file placed on the visitor's device by the website. It enables the website to remember the user's preferences and improve the browsing experience.
                 </p>
@@ -148,11 +148,11 @@ const PrivacyPolicy = () => {
           </div>
 
           {/* Newsletter */}
-          <div className="space-y-4">
-            <div className="flex items-start gap-4">
-              <Mail className="w-6 h-6 text-gold flex-shrink-0 mt-1" />
-              <div className="text-cream/90 font-montserrat leading-relaxed text-justify">
-                <h2 className="text-2xl font-cinzel font-bold text-gold mb-4">6. Newsletter Subscription</h2>
+          <div className="space-y-3 sm:space-y-4">
+            <div className="flex items-start gap-2 sm:gap-4">
+              <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-gold flex-shrink-0 mt-1" />
+              <div className="text-cream/90 font-montserrat leading-relaxed text-justify text-sm sm:text-base">
+                <h2 className="text-xl sm:text-2xl font-cinzel font-bold text-gold mb-3 sm:mb-4">6. Newsletter Subscription</h2>
                 <div className="bg-black/20 p-4 rounded-lg space-y-2 text-sm">
                   <p><strong className="text-gold">Data processed:</strong> Name, email address</p>
                   <p><strong className="text-gold">Purpose:</strong> Sending newsletters, promotions, and informational messages</p>
@@ -165,11 +165,11 @@ const PrivacyPolicy = () => {
           </div>
 
           {/* Data Security */}
-          <div className="space-y-4">
-            <div className="flex items-start gap-4">
-              <Shield className="w-6 h-6 text-gold flex-shrink-0 mt-1" />
-              <div className="text-cream/90 font-montserrat leading-relaxed text-justify">
-                <h2 className="text-2xl font-cinzel font-bold text-gold mb-4">8. Data Security</h2>
+          <div className="space-y-3 sm:space-y-4">
+            <div className="flex items-start gap-2 sm:gap-4">
+              <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-gold flex-shrink-0 mt-1" />
+              <div className="text-cream/90 font-montserrat leading-relaxed text-justify text-sm sm:text-base">
+                <h2 className="text-xl sm:text-2xl font-cinzel font-bold text-gold mb-3 sm:mb-4">8. Data Security</h2>
                 <p className="mb-3">The Data Controller applies the following technical and organisational measures to protect personal data:</p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
                   <li>SSL/TLS encryption on the website</li>
@@ -185,11 +185,11 @@ const PrivacyPolicy = () => {
           </div>
 
           {/* Rights */}
-          <div className="space-y-4">
-            <div className="flex items-start gap-4">
-              <Eye className="w-6 h-6 text-gold flex-shrink-0 mt-1" />
-              <div className="text-cream/90 font-montserrat leading-relaxed text-justify">
-                <h2 className="text-2xl font-cinzel font-bold text-gold mb-4">9. Rights of Data Subjects</h2>
+          <div className="space-y-3 sm:space-y-4">
+            <div className="flex items-start gap-2 sm:gap-4">
+              <Eye className="w-5 h-5 sm:w-6 sm:h-6 text-gold flex-shrink-0 mt-1" />
+              <div className="text-cream/90 font-montserrat leading-relaxed text-justify text-sm sm:text-base">
+                <h2 className="text-xl sm:text-2xl font-cinzel font-bold text-gold mb-3 sm:mb-4">9. Rights of Data Subjects</h2>
                 <p className="mb-3">Under the GDPR, you have the following rights:</p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
                   <li><strong className="text-gold">Right of access (Article 15):</strong> Request information about your data</li>
@@ -210,9 +210,9 @@ const PrivacyPolicy = () => {
           </div>
 
           {/* Complaints */}
-          <div className="space-y-4">
-            <div className="text-cream/90 font-montserrat leading-relaxed text-justify">
-              <h2 className="text-2xl font-cinzel font-bold text-gold mb-4">10. Complaints and Supervisory Authority</h2>
+          <div className="space-y-3 sm:space-y-4">
+            <div className="text-cream/90 font-montserrat leading-relaxed text-justify text-sm sm:text-base">
+              <h2 className="text-xl sm:text-2xl font-cinzel font-bold text-gold mb-3 sm:mb-4">10. Complaints and Supervisory Authority</h2>
               <p className="mb-3">If you believe that the processing of your personal data infringes GDPR provisions, you have the right to lodge a complaint with:</p>
               <div className="bg-black/20 p-4 rounded-lg">
                 <p className="font-semibold text-gold mb-2">National Authority for Data Protection and Freedom of Information (NAIH)</p>
