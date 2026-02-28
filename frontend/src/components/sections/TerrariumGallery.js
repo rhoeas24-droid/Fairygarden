@@ -37,22 +37,22 @@ const ProductCard = ({ product, index, onViewDetails }) => {
     >
       {/* Frame with image */}
       <div className="relative aspect-square">
-        {/* Product image - behind frame */}
-        <div className="absolute inset-[12%] overflow-hidden">
+        {/* Golden frame - background */}
+        <img
+          src="/ablak.png"
+          alt=""
+          className="absolute inset-0 w-full h-full object-fill"
+        />
+        {/* Product image - on top in center */}
+        <div className="absolute inset-[15%] overflow-hidden rounded-lg shadow-lg">
           <img
             src={product.image}
             alt={product.name}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           />
         </div>
-        {/* Golden frame - on top */}
-        <img
-          src="/ablak.png"
-          alt=""
-          className="absolute inset-0 w-full h-full object-fill pointer-events-none"
-        />
         {/* Hover overlay */}
-        <div className="absolute inset-[12%] bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+        <div className="absolute inset-[15%] rounded-lg bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
           <Eye className="w-12 h-12 text-gold" />
         </div>
       </div>
