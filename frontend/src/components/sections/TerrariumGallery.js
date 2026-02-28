@@ -144,11 +144,11 @@ const TerrariumGallery = () => {
             data-testid="custom-terrarium-card"
           >
             {/* Build Your Own card with image */}
-            <div className="relative aspect-square bg-white/80 p-4 sm:p-6">
+            <div className="relative aspect-square overflow-hidden bg-forest/30">
               <img
                 src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400"
                 alt="Build Your Own Terrarium"
-                className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60"
               />
               <div className="absolute inset-0 flex items-center justify-center">
                 <motion.div
@@ -165,23 +165,24 @@ const TerrariumGallery = () => {
               </div>
             </div>
             
-            {/* Custom info - dark text on light background */}
-            <div className="p-4 sm:p-5 space-y-2 text-center">
-              <h3 className="text-base sm:text-lg font-cinzel font-bold text-forest uppercase tracking-wide">
+            {/* Custom info */}
+            <div className="p-3 sm:p-4 space-y-2 text-center">
+              <h3 className="text-sm sm:text-base font-cinzel font-bold text-forest uppercase tracking-wide">
                 {t('gallery.customTitle')}
               </h3>
-              <p className="text-forest/70 font-montserrat text-xs sm:text-sm leading-relaxed">
+              <p className="text-forest/70 font-montserrat text-xs leading-relaxed">
                 {t('gallery.customDescription')}
               </p>
-              <div className="flex items-center justify-center gap-3 sm:gap-4 pt-2 flex-wrap">
-                <span className="text-lg sm:text-xl font-cinzel font-bold text-forest">
+              <div className="flex items-center justify-center gap-2 sm:gap-3 pt-1 flex-wrap">
+                <span className="text-base sm:text-lg font-cinzel font-bold text-forest">
                   {t('gallery.customFromPrice', { price: MIN_CUSTOM_PRICE })}
                 </span>
-                <span className="px-4 sm:px-5 py-2 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
+                <span className="px-3 sm:px-4 py-1.5 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
                   text-[#3e2b08] font-bold text-[10px] sm:text-xs uppercase rounded-full tracking-wider
                   shadow-[0_4px_8px_rgba(0,0,0,0.2)]
                   group-hover:shadow-[0_6px_12px_rgba(201,168,76,0.4)]
                   transition-all duration-200"
+                >
                 >
                   {t('gallery.customButton')}
                 </span>
