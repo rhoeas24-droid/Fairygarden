@@ -24,39 +24,53 @@ const SparkleBackground = () => {
         fpsLimit: 60,
         particles: {
           number: {
-            value: 50,
+            value: 80,
             density: {
               enable: true,
-              area: 800
+              area: 1000
             }
           },
           color: {
-            value: ['#c9a84c', '#f0e68c', '#d4af37']
+            value: ['#c9a84c', '#f0e68c', '#d4af37', '#FFD700']
           },
           shape: {
             type: 'circle'
           },
           opacity: {
-            value: { min: 0.1, max: 0.8 },
+            value: { min: 0.3, max: 0.8 },
             animation: {
               enable: true,
-              speed: 1,
-              minimumValue: 0.1,
+              speed: 0.5,
+              minimumValue: 0.2,
               sync: false
             }
           },
           size: {
-            value: { min: 1, max: 4 }
+            value: { min: 1, max: 3 }
           },
           move: {
             enable: true,
-            speed: 1,
+            speed: 0.8,
             direction: 'none',
-            random: true,
+            random: false,
             straight: false,
             outModes: {
               default: 'out'
-            }
+            },
+            path: {
+              enable: true,
+              options: {
+                size: 5,
+                draw: false,
+                increment: 0.001
+              }
+            },
+            trail: {
+              enable: true,
+              length: 5,
+              fillColor: 'transparent'
+            },
+            warp: true
           }
         },
         interactivity: {
@@ -64,17 +78,16 @@ const SparkleBackground = () => {
           events: {
             onHover: {
               enable: true,
-              mode: 'grab'
+              mode: 'bubble'
             },
             resize: true
           },
           modes: {
-            grab: {
-              distance: 140,
-              links: {
-                opacity: 0.3,
-                color: '#c9a84c'
-              }
+            bubble: {
+              distance: 150,
+              size: 6,
+              duration: 2,
+              opacity: 1
             }
           }
         },
