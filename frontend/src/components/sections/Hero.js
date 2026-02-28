@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 const Hero = () => {
-  // Generate flowing stars
-  const generateStars = () => {
-    const stars = [];
-    const count = 60; // 60 stars
+  // Generate flowing stars with smooth sine-wave motion
+  const stars = useMemo(() => {
+    const result = [];
+    const count = 60;
     
     for (let i = 0; i < count; i++) {
       const colorRand = Math.random();
@@ -18,21 +18,27 @@ const Hero = () => {
         color = ['#f0e68c', '#d4af37', '#c9a84c', '#FFD700', '#DAA520'][Math.floor(Math.random() * 5)];
       }
       
-      stars.push({
+      // Smooth circular/elliptical path parameters
+      const radiusX = 8 + Math.random() * 15;
+      const radiusY = 6 + Math.random() * 12;
+      const phase = Math.random() * Math.PI * 2;
+      
+      result.push({
         id: i,
         x: Math.random() * 100,
         y: Math.random() * 100,
         size: 2 + Math.random() * 4,
         color,
-        duration: 4 + Math.random() * 6,
-        delay: Math.random() * 3,
-        opacity: 0.4 + Math.random() * 0.6
+        duration: 12 + Math.random() * 10, // Slower, smoother
+        delay: Math.random() * 8,
+        opacity: 0.5 + Math.random() * 0.5,
+        radiusX,
+        radiusY,
+        phase
       });
     }
-    return stars;
-  };
-
-  const stars = generateStars();
+    return result;
+  }, []);
 
   return (
     <section
@@ -47,7 +53,7 @@ const Hero = () => {
     >
       <div className="absolute inset-0 bg-forest/30" />
       
-      {/* Flowing stars */}
+      {/* Smooth flowing stars - gentle elliptical drift */}
       {stars.map((star) => (
         <motion.div
           key={star.id}
@@ -59,16 +65,33 @@ const Hero = () => {
             height: star.size,
           }}
           animate={{
-            x: [0, 30, -20, 10, 0],
-            y: [0, -20, 10, -15, 0],
-            opacity: [star.opacity * 0.5, star.opacity, star.opacity * 0.7, star.opacity, star.opacity * 0.5],
-            scale: [0.8, 1.3, 1, 1.2, 0.8]
+            x: [
+              Math.cos(star.phase) * star.radiusX,
+              Math.cos(star.phase + Math.PI * 0.5) * star.radiusX,
+              Math.cos(star.phase + Math.PI) * star.radiusX,
+              Math.cos(star.phase + Math.PI * 1.5) * star.radiusX,
+              Math.cos(star.phase + Math.PI * 2) * star.radiusX,
+            ],
+            y: [
+              Math.sin(star.phase) * star.radiusY,
+              Math.sin(star.phase + Math.PI * 0.5) * star.radiusY,
+              Math.sin(star.phase + Math.PI) * star.radiusY,
+              Math.sin(star.phase + Math.PI * 1.5) * star.radiusY,
+              Math.sin(star.phase + Math.PI * 2) * star.radiusY,
+            ],
+            opacity: [
+              star.opacity * 0.7,
+              star.opacity,
+              star.opacity * 0.85,
+              star.opacity,
+              star.opacity * 0.7
+            ],
           }}
           transition={{
             duration: star.duration,
             delay: star.delay,
             repeat: Infinity,
-            ease: 'easeInOut'
+            ease: 'linear'
           }}
         >
           <div

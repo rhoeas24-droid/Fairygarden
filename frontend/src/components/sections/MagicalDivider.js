@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import GoldButton from '../GoldButton';
@@ -13,14 +13,14 @@ const MagicalDivider = () => {
     }
   };
 
-  // Smooth flowing particles - elegant gold dust
-  const generateFlowingParticles = () => {
-    const particles = [];
+  // Smooth flowing particles - elegant gold dust with continuous orbit
+  const particles = useMemo(() => {
+    const result = [];
     const count = 360;
     
     for (let i = 0; i < count; i++) {
       const angle = (i / count) * Math.PI * 2;
-      const baseRadius = 60 + Math.random() * 200;
+      const baseRadius = 80 + Math.random() * 180;
       
       // Color distribution: 70% gold, 15% blue, 15% magenta
       const colorRand = Math.random();
@@ -33,22 +33,20 @@ const MagicalDivider = () => {
         color = ['#f0e68c', '#d4af37', '#c9a84c', '#FFD700', '#DAA520', '#FFDF00'][Math.floor(Math.random() * 6)];
       }
       
-      particles.push({
+      result.push({
         id: i,
         angle,
         radius: baseRadius,
         size: 1 + Math.random() * 3,
         color,
-        duration: 6 + Math.random() * 8,
-        delay: (i / count) * 3,
+        duration: 18 + Math.random() * 14, // Much slower for smooth flow
+        delay: (i / count) * 6,
         opacity: 0.5 + Math.random() * 0.5
       });
     }
     
-    return particles;
-  };
-
-  const particles = generateFlowingParticles();
+    return result;
+  }, []);
 
   return (
     <section className="relative py-20 overflow-hidden" style={{
