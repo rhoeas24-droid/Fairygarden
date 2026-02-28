@@ -118,7 +118,7 @@ const Navigation = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-forest/98 backdrop-blur-lg border-t border-gold/20"
+            className="lg:hidden bg-forest/98 backdrop-blur-lg border-t border-gold/20"
           >
             <div className="px-4 py-6 space-y-4">
               {navLinks.map((link) => (
