@@ -65,7 +65,7 @@ const MagicalDivider = () => {
           className="flex flex-col items-center justify-center"
         >
           <div className="relative">
-            {/* Smooth flowing particles in circular orbit */}
+            {/* Smooth flowing particles - continuous gentle orbit */}
             {particles.map((particle) => (
               <motion.div
                 key={particle.id}
@@ -81,32 +81,43 @@ const MagicalDivider = () => {
                 animate={{
                   x: [
                     Math.cos(particle.angle) * particle.radius,
-                    Math.cos(particle.angle + Math.PI * 0.5) * particle.radius * 1.1,
+                    Math.cos(particle.angle + Math.PI * 0.25) * particle.radius,
+                    Math.cos(particle.angle + Math.PI * 0.5) * particle.radius,
+                    Math.cos(particle.angle + Math.PI * 0.75) * particle.radius,
                     Math.cos(particle.angle + Math.PI) * particle.radius,
-                    Math.cos(particle.angle + Math.PI * 1.5) * particle.radius * 0.9,
+                    Math.cos(particle.angle + Math.PI * 1.25) * particle.radius,
+                    Math.cos(particle.angle + Math.PI * 1.5) * particle.radius,
+                    Math.cos(particle.angle + Math.PI * 1.75) * particle.radius,
                     Math.cos(particle.angle + Math.PI * 2) * particle.radius,
                   ],
                   y: [
-                    Math.sin(particle.angle) * particle.radius * 0.6,
-                    Math.sin(particle.angle + Math.PI * 0.5) * particle.radius * 0.7,
-                    Math.sin(particle.angle + Math.PI) * particle.radius * 0.6,
+                    Math.sin(particle.angle) * particle.radius * 0.5,
+                    Math.sin(particle.angle + Math.PI * 0.25) * particle.radius * 0.5,
+                    Math.sin(particle.angle + Math.PI * 0.5) * particle.radius * 0.5,
+                    Math.sin(particle.angle + Math.PI * 0.75) * particle.radius * 0.5,
+                    Math.sin(particle.angle + Math.PI) * particle.radius * 0.5,
+                    Math.sin(particle.angle + Math.PI * 1.25) * particle.radius * 0.5,
                     Math.sin(particle.angle + Math.PI * 1.5) * particle.radius * 0.5,
-                    Math.sin(particle.angle + Math.PI * 2) * particle.radius * 0.6,
+                    Math.sin(particle.angle + Math.PI * 1.75) * particle.radius * 0.5,
+                    Math.sin(particle.angle + Math.PI * 2) * particle.radius * 0.5,
                   ],
                   opacity: [
-                    particle.opacity * 0.5,
-                    particle.opacity,
                     particle.opacity * 0.8,
+                    particle.opacity * 0.9,
                     particle.opacity,
-                    particle.opacity * 0.5
+                    particle.opacity * 0.95,
+                    particle.opacity * 0.85,
+                    particle.opacity * 0.9,
+                    particle.opacity,
+                    particle.opacity * 0.95,
+                    particle.opacity * 0.8
                   ],
-                  scale: [0.8, 1.2, 1, 1.1, 0.8]
                 }}
                 transition={{
                   duration: particle.duration,
                   delay: particle.delay,
                   repeat: Infinity,
-                  ease: 'easeInOut'
+                  ease: 'linear'
                 }}
               >
                 <div
