@@ -157,16 +157,10 @@ const TerrariumGallery = () => {
             onClick={() => setIsCustomBuilderOpen(true)}
             data-testid="custom-terrarium-card"
           >
-            {/* Frame with wand icon */}
-            <div className="relative aspect-square">
-              {/* Golden frame - background */}
-              <img
-                src="/ablak.png"
-                alt=""
-                className="absolute inset-0 w-full h-full object-fill"
-              />
-              {/* Wand icon - on top in center */}
-              <div className="absolute inset-[15%] overflow-hidden rounded-lg bg-forest/90 flex items-center justify-center">
+            {/* Build Your Own with frame */}
+            <div className="relative aspect-square bg-forest/80 rounded-lg overflow-hidden">
+              {/* Wand icon content */}
+              <div className="w-full h-full flex items-center justify-center">
                 <motion.div
                   animate={{
                     scale: [1, 1.1, 1],
@@ -175,11 +169,17 @@ const TerrariumGallery = () => {
                   transition={{ duration: 4, repeat: Infinity }}
                   className="text-center relative"
                 >
-                  <Wand2 className="w-16 h-16 text-gold mx-auto" />
-                  <Sparkles className="w-6 h-6 text-gold-light absolute -top-2 -right-2 animate-pulse" />
-                  <Sparkles className="w-4 h-4 text-gold-light absolute -bottom-1 -left-2 animate-pulse" style={{ animationDelay: '0.5s' }} />
+                  <Wand2 className="w-20 h-20 text-gold mx-auto" />
+                  <Sparkles className="w-8 h-8 text-gold-light absolute -top-2 -right-2 animate-pulse" />
+                  <Sparkles className="w-6 h-6 text-gold-light absolute -bottom-1 -left-2 animate-pulse" style={{ animationDelay: '0.5s' }} />
                 </motion.div>
               </div>
+              {/* Golden frame overlay */}
+              <img
+                src="/ablak.png"
+                alt=""
+                className="absolute inset-0 w-full h-full object-fill pointer-events-none"
+              />
             </div>
             
             {/* Custom info */}
