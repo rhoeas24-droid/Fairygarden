@@ -46,21 +46,21 @@ const ProductCard = ({ product, index, onViewDetails }) => {
       </div>
       
       {/* Product info */}
-      <div className="p-4 space-y-2">
-        <h3 className="text-lg font-cinzel font-bold text-gold" data-testid={`product-name-${product.id}`}>
+      <div className="p-3 sm:p-4 space-y-1 sm:space-y-2">
+        <h3 className="text-base sm:text-lg font-cinzel font-bold text-gold" data-testid={`product-name-${product.id}`}>
           {product.name}
         </h3>
         <p className="text-cream/80 font-montserrat text-xs leading-relaxed line-clamp-2">
           {product.description}
         </p>
         <div className="flex items-center justify-between pt-1">
-          <span className="text-xl font-cinzel font-bold text-gold-light" data-testid={`product-price-${product.id}`}>
+          <span className="text-lg sm:text-xl font-cinzel font-bold text-gold-light" data-testid={`product-price-${product.id}`}>
             €{product.price.toFixed(2)}
           </span>
           <button
             onClick={handleAddToCart}
-            className="px-4 py-1.5 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
-              text-[#3e2b08] font-bold text-xs uppercase rounded-full
+            className="px-3 sm:px-4 py-1.5 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
+              text-[#3e2b08] font-bold text-[10px] sm:text-xs uppercase rounded-full
               shadow-[inset_1px_1px_4px_rgba(255,255,255,0.5),inset_-1px_-1px_4px_rgba(0,0,0,0.5),0_4px_8px_rgba(0,0,0,0.3)]
               hover:shadow-[inset_1px_1px_4px_rgba(255,255,255,0.6),inset_-1px_-1px_4px_rgba(0,0,0,0.6),0_6px_12px_rgba(201,168,76,0.3)]
               active:translate-y-1 transition-all duration-200"
@@ -96,7 +96,7 @@ const TerrariumGallery = () => {
   return (
     <section
       id="gallery"
-      className="relative py-24 px-4"
+      className="relative py-12 sm:py-16 lg:py-24 px-3 sm:px-4"
       style={{
         backgroundImage: 'url(/BG_TILE_FINAL.jpg)',
         backgroundSize: 'cover',
@@ -111,20 +111,20 @@ const TerrariumGallery = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 lg:mb-16 px-2"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-cinzel font-bold text-gold mb-4" data-testid="gallery-title">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-cinzel font-bold text-gold mb-3 sm:mb-4" data-testid="gallery-title">
             {t('gallery.title')}
           </h2>
-          <p className="text-cream/80 font-montserrat text-lg max-w-3xl mx-auto">
+          <p className="text-cream/80 font-montserrat text-sm sm:text-base lg:text-lg max-w-3xl mx-auto">
             {t('gallery.subtitle')}
           </p>
-          <p className="text-gold/80 font-montserrat text-sm mt-4 max-w-2xl mx-auto italic">
+          <p className="text-gold/80 font-montserrat text-xs sm:text-sm mt-3 sm:mt-4 max-w-2xl mx-auto italic">
             {t('gallery.uniqueNote')}
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {products.map((product, index) => (
             <ProductCard 
               key={product.id} 
@@ -169,19 +169,19 @@ const TerrariumGallery = () => {
             </div>
             
             {/* Custom info */}
-            <div className="p-4 space-y-2 text-center">
-              <h3 className="text-lg font-cinzel font-bold text-gold">
+            <div className="p-3 sm:p-4 space-y-1 sm:space-y-2 text-center">
+              <h3 className="text-base sm:text-lg font-cinzel font-bold text-gold">
                 {t('gallery.customTitle')}
               </h3>
               <p className="text-cream/80 font-montserrat text-xs leading-relaxed">
-                Dream your own. Choose options, we build it for you.
+                {t('gallery.customDescription')}
               </p>
-              <div className="flex items-center justify-center gap-4 pt-1">
-                <span className="text-xl font-cinzel font-bold text-gold-light">
+              <div className="flex items-center justify-center gap-2 sm:gap-4 pt-1 flex-wrap">
+                <span className="text-lg sm:text-xl font-cinzel font-bold text-gold-light">
                   {t('gallery.customFromPrice', { price: MIN_CUSTOM_PRICE })}
                 </span>
-                <span className="px-4 py-1.5 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
-                  text-[#3e2b08] font-bold text-xs uppercase rounded-full
+                <span className="px-3 sm:px-4 py-1.5 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
+                  text-[#3e2b08] font-bold text-[10px] sm:text-xs uppercase rounded-full
                   shadow-[inset_1px_1px_4px_rgba(255,255,255,0.5),inset_-1px_-1px_4px_rgba(0,0,0,0.5),0_4px_8px_rgba(0,0,0,0.3)]
                   group-hover:shadow-[inset_1px_1px_4px_rgba(255,255,255,0.6),inset_-1px_-1px_4px_rgba(0,0,0,0.6),0_6px_12px_rgba(201,168,76,0.3)]
                   transition-all duration-200"
