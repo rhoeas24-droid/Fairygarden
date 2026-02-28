@@ -61,7 +61,7 @@ const Navigation = () => {
             Fairygarden
           </motion.div>
 
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden lg:flex items-center space-x-2">
             {navLinks.map((link) => (
               <button
                 key={link.id}
@@ -87,7 +87,7 @@ const Navigation = () => {
             </button>
           </div>
 
-          <div className="md:hidden flex items-center space-x-4">
+          <div className="lg:hidden flex items-center space-x-4">
             <LanguageSwitcher />
             <button
               onClick={() => setIsCartOpen(true)}
