@@ -170,9 +170,10 @@ const Workshops = () => {
             <h3 className="text-xl sm:text-2xl font-cinzel font-bold text-forest mb-4 sm:mb-6">{t('workshops.registerTitle')}</h3>
             
             <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+              {/* 1. Your Name */}
               <div>
                 <label htmlFor="ws-name" className="block text-forest font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
-                  {formData.workshop_type === 'single' ? t('workshops.nameLabel') : 'Your Name'} *
+                  Your Name *
                 </label>
                 <input
                   type="text"
@@ -188,7 +189,28 @@ const Workshops = () => {
                 />
               </div>
 
-              {/* Additional Names for Couples */}
+              {/* 2. Workshop Type */}
+              <div>
+                <label htmlFor="ws-type" className="block text-forest font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
+                  {t('workshops.workshopTypeLabel')} *
+                </label>
+                <select
+                  id="ws-type"
+                  name="workshop_type"
+                  value={formData.workshop_type}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white border border-gold/40 text-forest
+                    focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base"
+                  data-testid="workshop-type-select"
+                >
+                  <option value="single">For Single Person</option>
+                  <option value="couples">For Couples</option>
+                  <option value="family">For Families (3+ persons)</option>
+                </select>
+              </div>
+
+              {/* 3. Additional Names for Couples */}
               {formData.workshop_type === 'couples' && (
                 <div>
                   <label className="block text-forest font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
@@ -207,7 +229,7 @@ const Workshops = () => {
                 </div>
               )}
 
-              {/* Additional Names for Family */}
+              {/* 3. Additional Names for Family */}
               {formData.workshop_type === 'family' && (
                 <div className="space-y-3">
                   <label className="block text-forest font-montserrat font-semibold mb-1 text-sm sm:text-base">
@@ -248,6 +270,7 @@ const Workshops = () => {
                 </div>
               )}
 
+              {/* 4. Email */}
               <div>
                 <label htmlFor="ws-email" className="block text-forest font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
                   {t('workshops.emailLabel')} *
@@ -266,6 +289,7 @@ const Workshops = () => {
                 />
               </div>
 
+              {/* 5. Phone */}
               <div>
                 <label htmlFor="ws-phone" className="block text-forest font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
                   {t('workshops.phoneLabel')}
@@ -283,26 +307,7 @@ const Workshops = () => {
                 />
               </div>
 
-              <div>
-                <label htmlFor="ws-type" className="block text-forest font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
-                  {t('workshops.workshopTypeLabel')} *
-                </label>
-                <select
-                  id="ws-type"
-                  name="workshop_type"
-                  value={formData.workshop_type}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white border border-gold/40 text-forest
-                    focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base"
-                  data-testid="workshop-type-select"
-                >
-                  <option value="single">For Single Person</option>
-                  <option value="couples">For Couples</option>
-                  <option value="family">For Families (3+ persons)</option>
-                </select>
-              </div>
-
+              {/* 6. Checkboxes */}
               <div className="space-y-2 sm:space-y-3 pt-2">
                 <div className="flex items-start gap-2 sm:gap-3">
                   <input
