@@ -17,18 +17,26 @@ import Workshops from './components/sections/Workshops';
 import About from './components/sections/About';
 import BlogPreview from './components/sections/BlogPreview';
 import TermsConditions, { TermsModal } from './components/sections/TermsConditions';
-import PrivacyPolicy from './components/sections/PrivacyPolicy';
+import PrivacyPolicy, { PrivacyModal } from './components/sections/PrivacyPolicy';
 import Footer from './components/sections/Footer';
 import './App.css';
 
 function App() {
   const [isTermsOpen, setIsTermsOpen] = useState(false);
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
   
   useEffect(() => {
-    // Listen for terms modal open event
+    // Listen for modal open events
     const handleOpenTerms = () => setIsTermsOpen(true);
+    const handleOpenPrivacy = () => setIsPrivacyOpen(true);
+    
     window.addEventListener('openTermsModal', handleOpenTerms);
-    return () => window.removeEventListener('openTermsModal', handleOpenTerms);
+    window.addEventListener('openPrivacyModal', handleOpenPrivacy);
+    
+    return () => {
+      window.removeEventListener('openTermsModal', handleOpenTerms);
+      window.removeEventListener('openPrivacyModal', handleOpenPrivacy);
+    };
   }, []);
   
   return (
@@ -63,8 +71,9 @@ function App() {
         <CookieConsent />
         <Toaster position="top-right" richColors />
         
-        {/* Global Terms Modal */}
+        {/* Global Modals */}
         <TermsModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
+        <PrivacyModal isOpen={isPrivacyOpen} onClose={() => setIsPrivacyOpen(false)} />
       </div>
     </CartProvider>
   );
