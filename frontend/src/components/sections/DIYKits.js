@@ -165,13 +165,10 @@ const DIYKits = () => {
                     {stripHtml(product.description)}
                   </p>
                   
-                  {/* Price - 15% less than ready-made */}
+                  {/* Price */}
                   <div className="flex items-center justify-between">
                     <div>
                       <span className="text-gold-dark font-cinzel font-bold text-lg">
-                        €{(product.price * 0.85).toFixed(2)}
-                      </span>
-                      <span className="text-forest/40 font-montserrat text-xs ml-2 line-through">
                         €{product.price.toFixed(2)}
                       </span>
                     </div>
