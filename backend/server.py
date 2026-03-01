@@ -9,6 +9,7 @@ from pydantic import BaseModel, Field, ConfigDict, EmailStr
 from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
+from woocommerce import API as WooCommerceAPI
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -16,6 +17,21 @@ load_dotenv(ROOT_DIR / '.env')
 mongo_url = os.environ['MONGO_URL']
 client = AsyncIOMotorClient(mongo_url)
 db = client[os.environ['DB_NAME']]
+
+# WooCommerce API Setup
+wc_url = os.environ.get('WOOCOMMERCE_URL', '')
+wc_key = os.environ.get('WOOCOMMERCE_CONSUMER_KEY', '')
+wc_secret = os.environ.get('WOOCOMMERCE_CONSUMER_SECRET', '')
+
+wcapi = None
+if wc_url and wc_key and wc_secret:
+    wcapi = WooCommerceAPI(
+        url=wc_url,
+        consumer_key=wc_key,
+        consumer_secret=wc_secret,
+        version="wc/v3",
+        timeout=30
+    )
 
 app = FastAPI()
 api_router = APIRouter(prefix="/api")
