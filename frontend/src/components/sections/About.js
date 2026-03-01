@@ -294,7 +294,7 @@ const About = () => {
               <Leaf className="w-6 h-6 sm:w-8 sm:h-8 text-gold" />
             </div>
             <h4 className="font-cinzel font-bold text-gold text-base sm:text-lg mb-2">{t('about.value1Title')}</h4>
-            <p className="text-cream/70 font-montserrat text-xs sm:text-sm">{t('about.value1Desc')}</p>
+            <p className="text-cream/70 font-montserrat text-xs sm:text-sm text-justify">{t('about.value1Desc')}</p>
           </div>
           
           <div className="bg-forest/60 backdrop-blur-md border border-gold/30 rounded-xl p-4 sm:p-6 text-center">
@@ -302,7 +302,7 @@ const About = () => {
               <Heart className="w-6 h-6 sm:w-8 sm:h-8 text-gold" />
             </div>
             <h4 className="font-cinzel font-bold text-gold text-base sm:text-lg mb-2">{t('about.value2Title')}</h4>
-            <p className="text-cream/70 font-montserrat text-xs sm:text-sm">{t('about.value2Desc')}</p>
+            <p className="text-cream/70 font-montserrat text-xs sm:text-sm text-justify">{t('about.value2Desc')}</p>
           </div>
           
           <div className="bg-forest/60 backdrop-blur-md border border-gold/30 rounded-xl p-4 sm:p-6 text-center sm:col-span-2 md:col-span-1">
@@ -310,7 +310,7 @@ const About = () => {
               <Star className="w-6 h-6 sm:w-8 sm:h-8 text-gold" />
             </div>
             <h4 className="font-cinzel font-bold text-gold text-base sm:text-lg mb-2">{t('about.value3Title')}</h4>
-            <p className="text-cream/70 font-montserrat text-xs sm:text-sm">{t('about.value3Desc')}</p>
+            <p className="text-cream/70 font-montserrat text-xs sm:text-sm text-justify">{t('about.value3Desc')}</p>
           </div>
         </motion.div>
 
