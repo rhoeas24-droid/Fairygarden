@@ -358,6 +358,9 @@ const About = () => {
       
       {/* About Me Modal */}
       <AboutMeModal isOpen={isAboutMeOpen} onClose={() => setIsAboutMeOpen(false)} />
+      
+      {/* Our Story Modal */}
+      <OurStoryModal isOpen={isOurStoryOpen} onClose={() => setIsOurStoryOpen(false)} />
     </section>
   );
 };
