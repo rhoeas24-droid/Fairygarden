@@ -130,7 +130,7 @@ const Workshops = () => {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-cinzel font-bold text-forest mb-3 sm:mb-4" data-testid="workshops-title">
             {t('workshops.title')}
           </h2>
-          <p className="text-forest/80 font-montserrat text-sm sm:text-base lg:text-lg max-w-2xl mx-auto px-2">
+          <p className="text-forest/80 font-montserrat text-sm sm:text-base lg:text-lg max-w-2xl mx-auto px-2 text-justify">
             {t('workshops.subtitle')}
           </p>
         </motion.div>
