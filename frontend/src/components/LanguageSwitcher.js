@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { setUserLanguage } from '../i18n';
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
@@ -17,7 +18,8 @@ const LanguageSwitcher = () => {
   const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0];
 
   const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
+    // Use setUserLanguage to save the preference
+    setUserLanguage(lng);
     setIsOpen(false);
   };
 
