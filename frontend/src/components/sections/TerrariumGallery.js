@@ -70,7 +70,7 @@ const ProductCard = ({ product, index, onViewDetails }) => {
           {product.name}
         </h3>
         <p className="text-cream/70 font-montserrat text-xs leading-relaxed line-clamp-2 text-justify">
-          {product.description}
+          {stripHtml(product.description)}
         </p>
         <div className="flex items-center justify-center gap-3 pt-1">
           <span className="text-base sm:text-lg font-cinzel font-bold text-gold" data-testid={`product-price-${product.id}`}>
