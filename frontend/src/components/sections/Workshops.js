@@ -15,7 +15,7 @@ const Workshops = () => {
     name: '',
     email: '',
     phone: '',
-    workshop_type: 'beginner',
+    workshop_type: 'single',
     privacyAccepted: false,
     subscribeNewsletter: false
   });
