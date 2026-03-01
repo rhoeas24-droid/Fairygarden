@@ -62,9 +62,7 @@ const Navigation = () => {
     { label: t('nav.forBusiness'), id: 'for-business' },
     { label: t('nav.workshops'), id: 'workshops' },
     { label: t('nav.about'), id: 'about' },
-    { label: t('nav.blog'), id: 'blog' },
-    { label: t('nav.terms'), id: 'terms-conditions' },
-    { label: t('nav.privacy'), id: 'privacy-policy' }
+    { label: t('nav.blog'), id: 'blog' }
   ];
 
   return (
