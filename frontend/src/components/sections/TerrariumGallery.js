@@ -271,9 +271,23 @@ const TerrariumGallery = () => {
                 <p className="text-cream/70 font-montserrat text-center mb-8 max-w-2xl mx-auto">
                   Professional tools and premium glass containers for your florarium projects
                 </p>
-                <div className="bg-forest/30 border border-gold/20 rounded-xl p-8 text-center">
-                  <span className="text-gold/60 font-cinzel text-xl">Coming Soon</span>
-                  <p className="text-cream/50 font-montserrat text-sm mt-2">We're curating the finest selection for you</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-6">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="relative opacity-50" style={{ aspectRatio: '867/1535' }}>
+                      <div className="absolute inset-[8%] rounded-lg bg-forest/30 border border-gold/20 flex items-center justify-center">
+                        <span className="text-gold/40 font-cinzel text-sm">Coming Soon</span>
+                      </div>
+                      <div
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                          backgroundImage: 'url(https://fairygarden4u.com/ablak_frame.png)',
+                          backgroundSize: 'contain',
+                          backgroundPosition: 'center',
+                          backgroundRepeat: 'no-repeat'
+                        }}
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
               
@@ -285,9 +299,23 @@ const TerrariumGallery = () => {
                 <p className="text-cream/70 font-montserrat text-center mb-8 max-w-2xl mx-auto">
                   Home-grown plants and our special tried-and-tested substrate blend
                 </p>
-                <div className="bg-forest/30 border border-gold/20 rounded-xl p-8 text-center">
-                  <span className="text-gold/60 font-cinzel text-xl">Coming Soon</span>
-                  <p className="text-cream/50 font-montserrat text-sm mt-2">Propagated with care and curiosity</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-6">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="relative opacity-50" style={{ aspectRatio: '867/1535' }}>
+                      <div className="absolute inset-[8%] rounded-lg bg-forest/30 border border-gold/20 flex items-center justify-center">
+                        <span className="text-gold/40 font-cinzel text-sm">Coming Soon</span>
+                      </div>
+                      <div
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                          backgroundImage: 'url(https://fairygarden4u.com/ablak_frame.png)',
+                          backgroundSize: 'contain',
+                          backgroundPosition: 'center',
+                          backgroundRepeat: 'no-repeat'
+                        }}
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
               
@@ -299,9 +327,23 @@ const TerrariumGallery = () => {
                 <p className="text-cream/70 font-montserrat text-center mb-8 max-w-2xl mx-auto">
                   Driftwood, stones, moss and miniature figures to bring your world to life
                 </p>
-                <div className="bg-forest/30 border border-gold/20 rounded-xl p-8 text-center">
-                  <span className="text-gold/60 font-cinzel text-xl">Coming Soon</span>
-                  <p className="text-cream/50 font-montserrat text-sm mt-2">Every piece tells a story</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-6">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="relative opacity-50" style={{ aspectRatio: '867/1535' }}>
+                      <div className="absolute inset-[8%] rounded-lg bg-forest/30 border border-gold/20 flex items-center justify-center">
+                        <span className="text-gold/40 font-cinzel text-sm">Coming Soon</span>
+                      </div>
+                      <div
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                          backgroundImage: 'url(https://fairygarden4u.com/ablak_frame.png)',
+                          backgroundSize: 'contain',
+                          backgroundPosition: 'center',
+                          backgroundRepeat: 'no-repeat'
+                        }}
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
             </motion.div>
