@@ -10,6 +10,12 @@ import CustomTerrariumBuilder from '../CustomTerrariumBuilder';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
+// Helper function to strip HTML tags from WooCommerce descriptions
+const stripHtml = (html) => {
+  if (!html) return '';
+  return html.replace(/<[^>]*>/g, '').trim();
+};
+
 const DIYKits = () => {
   const { t } = useTranslation();
   const [products, setProducts] = useState([]);
