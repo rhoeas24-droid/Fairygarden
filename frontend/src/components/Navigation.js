@@ -21,6 +21,12 @@ const Navigation = () => {
   }, []);
 
   const scrollToSection = (id) => {
+    // For shop subcategories, we need to expand the webshop first
+    if (id.startsWith('shop-')) {
+      // Dispatch custom event to expand webshop
+      window.dispatchEvent(new CustomEvent('expandWebshop', { detail: { targetId: id } }));
+    }
+    
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -31,9 +37,9 @@ const Navigation = () => {
 
   const shopCategories = [
     { label: 'Ready Florariums', id: 'gallery' },
-    { label: 'Bottles, Jars & Tools', id: 'shop-bottles', comingSoon: true },
-    { label: 'Plants & Substrate Mix', id: 'shop-plants', comingSoon: true },
-    { label: 'Decorations & Stones', id: 'shop-decorations', comingSoon: true },
+    { label: 'Bottles, Jars & Tools', id: 'shop-bottles' },
+    { label: 'Plants & Substrate Mix', id: 'shop-plants' },
+    { label: 'Decorations & Stones', id: 'shop-decorations' },
   ];
 
   const navLinks = [
