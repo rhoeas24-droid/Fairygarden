@@ -17,7 +17,7 @@ const stripHtml = (html) => {
 };
 
 const DIYKits = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isCustomBuilderOpen, setIsCustomBuilderOpen] = useState(false);
@@ -27,10 +27,17 @@ const DIYKits = () => {
     fetchProducts();
   }, []);
 
+  // Refetch products when language changes
+  useEffect(() => {
+    fetchProducts();
+  }, [i18n.language]);
+
   const fetchProducts = async () => {
     try {
-      // Fetch from WooCommerce API
-      const response = await axios.get(`${API}/wc/products`);
+      // Fetch from WooCommerce API with language parameter
+      const response = await axios.get(`${API}/wc/products`, {
+        params: { lang: i18n.language }
+      });
       // Filter only DIY Kits category
       const diyKits = response.data.filter(p => 
         p.category === 'DIY Kits' || p.categories?.includes('DIY Kits')
