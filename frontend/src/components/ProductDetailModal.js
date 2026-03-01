@@ -69,7 +69,7 @@ const ProductDetailModal = ({ isOpen, onClose, product }) => {
                   <h2 className="text-3xl font-cinzel font-bold text-gold mb-2">
                     {product.name}
                   </h2>
-                  <p className="text-cream/80 font-montserrat leading-relaxed">
+                  <p className="text-cream/80 font-montserrat leading-relaxed text-justify">
                     {product.description}
                   </p>
                 </div>
