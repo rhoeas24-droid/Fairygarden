@@ -70,7 +70,59 @@ const Navigation = () => {
           </motion.div>
 
           <div className="hidden lg:flex items-center space-x-2">
-            {navLinks.map((link) => (
+            {/* Home link */}
+            <button
+              onClick={() => scrollToSection('hero')}
+              className="text-cream hover:text-gold transition-colors font-montserrat text-sm font-semibold uppercase tracking-wider px-2"
+              data-testid="nav-link-hero"
+            >
+              {t('nav.home')}
+            </button>
+            
+            {/* Shop Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => setIsShopDropdownOpen(true)}
+              onMouseLeave={() => setIsShopDropdownOpen(false)}
+            >
+              <button
+                className="flex items-center gap-1 text-cream hover:text-gold transition-colors font-montserrat text-sm font-semibold uppercase tracking-wider px-2"
+                data-testid="nav-link-shop"
+              >
+                {t('nav.shop')}
+                <ChevronDown className={`w-4 h-4 transition-transform ${isShopDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              <AnimatePresence>
+                {isShopDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="absolute top-full left-0 mt-2 w-56 bg-forest/95 backdrop-blur-lg border border-gold/30 rounded-lg shadow-xl overflow-hidden"
+                  >
+                    {shopCategories.map((category, index) => (
+                      <button
+                        key={category.id}
+                        onClick={() => !category.comingSoon && scrollToSection(category.id)}
+                        className={`w-full text-left px-4 py-3 font-montserrat text-sm transition-colors ${
+                          category.comingSoon 
+                            ? 'text-cream/50 cursor-not-allowed' 
+                            : 'text-cream hover:text-gold hover:bg-gold/10'
+                        } ${index !== shopCategories.length - 1 ? 'border-b border-gold/10' : ''}`}
+                        disabled={category.comingSoon}
+                      >
+                        {category.label}
+                        {category.comingSoon && <span className="ml-2 text-xs text-gold/50">(Coming Soon)</span>}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+            
+            {/* Other nav links */}
+            {navLinks.slice(1).map((link) => (
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
