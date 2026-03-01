@@ -150,7 +150,9 @@
     "privacyError": "Please accept the Privacy Policy to continue.",
     "privacyLabel": "I accept the",
     "privacyLink": "Privacy Policy",
-    "copyright": "All rights reserved."
+    "copyright": "All rights reserved.",
+    "termsConditions": "Terms and Conditions",
+    "privacyPolicy": "Privacy Policy"
   },
   "privacy": {
     "title": "Privacy Policy"
