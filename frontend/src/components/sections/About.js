@@ -326,9 +326,9 @@ const About = () => {
             {t('about.teamTitle')}
           </h3>
           
-          {/* Magical dust particles */}
+          {/* Magical dust particles - 400 pieces */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {[...Array(40)].map((_, i) => {
+            {[...Array(400)].map((_, i) => {
               const colorRand = Math.random();
               let color;
               if (colorRand < 0.15) {
@@ -338,9 +338,9 @@ const About = () => {
               } else {
                 color = ['#f0e68c', '#d4af37', '#c9a84c', '#FFD700', '#DAA520'][Math.floor(Math.random() * 5)];
               }
-              const size = 2 + Math.random() * 3;
-              const radiusX = 5 + Math.random() * 10;
-              const radiusY = 4 + Math.random() * 8;
+              const size = 1.5 + Math.random() * 3;
+              const radiusX = 4 + Math.random() * 12;
+              const radiusY = 3 + Math.random() * 10;
               const phase = Math.random() * Math.PI * 2;
               
               return (
@@ -366,22 +366,17 @@ const About = () => {
                       Math.sin(phase + Math.PI) * radiusY,
                       Math.sin(phase + Math.PI * 2) * radiusY,
                     ],
-                    opacity: [0.4, 0.9, 0.4],
+                    opacity: [0.3, 0.9, 0.3],
                   }}
                   transition={{
-                    duration: 8 + Math.random() * 6,
-                    delay: Math.random() * 4,
+                    duration: 6 + Math.random() * 8,
+                    delay: Math.random() * 5,
                     repeat: Infinity,
                     ease: 'linear'
                   }}
                 />
               );
             })}
-            
-            {/* Sparkle Trail Comets using GIF */}
-            <SparkleTrailComet startX={5} startY={20} duration={15} delay={0} rotation={-45} />
-            <SparkleTrailComet startX={60} startY={50} duration={18} delay={5} rotation={-30} />
-            <SparkleTrailComet startX={30} startY={70} duration={12} delay={8} rotation={-60} />
           </div>
           
           <div className="flex justify-center relative z-10">
