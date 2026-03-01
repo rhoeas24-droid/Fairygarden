@@ -56,7 +56,7 @@ const About = () => {
           <div className="relative order-2 lg:order-1">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80"
+                src="https://fairygarden4u.com/workshop_space.jpg"
                 alt="Our Story"
                 className="w-full h-64 sm:h-80 lg:h-96 object-cover"
               />

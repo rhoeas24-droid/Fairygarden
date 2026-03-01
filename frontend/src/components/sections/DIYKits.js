@@ -80,7 +80,7 @@ const DIYKits = () => {
           >
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img
-                src="https://images.unsplash.com/photo-1640746956838-895c7faca1eb?auto=format&fit=crop&w=800&q=80"
+                src="https://fairygarden4u.com/diy_main.jpg"
                 alt="DIY Terrarium Kit"
                 className="w-full h-64 sm:h-80 lg:h-full object-cover"
               />
@@ -95,7 +95,7 @@ const DIYKits = () => {
               transition={{ duration: 0.6, delay: 0.3 }}
             >
               <img
-                src="https://images.unsplash.com/photo-1509021754700-4e73d47eb910?auto=format&fit=crop&w=400&q=80"
+                src="https://fairygarden4u.com/diy_supplies.jpg"
                 alt="Finished Terrarium"
                 className="w-full h-full object-cover"
               />

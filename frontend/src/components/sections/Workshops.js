@@ -98,7 +98,7 @@ const Workshops = () => {
             className="order-2 lg:order-1"
           >
             <img
-              src="https://images.unsplash.com/photo-1550836017-e1b9f7894f38?auto=format&fit=crop&w=800&q=80"
+              src="https://fairygarden4u.com/workshop_event.jpg"
               alt="Terrarium Workshop"
               className="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-2xl shadow-2xl"
             />
