@@ -73,6 +73,17 @@
     "successMessage": "Thank you! We will contact you within 24 hours.",
     "errorMessage": "Failed to send request. Please try again."
   },
+  "diy": {
+    "title": "DIY Florarium Kits",
+    "description1": "Love our gardens but want the hands-on experience of building one yourself? Choose any design from our entire collection — past and present. Even if it's no longer available in the shop, the concept lives on, and you can recreate it at home with our DIY Kit.",
+    "description2": "We take care of the rest: every substrate layer, every plant, every tool — all carefully selected and packed for you, along with a detailed step-by-step guide to walk you through the whole process.",
+    "cantFind": "Can't find your perfect design?",
+    "buildOwn": "Put together your own right here!",
+    "featureIncluded": "Everything Included",
+    "featureTools": "Tools Provided",
+    "featureGuide": "Step-by-Step Guide",
+    "addToCart": "Add DIY Kit to Cart"
+  },
   "diyKits": {
     "title": "Create Your Own Magic",
     "description": "Unleash your creativity with our DIY florarium Kits. Everything you need to craft your own enchanted miniature garden, complete with step-by-step instructions and premium materials.",
