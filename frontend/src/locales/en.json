@@ -86,11 +86,17 @@
   },
   "forBusiness": {
     "title": "For Business",
-    "subtitle": "Bring a touch of nature to your office, events, or corporate gifts. We create custom florarium solutions for businesses of all sizes.",
+    "subtitle": "From team building workshops to bespoke corporate gifts and stunning office installations — we bring living botanical art to your business.",
+    "formTitle": "Get in Touch",
     "nameLabel": "Name",
+    "namePlaceholder": "Your full name",
     "emailLabel": "Email",
     "companyLabel": "Company",
+    "companyPlaceholder": "Your company name",
+    "serviceLabel": "Service of Interest",
+    "servicePlaceholder": "Select a service...",
     "messageLabel": "Message",
+    "messagePlaceholder": "Tell us about your project or inquiry...",
     "privacyLabel": "I have read and accept the",
     "privacyLink": "Privacy Policy",
     "newsletterLabel": "Subscribe to our newsletter for updates and special offers",
@@ -98,6 +104,28 @@
     "submitting": "Sending...",
     "privacyError": "Please accept the Privacy Policy to continue.",
     "successMessage": "Thank you! We will contact you soon.",
+    "services": {
+      "teambuilding": {
+        "title": "Team Building Workshop",
+        "description": "A hands-on florarium building workshop is a creative and memorable alternative to conventional team building activities. Guided by our expert biologist, teams build their own florarium from scratch — choosing plants, moss, decorative elements, and container style along the way. The experience naturally encourages communication and collaboration without the forced atmosphere of traditional team exercises. Workshops run 2–3 hours, can be held at your premises or ours, and we handle all materials, tools, and setup. Every participant takes home their finished florarium, making it a lasting reminder of the day."
+      },
+      "representativeGift": {
+        "title": "Branded Mini Florarium",
+        "description": "A branded mini florarium is a corporate gift that stands out in a world saturated with pens, mugs, and notebooks. Each handcrafted piece comes with a custom label bearing your company name, logo, or a personalised message. Unlike consumable gifts, a living florarium continues to grow on the recipient's desk for years, keeping your brand visible long after the occasion. Available in a variety of styles and formats, they are easy to distribute at events, meetings, or seasonal gifting campaigns. Every piece is packaged in a gift box with care instructions for a premium unboxing experience."
+      },
+      "exclusiveGift": {
+        "title": "Exclusive Partner Gift",
+        "description": "For high-value relationships, a bespoke large-format florarium makes a statement no standard corporate gift can match. Each piece is a one-of-a-kind living composition — handcrafted following a dedicated design consultation to reflect the recipient's personality, taste, or the nature of your partnership. These gifts are ideal for major milestones such as contract signings, anniversaries, or VIP client appreciation. The scarcity and craftsmanship of each piece communicates a level of investment that genuinely strengthens long-term business relationships. Delivery and setup at the recipient's office can be arranged for an added personal touch."
+      },
+      "officeDecor": {
+        "title": "Office & Reception Decor",
+        "description": "A living florarium transforms any office or reception space into an environment that communicates creativity and care — values that speak to both clients and employees. We design, build, and install bespoke compositions tailored to your space, brand palette, and interior aesthetic, whether that means a lush tropical arrangement, a sculptural cactus garden, or an elegant hanging display. Every installation begins with an on-site consultation to assess lighting, space, and the desired atmosphere. We provide ongoing support should any plant care or replacement ever be needed. The result is a low-maintenance, high-impact botanical environment your team and visitors will notice."
+      },
+      "eventRental": {
+        "title": "Event Rental Service",
+        "description": "Our florarium rental service provides a sophisticated botanical atmosphere for corporate events, product launches, gala dinners, or exhibition stands — without the commitment of a purchase. We deliver, arrange, and collect a curated selection of florariums tailored to your event's theme, colour scheme, and spatial requirements. With styles ranging from lush tropical compositions to minimalist succulent arrangements and dramatic hanging displays, there is an option to suit any occasion. Rental packages cover everything from single-day events to multi-week exhibition installations. For recurring clients, we also offer a rotating subscription that regularly refreshes your space with new compositions."
+      }
+    },
     "errorMessage": "Failed to send message. Please try again."
   },
   "workshops": {
