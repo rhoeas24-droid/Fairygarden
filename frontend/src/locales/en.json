@@ -10,6 +10,25 @@
     "terms": "Terms",
     "privacy": "Privacy"
   },
+  "product": {
+    "includesVat": "incl. VAT",
+    "dimensions": "Dimensions",
+    "height": "Height",
+    "width": "Width",
+    "weight": "Weight",
+    "careTitle": "Care Instructions",
+    "uniqueNote": "Each florarium is handcrafted and unique. The actual product may slightly differ from the image shown.",
+    "care": {
+      "light": "Light",
+      "lightDesc": "Indirect sunlight, avoid direct sun",
+      "water": "Water",
+      "waterDesc": "Mist lightly every 2-3 weeks",
+      "temp": "Temperature",
+      "tempDesc": "15-25°C, avoid extreme temperatures",
+      "maintenance": "Maintenance",
+      "maintenanceDesc": "Remove yellowing leaves, keep glass clean"
+    }
+  },
   "hero": {
     "button": "Explore the Magic"
   },
