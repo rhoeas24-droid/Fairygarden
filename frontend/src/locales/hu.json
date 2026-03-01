@@ -86,11 +86,17 @@
   },
   "forBusiness": {
     "title": "Vállalkozásoknak",
-    "subtitle": "Hozz egy csipetnyi természetet az irodádba, eseményeidre vagy céges ajándékokba. Egyedi terrárium megoldásokat készítünk minden méretű vállalkozás számára.",
+    "subtitle": "A csapatépítő workshopoktól az egyedi céges ajándékokon át a lenyűgöző irodai installációkig — élő botanikus művészetet hozunk a vállalkozásodba.",
+    "formTitle": "Vedd fel velünk a kapcsolatot",
     "nameLabel": "Név",
+    "namePlaceholder": "Teljes neved",
     "emailLabel": "Email",
     "companyLabel": "Cég",
+    "companyPlaceholder": "Céged neve",
+    "serviceLabel": "Szolgáltatás",
+    "servicePlaceholder": "Válassz szolgáltatást...",
     "messageLabel": "Üzenet",
+    "messagePlaceholder": "Mesélj a projektedről vagy érdeklődésedről...",
     "privacyLabel": "Elolvastam és elfogadom az",
     "privacyLink": "Adatvédelmi Szabályzatot",
     "newsletterLabel": "Feliratkozom a hírlevelére frissítésekért és különleges ajánlatokért",
@@ -98,7 +104,29 @@
     "submitting": "Küldés...",
     "privacyError": "Kérjük, fogadja el az Adatvédelmi Szabályzatot a folytatáshoz.",
     "successMessage": "Köszönjük! Hamarosan felvesszük Önnel a kapcsolatot.",
-    "errorMessage": "Az üzenet küldése sikertelen. Kérjük, próbálja újra."
+    "errorMessage": "Az üzenet küldése sikertelen. Kérjük, próbálja újra.",
+    "services": {
+      "teambuilding": {
+        "title": "Csapatépítő Workshop",
+        "description": "A kézműves florárium készítő workshop kreatív és emlékezetes alternatíva a hagyományos csapatépítő programokhoz képest. Szakértő biológusunk vezetésével a csapatok saját floráriumot építenek a nulláról — útközben kiválasztva a növényeket, mohát, dekorációs elemeket és az üveg típusát. Az élmény természetesen ösztönzi a kommunikációt és együttműködést, a hagyományos csapatgyakorlatok erőltetett légköre nélkül. A workshopok 2-3 órásak, tarthatók nálatok vagy nálunk, és mi gondoskodunk minden anyagról, eszközről és felállításról. Minden résztvevő hazaviszi elkészült floráriumát, ami tartós emléke marad a napnak."
+      },
+      "representativeGift": {
+        "title": "Felcímkézett Mini Florárium",
+        "description": "A márkázott mini florárium olyan céges ajándék, amely kitűnik a tollakkal, bögrékkel és jegyzettömbökkel telített világban. Minden kézműves darabhoz egyedi címke tartozik a cég nevével, logójával vagy személyre szabott üzenettel. Az elfogyasztható ajándékokkal ellentétben egy élő florárium évekig növekszik a megajándékozott asztalán, így márkád még sokáig látható marad. Különböző stílusokban és formátumokban kapható, könnyen terjeszthető rendezvényeken, találkozókon vagy szezonális ajándékkampányoknál. Minden darab díszdobozban érkezik ápolási útmutatóval a prémium kicsomagolási élményért."
+      },
+      "exclusiveGift": {
+        "title": "Exkluzív Partner Ajándék",
+        "description": "Magas értékű kapcsolatokhoz az egyedi, nagyméretű florárium olyan kijelentés, amit egyetlen szabványos céges ajándék sem tud felülmúlni. Minden darab egyedülálló élő kompozíció — személyre szabott tervezési konzultációt követően készül, hogy tükrözze a megajándékozott személyiségét, ízlését vagy a partnerkapcsolat jellegét. Ezek az ajándékok ideálisak olyan jelentős mérföldkövekhez, mint szerződéskötések, évfordulók vagy VIP ügyfélértékelés. Minden darab ritkasága és kézművessége olyan szintű befektetést közvetít, amely valóban erősíti a hosszú távú üzleti kapcsolatokat. A megajándékozott irodájába történő kiszállítás és telepítés is megszervezhető a személyes érintés fokozása érdekében."
+      },
+      "officeDecor": {
+        "title": "Irodai és Recepciós Dekoráció",
+        "description": "Egy élő florárium bármely irodai vagy recepciós teret olyan környezetté alakít, amely kreativitást és törődést sugároz — olyan értékeket, amelyek mind az ügyfeleknek, mind a munkatársaknak szólnak. Egyedi kompozíciókat tervezünk, építünk és telepítünk, amelyeket a teredhez, márkaszíneidhez és beltéri esztétikádhoz szabunk, legyen az buja trópusi elrendezés, szobrászati kaktuszkert vagy elegáns függő kiállítás. Minden telepítés helyszíni konzultációval kezdődik a világítás, a tér és a kívánt hangulat felmérésére. Folyamatos támogatást nyújtunk, ha bármilyen növénygondozásra vagy cserére lenne szükség. Az eredmény egy alacsony karbantartási igényű, nagy hatású botanikus környezet, amelyet csapatod és látogatóid észre fognak venni."
+      },
+      "eventRental": {
+        "title": "Rendezvény Bérlési Szolgáltatás",
+        "description": "Florárium bérlési szolgáltatásunk kifinomult botanikus atmoszférát biztosít céges rendezvényekhez, termékbemutatókhoz, gálavacsorákhoz vagy kiállítói standokhoz — vásárlási kötelezettség nélkül. Gondosan válogatott floráriumokat szállítunk, rendezünk be és gyűjtünk össze, amelyeket az eseményed témájához, színvilágához és térbeli követelményeihez igazítunk. A buja trópusi kompozícióktól a minimalista pozsgás elrendezéseken át a látványos függő kiállításokig minden alkalomra van megfelelő opció. A bérlési csomagok az egész napos rendezvényektől a több hetes kiállítási installációkig mindenre kiterjednek. Visszatérő ügyfelek számára forgó előfizetést is kínálunk, amely rendszeresen frissíti a teret új kompozíciókkal."
+      }
+    }
   },
   "workshops": {
     "title": "Terrárium Workshopok",
