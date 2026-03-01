@@ -46,7 +46,7 @@ const BlogCard = ({ post, index }) => {
           {post.title}
         </h3>
         
-        <p className="text-forest/70 font-montserrat text-xs sm:text-sm leading-relaxed line-clamp-2 sm:line-clamp-3">
+        <p className="text-forest/70 font-montserrat text-xs sm:text-sm leading-relaxed line-clamp-2 sm:line-clamp-3 text-justify">
           {post.excerpt}
         </p>
         
