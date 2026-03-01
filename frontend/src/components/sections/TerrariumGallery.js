@@ -261,7 +261,7 @@ const TerrariumGallery = () => {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.5 }}
-              className="mt-12 space-y-16"
+              className="mt-20 space-y-16"
             >
               {/* Bottles, Jars & Tools */}
               <div id="shop-bottles" className="scroll-mt-24">
