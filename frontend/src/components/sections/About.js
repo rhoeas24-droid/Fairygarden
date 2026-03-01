@@ -358,13 +358,11 @@ const About = () => {
               const yKeys = [];
               for (let s = 0; s <= steps; s++) {
                 const t = (s / steps) * Math.PI * 2;
-                // Asymmetric X movement - more horizontal sweep
                 xKeys.push(
                   Math.sin(t * waveFreq1 + phase1) * waveAmp1 +
                   Math.sin(t * waveFreq3 + phase3) * waveAmp3 * 0.7 +
                   Math.cos(t * 0.5 + phase2) * waveAmp2 * 0.4
                 );
-                // Asymmetric Y movement - less vertical, more organic
                 yKeys.push(
                   Math.cos(t * waveFreq2 + phase2) * waveAmp2 * 0.6 +
                   Math.sin(t * waveFreq1 * 1.3 + phase1) * waveAmp1 * 0.25 +
@@ -397,6 +395,99 @@ const About = () => {
                     ease: 'easeInOut'
                   }}
                 />
+              );
+            })}
+            
+            {/* Sparkling star flares - random bursts */}
+            {[...Array(8)].map((_, i) => {
+              const flareColor = ['#FFFFFF', '#FFD700', '#00BFFF', '#FF69B4'][i % 4];
+              const posX = 10 + Math.random() * 80;
+              const posY = 10 + Math.random() * 80;
+              const flareDelay = i * 2.5 + Math.random() * 3;
+              
+              return (
+                <motion.div
+                  key={`flare-${i}`}
+                  className="absolute pointer-events-none"
+                  style={{
+                    left: `${posX}%`,
+                    top: `${posY}%`,
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                  animate={{
+                    opacity: [0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
+                    scale: [0, 0, 0.5, 1.5, 2, 0, 0, 0, 0, 0],
+                  }}
+                  transition={{
+                    duration: 8,
+                    delay: flareDelay,
+                    repeat: Infinity,
+                    ease: 'easeOut'
+                  }}
+                >
+                  {/* Center glow */}
+                  <div 
+                    className="absolute rounded-full"
+                    style={{
+                      width: 8,
+                      height: 8,
+                      backgroundColor: flareColor,
+                      boxShadow: `0 0 20px ${flareColor}, 0 0 40px ${flareColor}, 0 0 60px ${flareColor}`,
+                      left: '50%',
+                      top: '50%',
+                      transform: 'translate(-50%, -50%)',
+                    }}
+                  />
+                  {/* Horizontal flare */}
+                  <div 
+                    className="absolute"
+                    style={{
+                      width: 60,
+                      height: 2,
+                      background: `linear-gradient(90deg, transparent, ${flareColor}, transparent)`,
+                      left: '50%',
+                      top: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      filter: 'blur(1px)',
+                    }}
+                  />
+                  {/* Vertical flare */}
+                  <div 
+                    className="absolute"
+                    style={{
+                      width: 2,
+                      height: 60,
+                      background: `linear-gradient(180deg, transparent, ${flareColor}, transparent)`,
+                      left: '50%',
+                      top: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      filter: 'blur(1px)',
+                    }}
+                  />
+                  {/* Diagonal flares */}
+                  <div 
+                    className="absolute"
+                    style={{
+                      width: 40,
+                      height: 1,
+                      background: `linear-gradient(90deg, transparent, ${flareColor}80, transparent)`,
+                      left: '50%',
+                      top: '50%',
+                      transform: 'translate(-50%, -50%) rotate(45deg)',
+                    }}
+                  />
+                  <div 
+                    className="absolute"
+                    style={{
+                      width: 40,
+                      height: 1,
+                      background: `linear-gradient(90deg, transparent, ${flareColor}80, transparent)`,
+                      left: '50%',
+                      top: '50%',
+                      transform: 'translate(-50%, -50%) rotate(-45deg)',
+                    }}
+                  />
+                </motion.div>
               );
             })}
           </div>
