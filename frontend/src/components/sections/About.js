@@ -326,7 +326,7 @@ const About = () => {
             {t('about.teamTitle')}
           </h3>
           
-          {/* Magical dust particles - 400 pieces with murmuration-like wave motion */}
+          {/* Magical dust particles - 400 pieces with dramatic murmuration effect */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             {[...Array(400)].map((_, i) => {
               const colorRand = Math.random();
@@ -338,25 +338,38 @@ const About = () => {
               } else {
                 color = ['#f0e68c', '#d4af37', '#c9a84c', '#FFD700', '#DAA520'][Math.floor(Math.random() * 5)];
               }
-              const size = 1.5 + Math.random() * 3;
+              const size = 1.5 + Math.random() * 3.5;
               
-              // Wave parameters for murmuration effect
-              const waveFreq1 = 0.5 + Math.random() * 1.5;
-              const waveFreq2 = 0.3 + Math.random() * 0.8;
-              const waveAmp1 = 15 + Math.random() * 25;
-              const waveAmp2 = 10 + Math.random() * 20;
-              const phase1 = (i / 400) * Math.PI * 4 + Math.random() * 0.5;
-              const phase2 = (i / 400) * Math.PI * 6 + Math.random() * 0.5;
-              const baseDuration = 8 + Math.random() * 6;
+              // Asymmetric wave parameters
+              const waveFreq1 = 0.3 + Math.random() * 2;
+              const waveFreq2 = 0.2 + Math.random() * 1.2;
+              const waveFreq3 = 0.5 + Math.random() * 0.5;
+              const waveAmp1 = 30 + Math.random() * 50;
+              const waveAmp2 = 20 + Math.random() * 40;
+              const waveAmp3 = 10 + Math.random() * 25;
+              const phase1 = (i / 400) * Math.PI * 8 + Math.random();
+              const phase2 = (i / 400) * Math.PI * 5 + Math.random() * 2;
+              const phase3 = Math.random() * Math.PI * 2;
+              const baseDuration = 6 + Math.random() * 10;
               
-              // Create wave-like keyframes
-              const steps = 5;
+              // Create complex asymmetric wave keyframes
+              const steps = 8;
               const xKeys = [];
               const yKeys = [];
               for (let s = 0; s <= steps; s++) {
                 const t = (s / steps) * Math.PI * 2;
-                xKeys.push(Math.sin(t * waveFreq1 + phase1) * waveAmp1 + Math.sin(t * waveFreq2 + phase2) * waveAmp2 * 0.5);
-                yKeys.push(Math.cos(t * waveFreq2 + phase2) * waveAmp2 + Math.sin(t * waveFreq1 * 0.7 + phase1) * waveAmp1 * 0.3);
+                // Asymmetric X movement - more horizontal sweep
+                xKeys.push(
+                  Math.sin(t * waveFreq1 + phase1) * waveAmp1 +
+                  Math.sin(t * waveFreq3 + phase3) * waveAmp3 * 0.7 +
+                  Math.cos(t * 0.5 + phase2) * waveAmp2 * 0.4
+                );
+                // Asymmetric Y movement - less vertical, more organic
+                yKeys.push(
+                  Math.cos(t * waveFreq2 + phase2) * waveAmp2 * 0.6 +
+                  Math.sin(t * waveFreq1 * 1.3 + phase1) * waveAmp1 * 0.25 +
+                  Math.sin(t * waveFreq3 * 2 + phase3) * waveAmp3 * 0.5
+                );
               }
               
               return (
@@ -364,8 +377,8 @@ const About = () => {
                   key={i}
                   className="absolute rounded-full"
                   style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
+                    left: `${5 + Math.random() * 90}%`,
+                    top: `${5 + Math.random() * 90}%`,
                     width: size,
                     height: size,
                     backgroundColor: color,
@@ -374,11 +387,12 @@ const About = () => {
                   animate={{
                     x: xKeys,
                     y: yKeys,
-                    opacity: [0.3, 0.8, 0.5, 0.9, 0.4, 0.3],
+                    opacity: [0.2, 0.7, 0.4, 1, 0.5, 0.8, 0.3, 0.6, 0.2],
+                    scale: [1, 1.2, 0.9, 1.1, 1, 1.3, 0.95, 1.1, 1],
                   }}
                   transition={{
                     duration: baseDuration,
-                    delay: (i / 400) * 3,
+                    delay: (i % 50) * 0.08 + Math.random() * 0.5,
                     repeat: Infinity,
                     ease: 'easeInOut'
                   }}
