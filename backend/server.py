@@ -340,12 +340,17 @@ def get_translated_field(product: dict, field: str, lang: str) -> str:
 
 # WooCommerce API Routes
 @api_router.get("/wc/products")
-async def get_wc_products(lang: str = 'en'):
+async def get_wc_products(lang: str = 'en', product_type: str = None):
     """Fetch products from WooCommerce with optional language translation.
     
     Language support via custom fields:
     - name_el, name_it for Greek/Italian product names
     - description_el, description_it for Greek/Italian descriptions
+    
+    product_type filter:
+    - 'ready-florarium': Only show products with Ready Florarium variation in stock
+    - 'diy-kit': Only show products with DIY Kit variation in stock
+    - None: Show all products
     """
     if not wcapi:
         raise HTTPException(status_code=503, detail="WooCommerce not configured")
@@ -353,31 +358,93 @@ async def get_wc_products(lang: str = 'en'):
         response = wcapi.get("products", params={"per_page": 100, "status": "publish"})
         if response.status_code == 200:
             products = response.json()
-            # Transform to simpler format for frontend with translations
-            return [{
-                "id": str(p["id"]),
-                "name": get_translated_field(p, 'name', lang),
-                "description": get_translated_field(p, 'description', lang),
-                "price": float(p["price"]) if p["price"] else 0,
-                "regular_price": float(p["regular_price"]) if p.get("regular_price") else 0,
-                "sale_price": float(p["sale_price"]) if p.get("sale_price") else None,
-                "image": p["images"][0]["src"] if p.get("images") else "",
-                "images": [img["src"] for img in p.get("images", [])],
-                "category": p["categories"][0]["name"] if p.get("categories") else "Uncategorized",
-                "categories": [cat["name"] for cat in p.get("categories", [])],
-                "stock_status": p.get("stock_status", "instock"),
-                "permalink": p.get("permalink", ""),
-                "wc_id": p["id"],
-                # Dimensions from WooCommerce
-                "dimensions": {
-                    "height": p.get("dimensions", {}).get("height", ""),
-                    "width": p.get("dimensions", {}).get("width", ""),
-                    "length": p.get("dimensions", {}).get("length", "")
-                },
-                "weight": p.get("weight", ""),
-                # Attributes for care instructions etc
-                "attributes": {attr["name"]: attr["options"] for attr in p.get("attributes", [])}
-            } for p in products]
+            result = []
+            
+            for p in products:
+                # Check if this is a variable product
+                is_variable = p.get("type") == "variable"
+                
+                # For variable products, fetch variations
+                variations = []
+                if is_variable:
+                    var_response = wcapi.get(f"products/{p['id']}/variations", params={"per_page": 100})
+                    if var_response.status_code == 200:
+                        variations = var_response.json()
+                
+                # Build product data
+                product_data = {
+                    "id": str(p["id"]),
+                    "name": get_translated_field(p, 'name', lang),
+                    "description": get_translated_field(p, 'description', lang),
+                    "price": float(p["price"]) if p["price"] else 0,
+                    "regular_price": float(p["regular_price"]) if p.get("regular_price") else 0,
+                    "sale_price": float(p["sale_price"]) if p.get("sale_price") else None,
+                    "image": p["images"][0]["src"] if p.get("images") else "",
+                    "images": [img["src"] for img in p.get("images", [])],
+                    "category": p["categories"][0]["name"] if p.get("categories") else "Uncategorized",
+                    "categories": [cat["name"] for cat in p.get("categories", [])],
+                    "stock_status": p.get("stock_status", "instock"),
+                    "permalink": p.get("permalink", ""),
+                    "wc_id": p["id"],
+                    "product_type": p.get("type", "simple"),
+                    "dimensions": {
+                        "height": p.get("dimensions", {}).get("height", ""),
+                        "width": p.get("dimensions", {}).get("width", ""),
+                        "length": p.get("dimensions", {}).get("length", "")
+                    },
+                    "weight": p.get("weight", ""),
+                    "attributes": {attr["name"]: attr["options"] for attr in p.get("attributes", [])},
+                    "variations": []
+                }
+                
+                # Process variations for variable products
+                if is_variable and variations:
+                    for var in variations:
+                        var_type = None
+                        for attr in var.get("attributes", []):
+                            if attr.get("name") == "Termék típus" or attr.get("slug") == "termek-tipus":
+                                var_type = attr.get("option", "").lower().replace(" ", "-")
+                        
+                        var_data = {
+                            "id": var["id"],
+                            "type": var_type,
+                            "price": float(var["price"]) if var.get("price") else product_data["price"],
+                            "regular_price": float(var["regular_price"]) if var.get("regular_price") else 0,
+                            "stock_status": var.get("stock_status", "instock"),
+                            "stock_quantity": var.get("stock_quantity", 0),
+                            "in_stock": var.get("stock_status") == "instock"
+                        }
+                        product_data["variations"].append(var_data)
+                    
+                    # Update main product price based on variations
+                    if product_data["variations"]:
+                        prices = [v["price"] for v in product_data["variations"] if v["price"] > 0]
+                        if prices:
+                            product_data["price"] = min(prices)
+                            product_data["price_range"] = {"min": min(prices), "max": max(prices)}
+                
+                # Filter by product_type if specified
+                if product_type:
+                    if is_variable:
+                        # Check if requested variation is in stock
+                        matching_var = next((v for v in product_data["variations"] 
+                                           if v["type"] == product_type and v["in_stock"]), None)
+                        if matching_var:
+                            # Use the variation's price
+                            product_data["price"] = matching_var["price"]
+                            product_data["variation_id"] = matching_var["id"]
+                            product_data["stock_status"] = "instock"
+                            result.append(product_data)
+                    else:
+                        # Simple product - include based on category
+                        if product_type == "ready-florarium" and "Ready Florariums" in product_data["categories"]:
+                            result.append(product_data)
+                        elif product_type == "diy-kit" and "DIY Kits" in product_data["categories"]:
+                            result.append(product_data)
+                else:
+                    result.append(product_data)
+            
+            return result
         else:
             raise HTTPException(status_code=response.status_code, detail="WooCommerce API error")
     except Exception as e:
