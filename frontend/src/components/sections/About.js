@@ -1,7 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Leaf, Sparkles, Star, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+
+// Blinking Mushroom Component
+const BlinkingMushroom = ({ mirrored = false }) => {
+  const [isBlinking, setIsBlinking] = useState(false);
+  
+  useEffect(() => {
+    const blink = () => {
+      setIsBlinking(true);
+      setTimeout(() => setIsBlinking(false), 150); // Eyes closed for 150ms
+    };
+    
+    // Random blink interval between 2-4 seconds
+    const scheduleNextBlink = () => {
+      const delay = 2000 + Math.random() * 2000;
+      return setTimeout(() => {
+        blink();
+        scheduleNextBlink();
+      }, delay);
+    };
+    
+    const timeoutId = scheduleNextBlink();
+    return () => clearTimeout(timeoutId);
+  }, []);
+  
+  return (
+    <div 
+      className="relative w-full h-full"
+      style={{ transform: mirrored ? 'scaleX(-1)' : 'none' }}
+    >
+      <img 
+        src={isBlinking 
+          ? "https://fairygarden4u.com/fairy_mushroom_closed.png"
+          : "https://fairygarden4u.com/fairy_mushroom.png"
+        }
+        alt=""
+        className="w-full h-auto transition-opacity duration-75"
+        style={{ filter: 'drop-shadow(0 0 10px rgba(212,175,55,0.4))' }}
+      />
+    </div>
+  );
+};
 
 const teamMembers = [
   {
