@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Leaf, Sparkles, Star, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
