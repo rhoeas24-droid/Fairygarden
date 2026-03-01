@@ -95,13 +95,20 @@ const Workshops = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="order-2 lg:order-1"
+            className="order-2 lg:order-1 space-y-6"
           >
             <img
               src="https://fairygarden4u.com/workshop_event.jpg"
-              alt="Terrarium Workshop"
+              alt="Florarium Workshop"
               className="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-2xl shadow-2xl"
             />
+            
+            {/* Workshop Description */}
+            <div className="bg-forest/5 border border-gold/20 rounded-xl p-4 sm:p-6">
+              <p className="text-forest/90 font-montserrat text-sm sm:text-base leading-relaxed text-justify">
+                Join our hands-on florarium workshop and create your own stunning closed florarium from start to finish! All materials, tools and plants are provided — all you need to bring is your enthusiasm. We start with a short introduction to the magic of closed ecosystems, then guide you through designing and building your own creation step by step. Every participant leaves with their finished florarium in hand. Workshops last approximately 2–3 hours and require a minimum of 5 registered participants to run.
+              </p>
+            </div>
           </motion.div>
 
           <motion.div
