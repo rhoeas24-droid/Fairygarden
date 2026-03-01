@@ -48,7 +48,7 @@ const ServiceCard = ({ service, index, t }) => {
             {t(`forBusiness.services.${service.id}.title`)}
           </h3>
         </div>
-        <p className="text-cream/85 font-montserrat text-sm sm:text-base leading-relaxed">
+        <p className="text-cream/85 font-montserrat text-sm sm:text-base leading-relaxed text-justify">
           {t(`forBusiness.services.${service.id}.description`)}
         </p>
       </div>
