@@ -165,7 +165,7 @@ const Footer = () => {
                   {t('footer.privacyLabel')}{' '}
                   <button
                     type="button"
-                    onClick={scrollToPrivacy}
+                    onClick={openPrivacyModal}
                     className="text-gold hover:text-gold-light underline"
                   >
                     {t('footer.privacyLink')}
