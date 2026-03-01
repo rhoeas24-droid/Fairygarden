@@ -95,24 +95,24 @@ const ProductDetailModal = ({ isOpen, onClose, product }) => {
                   </span>
                 </div>
 
-                {/* Dimensions (placeholder - can be added to product model later) */}
+                {/* Dimensions from WooCommerce */}
                 <div className="border-t border-gold/20 pt-4">
                   <h3 className="text-lg font-cinzel text-gold mb-3 flex items-center gap-2">
                     <Ruler className="w-5 h-5" />
-                    {t('product.dimensions', 'Dimensions')}
+                    {t('product.dimensions')}
                   </h3>
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div className="bg-forest/50 rounded-lg p-3 border border-gold/20">
-                      <div className="text-gold font-bold">~20cm</div>
-                      <div className="text-cream/60 text-xs">{t('product.height', 'Height')}</div>
+                      <div className="text-gold font-bold">{height}cm</div>
+                      <div className="text-cream/60 text-xs">{t('product.height')}</div>
                     </div>
                     <div className="bg-forest/50 rounded-lg p-3 border border-gold/20">
-                      <div className="text-gold font-bold">~15cm</div>
-                      <div className="text-cream/60 text-xs">{t('product.width', 'Width')}</div>
+                      <div className="text-gold font-bold">{width}cm</div>
+                      <div className="text-cream/60 text-xs">{t('product.width')}</div>
                     </div>
                     <div className="bg-forest/50 rounded-lg p-3 border border-gold/20">
-                      <div className="text-gold font-bold">~1.5kg</div>
-                      <div className="text-cream/60 text-xs">{t('product.weight', 'Weight')}</div>
+                      <div className="text-gold font-bold">{weight}kg</div>
+                      <div className="text-cream/60 text-xs">{t('product.weight')}</div>
                     </div>
                   </div>
                 </div>
