@@ -73,6 +73,17 @@
     "successMessage": "Grazie! Ti contatteremo entro 24 ore.",
     "errorMessage": "Invio fallito. Riprova."
   },
+  "diy": {
+    "title": "Kit DIY Florarium",
+    "description1": "Ami i nostri giardini ma vuoi l'esperienza pratica di costruirne uno da solo? Scegli qualsiasi design dalla nostra intera collezione — passata e presente. Anche se non è più disponibile nel negozio, il concetto vive ancora e puoi ricrearlo a casa con il nostro Kit DIY.",
+    "description2": "Noi pensiamo al resto: ogni strato di substrato, ogni pianta, ogni strumento — tutto accuratamente selezionato e confezionato per te, insieme a una guida dettagliata passo dopo passo.",
+    "cantFind": "Non trovi il design perfetto?",
+    "buildOwn": "Crea il tuo proprio qui!",
+    "featureIncluded": "Tutto Incluso",
+    "featureTools": "Strumenti Forniti",
+    "featureGuide": "Guida Passo-Passo",
+    "addToCart": "Aggiungi Kit DIY al Carrello"
+  },
   "diyKits": {
     "title": "Crea la Tua Magia",
     "description": "Scatena la tua creatività con i nostri Kit Fai Da Te per Terrari. Tutto ciò di cui hai bisogno per creare il tuo giardino in miniatura incantato, con istruzioni dettagliate e materiali premium.",
