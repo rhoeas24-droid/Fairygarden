@@ -408,32 +408,66 @@ const About = () => {
             {t('about.teamTitle')}
           </h3>
           
-          {/* Sparkle decorations */}
+          {/* Magical dust particles */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {[...Array(12)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute"
-                style={{
-                  left: `${10 + (i % 6) * 15}%`,
-                  top: `${20 + Math.floor(i / 6) * 40}%`,
-                }}
-                animate={{
-                  opacity: [0.2, 0.8, 0.2],
-                  scale: [0.8, 1.2, 0.8],
-                }}
-                transition={{
-                  duration: 2 + Math.random() * 2,
-                  repeat: Infinity,
-                  delay: Math.random() * 2,
-                }}
-              >
-                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-gold/60" />
-              </motion.div>
-            ))}
+            {[...Array(40)].map((_, i) => {
+              const colorRand = Math.random();
+              let color;
+              if (colorRand < 0.15) {
+                color = ['#00BFFF', '#1E90FF', '#87CEEB', '#4169E1'][Math.floor(Math.random() * 4)];
+              } else if (colorRand < 0.30) {
+                color = ['#FF69B4', '#DB7093', '#FF1493', '#C71585'][Math.floor(Math.random() * 4)];
+              } else {
+                color = ['#f0e68c', '#d4af37', '#c9a84c', '#FFD700', '#DAA520'][Math.floor(Math.random() * 5)];
+              }
+              const size = 2 + Math.random() * 3;
+              const radiusX = 5 + Math.random() * 10;
+              const radiusY = 4 + Math.random() * 8;
+              const phase = Math.random() * Math.PI * 2;
+              
+              return (
+                <motion.div
+                  key={i}
+                  className="absolute rounded-full"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    width: size,
+                    height: size,
+                    backgroundColor: color,
+                    boxShadow: `0 0 ${size * 2}px ${color}`,
+                  }}
+                  animate={{
+                    x: [
+                      Math.cos(phase) * radiusX,
+                      Math.cos(phase + Math.PI) * radiusX,
+                      Math.cos(phase + Math.PI * 2) * radiusX,
+                    ],
+                    y: [
+                      Math.sin(phase) * radiusY,
+                      Math.sin(phase + Math.PI) * radiusY,
+                      Math.sin(phase + Math.PI * 2) * radiusY,
+                    ],
+                    opacity: [0.4, 0.9, 0.4],
+                  }}
+                  transition={{
+                    duration: 8 + Math.random() * 6,
+                    delay: Math.random() * 4,
+                    repeat: Infinity,
+                    ease: 'linear'
+                  }}
+                />
+              );
+            })}
+            
+            {/* Magic Comets */}
+            <MagicComet color="#00BFFF" delay={0} duration={12} startX={10} startY={30} />
+            <MagicComet color="#FF69B4" delay={3} duration={15} startX={80} startY={60} />
+            <MagicComet color="#1E90FF" delay={6} duration={10} startX={50} startY={20} />
+            <MagicComet color="#DB7093" delay={9} duration={14} startX={20} startY={70} />
           </div>
           
-          <div className="flex justify-center">
+          <div className="flex justify-center relative z-10">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={member.id}
