@@ -181,7 +181,40 @@ const Navigation = () => {
             className="lg:hidden bg-forest/98 backdrop-blur-lg border-t border-gold/20"
           >
             <div className="px-4 py-6 space-y-4">
-              {navLinks.map((link) => (
+              {/* Home */}
+              <button
+                onClick={() => scrollToSection('hero')}
+                className="block w-full text-left text-cream hover:text-gold transition-colors font-montserrat text-base font-semibold uppercase tracking-wider py-2"
+              >
+                {t('nav.home')}
+              </button>
+              
+              {/* Shop with subcategories */}
+              <div className="space-y-2">
+                <div className="text-cream font-montserrat text-base font-semibold uppercase tracking-wider py-2">
+                  {t('nav.shop')}
+                </div>
+                <div className="pl-4 space-y-2 border-l-2 border-gold/30">
+                  {shopCategories.map((category) => (
+                    <button
+                      key={category.id}
+                      onClick={() => !category.comingSoon && scrollToSection(category.id)}
+                      className={`block w-full text-left font-montserrat text-sm py-1 ${
+                        category.comingSoon 
+                          ? 'text-cream/50 cursor-not-allowed' 
+                          : 'text-cream/80 hover:text-gold'
+                      }`}
+                      disabled={category.comingSoon}
+                    >
+                      {category.label}
+                      {category.comingSoon && <span className="ml-2 text-xs text-gold/50">(Soon)</span>}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              {/* Other links */}
+              {navLinks.slice(1).map((link) => (
                 <button
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
