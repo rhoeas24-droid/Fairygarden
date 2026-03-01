@@ -101,7 +101,7 @@ const BlogPreview = () => {
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-cinzel font-bold text-gold mb-3 sm:mb-4" data-testid="blog-title">
             {t('blog.title')}
           </h2>
-          <p className="text-cream/80 font-montserrat text-sm sm:text-base lg:text-lg max-w-2xl mx-auto px-2">
+          <p className="text-cream/80 font-montserrat text-sm sm:text-base lg:text-lg max-w-2xl mx-auto px-2 text-justify">
             {t('blog.subtitle')}
           </p>
         </motion.div>
