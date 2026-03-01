@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Building2, Mail, Phone } from 'lucide-react';
+import { Building2, Mail, Phone, Users, Gift, Gem, TreeDeciduous, CalendarDays, ChevronDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import GoldButton from '../GoldButton';
 import axios from 'axios';
@@ -9,17 +9,94 @@ import { toast } from 'sonner';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
+// Service card component with alternating layout
+const ServiceCard = ({ service, index, t }) => {
+  const isEven = index % 2 === 0;
+  
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ delay: index * 0.1, duration: 0.6 }}
+      className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-6 lg:gap-10 items-center mb-12 lg:mb-20`}
+      data-testid={`service-card-${service.id}`}
+    >
+      {/* Image */}
+      <div className="w-full lg:w-1/2">
+        <div className="relative group">
+          {/* Golden frame effect */}
+          <div className="absolute -inset-2 bg-gradient-to-r from-gold/30 via-gold/50 to-gold/30 rounded-2xl blur-sm opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="relative overflow-hidden rounded-xl border-2 border-gold/40 bg-forest-dark">
+            <img
+              src={service.image}
+              alt={t(`forBusiness.services.${service.id}.title`)}
+              className="w-full h-64 sm:h-80 lg:h-96 object-cover transform group-hover:scale-105 transition-transform duration-700"
+              loading="lazy"
+            />
+            {/* Overlay gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-forest-dark/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          </div>
+        </div>
+      </div>
+      
+      {/* Content */}
+      <div className="w-full lg:w-1/2 text-center lg:text-left">
+        <div className={`flex items-center gap-3 mb-4 justify-center ${isEven ? 'lg:justify-start' : 'lg:justify-end'}`}>
+          <service.icon className="w-8 h-8 text-gold" />
+          <h3 className="text-xl sm:text-2xl lg:text-3xl font-cinzel font-bold text-gold">
+            {t(`forBusiness.services.${service.id}.title`)}
+          </h3>
+        </div>
+        <p className="text-cream/85 font-montserrat text-sm sm:text-base leading-relaxed">
+          {t(`forBusiness.services.${service.id}.description`)}
+        </p>
+      </div>
+    </motion.div>
+  );
+};
+
 const ForBusiness = () => {
   const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     company: '',
+    service: '',
     message: '',
     privacyAccepted: false,
     subscribeNewsletter: false
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Service definitions with images and icons
+  const services = [
+    {
+      id: 'teambuilding',
+      image: '/business_teambuilding.png',
+      icon: Users
+    },
+    {
+      id: 'representativeGift',
+      image: '/business_gift_small.png',
+      icon: Gift
+    },
+    {
+      id: 'exclusiveGift',
+      image: '/business_gift_exclusive.png',
+      icon: Gem
+    },
+    {
+      id: 'officeDecor',
+      image: '/business_office_decor.png',
+      icon: TreeDeciduous
+    },
+    {
+      id: 'eventRental',
+      image: '/business_event_rental.png',
+      icon: CalendarDays
+    }
+  ];
 
   const handleChange = (e) => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
@@ -41,6 +118,7 @@ const ForBusiness = () => {
         name: formData.name,
         email: formData.email,
         company: formData.company,
+        service: formData.service,
         message: formData.message
       });
       
@@ -55,7 +133,7 @@ const ForBusiness = () => {
       }
       
       toast.success(t('forBusiness.successMessage'));
-      setFormData({ name: '', email: '', company: '', message: '', privacyAccepted: false, subscribeNewsletter: false });
+      setFormData({ name: '', email: '', company: '', service: '', message: '', privacyAccepted: false, subscribeNewsletter: false });
     } catch (error) {
       toast.error(t('forBusiness.errorMessage'));
       console.error('Error submitting contact form:', error);
@@ -82,28 +160,42 @@ const ForBusiness = () => {
       <div className="absolute inset-0 bg-forest-dark/90" />
       
       <div className="relative z-10 max-w-6xl mx-auto">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-8 sm:mb-12"
+          className="text-center mb-12 sm:mb-16 lg:mb-20"
         >
           <Building2 className="w-12 h-12 sm:w-16 sm:h-16 text-gold mx-auto mb-4 sm:mb-6" />
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-cinzel font-bold text-gold mb-3 sm:mb-4" data-testid="for-business-title">
             {t('forBusiness.title')}
           </h2>
-          <p className="text-cream/80 font-montserrat text-sm sm:text-base lg:text-lg max-w-2xl mx-auto px-2">
+          <p className="text-cream/80 font-montserrat text-sm sm:text-base lg:text-lg max-w-3xl mx-auto px-2">
             {t('forBusiness.subtitle')}
           </p>
         </motion.div>
 
+        {/* Services */}
+        <div className="mb-16 lg:mb-24">
+          {services.map((service, index) => (
+            <ServiceCard key={service.id} service={service} index={index} t={t} />
+          ))}
+        </div>
+
+        {/* Contact Form */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
           className="bg-forest/60 backdrop-blur-md border border-gold/30 rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12 max-w-2xl mx-auto"
+          id="business-contact-form"
         >
+          <h3 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold text-center mb-6 sm:mb-8">
+            {t('forBusiness.formTitle')}
+          </h3>
+          
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             <div>
               <label htmlFor="name" className="block text-cream font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
@@ -119,7 +211,7 @@ const ForBusiness = () => {
                 className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black/20 border border-gold/40 text-cream placeholder:text-cream/50
                   focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base
                   transition-all duration-200"
-                placeholder="Your full name"
+                placeholder={t('forBusiness.namePlaceholder')}
                 data-testid="contact-name-input"
               />
             </div>
@@ -156,9 +248,36 @@ const ForBusiness = () => {
                 className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black/20 border border-gold/40 text-cream placeholder:text-cream/50
                   focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base
                   transition-all duration-200"
-                placeholder="Your company name"
+                placeholder={t('forBusiness.companyPlaceholder')}
                 data-testid="contact-company-input"
               />
+            </div>
+
+            {/* Service Dropdown */}
+            <div>
+              <label htmlFor="service" className="block text-cream font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
+                {t('forBusiness.serviceLabel')}
+              </label>
+              <div className="relative">
+                <select
+                  id="service"
+                  name="service"
+                  value={formData.service}
+                  onChange={handleChange}
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black/20 border border-gold/40 text-cream
+                    focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base
+                    transition-all duration-200 appearance-none cursor-pointer"
+                  data-testid="contact-service-select"
+                >
+                  <option value="" className="bg-forest text-cream">{t('forBusiness.servicePlaceholder')}</option>
+                  {services.map((service) => (
+                    <option key={service.id} value={service.id} className="bg-forest text-cream">
+                      {t(`forBusiness.services.${service.id}.title`)}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gold pointer-events-none" />
+              </div>
             </div>
 
             <div>
@@ -175,7 +294,7 @@ const ForBusiness = () => {
                 className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black/20 border border-gold/40 text-cream placeholder:text-cream/50
                   focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base
                   transition-all duration-200"
-                placeholder="Tell us about your project or inquiry..."
+                placeholder={t('forBusiness.messagePlaceholder')}
                 data-testid="contact-message-input"
               />
             </div>
