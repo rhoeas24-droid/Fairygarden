@@ -327,10 +327,10 @@ const About = () => {
           </h3>
           
           {/* Mushroom Decorations Container */}
-          <div className="flex justify-center items-center gap-4 sm:gap-8 lg:gap-16">
+          <div className="flex justify-center items-center gap-8 lg:gap-16">
             {/* Left Mushroom - mirrored */}
             <motion.div
-              className="hidden md:block w-24 lg:w-32 xl:w-40 flex-shrink-0"
+              className="w-32 lg:w-40 xl:w-48 flex-shrink-0"
               animate={{ 
                 opacity: [0.4, 1, 0.4],
                 scale: [0.95, 1, 0.95]
@@ -344,7 +344,8 @@ const About = () => {
               <img 
                 src="https://fairygarden4u.com/mushroom_decor.webp" 
                 alt="Decorative mushroom"
-                className="w-full h-auto transform -scale-x-100 drop-shadow-[0_0_15px_rgba(212,175,55,0.3)]"
+                className="w-full h-auto"
+                style={{ transform: 'scaleX(-1)', filter: 'drop-shadow(0 0 15px rgba(212,175,55,0.3))' }}
               />
             </motion.div>
             
