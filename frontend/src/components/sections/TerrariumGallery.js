@@ -91,10 +91,17 @@ const TerrariumGallery = () => {
   const [products, setProducts] = useState([]);
   const [isCustomBuilderOpen, setIsCustomBuilderOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isWebshopExpanded, setIsWebshopExpanded] = useState(false);
   const { t } = useTranslation();
 
   useEffect(() => {
     fetchProducts();
+    
+    // Check if URL has shop anchor - auto expand
+    const hash = window.location.hash;
+    if (hash && (hash.includes('shop-bottles') || hash.includes('shop-plants') || hash.includes('shop-decorations'))) {
+      setIsWebshopExpanded(true);
+    }
   }, []);
 
   const fetchProducts = async () => {
