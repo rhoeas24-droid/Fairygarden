@@ -163,31 +163,6 @@ const DIYKits = () => {
                 </div>
               </motion.div>
             ))}
-            
-            {/* Build Your Own Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: products.length * 0.05 }}
-              className="group bg-gradient-to-br from-gold/20 to-gold/5 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border-2 border-gold/30 border-dashed cursor-pointer"
-              onClick={() => setIsCustomBuilderOpen(true)}
-            >
-              <div className="h-full flex flex-col items-center justify-center p-6 text-center min-h-[350px]">
-                <div className="w-16 h-16 rounded-full bg-gold/20 flex items-center justify-center mb-4">
-                  <Package className="w-8 h-8 text-gold-dark" />
-                </div>
-                <h3 className="font-cinzel font-bold text-forest text-lg mb-2">
-                  Design Your Own
-                </h3>
-                <p className="text-forest/60 font-montserrat text-sm mb-4">
-                  Create a completely custom DIY Kit with your own vision
-                </p>
-                <span className="text-gold-dark font-montserrat text-sm font-semibold group-hover:text-gold transition-colors">
-                  Start Creating →
-                </span>
-              </div>
-            </motion.div>
           </div>
         )}
       </div>
