@@ -417,23 +417,15 @@ const About = () => {
             {/* Right Mushroom */}
             <motion.div
               className="hidden sm:block w-20 sm:w-24 lg:w-32 flex-shrink-0 self-end"
-              animate={{ 
-                opacity: [1, 0.6, 1],
-                y: [0, -5, 0]
-              }}
+              animate={{ y: [0, -5, 0] }}
               transition={{ 
-                duration: 2.5,
+                duration: 3,
                 repeat: Infinity,
                 ease: "easeInOut",
-                delay: 1.25
+                delay: 1.5
               }}
             >
-              <img 
-                src="https://fairygarden4u.com/fairy_mushroom.png" 
-                alt=""
-                className="w-full h-auto"
-                style={{ filter: 'drop-shadow(0 0 10px rgba(212,175,55,0.4))' }}
-              />
+              <BlinkingMushroom mirrored={false} />
             </motion.div>
           </div>
         </motion.div>
