@@ -230,28 +230,28 @@ const TerrariumGallery = () => {
         </div>
         
         {/* Browse More Categories */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center"
-        >
-          <button
-            onClick={() => {
-              setIsWebshopExpanded(!isWebshopExpanded);
-              if (!isWebshopExpanded) {
+        {!isWebshopExpanded && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-16 text-center"
+          >
+            <button
+              onClick={() => {
+                setIsWebshopExpanded(true);
                 setTimeout(() => {
                   document.getElementById('shop-bottles')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }, 100);
-              }
-            }}
-            className="inline-flex items-center gap-3 px-8 py-4 bg-gold hover:bg-gold-light text-forest font-cinzel font-bold text-lg rounded-full transition-all shadow-lg hover:shadow-xl"
-          >
-            <ShoppingBag className="w-6 h-6" />
-            Browse Our Webshop
-            <ChevronDown className={`w-5 h-5 transition-transform ${isWebshopExpanded ? 'rotate-180' : ''}`} />
-          </button>
-        </motion.div>
+              }}
+              className="inline-flex items-center gap-3 px-8 py-4 bg-gold hover:bg-gold-light text-forest font-cinzel font-bold text-lg rounded-full transition-all shadow-lg hover:shadow-xl"
+            >
+              <ShoppingBag className="w-6 h-6" />
+              Browse Our Webshop
+              <ChevronDown className="w-5 h-5" />
+            </button>
+          </motion.div>
+        )}
         
         {/* Expanded Webshop Categories */}
         <AnimatePresence>
