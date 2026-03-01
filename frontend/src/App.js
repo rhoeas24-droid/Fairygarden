@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { CartProvider } from './contexts/CartContext';
 import { Toaster } from './components/ui/sonner';
 import SparkleBackground from './components/SparkleBackground';
@@ -16,12 +16,21 @@ import ForBusiness from './components/sections/ForBusiness';
 import Workshops from './components/sections/Workshops';
 import About from './components/sections/About';
 import BlogPreview from './components/sections/BlogPreview';
-import TermsConditions from './components/sections/TermsConditions';
+import TermsConditions, { TermsModal } from './components/sections/TermsConditions';
 import PrivacyPolicy from './components/sections/PrivacyPolicy';
 import Footer from './components/sections/Footer';
 import './App.css';
 
 function App() {
+  const [isTermsOpen, setIsTermsOpen] = useState(false);
+  
+  useEffect(() => {
+    // Listen for terms modal open event
+    const handleOpenTerms = () => setIsTermsOpen(true);
+    window.addEventListener('openTermsModal', handleOpenTerms);
+    return () => window.removeEventListener('openTermsModal', handleOpenTerms);
+  }, []);
+  
   return (
     <CartProvider>
       <div className="App relative">
@@ -53,6 +62,9 @@ function App() {
         <ScrollToTop />
         <CookieConsent />
         <Toaster position="top-right" richColors />
+        
+        {/* Global Terms Modal */}
+        <TermsModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
       </div>
     </CartProvider>
   );
