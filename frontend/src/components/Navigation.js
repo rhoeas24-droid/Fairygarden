@@ -21,20 +21,6 @@ const Navigation = () => {
   }, []);
 
   const scrollToSection = (id) => {
-    // For terms, open modal instead of scrolling
-    if (id === 'terms-conditions') {
-      window.dispatchEvent(new CustomEvent('openTermsModal'));
-      setIsMobileMenuOpen(false);
-      return;
-    }
-    
-    // For privacy, open modal instead of scrolling
-    if (id === 'privacy-policy') {
-      window.dispatchEvent(new CustomEvent('openPrivacyModal'));
-      setIsMobileMenuOpen(false);
-      return;
-    }
-    
     // For shop subcategories, we need to expand the webshop first
     if (id.startsWith('shop-')) {
       // Dispatch custom event to expand webshop
