@@ -34,15 +34,11 @@ const DIYKits = () => {
 
   const fetchProducts = async () => {
     try {
-      // Fetch from WooCommerce API with language parameter
+      // Fetch from WooCommerce API with language parameter and product_type filter
       const response = await axios.get(`${API}/wc/products`, {
-        params: { lang: i18n.language }
+        params: { lang: i18n.language, product_type: 'diy-kit' }
       });
-      // Filter only DIY Kits category
-      const diyKits = response.data.filter(p => 
-        p.category === 'DIY Kits' || p.categories?.includes('DIY Kits')
-      );
-      setProducts(diyKits);
+      setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
       // Fallback to old API if WooCommerce fails
