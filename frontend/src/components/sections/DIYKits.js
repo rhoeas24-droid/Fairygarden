@@ -67,7 +67,7 @@ const DIYKits = () => {
             <p>
               We take care of the rest: every substrate layer, every plant, every tool — all carefully selected and packed for you, along with a detailed step-by-step guide to walk you through the whole process.
             </p>
-            <p>
+            <p className="mt-6">
               Can't find your perfect design?{' '}
               <button 
                 onClick={() => setIsCustomBuilderOpen(true)}
@@ -79,18 +79,24 @@ const DIYKits = () => {
           </div>
           
           {/* Features */}
-          <div className="flex flex-wrap justify-center gap-6 mt-8">
-            <div className="flex items-center gap-2 text-forest/70">
-              <Package className="w-5 h-5 text-gold-dark" />
-              <span className="font-montserrat text-sm">Everything Included</span>
+          <div className="flex flex-wrap justify-center gap-8 sm:gap-12 mt-10">
+            <div className="flex flex-col items-center gap-2 text-forest">
+              <div className="w-14 h-14 rounded-full bg-gold/20 flex items-center justify-center">
+                <Package className="w-7 h-7 text-gold-dark" />
+              </div>
+              <span className="font-cinzel font-bold text-base sm:text-lg">Everything Included</span>
             </div>
-            <div className="flex items-center gap-2 text-forest/70">
-              <Wrench className="w-5 h-5 text-gold-dark" />
-              <span className="font-montserrat text-sm">Tools Provided</span>
+            <div className="flex flex-col items-center gap-2 text-forest">
+              <div className="w-14 h-14 rounded-full bg-gold/20 flex items-center justify-center">
+                <Wrench className="w-7 h-7 text-gold-dark" />
+              </div>
+              <span className="font-cinzel font-bold text-base sm:text-lg">Tools Provided</span>
             </div>
-            <div className="flex items-center gap-2 text-forest/70">
-              <BookOpen className="w-5 h-5 text-gold-dark" />
-              <span className="font-montserrat text-sm">Step-by-Step Guide</span>
+            <div className="flex flex-col items-center gap-2 text-forest">
+              <div className="w-14 h-14 rounded-full bg-gold/20 flex items-center justify-center">
+                <BookOpen className="w-7 h-7 text-gold-dark" />
+              </div>
+              <span className="font-cinzel font-bold text-base sm:text-lg">Step-by-Step Guide</span>
             </div>
           </div>
         </motion.div>
