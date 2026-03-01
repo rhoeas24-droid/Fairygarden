@@ -5,19 +5,25 @@ import { useTranslation } from 'react-i18next';
 
 // Firework Comet with sparkling trail
 const FireworkComet = ({ color, secondaryColor, id }) => {
-  const [position, setPosition] = useState({ x: Math.random() * 80 + 10, y: Math.random() * 80 + 10 });
-  const [target, setTarget] = useState({ x: Math.random() * 80 + 10, y: Math.random() * 80 + 10 });
+  const [position, setPosition] = useState({ x: Math.random() * 70 + 15, y: Math.random() * 70 + 15 });
+  const [target, setTarget] = useState({ x: Math.random() * 70 + 15, y: Math.random() * 70 + 15 });
   const [sparks, setSparks] = useState([]);
+  const [angle, setAngle] = useState(0);
   
-  // Generate new target periodically
+  // Generate new target with smooth curves
   useEffect(() => {
     const interval = setInterval(() => {
-      setTarget({ x: Math.random() * 80 + 10, y: Math.random() * 80 + 10 });
-    }, 3000 + Math.random() * 2000);
+      setTarget(prev => {
+        // Create smooth curved paths by limiting direction change
+        const newX = Math.max(10, Math.min(90, prev.x + (Math.random() - 0.5) * 40));
+        const newY = Math.max(10, Math.min(90, prev.y + (Math.random() - 0.5) * 40));
+        return { x: newX, y: newY };
+      });
+    }, 4000 + Math.random() * 2000);
     return () => clearInterval(interval);
   }, []);
   
-  // Move towards target and leave sparks
+  // Move towards target smoothly and leave sparks
   useEffect(() => {
     const moveInterval = setInterval(() => {
       setPosition(prev => {
@@ -25,44 +31,53 @@ const FireworkComet = ({ color, secondaryColor, id }) => {
         const dy = target.y - prev.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
-        if (distance < 2) return prev;
+        if (distance < 1) return prev;
         
-        const speed = 0.8;
+        // Slower, more elegant movement
+        const speed = 0.3;
         const newX = prev.x + (dx / distance) * speed;
         const newY = prev.y + (dy / distance) * speed;
         
-        // Add spark at current position
-        setSparks(s => [...s.slice(-15), {
-          id: Date.now() + Math.random(),
-          x: prev.x,
-          y: prev.y,
-          vx: (Math.random() - 0.5) * 2,
-          vy: (Math.random() - 0.5) * 2,
-          size: 1 + Math.random() * 2,
-          life: 1,
-          color: Math.random() > 0.5 ? color : secondaryColor
-        }]);
+        // Calculate movement angle for trail direction
+        setAngle(Math.atan2(dy, dx) * 180 / Math.PI);
+        
+        // Add multiple sparks at current position for thicker trail
+        const newSparks = [];
+        for (let i = 0; i < 3; i++) {
+          newSparks.push({
+            id: Date.now() + Math.random() + i,
+            x: prev.x + (Math.random() - 0.5) * 1,
+            y: prev.y + (Math.random() - 0.5) * 1,
+            vx: -dx / distance * 0.3 + (Math.random() - 0.5) * 0.5,
+            vy: -dy / distance * 0.3 + (Math.random() - 0.5) * 0.5,
+            size: 2 + Math.random() * 4,
+            life: 1,
+            color: Math.random() > 0.3 ? color : secondaryColor
+          });
+        }
+        
+        setSparks(s => [...s.slice(-60), ...newSparks]);
         
         return { x: newX, y: newY };
       });
-    }, 50);
+    }, 30);
     return () => clearInterval(moveInterval);
   }, [target, color, secondaryColor]);
   
-  // Animate sparks fading
+  // Animate sparks fading smoothly
   useEffect(() => {
     const fadeInterval = setInterval(() => {
       setSparks(s => s
         .map(spark => ({
           ...spark,
-          x: spark.x + spark.vx * 0.3,
-          y: spark.y + spark.vy * 0.3,
-          life: spark.life - 0.05,
-          size: spark.size * 0.95
+          x: spark.x + spark.vx * 0.2,
+          y: spark.y + spark.vy * 0.2,
+          life: spark.life - 0.015,
+          size: spark.size * 0.98
         }))
         .filter(spark => spark.life > 0)
       );
-    }, 50);
+    }, 30);
     return () => clearInterval(fadeInterval);
   }, []);
 
@@ -79,30 +94,46 @@ const FireworkComet = ({ color, secondaryColor, id }) => {
             width: spark.size,
             height: spark.size,
             backgroundColor: spark.color,
-            opacity: spark.life,
-            boxShadow: `0 0 ${spark.size * 3}px ${spark.color}`,
+            opacity: spark.life * 0.9,
+            boxShadow: `0 0 ${spark.size * 2}px ${spark.color}, 0 0 ${spark.size * 4}px ${spark.color}40`,
             transform: 'translate(-50%, -50%)',
           }}
         />
       ))}
-      {/* Comet head */}
+      {/* Glowing trail effect */}
+      <div
+        className="absolute rounded-full pointer-events-none blur-sm"
+        style={{
+          left: `${position.x}%`,
+          top: `${position.y}%`,
+          width: 30,
+          height: 8,
+          background: `linear-gradient(to left, ${color}, ${secondaryColor}, transparent)`,
+          opacity: 0.6,
+          transform: `translate(-80%, -50%) rotate(${angle}deg)`,
+          transformOrigin: 'right center',
+        }}
+      />
+      {/* Comet head - larger with glow */}
       <motion.div
         className="absolute rounded-full pointer-events-none"
         style={{
           left: `${position.x}%`,
           top: `${position.y}%`,
-          width: 6,
-          height: 6,
+          width: 12,
+          height: 12,
           backgroundColor: color,
-          boxShadow: `0 0 8px ${color}, 0 0 15px ${color}, 0 0 25px ${secondaryColor}`,
+          boxShadow: `0 0 10px ${color}, 0 0 20px ${color}, 0 0 40px ${secondaryColor}, 0 0 60px ${secondaryColor}40`,
           transform: 'translate(-50%, -50%)',
         }}
         animate={{
-          scale: [1, 1.3, 1],
+          scale: [1, 1.2, 1],
+          opacity: [0.9, 1, 0.9],
         }}
         transition={{
-          duration: 0.5,
+          duration: 1,
           repeat: Infinity,
+          ease: "easeInOut",
         }}
       />
     </>
