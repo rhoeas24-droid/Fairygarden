@@ -1,87 +1,111 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Leaf, Sparkles, Star, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-// Magic Comet Component
-const MagicComet = ({ color, delay, duration, startX, startY }) => {
-  const pathVariants = useMemo(() => {
-    // Random curved path
-    const endX = startX + (Math.random() - 0.5) * 60;
-    const endY = startY + (Math.random() - 0.5) * 60;
-    const midX = (startX + endX) / 2 + (Math.random() - 0.5) * 30;
-    const midY = (startY + endY) / 2 + (Math.random() - 0.5) * 30;
-    
-    return {
-      x: [startX, midX, endX, midX, startX],
-      y: [startY, midY, endY, midY, startY],
-    };
-  }, [startX, startY]);
+// Firework Comet with sparkling trail
+const FireworkComet = ({ color, secondaryColor, id }) => {
+  const [position, setPosition] = useState({ x: Math.random() * 80 + 10, y: Math.random() * 80 + 10 });
+  const [target, setTarget] = useState({ x: Math.random() * 80 + 10, y: Math.random() * 80 + 10 });
+  const [sparks, setSparks] = useState([]);
+  
+  // Generate new target periodically
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTarget({ x: Math.random() * 80 + 10, y: Math.random() * 80 + 10 });
+    }, 3000 + Math.random() * 2000);
+    return () => clearInterval(interval);
+  }, []);
+  
+  // Move towards target and leave sparks
+  useEffect(() => {
+    const moveInterval = setInterval(() => {
+      setPosition(prev => {
+        const dx = target.x - prev.x;
+        const dy = target.y - prev.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance < 2) return prev;
+        
+        const speed = 0.8;
+        const newX = prev.x + (dx / distance) * speed;
+        const newY = prev.y + (dy / distance) * speed;
+        
+        // Add spark at current position
+        setSparks(s => [...s.slice(-15), {
+          id: Date.now() + Math.random(),
+          x: prev.x,
+          y: prev.y,
+          vx: (Math.random() - 0.5) * 2,
+          vy: (Math.random() - 0.5) * 2,
+          size: 1 + Math.random() * 2,
+          life: 1,
+          color: Math.random() > 0.5 ? color : secondaryColor
+        }]);
+        
+        return { x: newX, y: newY };
+      });
+    }, 50);
+    return () => clearInterval(moveInterval);
+  }, [target, color, secondaryColor]);
+  
+  // Animate sparks fading
+  useEffect(() => {
+    const fadeInterval = setInterval(() => {
+      setSparks(s => s
+        .map(spark => ({
+          ...spark,
+          x: spark.x + spark.vx * 0.3,
+          y: spark.y + spark.vy * 0.3,
+          life: spark.life - 0.05,
+          size: spark.size * 0.95
+        }))
+        .filter(spark => spark.life > 0)
+      );
+    }, 50);
+    return () => clearInterval(fadeInterval);
+  }, []);
 
   return (
-    <motion.div
-      className="absolute pointer-events-none"
-      style={{ left: 0, top: 0 }}
-      animate={{
-        x: pathVariants.x.map(v => `${v}%`),
-        y: pathVariants.y.map(v => `${v}%`),
-      }}
-      transition={{
-        duration: duration,
-        delay: delay,
-        repeat: Infinity,
-        ease: "easeInOut"
-      }}
-    >
-      {/* Comet head */}
-      <div 
-        className="relative w-3 h-3 rounded-full"
-        style={{
-          backgroundColor: color,
-          boxShadow: `0 0 10px ${color}, 0 0 20px ${color}, 0 0 30px ${color}`,
-        }}
-      />
-      {/* Comet tail */}
-      <motion.div
-        className="absolute top-1/2 right-full w-16 h-1 -translate-y-1/2"
-        style={{
-          background: `linear-gradient(to left, ${color}, transparent)`,
-          filter: 'blur(2px)',
-        }}
-        animate={{
-          opacity: [0.8, 1, 0.8],
-          scaleX: [0.8, 1.2, 0.8],
-        }}
-        transition={{
-          duration: 1.5,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      {/* Sparkle trail */}
-      {[...Array(5)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-1 h-1 rounded-full"
+    <>
+      {/* Sparks trail */}
+      {sparks.map(spark => (
+        <div
+          key={spark.id}
+          className="absolute rounded-full pointer-events-none"
           style={{
-            backgroundColor: color,
-            right: 12 + i * 8,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            boxShadow: `0 0 4px ${color}`,
-          }}
-          animate={{
-            opacity: [0, 0.8, 0],
-            scale: [0.5, 1, 0.5],
-          }}
-          transition={{
-            duration: 1,
-            delay: i * 0.15,
-            repeat: Infinity,
+            left: `${spark.x}%`,
+            top: `${spark.y}%`,
+            width: spark.size,
+            height: spark.size,
+            backgroundColor: spark.color,
+            opacity: spark.life,
+            boxShadow: `0 0 ${spark.size * 3}px ${spark.color}`,
+            transform: 'translate(-50%, -50%)',
           }}
         />
       ))}
-    </motion.div>
+      {/* Comet head */}
+      <motion.div
+        className="absolute rounded-full pointer-events-none"
+        style={{
+          left: `${position.x}%`,
+          top: `${position.y}%`,
+          width: 6,
+          height: 6,
+          backgroundColor: color,
+          boxShadow: `0 0 8px ${color}, 0 0 15px ${color}, 0 0 25px ${secondaryColor}`,
+          transform: 'translate(-50%, -50%)',
+        }}
+        animate={{
+          scale: [1, 1.3, 1],
+        }}
+        transition={{
+          duration: 0.5,
+          repeat: Infinity,
+        }}
+      />
+    </>
   );
 };
 
