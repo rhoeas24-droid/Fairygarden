@@ -10,6 +10,25 @@
     "terms": "Termini",
     "privacy": "Privacy"
   },
+  "product": {
+    "includesVat": "IVA inclusa",
+    "dimensions": "Dimensioni",
+    "height": "Altezza",
+    "width": "Larghezza",
+    "weight": "Peso",
+    "careTitle": "Istruzioni per la Cura",
+    "uniqueNote": "Ogni florarium è realizzato a mano e unico. Il prodotto reale potrebbe differire leggermente dall'immagine mostrata.",
+    "care": {
+      "light": "Luce",
+      "lightDesc": "Luce solare indiretta, evitare il sole diretto",
+      "water": "Acqua",
+      "waterDesc": "Nebulizzare leggermente ogni 2-3 settimane",
+      "temp": "Temperatura",
+      "tempDesc": "15-25°C, evitare temperature estreme",
+      "maintenance": "Manutenzione",
+      "maintenanceDesc": "Rimuovere le foglie ingiallite, mantenere il vetro pulito"
+    }
+  },
   "hero": {
     "button": "Esplora la Magia"
   },
