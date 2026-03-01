@@ -110,16 +110,10 @@ const Navigation = () => {
                     {shopCategories.map((category, index) => (
                       <button
                         key={category.id}
-                        onClick={() => !category.comingSoon && scrollToSection(category.id)}
-                        className={`w-full text-left px-4 py-3 font-montserrat text-sm transition-colors ${
-                          category.comingSoon 
-                            ? 'text-cream/50 cursor-not-allowed' 
-                            : 'text-cream hover:text-gold hover:bg-gold/10'
-                        } ${index !== shopCategories.length - 1 ? 'border-b border-gold/10' : ''}`}
-                        disabled={category.comingSoon}
+                        onClick={() => scrollToSection(category.id)}
+                        className={`w-full text-left px-4 py-3 font-montserrat text-sm transition-colors text-cream hover:text-gold hover:bg-gold/10 ${index !== shopCategories.length - 1 ? 'border-b border-gold/10' : ''}`}
                       >
                         {category.label}
-                        {category.comingSoon && <span className="ml-2 text-xs text-gold/50">(Coming Soon)</span>}
                       </button>
                     ))}
                   </motion.div>
