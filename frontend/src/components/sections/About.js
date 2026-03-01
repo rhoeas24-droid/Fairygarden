@@ -246,12 +246,20 @@ const About = () => {
                 {t('about.storyTitle')}
               </h3>
             </div>
-            <p className="text-cream/90 font-montserrat leading-relaxed text-justify text-sm sm:text-base">
-              {t('about.storyParagraph1')}
+            <p className="text-cream/90 font-montserrat leading-relaxed text-justify text-sm sm:text-base italic">
+              Fairy Garden didn't start as a business. It started as a quiet obsession in 2020.
             </p>
             <p className="text-cream/90 font-montserrat leading-relaxed text-justify text-sm sm:text-base">
-              {t('about.storyParagraph2')}
+              A bottle. Some soil. A few tiny plants. A sealed lid — and suddenly, a whole living world humming away completely on its own. That first closed terrarium was never meant to be anything more than a personal project, a creative escape, a way to bring a little nature indoors. But something about it refused to stay small...
             </p>
+            
+            {/* Read More button */}
+            <button
+              onClick={() => setIsOurStoryOpen(true)}
+              className="text-gold hover:text-gold-light font-montserrat font-semibold underline decoration-gold/50 hover:decoration-gold transition-colors text-sm sm:text-base"
+            >
+              Read More →
+            </button>
             
             {/* Mission Statement */}
             <div className="bg-gold/10 border border-gold/30 rounded-xl p-4 sm:p-6 mt-4 sm:mt-6">
