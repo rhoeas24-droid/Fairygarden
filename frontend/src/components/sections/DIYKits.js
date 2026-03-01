@@ -67,7 +67,7 @@ const DIYKits = () => {
             <p>
               We take care of the rest: every substrate layer, every plant, every tool — all carefully selected and packed for you, along with a detailed step-by-step guide to walk you through the whole process.
             </p>
-            <p className="mt-8 mb-12">
+            <p className="mt-8">
               Can't find your perfect design?{' '}
               <button 
                 onClick={() => setIsCustomBuilderOpen(true)}
@@ -79,7 +79,7 @@ const DIYKits = () => {
           </div>
           
           {/* Features */}
-          <div className="flex flex-wrap justify-center gap-8 sm:gap-12 mt-10">
+          <div className="flex flex-wrap justify-center gap-8 sm:gap-12 mt-16 mb-8">
             <div className="flex flex-col items-center gap-2 text-forest">
               <div className="w-14 h-14 rounded-full bg-gold/20 flex items-center justify-center">
                 <Package className="w-7 h-7 text-gold-dark" />
