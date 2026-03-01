@@ -320,12 +320,35 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
+          className="relative"
         >
           <h3 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold text-center mb-8 sm:mb-12">
             {t('about.teamTitle')}
           </h3>
           
-          <div className="flex justify-center">
+          {/* Mushroom Decorations Container */}
+          <div className="flex justify-center items-center gap-4 sm:gap-8 lg:gap-16">
+            {/* Left Mushroom - mirrored */}
+            <motion.div
+              className="hidden md:block w-24 lg:w-32 xl:w-40 flex-shrink-0"
+              animate={{ 
+                opacity: [0.4, 1, 0.4],
+                scale: [0.95, 1, 0.95]
+              }}
+              transition={{ 
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <img 
+                src="/mushroom_decor.webp" 
+                alt="Decorative mushroom"
+                className="w-full h-auto transform -scale-x-100 drop-shadow-[0_0_15px_rgba(212,175,55,0.3)]"
+              />
+            </motion.div>
+            
+            {/* Team Member Card */}
             {teamMembers.map((member, index) => (
               <motion.div
                 key={member.id}
@@ -359,6 +382,26 @@ const About = () => {
                 </div>
               </motion.div>
             ))}
+            
+            {/* Right Mushroom - normal */}
+            <motion.div
+              className="hidden md:block w-24 lg:w-32 xl:w-40 flex-shrink-0"
+              animate={{ 
+                opacity: [1, 0.4, 1],
+                scale: [1, 0.95, 1]
+              }}
+              transition={{ 
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <img 
+                src="/mushroom_decor.webp" 
+                alt="Decorative mushroom"
+                className="w-full h-auto drop-shadow-[0_0_15px_rgba(212,175,55,0.3)]"
+              />
+            </motion.div>
           </div>
         </motion.div>
       </div>
