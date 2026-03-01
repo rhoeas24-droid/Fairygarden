@@ -245,7 +245,10 @@ const About = () => {
                   
                   {/* Overlay info */}
                   <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
-                    <h4 className="font-cinzel font-bold text-gold text-lg sm:text-xl mb-1">
+                    <h4 
+                      className="font-cinzel font-bold text-gold text-lg sm:text-xl mb-1 cursor-pointer hover:text-gold-light transition-colors underline decoration-gold/50 hover:decoration-gold"
+                      onClick={() => setIsAboutMeOpen(true)}
+                    >
                       {t(member.nameKey)}
                     </h4>
                     <p className="text-cream/80 font-montserrat text-xs sm:text-sm">
@@ -258,6 +261,9 @@ const About = () => {
           </div>
         </motion.div>
       </div>
+      
+      {/* About Me Modal */}
+      <AboutMeModal isOpen={isAboutMeOpen} onClose={() => setIsAboutMeOpen(false)} />
     </section>
   );
 };
