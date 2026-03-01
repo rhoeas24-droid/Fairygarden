@@ -114,10 +114,7 @@ const Workshops = () => {
   };
 
   const scrollToPrivacy = () => {
-    const element = document.getElementById('privacy-policy');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    window.dispatchEvent(new CustomEvent('openPrivacyModal'));
   };
 
   return (
