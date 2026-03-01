@@ -211,27 +211,77 @@ const TerrariumGallery = () => {
           viewport={{ once: true }}
           className="mt-16 text-center"
         >
-          <h3 className="text-xl sm:text-2xl font-cinzel font-bold text-gold mb-6">
-            Explore More Categories
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            <div className="bg-forest/30 border border-gold/20 rounded-xl p-6 opacity-70">
-              <div className="text-gold font-cinzel font-bold mb-2">Bottles, Jars & Tools</div>
-              <div className="text-cream/60 text-sm font-montserrat mb-3">Professional tools and premium glass containers</div>
-              <span className="text-gold/50 text-xs font-montserrat uppercase">Coming Soon</span>
-            </div>
-            <div className="bg-forest/30 border border-gold/20 rounded-xl p-6 opacity-70">
-              <div className="text-gold font-cinzel font-bold mb-2">Plants & Substrate Mix</div>
-              <div className="text-cream/60 text-sm font-montserrat mb-3">Home-grown plants and our special substrate blend</div>
-              <span className="text-gold/50 text-xs font-montserrat uppercase">Coming Soon</span>
-            </div>
-            <div className="bg-forest/30 border border-gold/20 rounded-xl p-6 opacity-70">
-              <div className="text-gold font-cinzel font-bold mb-2">Decorations & Stones</div>
-              <div className="text-cream/60 text-sm font-montserrat mb-3">Driftwood, stones, moss and miniature figures</div>
-              <span className="text-gold/50 text-xs font-montserrat uppercase">Coming Soon</span>
-            </div>
-          </div>
+          <button
+            onClick={() => {
+              setIsWebshopExpanded(!isWebshopExpanded);
+              if (!isWebshopExpanded) {
+                setTimeout(() => {
+                  document.getElementById('shop-bottles')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+              }
+            }}
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gold hover:bg-gold-light text-forest font-cinzel font-bold text-lg rounded-full transition-all shadow-lg hover:shadow-xl"
+          >
+            <ShoppingBag className="w-6 h-6" />
+            Browse Our Webshop
+            <ChevronDown className={`w-5 h-5 transition-transform ${isWebshopExpanded ? 'rotate-180' : ''}`} />
+          </button>
         </motion.div>
+        
+        {/* Expanded Webshop Categories */}
+        <AnimatePresence>
+          {isWebshopExpanded && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mt-12 space-y-16"
+            >
+              {/* Bottles, Jars & Tools */}
+              <div id="shop-bottles" className="scroll-mt-24">
+                <h3 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold mb-6 text-center">
+                  Bottles, Jars & Tools
+                </h3>
+                <p className="text-cream/70 font-montserrat text-center mb-8 max-w-2xl mx-auto">
+                  Professional tools and premium glass containers for your florarium projects
+                </p>
+                <div className="bg-forest/30 border border-gold/20 rounded-xl p-8 text-center">
+                  <span className="text-gold/60 font-cinzel text-xl">Coming Soon</span>
+                  <p className="text-cream/50 font-montserrat text-sm mt-2">We're curating the finest selection for you</p>
+                </div>
+              </div>
+              
+              {/* Plants & Substrate Mix */}
+              <div id="shop-plants" className="scroll-mt-24">
+                <h3 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold mb-6 text-center">
+                  Plants & Substrate Mix
+                </h3>
+                <p className="text-cream/70 font-montserrat text-center mb-8 max-w-2xl mx-auto">
+                  Home-grown plants and our special tried-and-tested substrate blend
+                </p>
+                <div className="bg-forest/30 border border-gold/20 rounded-xl p-8 text-center">
+                  <span className="text-gold/60 font-cinzel text-xl">Coming Soon</span>
+                  <p className="text-cream/50 font-montserrat text-sm mt-2">Propagated with care and curiosity</p>
+                </div>
+              </div>
+              
+              {/* Decorations & Stones */}
+              <div id="shop-decorations" className="scroll-mt-24">
+                <h3 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold mb-6 text-center">
+                  Decorations & Stones
+                </h3>
+                <p className="text-cream/70 font-montserrat text-center mb-8 max-w-2xl mx-auto">
+                  Driftwood, stones, moss and miniature figures to bring your world to life
+                </p>
+                <div className="bg-forest/30 border border-gold/20 rounded-xl p-8 text-center">
+                  <span className="text-gold/60 font-cinzel text-xl">Coming Soon</span>
+                  <p className="text-cream/50 font-montserrat text-sm mt-2">Every piece tells a story</p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
       
       <CustomTerrariumBuilder
