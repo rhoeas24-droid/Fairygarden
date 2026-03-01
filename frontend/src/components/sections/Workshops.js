@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Users, Calendar, MapPin } from 'lucide-react';
+import { Users, Calendar, MapPin, Plus, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import GoldButton from '../GoldButton';
 import axios from 'axios';
@@ -19,11 +19,42 @@ const Workshops = () => {
     privacyAccepted: false,
     subscribeNewsletter: false
   });
+  const [additionalNames, setAdditionalNames] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    setFormData({ ...formData, [e.target.name]: value });
+    const newFormData = { ...formData, [e.target.name]: value };
+    
+    // Reset additional names when type changes
+    if (e.target.name === 'workshop_type') {
+      if (value === 'single') {
+        setAdditionalNames([]);
+      } else if (value === 'couples') {
+        setAdditionalNames(['']);
+      } else if (value === 'family') {
+        setAdditionalNames(['', '']);
+      }
+    }
+    
+    setFormData(newFormData);
+  };
+
+  const handleAdditionalNameChange = (index, value) => {
+    const newNames = [...additionalNames];
+    newNames[index] = value;
+    setAdditionalNames(newNames);
+  };
+
+  const addFamilyMember = () => {
+    setAdditionalNames([...additionalNames, '']);
+  };
+
+  const removeFamilyMember = (index) => {
+    if (additionalNames.length > 2) {
+      const newNames = additionalNames.filter((_, i) => i !== index);
+      setAdditionalNames(newNames);
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -34,14 +65,31 @@ const Workshops = () => {
       return;
     }
     
+    // Validate additional names
+    if (formData.workshop_type !== 'single') {
+      const filledNames = additionalNames.filter(name => name.trim() !== '');
+      if (formData.workshop_type === 'couples' && filledNames.length < 1) {
+        toast.error('Please enter the name of your partner');
+        return;
+      }
+      if (formData.workshop_type === 'family' && filledNames.length < 2) {
+        toast.error('Please enter at least 2 family member names');
+        return;
+      }
+    }
+    
     setIsSubmitting(true);
     
     try {
+      // Combine all names
+      const allNames = [formData.name, ...additionalNames.filter(n => n.trim() !== '')];
+      
       await axios.post(`${API}/workshop/register`, {
-        name: formData.name,
+        name: allNames.join(', '),
         email: formData.email,
         phone: formData.phone,
-        workshop_type: formData.workshop_type
+        workshop_type: formData.workshop_type,
+        participants: allNames
       });
       
       if (formData.subscribeNewsletter) {
@@ -56,6 +104,7 @@ const Workshops = () => {
       
       toast.success(t('workshops.successMessage'));
       setFormData({ name: '', email: '', phone: '', workshop_type: 'single', privacyAccepted: false, subscribeNewsletter: false });
+      setAdditionalNames([]);
     } catch (error) {
       toast.error(t('workshops.errorMessage'));
       console.error('Error submitting workshop registration:', error);
