@@ -178,7 +178,9 @@
     "privacyError": "Accetta l'Informativa sulla Privacy per continuare.",
     "privacyLabel": "Accetto la",
     "privacyLink": "Informativa sulla Privacy",
-    "copyright": "Tutti i diritti riservati."
+    "copyright": "Tutti i diritti riservati.",
+    "termsConditions": "Termini e Condizioni",
+    "privacyPolicy": "Informativa sulla Privacy"
   },
   "privacy": {
     "title": "Informativa sulla Privacy"
