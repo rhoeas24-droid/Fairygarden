@@ -24,7 +24,7 @@
     "customFromPrice": "from €{{price}}",
     "customButton": "Start Creating"
   },
-  "customflorarium": {
+  "customTerrarium": {
     "title": "Build Your Own florarium",
     "subtitle": "Design your personalized miniature garden. Our craftsmen will create a unique piece just for you.",
     "nameLabel": "Name",

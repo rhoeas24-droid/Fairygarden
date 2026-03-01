@@ -24,7 +24,7 @@
     "customFromPrice": "{{price}} EUR-tól",
     "customButton": "Kezdjük"
   },
-  "customflorarium": {
+  "customTerrarium": {
     "title": "Állítsd Össze Saját Kertedet",
     "subtitle": "Tervezd meg személyre szabott miniatűr kertedet. Mestereink egyedi alkotást készítenek csak neked.",
     "nameLabel": "Név",
