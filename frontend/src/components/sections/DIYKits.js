@@ -136,7 +136,7 @@ const DIYKits = () => {
                   <h3 className="font-cinzel font-bold text-forest text-sm sm:text-base mb-1 line-clamp-1">
                     {product.name}
                   </h3>
-                  <p className="text-forest/60 font-montserrat text-xs line-clamp-2 mb-3">
+                  <p className="text-forest/60 font-montserrat text-xs line-clamp-2 mb-3 text-justify">
                     {product.description}
                   </p>
                   
