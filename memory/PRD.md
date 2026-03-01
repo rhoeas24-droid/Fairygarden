@@ -15,7 +15,7 @@ Design a single-page website homepage for a magical terrarium brand called "Fair
 
 ---
 
-## What's Been Implemented ✅
+## What's Been Implemented
 
 ### Core Features
 - [x] Hero section with animated stars/sparkles
@@ -27,14 +27,26 @@ Design a single-page website homepage for a magical terrarium brand called "Fair
 - [x] For Business section with inquiry form
 - [x] Workshops section with signup form
 - [x] Blog Preview section
-- [x] About section
+- [x] About section with "About Me" and "Our Story" modals
 - [x] Footer with newsletter signup
 - [x] Sticky navigation header
 - [x] Scroll to Top button
 - [x] Cookie consent banner (GDPR)
 - [x] Language switcher (EN, HU, GR, IT)
-- [x] Privacy Policy page
 - [x] Responsive design (mobile, tablet, desktop)
+- [x] Custom favicon and page title
+
+### Legal Pages (March 1, 2025)
+- [x] **Terms & Conditions Modal** - Full unabbreviated text from user's document
+- [x] **Privacy Policy Modal** - Full unabbreviated text from user's document
+- [x] Footer links to T&C and Privacy modals
+- [x] All form checkbox links updated to open modals:
+  - Workshop form privacy link
+  - For Business form privacy link
+  - Custom Terrarium Builder privacy & terms links
+  - Cookie Consent privacy link
+  - Newsletter form privacy link
+- [x] Removed T&C and Privacy links from main navigation
 
 ### Recent Updates (Feb 28, 2025)
 - [x] Doubled stars and sparkles density (60 stars in Hero, 360 particles in MagicalDivider)
@@ -47,7 +59,6 @@ Design a single-page website homepage for a magical terrarium brand called "Fair
 ## Pending Tasks
 
 ### P1 - High Priority
-- [ ] Finalize Terms & Conditions page content (user provided text in earlier session)
 - [ ] Stripe payment integration
 - [ ] Admin dashboard (products, orders, blog management)
 - [ ] Replace remaining placeholder content (About Us, contact info)
@@ -72,6 +83,26 @@ Design a single-page website homepage for a magical terrarium brand called "Fair
 - `image` (VARCHAR - absolute URL)
 - `category` (VARCHAR)
 - `created_at` (DATETIME)
+
+---
+
+## Code Architecture
+
+### Modal System
+- **App.js**: Contains global modal state (isTermsOpen, isPrivacyOpen)
+- **Event Listeners**: Use `window.dispatchEvent(new CustomEvent('openTermsModal'))` to trigger modals from anywhere
+- **Modal Components**: Located in `/app/frontend/src/components/sections/`
+  - `TermsConditions.js` - Exports `TermsModal` component with full legal text
+  - `PrivacyPolicy.js` - Exports `PrivacyModal` component with full GDPR text
+
+### Key Files
+- `frontend/src/components/sections/Footer.js` - Footer with legal links
+- `frontend/src/components/Navigation.js` - Main menu (no longer has legal links)
+- `frontend/src/components/sections/Workshops.js` - Workshop form
+- `frontend/src/components/sections/ForBusiness.js` - Business inquiry form
+- `frontend/src/components/CustomTerrariumBuilder.js` - Build Your Own form
+- `frontend/src/components/CookieConsent.js` - GDPR cookie banner
+- `frontend/src/locales/*.json` - Translation files (hu, en, el, it)
 
 ---
 
@@ -103,3 +134,8 @@ Always instruct user to:
 1. Restart backend: `touch ~/fairygarden-backend/tmp/restart.txt`
 2. Hard refresh: Ctrl+Shift+R
 3. Check in incognito window
+
+---
+
+## User Language
+The user communicates in **Hungarian**. All responses should be in Hungarian.
