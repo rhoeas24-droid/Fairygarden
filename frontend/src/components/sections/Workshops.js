@@ -55,7 +55,7 @@ const Workshops = () => {
       }
       
       toast.success(t('workshops.successMessage'));
-      setFormData({ name: '', email: '', phone: '', workshop_type: 'beginner', privacyAccepted: false, subscribeNewsletter: false });
+      setFormData({ name: '', email: '', phone: '', workshop_type: 'single', privacyAccepted: false, subscribeNewsletter: false });
     } catch (error) {
       toast.error(t('workshops.errorMessage'));
       console.error('Error submitting workshop registration:', error);
