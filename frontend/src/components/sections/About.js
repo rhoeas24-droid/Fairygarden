@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Heart, Leaf, Sparkles, Star } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Heart, Leaf, Sparkles, Star, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const teamMembers = [
@@ -12,8 +12,91 @@ const teamMembers = [
   },
 ];
 
+// About Me Modal Component
+const AboutMeModal = ({ isOpen, onClose }) => {
+  if (!isOpen) return null;
+  
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          onClick={onClose}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            transition={{ type: "spring", damping: 25 }}
+            className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto bg-forest border-2 border-gold/50 rounded-2xl shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close button */}
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-forest/80 border border-gold/30 text-gold hover:bg-gold hover:text-forest transition-all"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="p-6 sm:p-8 lg:p-10">
+              {/* Title */}
+              <h2 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold mb-6 text-center">
+                About Me
+              </h2>
+              
+              {/* Content */}
+              <div className="text-cream/90 font-montserrat text-sm sm:text-base leading-relaxed space-y-4 text-justify">
+                <p className="italic text-gold/90">
+                  Some people discover their passion. I was born with mine.
+                </p>
+                
+                <p>
+                  Hello there! My name is Attila. Please, let me tell you how my friendship with bottle gardens started.
+                </p>
+                
+                <p>
+                  As a child, I was completely captivated by nature — endlessly curious, endlessly amazed. I remember being genuinely obsessed with one question: how on earth can a giant tree be hiding inside a tiny seed? That sense of wonder never left me. It led me to study biology, then public health, and through years of work in nature conservation and health care, nature was always right there beside me — a constant companion.
+                </p>
+                
+                <p>
+                  Outside of work I was always chasing creative projects: aquariums, painting, plants, dogs (two very beloved ones, to whom I was a loyal and humble servant for sixteen years 🐾). But something was still missing, something to create that is more than just an object. Then in 2020, I discovered bottle gardens — and everything clicked.
+                </p>
+                
+                <p>
+                  There is something that happens when you seal a little world inside a glass container and watch it sustain itself. The moisture cycles. The plants breathe. Life finds its balance. For me, these tiny closed ecosystems feel like nothing short of pure magic — a whole living world, thriving quietly behind glass, needing almost nothing from the outside. I find it endlessly fascinating and, honestly, a little miraculous every single time.
+                </p>
+                
+                <p>
+                  Of course, getting there took work — and plenty of failures. Mold, rotting plants, bottles that looked promising for a few weeks before slowly falling apart. The researcher in me refused to give up, and equally refused to settle for surface-level answers. Instead of quick fixes, I went deep — reading scientific publications, studying substrate chemistry, understanding the biology of self-sustaining terrarium ecosystems from the ground up. Then came years of hands-on experimenting: testing and rebuilding drainage layers, refining substrate compositions, learning how to maintain stable humidity and prevent mold without chemicals inside a completely sealed environment. Failing, learning, refining — and eventually, getting it beautifully right.
+                </p>
+                
+                <p>
+                  Today, every handcrafted closed terrarium I create is built using my own tried-and-tested substrate mix and planted almost exclusively with plants I propagate myself — grown with the same curiosity and care I've carried since childhood.
+                </p>
+                
+                <p className="text-gold/90">
+                  I'm so glad you're here — and I'd love to share a little of this magic with you.
+                </p>
+                
+                <p>
+                  Please, browse my webshop to find a garden I've already lovingly put together, join one of my terrarium workshops to create your very own, or reach out and let's bring your own idea to life together.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
 const About = () => {
   const { t } = useTranslation();
+  const [isAboutMeOpen, setIsAboutMeOpen] = useState(false);
 
   return (
     <section
