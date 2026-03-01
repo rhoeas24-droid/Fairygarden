@@ -397,7 +397,7 @@ const About = () => {
               }}
             >
               <img 
-                src="/mushroom_decor.webp" 
+                src="https://fairygarden4u.com/mushroom_decor.webp" 
                 alt="Decorative mushroom"
                 className="w-full h-auto drop-shadow-[0_0_15px_rgba(212,175,55,0.3)]"
               />
