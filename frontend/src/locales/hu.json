@@ -150,7 +150,9 @@
     "privacyError": "Kérjük, fogadja el az Adatvédelmi Szabályzatot a folytatáshoz.",
     "privacyLabel": "Elfogadom az",
     "privacyLink": "Adatvédelmi Szabályzatot",
-    "copyright": "Minden jog fenntartva."
+    "copyright": "Minden jog fenntartva.",
+    "termsConditions": "Általános Szerződési Feltételek",
+    "privacyPolicy": "Adatvédelmi Szabályzat"
   },
   "privacy": {
     "title": "Adatvédelmi Szabályzat"
