@@ -198,16 +198,10 @@ const Navigation = () => {
                   {shopCategories.map((category) => (
                     <button
                       key={category.id}
-                      onClick={() => !category.comingSoon && scrollToSection(category.id)}
-                      className={`block w-full text-left font-montserrat text-sm py-1 ${
-                        category.comingSoon 
-                          ? 'text-cream/50 cursor-not-allowed' 
-                          : 'text-cream/80 hover:text-gold'
-                      }`}
-                      disabled={category.comingSoon}
+                      onClick={() => scrollToSection(category.id)}
+                      className="block w-full text-left font-montserrat text-sm py-1 text-cream/80 hover:text-gold"
                     >
                       {category.label}
-                      {category.comingSoon && <span className="ml-2 text-xs text-gold/50">(Soon)</span>}
                     </button>
                   ))}
                 </div>
