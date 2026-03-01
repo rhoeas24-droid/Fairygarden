@@ -308,21 +308,56 @@ async def create_blog_post(post: BlogPostCreate):
     await db.blog.insert_one(doc)
     return post_obj
 
+# Helper function to get translated field from WooCommerce meta
+def get_translated_field(product: dict, field: str, lang: str) -> str:
+    """Get translated field from WooCommerce custom meta fields.
+    Custom fields format: name_el, name_it, description_el, description_it
+    """
+    if lang == 'en':
+        # English is the default, use the main field
+        if field == 'name':
+            return product.get('name', '')
+        elif field == 'description':
+            return product.get('short_description', '') or product.get('description', '')
+    
+    # Look for translated field in meta_data
+    meta_key = f"{field}_{lang}"
+    meta_data = product.get('meta_data', [])
+    
+    for meta in meta_data:
+        if meta.get('key') == meta_key:
+            value = meta.get('value', '')
+            if value:
+                return value
+    
+    # Fallback to English if translation not found
+    if field == 'name':
+        return product.get('name', '')
+    elif field == 'description':
+        return product.get('short_description', '') or product.get('description', '')
+    
+    return ''
+
 # WooCommerce API Routes
 @api_router.get("/wc/products")
-async def get_wc_products():
-    """Fetch products from WooCommerce"""
+async def get_wc_products(lang: str = 'en'):
+    """Fetch products from WooCommerce with optional language translation.
+    
+    Language support via custom fields:
+    - name_el, name_it for Greek/Italian product names
+    - description_el, description_it for Greek/Italian descriptions
+    """
     if not wcapi:
         raise HTTPException(status_code=503, detail="WooCommerce not configured")
     try:
         response = wcapi.get("products", params={"per_page": 100, "status": "publish"})
         if response.status_code == 200:
             products = response.json()
-            # Transform to simpler format for frontend
+            # Transform to simpler format for frontend with translations
             return [{
                 "id": str(p["id"]),
-                "name": p["name"],
-                "description": p.get("short_description", "") or p.get("description", ""),
+                "name": get_translated_field(p, 'name', lang),
+                "description": get_translated_field(p, 'description', lang),
                 "price": float(p["price"]) if p["price"] else 0,
                 "regular_price": float(p["regular_price"]) if p.get("regular_price") else 0,
                 "sale_price": float(p["sale_price"]) if p.get("sale_price") else None,
