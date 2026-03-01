@@ -102,6 +102,24 @@ const TerrariumGallery = () => {
     if (hash && (hash.includes('shop-bottles') || hash.includes('shop-plants') || hash.includes('shop-decorations'))) {
       setIsWebshopExpanded(true);
     }
+    
+    // Listen for expand webshop event from navigation
+    const handleExpandWebshop = (e) => {
+      setIsWebshopExpanded(true);
+      // Scroll to target after expansion
+      setTimeout(() => {
+        const targetId = e.detail?.targetId;
+        if (targetId) {
+          const element = document.getElementById(targetId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      }, 300);
+    };
+    
+    window.addEventListener('expandWebshop', handleExpandWebshop);
+    return () => window.removeEventListener('expandWebshop', handleExpandWebshop);
   }, []);
 
   const fetchProducts = async () => {
