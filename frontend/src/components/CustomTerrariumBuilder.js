@@ -171,7 +171,7 @@ const CustomTerrariumBuilder = ({ isOpen, onClose }) => {
                 <X className="w-6 h-6" />
               </button>
             </div>
-            <p className="text-cream/70 font-montserrat text-sm mt-2">
+            <p className="text-cream/70 font-montserrat text-sm mt-2 text-justify">
               {t('customTerrarium.subtitle')}
             </p>
           </div>
