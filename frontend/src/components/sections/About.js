@@ -484,11 +484,9 @@ const About = () => {
               );
             })}
             
-            {/* Magic Comets */}
-            <MagicComet color="#00BFFF" delay={0} duration={12} startX={10} startY={30} />
-            <MagicComet color="#FF69B4" delay={3} duration={15} startX={80} startY={60} />
-            <MagicComet color="#1E90FF" delay={6} duration={10} startX={50} startY={20} />
-            <MagicComet color="#DB7093" delay={9} duration={14} startX={20} startY={70} />
+            {/* Magic Comets with spark trails */}
+            <FireworkComet color="#00BFFF" secondaryColor="#1E90FF" id={1} />
+            <FireworkComet color="#FF69B4" secondaryColor="#DB7093" id={2} />
           </div>
           
           <div className="flex justify-center relative z-10">
