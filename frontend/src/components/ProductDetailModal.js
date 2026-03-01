@@ -140,7 +140,7 @@ const ProductDetailModal = ({ isOpen, onClose, product }) => {
             {/* Note about uniqueness */}
             <div className="p-6 bg-gold/10 border-t border-gold/20">
               <p className="text-center text-cream/80 text-sm italic font-montserrat">
-                {t('product.uniqueNote', 'Each terrarium is handcrafted and unique. The actual product may slightly differ from the image shown.')}
+                {t('product.uniqueNote', 'Each florarium is handcrafted and unique. The actual product may slightly differ from the image shown.')}
               </p>
             </div>
           </motion.div>
