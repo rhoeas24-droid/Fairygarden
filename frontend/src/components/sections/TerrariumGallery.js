@@ -63,7 +63,7 @@ const ProductCard = ({ product, index, onViewDetails }) => {
         <h3 className="text-sm sm:text-base font-cinzel font-bold text-gold uppercase tracking-wide" data-testid={`product-name-${product.id}`}>
           {product.name}
         </h3>
-        <p className="text-cream/70 font-montserrat text-xs leading-relaxed line-clamp-2">
+        <p className="text-cream/70 font-montserrat text-xs leading-relaxed line-clamp-2 text-justify">
           {product.description}
         </p>
         <div className="flex items-center justify-center gap-3 pt-1">
