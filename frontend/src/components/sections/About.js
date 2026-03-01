@@ -416,8 +416,8 @@ const About = () => {
             
             {/* Right Mushroom */}
             <motion.div
-              className="hidden sm:block w-20 sm:w-24 lg:w-32 flex-shrink-0 self-end"
-              animate={{ y: [0, -5, 0] }}
+              className="hidden sm:block w-28 sm:w-36 lg:w-44 flex-shrink-0"
+              animate={{ y: [0, -8, 0] }}
               transition={{ 
                 duration: 3,
                 repeat: Infinity,
