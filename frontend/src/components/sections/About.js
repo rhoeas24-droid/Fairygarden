@@ -366,11 +366,11 @@ const About = () => {
             {t('about.teamTitle')}
           </h3>
           
-          <div className="flex justify-center items-end gap-4 sm:gap-8 lg:gap-16">
+          <div className="flex justify-center items-center gap-8 sm:gap-12 lg:gap-20">
             {/* Left Mushroom - mirrored */}
             <motion.div
-              className="hidden sm:block w-20 sm:w-24 lg:w-32 flex-shrink-0 self-end"
-              animate={{ y: [0, -5, 0] }}
+              className="hidden sm:block w-28 sm:w-36 lg:w-44 flex-shrink-0"
+              animate={{ y: [0, -8, 0] }}
               transition={{ 
                 duration: 3,
                 repeat: Infinity,
