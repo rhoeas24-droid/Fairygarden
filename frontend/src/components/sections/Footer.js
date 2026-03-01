@@ -71,7 +71,7 @@ const Footer = () => {
             <img
               src="/FullLogo_NoBuffer.png"
               alt="Fairygarden For You"
-              className="w-24 h-24 sm:w-32 sm:h-32 mx-auto sm:mx-0"
+              className="w-32 sm:w-40 h-auto mx-auto sm:mx-0 object-contain"
               data-testid="footer-logo"
             />
             <p className="font-playfair italic text-gold-light text-base sm:text-lg">
