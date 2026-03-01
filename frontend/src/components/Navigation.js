@@ -39,7 +39,7 @@ const Navigation = () => {
     { label: 'Ready Florariums', id: 'gallery' },
     { label: 'Bottles, Jars & Tools', id: 'shop-bottles' },
     { label: 'Plants & Substrate Mix', id: 'shop-plants' },
-    { label: 'Decorations & Stones', id: 'shop-decorations' },
+    { label: 'Decorations & Terrascaping', id: 'shop-decorations' },
   ];
 
   const navLinks = [
