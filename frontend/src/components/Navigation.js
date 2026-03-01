@@ -125,7 +125,7 @@ const Navigation = () => {
                 <button
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
-                  className="block w-full text-left text-cream hover:text-gold transition-colors font-montserrat text-sm uppercase tracking-wider py-2"
+                  className="block w-full text-left text-cream hover:text-gold transition-colors font-montserrat text-base font-semibold uppercase tracking-wider py-2"
                   data-testid={`mobile-nav-link-${link.id}`}
                 >
                   {link.label}
