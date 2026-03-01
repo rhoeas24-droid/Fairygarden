@@ -86,11 +86,17 @@
   },
   "forBusiness": {
     "title": "Per Aziende",
-    "subtitle": "Porta un tocco di natura nel tuo ufficio, eventi o regali aziendali. Creiamo soluzioni personalizzate di terrari per aziende di tutte le dimensioni.",
+    "subtitle": "Dai workshop di team building ai regali aziendali su misura e alle straordinarie installazioni per uffici — portiamo arte botanica vivente nella tua azienda.",
+    "formTitle": "Contattaci",
     "nameLabel": "Nome",
+    "namePlaceholder": "Il tuo nome completo",
     "emailLabel": "Email",
     "companyLabel": "Azienda",
+    "companyPlaceholder": "Nome della tua azienda",
+    "serviceLabel": "Servizio di Interesse",
+    "servicePlaceholder": "Seleziona un servizio...",
     "messageLabel": "Messaggio",
+    "messagePlaceholder": "Raccontaci del tuo progetto o richiesta...",
     "privacyLabel": "Ho letto e accetto la",
     "privacyLink": "Informativa sulla Privacy",
     "newsletterLabel": "Iscriviti alla nostra newsletter per aggiornamenti e offerte speciali",
@@ -98,7 +104,29 @@
     "submitting": "Invio...",
     "privacyError": "Accetta l'Informativa sulla Privacy per continuare.",
     "successMessage": "Grazie! Ti contatteremo presto.",
-    "errorMessage": "Invio fallito. Per favore riprova."
+    "errorMessage": "Invio fallito. Per favore riprova.",
+    "services": {
+      "teambuilding": {
+        "title": "Workshop Team Building",
+        "description": "Un workshop pratico di costruzione florarium è un'alternativa creativa e memorabile alle convenzionali attività di team building. Guidati dal nostro esperto biologo, i team costruiscono il proprio florarium da zero — scegliendo piante, muschio, elementi decorativi e stile del contenitore lungo il percorso. L'esperienza incoraggia naturalmente la comunicazione e la collaborazione senza l'atmosfera forzata degli esercizi di squadra tradizionali. I workshop durano 2-3 ore, possono essere tenuti presso la vostra sede o la nostra, e noi ci occupiamo di tutti i materiali, strumenti e allestimento. Ogni partecipante porta a casa il proprio florarium finito, rendendolo un ricordo duraturo della giornata."
+      },
+      "representativeGift": {
+        "title": "Mini Florarium Personalizzato",
+        "description": "Un mini florarium brandizzato è un regalo aziendale che si distingue in un mondo saturo di penne, tazze e quaderni. Ogni pezzo artigianale è accompagnato da un'etichetta personalizzata con il nome della tua azienda, il logo o un messaggio personalizzato. A differenza dei regali consumabili, un florarium vivente continua a crescere sulla scrivania del destinatario per anni, mantenendo il tuo brand visibile ben oltre l'occasione. Disponibile in una varietà di stili e formati, sono facili da distribuire a eventi, riunioni o campagne regalo stagionali. Ogni pezzo è confezionato in una scatola regalo con istruzioni per la cura per un'esperienza di unboxing premium."
+      },
+      "exclusiveGift": {
+        "title": "Regalo Esclusivo per Partner",
+        "description": "Per relazioni di alto valore, un florarium su misura di grande formato fa una dichiarazione che nessun regalo aziendale standard può eguagliare. Ogni pezzo è una composizione vivente unica — realizzata a mano seguendo una consulenza di design dedicata per riflettere la personalità, i gusti del destinatario o la natura della vostra partnership. Questi regali sono ideali per traguardi importanti come firme di contratti, anniversari o apprezzamento dei clienti VIP. La scarsità e l'artigianalità di ogni pezzo comunica un livello di investimento che rafforza genuinamente le relazioni commerciali a lungo termine. La consegna e l'installazione presso l'ufficio del destinatario possono essere organizzate per un tocco personale aggiunto."
+      },
+      "officeDecor": {
+        "title": "Decorazione Ufficio e Reception",
+        "description": "Un florarium vivente trasforma qualsiasi ufficio o spazio reception in un ambiente che comunica creatività e cura — valori che parlano sia ai clienti che ai dipendenti. Progettiamo, costruiamo e installiamo composizioni su misura adattate al tuo spazio, alla palette del tuo brand e all'estetica degli interni, che si tratti di un rigoglioso allestimento tropicale, un giardino di cactus scultoreo o un'elegante esposizione sospesa. Ogni installazione inizia con una consulenza in loco per valutare l'illuminazione, lo spazio e l'atmosfera desiderata. Forniamo supporto continuo qualora fosse necessaria qualsiasi cura o sostituzione delle piante. Il risultato è un ambiente botanico a bassa manutenzione e alto impatto che il tuo team e i visitatori noteranno."
+      },
+      "eventRental": {
+        "title": "Servizio Noleggio Eventi",
+        "description": "Il nostro servizio di noleggio florarium fornisce un'atmosfera botanica sofisticata per eventi aziendali, lanci di prodotti, cene di gala o stand espositivi — senza l'impegno di un acquisto. Consegniamo, disponiamo e ritiriamo una selezione curata di florarium adattati al tema del tuo evento, alla combinazione di colori e ai requisiti spaziali. Con stili che vanno da composizioni tropicali lussureggianti ad allestimenti minimalisti di succulente e spettacolari esposizioni sospese, c'è un'opzione per ogni occasione. I pacchetti di noleggio coprono tutto, dagli eventi di una giornata alle installazioni espositive di più settimane. Per i clienti ricorrenti, offriamo anche un abbonamento rotativo che rinnova regolarmente il tuo spazio con nuove composizioni."
+      }
+    }
   },
   "workshops": {
     "title": "Workshop sui Terrari",
