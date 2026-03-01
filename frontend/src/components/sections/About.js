@@ -385,20 +385,6 @@ const About = () => {
                 </div>
               </motion.div>
             ))}
-            
-            {/* Right Mushroom */}
-            <motion.div
-              className="hidden sm:block w-16 sm:w-20 lg:w-24 flex-shrink-0"
-              animate={{ y: [0, -4, 0] }}
-              transition={{ 
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1.5
-              }}
-            >
-              <BlinkingMushroom mirrored={false} />
-            </motion.div>
           </div>
         </motion.div>
       </div>
