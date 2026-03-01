@@ -76,7 +76,7 @@ const ProductDetailModal = ({ isOpen, onClose, product }) => {
                     {product.name}
                   </h2>
                   <p className="text-cream/80 font-montserrat leading-relaxed text-justify">
-                    {product.description}
+                    {stripHtml(product.description)}
                   </p>
                 </div>
 
