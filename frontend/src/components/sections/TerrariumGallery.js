@@ -135,15 +135,11 @@ const TerrariumGallery = () => {
 
   const fetchProducts = async () => {
     try {
-      // Fetch from WooCommerce API with language parameter
+      // Fetch from WooCommerce API with language parameter and product_type filter
       const response = await axios.get(`${API}/wc/products`, {
-        params: { lang: i18n.language }
+        params: { lang: i18n.language, product_type: 'ready-florarium' }
       });
-      // Filter only Ready Florariums category
-      const florariums = response.data.filter(p => 
-        p.category === 'Ready Florariums' || p.categories?.includes('Ready Florariums')
-      );
-      setProducts(florariums);
+      setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
       // Fallback to old API if WooCommerce fails
