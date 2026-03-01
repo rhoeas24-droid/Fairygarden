@@ -188,10 +188,9 @@ const Workshops = () => {
                     focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base"
                   data-testid="workshop-type-select"
                 >
-                  <option value="beginner">{t('workshops.types.beginner')}</option>
-                  <option value="intermediate">{t('workshops.types.intermediate')}</option>
-                  <option value="group">{t('workshops.types.group')}</option>
-                  <option value="private">{t('workshops.types.private')}</option>
+                  <option value="single">For Single Person</option>
+                  <option value="couples">For Couples</option>
+                  <option value="family">For Families (3+ persons)</option>
                 </select>
               </div>
 
