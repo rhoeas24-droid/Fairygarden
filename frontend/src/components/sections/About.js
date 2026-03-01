@@ -411,9 +411,10 @@ const About = () => {
               );
             })}
             
-            {/* Magic Comets with spark trails */}
-            <FireworkComet color="#00BFFF" secondaryColor="#1E90FF" id={1} />
-            <FireworkComet color="#FF69B4" secondaryColor="#DB7093" id={2} />
+            {/* Sparkle Trail Comets using GIF */}
+            <SparkleTrailComet startX={5} startY={20} duration={15} delay={0} rotation={-45} />
+            <SparkleTrailComet startX={60} startY={50} duration={18} delay={5} rotation={-30} />
+            <SparkleTrailComet startX={30} startY={70} duration={12} delay={8} rotation={-60} />
           </div>
           
           <div className="flex justify-center relative z-10">
