@@ -6,22 +6,6 @@ import huTranslations from './locales/hu.json';
 import elTranslations from './locales/el.json';
 import itTranslations from './locales/it.json';
 
-// Country code to language mapping
-const countryToLanguage = {
-  // Greek
-  'GR': 'el', // Greece
-  'CY': 'el', // Cyprus
-  
-  // Hungarian
-  'HU': 'hu', // Hungary
-  
-  // Italian
-  'IT': 'it', // Italy
-  'MT': 'it', // Malta
-  'VA': 'it', // Vatican
-  'SM': 'it', // San Marino
-};
-
 // Get saved language preference from localStorage
 const getSavedLanguage = () => {
   try {
@@ -31,47 +15,10 @@ const getSavedLanguage = () => {
   }
 };
 
-// Save language preference to localStorage
-const saveLanguage = (lang) => {
-  try {
-    localStorage.setItem('fairygarden_language', lang);
-  } catch {
-    // localStorage not available
-  }
-};
+// Default language: Hungarian
+const DEFAULT_LANGUAGE = 'hu';
 
-// Detect language based on IP geolocation
-const detectLanguageByIP = async () => {
-  // Check if user has manually selected a language
-  const savedLang = getSavedLanguage();
-  if (savedLang) {
-    return savedLang;
-  }
-  
-  try {
-    // Use ipapi.co - supports HTTPS and doesn't require API key for basic usage
-    const response = await fetch('https://ipapi.co/json/', {
-      headers: {
-        'Accept': 'application/json'
-      }
-    });
-    
-    if (response.ok) {
-      const data = await response.json();
-      const countryCode = data.country_code;
-      const detectedLang = countryToLanguage[countryCode] || 'en';
-      
-      console.log(`Detected country: ${countryCode}, setting language: ${detectedLang}`);
-      return detectedLang;
-    }
-  } catch (error) {
-    console.log('IP geolocation failed, using default language:', error.message);
-  }
-  
-  return 'en'; // Default to English
-};
-
-// Initialize i18n with default language
+// Initialize i18n
 i18n
   .use(initReactI18next)
   .init({
@@ -81,26 +28,20 @@ i18n
       el: { translation: elTranslations },
       it: { translation: itTranslations }
     },
-    lng: getSavedLanguage() || 'en', // Use saved language or default
+    lng: getSavedLanguage() || DEFAULT_LANGUAGE,
     fallbackLng: 'en',
     interpolation: {
       escapeValue: false
     }
   });
 
-// Detect and set language based on IP (async, runs after init)
-detectLanguageByIP().then((detectedLang) => {
-  const savedLang = getSavedLanguage();
-  
-  // Only change language if user hasn't manually selected one
-  if (!savedLang && detectedLang !== i18n.language) {
-    i18n.changeLanguage(detectedLang);
-  }
-});
-
 // Export function to save language when user manually changes it
 export const setUserLanguage = (lang) => {
-  saveLanguage(lang);
+  try {
+    localStorage.setItem('fairygarden_language', lang);
+  } catch {
+    // localStorage not available
+  }
   i18n.changeLanguage(lang);
 };
 
