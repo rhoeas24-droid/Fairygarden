@@ -172,7 +172,7 @@ const Workshops = () => {
             <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
               <div>
                 <label htmlFor="ws-name" className="block text-forest font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
-                  {t('workshops.nameLabel')} *
+                  {formData.workshop_type === 'single' ? t('workshops.nameLabel') : 'Your Name'} *
                 </label>
                 <input
                   type="text"
@@ -187,6 +187,66 @@ const Workshops = () => {
                   data-testid="workshop-name-input"
                 />
               </div>
+
+              {/* Additional Names for Couples */}
+              {formData.workshop_type === 'couples' && (
+                <div>
+                  <label className="block text-forest font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
+                    Partner's Name *
+                  </label>
+                  <input
+                    type="text"
+                    value={additionalNames[0] || ''}
+                    onChange={(e) => handleAdditionalNameChange(0, e.target.value)}
+                    required
+                    className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white border border-gold/40 text-forest placeholder:text-forest/50
+                      focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base"
+                    placeholder="Partner's full name"
+                    data-testid="workshop-partner-name-input"
+                  />
+                </div>
+              )}
+
+              {/* Additional Names for Family */}
+              {formData.workshop_type === 'family' && (
+                <div className="space-y-3">
+                  <label className="block text-forest font-montserrat font-semibold mb-1 text-sm sm:text-base">
+                    Family Members' Names *
+                  </label>
+                  {additionalNames.map((name, index) => (
+                    <div key={index} className="flex gap-2">
+                      <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => handleAdditionalNameChange(index, e.target.value)}
+                        required={index < 2}
+                        className="flex-1 px-3 sm:px-4 py-2 sm:py-3 bg-white border border-gold/40 text-forest placeholder:text-forest/50
+                          focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base"
+                        placeholder={`Family member ${index + 1}`}
+                        data-testid={`workshop-family-name-${index}`}
+                      />
+                      {additionalNames.length > 2 && (
+                        <button
+                          type="button"
+                          onClick={() => removeFamilyMember(index)}
+                          className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 rounded-md transition-colors"
+                          title="Remove"
+                        >
+                          <X className="w-5 h-5" />
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={addFamilyMember}
+                    className="flex items-center gap-2 text-gold-dark hover:text-gold font-montserrat text-sm font-semibold transition-colors"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Add another family member
+                  </button>
+                </div>
+              )}
 
               <div>
                 <label htmlFor="ws-email" className="block text-forest font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
