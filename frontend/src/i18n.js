@@ -49,21 +49,23 @@ const detectLanguageByIP = async () => {
   }
   
   try {
-    // Use ip-api.com for free geolocation (no API key needed)
-    const response = await fetch('http://ip-api.com/json/?fields=countryCode', {
-      timeout: 3000
+    // Use ipapi.co - supports HTTPS and doesn't require API key for basic usage
+    const response = await fetch('https://ipapi.co/json/', {
+      headers: {
+        'Accept': 'application/json'
+      }
     });
     
     if (response.ok) {
       const data = await response.json();
-      const countryCode = data.countryCode;
+      const countryCode = data.country_code;
       const detectedLang = countryToLanguage[countryCode] || 'en';
       
       console.log(`Detected country: ${countryCode}, setting language: ${detectedLang}`);
       return detectedLang;
     }
   } catch (error) {
-    console.log('IP geolocation failed, using default language');
+    console.log('IP geolocation failed, using default language:', error.message);
   }
   
   return 'en'; // Default to English
