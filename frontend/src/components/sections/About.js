@@ -3,39 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Leaf, Sparkles, Star, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-// Sparkle Trail Comet using GIF
-const SparkleTrailComet = ({ startX, startY, duration, delay, rotation }) => {
-  return (
-    <motion.div
-      className="absolute pointer-events-none"
-      style={{
-        width: 150,
-        height: 150,
-        transform: `rotate(${rotation}deg)`,
-      }}
-      initial={{ left: `${startX}%`, top: `${startY}%`, opacity: 0 }}
-      animate={{
-        left: [`${startX}%`, `${startX + 30}%`, `${startX + 50}%`, `${startX + 20}%`, `${startX}%`],
-        top: [`${startY}%`, `${startY - 20}%`, `${startY + 10}%`, `${startY + 30}%`, `${startY}%`],
-        opacity: [0, 1, 1, 1, 0],
-      }}
-      transition={{
-        duration: duration,
-        delay: delay,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-    >
-      <img 
-        src="https://fairygarden4u.com/sparkle_trail.gif" 
-        alt=""
-        className="w-full h-full object-contain"
-        style={{ mixBlendMode: 'screen' }}
-      />
-    </motion.div>
-  );
-};
-
 const teamMembers = [
   {
     id: 1,
