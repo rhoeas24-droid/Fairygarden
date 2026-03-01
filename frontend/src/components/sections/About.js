@@ -320,36 +320,12 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="relative"
         >
           <h3 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold text-center mb-8 sm:mb-12">
             {t('about.teamTitle')}
           </h3>
           
-          {/* Mushroom Decorations Container */}
-          <div className="flex justify-center items-center gap-8 lg:gap-16">
-            {/* Left Mushroom - mirrored */}
-            <motion.div
-              className="w-32 lg:w-40 xl:w-48 flex-shrink-0"
-              animate={{ 
-                opacity: [0.4, 1, 0.4],
-                scale: [0.95, 1, 0.95]
-              }}
-              transition={{ 
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              <img 
-                src="https://fairygarden4u.com/mushroom_decor.webp" 
-                alt="Decorative mushroom"
-                className="w-full h-auto"
-                style={{ transform: 'scaleX(-1)', filter: 'drop-shadow(0 0 15px rgba(212,175,55,0.3))' }}
-              />
-            </motion.div>
-            
-            {/* Team Member Card */}
+          <div className="flex justify-center">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={member.id}
@@ -383,27 +359,6 @@ const About = () => {
                 </div>
               </motion.div>
             ))}
-            
-            {/* Right Mushroom - normal */}
-            <motion.div
-              className="w-32 lg:w-40 xl:w-48 flex-shrink-0"
-              animate={{ 
-                opacity: [1, 0.4, 1],
-                scale: [1, 0.95, 1]
-              }}
-              transition={{ 
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              <img 
-                src="https://fairygarden4u.com/mushroom_decor.webp" 
-                alt="Decorative mushroom"
-                className="w-full h-auto"
-                style={{ filter: 'drop-shadow(0 0 15px rgba(212,175,55,0.3))' }}
-              />
-            </motion.div>
           </div>
         </motion.div>
       </div>
