@@ -66,7 +66,7 @@ const Navigation = () => {
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
-                className="text-cream hover:text-gold transition-colors font-montserrat text-xs font-medium uppercase tracking-wide px-1"
+                className="text-cream hover:text-gold transition-colors font-montserrat text-sm font-semibold uppercase tracking-wider px-2"
                 data-testid={`nav-link-${link.id}`}
               >
                 {link.label}
