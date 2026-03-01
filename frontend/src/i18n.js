@@ -2,7 +2,6 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 import enTranslations from './locales/en.json';
-import huTranslations from './locales/hu.json';
 import elTranslations from './locales/el.json';
 import itTranslations from './locales/it.json';
 
@@ -15,8 +14,8 @@ const getSavedLanguage = () => {
   }
 };
 
-// Default language: Hungarian
-const DEFAULT_LANGUAGE = 'hu';
+// Default language: English
+const DEFAULT_LANGUAGE = 'en';
 
 // Initialize i18n
 i18n
@@ -24,7 +23,6 @@ i18n
   .init({
     resources: {
       en: { translation: enTranslations },
-      hu: { translation: huTranslations },
       el: { translation: elTranslations },
       it: { translation: itTranslations }
     },
