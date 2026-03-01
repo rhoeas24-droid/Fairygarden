@@ -131,9 +131,13 @@ const DIYKits = () => {
           <div className="flex justify-center items-center h-64">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gold"></div>
           </div>
+        ) : products.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-forest/60 font-montserrat">{t('diy.noProducts', 'DIY kits coming soon!')}</p>
+          </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-            {products.filter(p => !p.name.toLowerCase().includes('diy')).map((product, index) => (
+            {products.map((product, index) => (
               <motion.div
                 key={product.id}
                 initial={{ opacity: 0, y: 30 }}
