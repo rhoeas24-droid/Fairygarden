@@ -23,12 +23,17 @@ const ProductDetailModal = ({ isOpen, onClose, product }) => {
     onClose();
   };
 
-  // Default care instructions (can be customized per product later)
+  // Get dimensions from product or use defaults
+  const height = product.dimensions?.height || '~20';
+  const width = product.dimensions?.width || '~15';
+  const weight = product.weight || '~1.5';
+
+  // Care instructions with translations
   const careInstructions = [
-    { icon: Sun, title: t('product.care.light', 'Light'), desc: t('product.care.lightDesc', 'Indirect sunlight, avoid direct sun') },
-    { icon: Droplets, title: t('product.care.water', 'Water'), desc: t('product.care.waterDesc', 'Mist lightly every 2-3 weeks') },
-    { icon: ThermometerSun, title: t('product.care.temp', 'Temperature'), desc: t('product.care.tempDesc', '15-25°C, avoid extreme temperatures') },
-    { icon: Leaf, title: t('product.care.maintenance', 'Maintenance'), desc: t('product.care.maintenanceDesc', 'Remove yellowing leaves, keep glass clean') },
+    { icon: Sun, title: t('product.care.light'), desc: t('product.care.lightDesc') },
+    { icon: Droplets, title: t('product.care.water'), desc: t('product.care.waterDesc') },
+    { icon: ThermometerSun, title: t('product.care.temp'), desc: t('product.care.tempDesc') },
+    { icon: Leaf, title: t('product.care.maintenance'), desc: t('product.care.maintenanceDesc') },
   ];
 
   return (
