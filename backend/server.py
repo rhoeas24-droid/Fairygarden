@@ -308,6 +308,105 @@ async def create_blog_post(post: BlogPostCreate):
     await db.blog.insert_one(doc)
     return post_obj
 
+# WooCommerce API Routes
+@api_router.get("/wc/products")
+async def get_wc_products():
+    """Fetch products from WooCommerce"""
+    if not wcapi:
+        raise HTTPException(status_code=503, detail="WooCommerce not configured")
+    try:
+        response = wcapi.get("products", params={"per_page": 100, "status": "publish"})
+        if response.status_code == 200:
+            products = response.json()
+            # Transform to simpler format for frontend
+            return [{
+                "id": str(p["id"]),
+                "name": p["name"],
+                "description": p.get("short_description", "") or p.get("description", ""),
+                "price": float(p["price"]) if p["price"] else 0,
+                "regular_price": float(p["regular_price"]) if p.get("regular_price") else 0,
+                "sale_price": float(p["sale_price"]) if p.get("sale_price") else None,
+                "image": p["images"][0]["src"] if p.get("images") else "",
+                "images": [img["src"] for img in p.get("images", [])],
+                "category": p["categories"][0]["name"] if p.get("categories") else "Uncategorized",
+                "categories": [cat["name"] for cat in p.get("categories", [])],
+                "stock_status": p.get("stock_status", "instock"),
+                "permalink": p.get("permalink", ""),
+                "wc_id": p["id"]
+            } for p in products]
+        else:
+            raise HTTPException(status_code=response.status_code, detail="WooCommerce API error")
+    except Exception as e:
+        logger.error(f"WooCommerce API error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.get("/wc/products/{product_id}")
+async def get_wc_product(product_id: int):
+    """Fetch single product from WooCommerce"""
+    if not wcapi:
+        raise HTTPException(status_code=503, detail="WooCommerce not configured")
+    try:
+        response = wcapi.get(f"products/{product_id}")
+        if response.status_code == 200:
+            p = response.json()
+            return {
+                "id": str(p["id"]),
+                "name": p["name"],
+                "description": p.get("description", ""),
+                "short_description": p.get("short_description", ""),
+                "price": float(p["price"]) if p["price"] else 0,
+                "regular_price": float(p["regular_price"]) if p.get("regular_price") else 0,
+                "sale_price": float(p["sale_price"]) if p.get("sale_price") else None,
+                "image": p["images"][0]["src"] if p.get("images") else "",
+                "images": [img["src"] for img in p.get("images", [])],
+                "category": p["categories"][0]["name"] if p.get("categories") else "Uncategorized",
+                "categories": [cat["name"] for cat in p.get("categories", [])],
+                "stock_status": p.get("stock_status", "instock"),
+                "permalink": p.get("permalink", ""),
+                "wc_id": p["id"]
+            }
+        else:
+            raise HTTPException(status_code=response.status_code, detail="Product not found")
+    except Exception as e:
+        logger.error(f"WooCommerce API error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.get("/wc/categories")
+async def get_wc_categories():
+    """Fetch product categories from WooCommerce"""
+    if not wcapi:
+        raise HTTPException(status_code=503, detail="WooCommerce not configured")
+    try:
+        response = wcapi.get("products/categories", params={"per_page": 100})
+        if response.status_code == 200:
+            categories = response.json()
+            return [{
+                "id": cat["id"],
+                "name": cat["name"],
+                "slug": cat["slug"],
+                "count": cat["count"],
+                "image": cat["image"]["src"] if cat.get("image") else None
+            } for cat in categories]
+        else:
+            raise HTTPException(status_code=response.status_code, detail="WooCommerce API error")
+    except Exception as e:
+        logger.error(f"WooCommerce API error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.get("/wc/status")
+async def get_wc_status():
+    """Check WooCommerce connection status"""
+    if not wcapi:
+        return {"connected": False, "message": "WooCommerce not configured"}
+    try:
+        response = wcapi.get("products", params={"per_page": 1})
+        if response.status_code == 200:
+            return {"connected": True, "message": "WooCommerce connected successfully"}
+        else:
+            return {"connected": False, "message": f"WooCommerce error: {response.status_code}"}
+    except Exception as e:
+        return {"connected": False, "message": str(e)}
+
 app.include_router(api_router)
 
 app.add_middleware(
