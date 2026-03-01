@@ -23,7 +23,7 @@ const AboutMeModal = ({ isOpen, onClose }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-hidden"
           onClick={onClose}
         >
           <motion.div
@@ -31,18 +31,20 @@ const AboutMeModal = ({ isOpen, onClose }) => {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
             transition={{ type: "spring", damping: 25 }}
-            className="relative w-full max-w-3xl max-h-[85vh] overflow-y-auto bg-forest border-2 border-gold/50 rounded-2xl shadow-2xl"
+            className="relative w-full max-w-3xl bg-forest border-2 border-gold/50 rounded-2xl shadow-2xl flex flex-col"
+            style={{ maxHeight: '85vh' }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close button */}
+            {/* Close button - fixed position */}
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-forest/80 border border-gold/30 text-gold hover:bg-gold hover:text-forest transition-all"
+              className="absolute top-4 right-4 z-20 p-2 rounded-full bg-forest border border-gold/30 text-gold hover:bg-gold hover:text-forest transition-all"
             >
               <X className="w-5 h-5" />
             </button>
 
-            <div className="p-6 sm:p-8 lg:p-10">
+            {/* Scrollable content */}
+            <div className="overflow-y-auto flex-1 p-6 sm:p-8 lg:p-10">
               {/* Title */}
               <h2 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold mb-6 text-center">
                 About Me
