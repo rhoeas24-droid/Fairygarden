@@ -204,6 +204,26 @@ const Footer = () => {
               </a>
             </div>
           </div>
+          
+          {/* Legal Links */}
+          <div className="flex flex-wrap justify-center gap-4 mt-4">
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('openTermsModal'))}
+              className="font-montserrat text-cream/60 text-xs hover:text-gold transition-colors underline"
+              data-testid="footer-terms-link"
+            >
+              {t('footer.termsConditions')}
+            </button>
+            <span className="text-cream/30">|</span>
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent('openPrivacyModal'))}
+              className="font-montserrat text-cream/60 text-xs hover:text-gold transition-colors underline"
+              data-testid="footer-privacy-link"
+            >
+              {t('footer.privacyPolicy')}
+            </button>
+          </div>
+          
           <div className="text-center mt-4">
             <p className="font-montserrat text-cream/50 text-[10px] sm:text-xs break-all sm:break-normal">
               Newsletter: newsletter@fairygarden4u.com | Website: https://fairygarden4u.com
