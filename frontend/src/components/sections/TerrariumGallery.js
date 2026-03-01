@@ -98,7 +98,7 @@ const TerrariumGallery = () => {
   const [isCustomBuilderOpen, setIsCustomBuilderOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isWebshopExpanded, setIsWebshopExpanded] = useState(false);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     fetchProducts();
@@ -128,10 +128,17 @@ const TerrariumGallery = () => {
     return () => window.removeEventListener('expandWebshop', handleExpandWebshop);
   }, []);
 
+  // Refetch products when language changes
+  useEffect(() => {
+    fetchProducts();
+  }, [i18n.language]);
+
   const fetchProducts = async () => {
     try {
-      // Fetch from WooCommerce API
-      const response = await axios.get(`${API}/wc/products`);
+      // Fetch from WooCommerce API with language parameter
+      const response = await axios.get(`${API}/wc/products`, {
+        params: { lang: i18n.language }
+      });
       // Filter only Ready Florariums category
       const florariums = response.data.filter(p => 
         p.category === 'Ready Florariums' || p.categories?.includes('Ready Florariums')
