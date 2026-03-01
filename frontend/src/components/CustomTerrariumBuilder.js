@@ -75,20 +75,14 @@ const CustomTerrariumBuilder = ({ isOpen, onClose }) => {
   const scrollToPrivacy = () => {
     onClose();
     setTimeout(() => {
-      const element = document.getElementById('privacy-policy');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+      window.dispatchEvent(new CustomEvent('openPrivacyModal'));
     }, 300);
   };
 
   const scrollToTerms = () => {
     onClose();
     setTimeout(() => {
-      const element = document.getElementById('terms-conditions');
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
+      window.dispatchEvent(new CustomEvent('openTermsModal'));
     }, 300);
   };
 
