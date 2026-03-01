@@ -367,7 +367,16 @@ async def get_wc_products(lang: str = 'en'):
                 "categories": [cat["name"] for cat in p.get("categories", [])],
                 "stock_status": p.get("stock_status", "instock"),
                 "permalink": p.get("permalink", ""),
-                "wc_id": p["id"]
+                "wc_id": p["id"],
+                # Dimensions from WooCommerce
+                "dimensions": {
+                    "height": p.get("dimensions", {}).get("height", ""),
+                    "width": p.get("dimensions", {}).get("width", ""),
+                    "length": p.get("dimensions", {}).get("length", "")
+                },
+                "weight": p.get("weight", ""),
+                # Attributes for care instructions etc
+                "attributes": {attr["name"]: attr["options"] for attr in p.get("attributes", [])}
             } for p in products]
         else:
             raise HTTPException(status_code=response.status_code, detail="WooCommerce API error")
