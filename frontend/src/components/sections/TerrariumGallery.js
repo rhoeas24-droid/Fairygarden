@@ -124,10 +124,22 @@ const TerrariumGallery = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get(`${API}/products`);
-      setProducts(response.data);
+      // Fetch from WooCommerce API
+      const response = await axios.get(`${API}/wc/products`);
+      // Filter only Ready Florariums category
+      const florariums = response.data.filter(p => 
+        p.category === 'Ready Florariums' || p.categories?.includes('Ready Florariums')
+      );
+      setProducts(florariums);
     } catch (error) {
       console.error('Error fetching products:', error);
+      // Fallback to old API if WooCommerce fails
+      try {
+        const fallbackResponse = await axios.get(`${API}/products`);
+        setProducts(fallbackResponse.data);
+      } catch (fallbackError) {
+        console.error('Fallback also failed:', fallbackError);
+      }
     }
   };
 
