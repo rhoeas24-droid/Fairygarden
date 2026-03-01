@@ -5,6 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { useCart } from '../contexts/CartContext';
 import { toast } from 'sonner';
 
+// Helper function to strip HTML tags from WooCommerce descriptions
+const stripHtml = (html) => {
+  if (!html) return '';
+  return html.replace(/<[^>]*>/g, '').trim();
+};
+
 const ProductDetailModal = ({ isOpen, onClose, product }) => {
   const { t } = useTranslation();
   const { addToCart } = useCart();
