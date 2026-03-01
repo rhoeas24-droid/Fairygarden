@@ -12,6 +12,12 @@ import { toast } from 'sonner';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
+// Helper function to strip HTML tags from WooCommerce descriptions
+const stripHtml = (html) => {
+  if (!html) return '';
+  return html.replace(/<[^>]*>/g, '').trim();
+};
+
 // Calculate minimum price: S + Minimal + Container + No lighting
 const MIN_CUSTOM_PRICE = (35.99 * 1.2 * 1.1 * 1.0).toFixed(2);
 
