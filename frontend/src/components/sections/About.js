@@ -3,140 +3,36 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Leaf, Sparkles, Star, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-// Firework Comet with sparkling trail
-const FireworkComet = ({ color, secondaryColor, id }) => {
-  const [position, setPosition] = useState({ x: Math.random() * 70 + 15, y: Math.random() * 70 + 15 });
-  const [target, setTarget] = useState({ x: Math.random() * 70 + 15, y: Math.random() * 70 + 15 });
-  const [sparks, setSparks] = useState([]);
-  const [angle, setAngle] = useState(0);
-  
-  // Generate new target with smooth curves
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTarget(prev => {
-        // Create smooth curved paths by limiting direction change
-        const newX = Math.max(10, Math.min(90, prev.x + (Math.random() - 0.5) * 40));
-        const newY = Math.max(10, Math.min(90, prev.y + (Math.random() - 0.5) * 40));
-        return { x: newX, y: newY };
-      });
-    }, 4000 + Math.random() * 2000);
-    return () => clearInterval(interval);
-  }, []);
-  
-  // Move towards target smoothly and leave sparks
-  useEffect(() => {
-    const moveInterval = setInterval(() => {
-      setPosition(prev => {
-        const dx = target.x - prev.x;
-        const dy = target.y - prev.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        
-        if (distance < 1) return prev;
-        
-        // Slower, more elegant movement
-        const speed = 0.3;
-        const newX = prev.x + (dx / distance) * speed;
-        const newY = prev.y + (dy / distance) * speed;
-        
-        // Calculate movement angle for trail direction
-        setAngle(Math.atan2(dy, dx) * 180 / Math.PI);
-        
-        // Add multiple sparks at current position for thicker trail
-        const newSparks = [];
-        for (let i = 0; i < 3; i++) {
-          newSparks.push({
-            id: Date.now() + Math.random() + i,
-            x: prev.x + (Math.random() - 0.5) * 1,
-            y: prev.y + (Math.random() - 0.5) * 1,
-            vx: -dx / distance * 0.3 + (Math.random() - 0.5) * 0.5,
-            vy: -dy / distance * 0.3 + (Math.random() - 0.5) * 0.5,
-            size: 2 + Math.random() * 4,
-            life: 1,
-            color: Math.random() > 0.3 ? color : secondaryColor
-          });
-        }
-        
-        setSparks(s => [...s.slice(-60), ...newSparks]);
-        
-        return { x: newX, y: newY };
-      });
-    }, 30);
-    return () => clearInterval(moveInterval);
-  }, [target, color, secondaryColor]);
-  
-  // Animate sparks fading smoothly
-  useEffect(() => {
-    const fadeInterval = setInterval(() => {
-      setSparks(s => s
-        .map(spark => ({
-          ...spark,
-          x: spark.x + spark.vx * 0.2,
-          y: spark.y + spark.vy * 0.2,
-          life: spark.life - 0.015,
-          size: spark.size * 0.98
-        }))
-        .filter(spark => spark.life > 0)
-      );
-    }, 30);
-    return () => clearInterval(fadeInterval);
-  }, []);
-
+// Sparkle Trail Comet using GIF
+const SparkleTrailComet = ({ startX, startY, duration, delay, rotation }) => {
   return (
-    <>
-      {/* Sparks trail */}
-      {sparks.map(spark => (
-        <div
-          key={spark.id}
-          className="absolute rounded-full pointer-events-none"
-          style={{
-            left: `${spark.x}%`,
-            top: `${spark.y}%`,
-            width: spark.size,
-            height: spark.size,
-            backgroundColor: spark.color,
-            opacity: spark.life * 0.9,
-            boxShadow: `0 0 ${spark.size * 2}px ${spark.color}, 0 0 ${spark.size * 4}px ${spark.color}40`,
-            transform: 'translate(-50%, -50%)',
-          }}
-        />
-      ))}
-      {/* Glowing trail effect */}
-      <div
-        className="absolute rounded-full pointer-events-none blur-sm"
-        style={{
-          left: `${position.x}%`,
-          top: `${position.y}%`,
-          width: 30,
-          height: 8,
-          background: `linear-gradient(to left, ${color}, ${secondaryColor}, transparent)`,
-          opacity: 0.6,
-          transform: `translate(-80%, -50%) rotate(${angle}deg)`,
-          transformOrigin: 'right center',
-        }}
+    <motion.div
+      className="absolute pointer-events-none"
+      style={{
+        width: 150,
+        height: 150,
+        transform: `rotate(${rotation}deg)`,
+      }}
+      initial={{ left: `${startX}%`, top: `${startY}%`, opacity: 0 }}
+      animate={{
+        left: [`${startX}%`, `${startX + 30}%`, `${startX + 50}%`, `${startX + 20}%`, `${startX}%`],
+        top: [`${startY}%`, `${startY - 20}%`, `${startY + 10}%`, `${startY + 30}%`, `${startY}%`],
+        opacity: [0, 1, 1, 1, 0],
+      }}
+      transition={{
+        duration: duration,
+        delay: delay,
+        repeat: Infinity,
+        ease: "easeInOut",
+      }}
+    >
+      <img 
+        src="https://fairygarden4u.com/sparkle_trail.gif" 
+        alt=""
+        className="w-full h-full object-contain"
+        style={{ mixBlendMode: 'screen' }}
       />
-      {/* Comet head - larger with glow */}
-      <motion.div
-        className="absolute rounded-full pointer-events-none"
-        style={{
-          left: `${position.x}%`,
-          top: `${position.y}%`,
-          width: 12,
-          height: 12,
-          backgroundColor: color,
-          boxShadow: `0 0 10px ${color}, 0 0 20px ${color}, 0 0 40px ${secondaryColor}, 0 0 60px ${secondaryColor}40`,
-          transform: 'translate(-50%, -50%)',
-        }}
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.9, 1, 0.9],
-        }}
-        transition={{
-          duration: 1,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-    </>
+    </motion.div>
   );
 };
 
