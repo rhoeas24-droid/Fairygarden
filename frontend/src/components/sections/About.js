@@ -320,25 +320,38 @@ const About = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
+          className="relative"
         >
           <h3 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold text-center mb-8 sm:mb-12">
             {t('about.teamTitle')}
           </h3>
           
-          <div className="flex justify-center items-center gap-6 sm:gap-10 lg:gap-14">
-            {/* Left Mushroom - mirrored */}
-            <motion.div
-              className="hidden sm:block w-16 sm:w-20 lg:w-24 flex-shrink-0"
-              animate={{ y: [0, -4, 0] }}
-              transition={{ 
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              <BlinkingMushroom mirrored={true} />
-            </motion.div>
-
+          {/* Sparkle decorations */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {[...Array(12)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute"
+                style={{
+                  left: `${10 + (i % 6) * 15}%`,
+                  top: `${20 + Math.floor(i / 6) * 40}%`,
+                }}
+                animate={{
+                  opacity: [0.2, 0.8, 0.2],
+                  scale: [0.8, 1.2, 0.8],
+                }}
+                transition={{
+                  duration: 2 + Math.random() * 2,
+                  repeat: Infinity,
+                  delay: Math.random() * 2,
+                }}
+              >
+                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-gold/60" />
+              </motion.div>
+            ))}
+          </div>
+          
+          <div className="flex justify-center">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={member.id}
