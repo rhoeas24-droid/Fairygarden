@@ -80,11 +80,11 @@ const AboutMeModal = ({ isOpen, onClose }) => {
                 </p>
                 
                 <p>
-                  Of course, getting there took work — and plenty of failures. Mold, rotting plants, bottles that looked promising for a few weeks before slowly falling apart. The researcher in me refused to give up, and equally refused to settle for surface-level answers. Instead of quick fixes, I went deep — reading scientific publications, studying substrate chemistry, understanding the biology of self-sustaining terrarium ecosystems from the ground up. Then came years of hands-on experimenting: testing and rebuilding drainage layers, refining substrate compositions, learning how to maintain stable humidity and prevent mold without chemicals inside a completely sealed environment. Failing, learning, refining — and eventually, getting it beautifully right.
+                  Of course, getting there took work — and plenty of failures. Mold, rotting plants, bottles that looked promising for a few weeks before slowly falling apart. The researcher in me refused to give up, and equally refused to settle for surface-level answers. Instead of quick fixes, I went deep — reading scientific publications, studying substrate chemistry, understanding the biology of self-sustaining florarium ecosystems from the ground up. Then came years of hands-on experimenting: testing and rebuilding drainage layers, refining substrate compositions, learning how to maintain stable humidity and prevent mold without chemicals inside a completely sealed environment. Failing, learning, refining — and eventually, getting it beautifully right.
                 </p>
                 
                 <p>
-                  Today, every handcrafted closed terrarium I create is built using my own tried-and-tested substrate mix and planted almost exclusively with plants I propagate myself — grown with the same curiosity and care I've carried since childhood.
+                  Today, every handcrafted closed florarium I create is built using my own tried-and-tested substrate mix and planted almost exclusively with plants I propagate myself — grown with the same curiosity and care I've carried since childhood.
                 </p>
                 
                 <p className="text-gold/90">
@@ -92,7 +92,7 @@ const AboutMeModal = ({ isOpen, onClose }) => {
                 </p>
                 
                 <p>
-                  Please, browse my webshop to find a garden I've already lovingly put together, join one of my terrarium workshops to create your very own, or reach out and let's bring your own idea to life together.
+                  Please, browse my webshop to find a garden I've already lovingly put together, join one of my florarium workshops to create your very own, or reach out and let's bring your own idea to life together.
                 </p>
               </div>
             </div>
@@ -151,7 +151,7 @@ const OurStoryModal = ({ isOpen, onClose }) => {
                 </p>
                 
                 <p>
-                  A bottle. Some soil. A few tiny plants. A sealed lid — and suddenly, a whole living world humming away completely on its own. That first closed terrarium was never meant to be anything more than a personal project, a creative escape, a way to bring a little nature indoors. But something about it refused to stay small.
+                  A bottle. Some soil. A few tiny plants. A sealed lid — and suddenly, a whole living world humming away completely on its own. That first closed florarium was never meant to be anything more than a personal project, a creative escape, a way to bring a little nature indoors. But something about it refused to stay small.
                 </p>
                 
                 <p>
@@ -159,7 +159,7 @@ const OurStoryModal = ({ isOpen, onClose }) => {
                 </p>
                 
                 <p>
-                  Somewhere along the way, the hobby became a craft. The research became confidence. And the handcrafted terrariums — those little sealed worlds that had always felt like pure magic to us — started finding their way into other people's homes. They became art.
+                  Somewhere along the way, the hobby became a craft. The research became confidence. And the handcrafted florariums — those little sealed worlds that had always felt like pure magic to us — started finding their way into other people's homes. They became art.
                 </p>
                 
                 <p>
@@ -257,7 +257,7 @@ const About = () => {
               Fairy Garden didn't start as a business. It started as a quiet obsession in 2020.
             </p>
             <p className="text-cream/90 font-montserrat leading-relaxed text-justify text-sm sm:text-base">
-              A bottle. Some soil. A few tiny plants. A sealed lid — and suddenly, a whole living world humming away completely on its own. That first closed terrarium was never meant to be anything more than a personal project, a creative escape, a way to bring a little nature indoors. But something about it refused to stay small...
+              A bottle. Some soil. A few tiny plants. A sealed lid — and suddenly, a whole living world humming away completely on its own. That first closed florarium was never meant to be anything more than a personal project, a creative escape, a way to bring a little nature indoors. But something about it refused to stay small...
             </p>
             
             {/* Read More button */}

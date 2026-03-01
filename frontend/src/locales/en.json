@@ -14,18 +14,18 @@
     "button": "Explore the Magic"
   },
   "gallery": {
-    "title": "Enchanted Terrariums",
-    "subtitle": "Discover our magical collection of handcrafted terrariums, each one a miniature world of wonder",
-    "uniqueNote": "Every terrarium is unique and handcrafted, using mostly home-grown plants and our specially developed planting medium.",
+    "title": "Enchanted florariums",
+    "subtitle": "Discover our magical collection of handcrafted florariums, each one a miniature world of wonder",
+    "uniqueNote": "Every florarium is unique and handcrafted, using mostly home-grown plants and our specially developed planting medium.",
     "addToCart": "Add to Cart",
     "addedToCart": "{{name}} added to cart!",
     "customTitle": "Build Your Own",
-    "customDescription": "Design your dream terrarium! Choose size, style, and let our artisans bring your vision to life.",
+    "customDescription": "Design your dream florarium! Choose size, style, and let our artisans bring your vision to life.",
     "customFromPrice": "from €{{price}}",
     "customButton": "Start Creating"
   },
-  "customTerrarium": {
-    "title": "Build Your Own Terrarium",
+  "customflorarium": {
+    "title": "Build Your Own florarium",
     "subtitle": "Design your personalized miniature garden. Our craftsmen will create a unique piece just for you.",
     "nameLabel": "Name",
     "emailLabel": "Email",
@@ -54,7 +54,7 @@
     "lightingNo": "No, I can provide enough light",
     "lightingYes": "Yes, I need lighting",
     "messageLabel": "Additional wishes (optional)",
-    "messagePlaceholder": "Describe your dream terrarium in detail...",
+    "messagePlaceholder": "Describe your dream florarium in detail...",
     "priceTitle": "Price Calculator",
     "totalPrice": "Estimated Total",
     "depositTitle": "Deposit (30%)",
@@ -75,7 +75,7 @@
   },
   "diyKits": {
     "title": "Create Your Own Magic",
-    "description": "Unleash your creativity with our DIY Terrarium Kits. Everything you need to craft your own enchanted miniature garden, complete with step-by-step instructions and premium materials.",
+    "description": "Unleash your creativity with our DIY florarium Kits. Everything you need to craft your own enchanted miniature garden, complete with step-by-step instructions and premium materials.",
     "button": "Shop DIY Kits",
     "premiumTitle": "Premium Materials",
     "premiumDesc": "Hand-selected plants, decorative elements, and care instructions",
@@ -86,7 +86,7 @@
   },
   "forBusiness": {
     "title": "For Business",
-    "subtitle": "Bring a touch of nature to your office, events, or corporate gifts. We create custom terrarium solutions for businesses of all sizes.",
+    "subtitle": "Bring a touch of nature to your office, events, or corporate gifts. We create custom florarium solutions for businesses of all sizes.",
     "nameLabel": "Name",
     "emailLabel": "Email",
     "companyLabel": "Company",
@@ -101,8 +101,8 @@
     "errorMessage": "Failed to send message. Please try again."
   },
   "workshops": {
-    "title": "Terrarium Workshops",
-    "subtitle": "Join our magical workshops and learn to create your own enchanted terrarium. Perfect for team building, parties, or personal enrichment.",
+    "title": "florarium Workshops",
+    "subtitle": "Join our magical workshops and learn to create your own enchanted florarium. Perfect for team building, parties, or personal enrichment.",
     "registerTitle": "Register for Workshop",
     "nameLabel": "Name",
     "emailLabel": "Email",
@@ -116,7 +116,7 @@
     "schedule": "Workshops held every Saturday & Sunday",
     "location": "123 Enchanted Lane, Garden City",
     "types": {
-      "beginner": "Beginner - Introduction to Terrariums",
+      "beginner": "Beginner - Introduction to florariums",
       "intermediate": "Intermediate - Advanced Techniques",
       "group": "Group/Corporate - Team Building",
       "private": "Private - One-on-One Session"
@@ -124,7 +124,7 @@
   },
   "blog": {
     "title": "From Our Garden",
-    "subtitle": "Explore our latest articles on terrarium care, plant selection, and the magic of miniature gardens",
+    "subtitle": "Explore our latest articles on florarium care, plant selection, and the magic of miniature gardens",
     "readMore": "Read More"
   },
   "cart": {
@@ -164,7 +164,7 @@
     },
     "chapter2": {
       "title": "2. Products and Services",
-      "content": "We offer handcrafted terrariums, DIY kits, workshops, and custom terrarium design services. All products are unique and may vary slightly from displayed images due to their handmade nature."
+      "content": "We offer handcrafted florariums, DIY kits, workshops, and custom florarium design services. All products are unique and may vary slightly from displayed images due to their handmade nature."
     },
     "chapter3": {
       "title": "3. Ordering and Payment",
@@ -176,12 +176,12 @@
     },
     "chapter5": {
       "title": "5. Custom Order Terms",
-      "intro": "The following terms apply specifically to custom terrarium orders:",
+      "intro": "The following terms apply specifically to custom florarium orders:",
       "point1": "A 30% non-refundable deposit is required to begin work on custom orders. This covers design consultation and initial material procurement.",
       "point2": "After receiving your deposit, we will contact you within 24 hours to discuss your vision and requirements in detail.",
       "point3": "Design changes are possible during the consultation phase. Once production begins, major changes may incur additional costs.",
       "point4": "The final price may vary from the initial estimate based on material availability and design complexity agreed upon during consultation.",
-      "point5": "Custom orders typically take 2-4 weeks to complete. You will be notified when your terrarium is ready for pickup or delivery."
+      "point5": "Custom orders typically take 2-4 weeks to complete. You will be notified when your florarium is ready for pickup or delivery."
     },
     "chapter6": {
       "title": "6. Contact Information",
@@ -192,14 +192,14 @@
     "title": "About Us",
     "subtitle": "Discover the magic behind Fairygarden For You and meet the passionate team bringing enchantment to your world",
     "storyTitle": "Our Story",
-    "storyParagraph1": "Fairygarden For You was born from a simple dream: to bring the enchantment of nature into every home. What started as a small passion project in 2020 has blossomed into a beloved brand, creating handcrafted terrariums that capture the magic of miniature worlds.",
-    "storyParagraph2": "Each terrarium we create is a labor of love, carefully designed to bring joy and tranquility to your space. We believe that everyone deserves a touch of magic in their lives, and our mission is to make that magic accessible to all.",
+    "storyParagraph1": "Fairygarden For You was born from a simple dream: to bring the enchantment of nature into every home. What started as a small passion project in 2020 has blossomed into a beloved brand, creating handcrafted florariums that capture the magic of miniature worlds.",
+    "storyParagraph2": "Each florarium we create is a labor of love, carefully designed to bring joy and tranquility to your space. We believe that everyone deserves a touch of magic in their lives, and our mission is to make that magic accessible to all.",
     "missionTitle": "Our Mission",
     "missionText": "To inspire wonder and connection with nature through enchanting miniature gardens that transform any space into a magical sanctuary.",
     "value1Title": "Sustainability",
     "value1Desc": "We use eco-friendly materials and sustainable practices in all our creations.",
     "value2Title": "Craftsmanship",
-    "value2Desc": "Every terrarium is handcrafted with love and attention to detail.",
+    "value2Desc": "Every florarium is handcrafted with love and attention to detail.",
     "value3Title": "Magic",
     "value3Desc": "We believe in bringing wonder and enchantment to everyday life.",
     "teamTitle": "Meet Our Team",

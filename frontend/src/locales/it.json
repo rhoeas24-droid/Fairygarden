@@ -24,7 +24,7 @@
     "customFromPrice": "da €{{price}}",
     "customButton": "Inizia"
   },
-  "customTerrarium": {
+  "customflorarium": {
     "title": "Crea il Tuo Terrario",
     "subtitle": "Progetta il tuo giardino in miniatura personalizzato. I nostri artigiani creeranno un pezzo unico solo per te.",
     "nameLabel": "Nome",
