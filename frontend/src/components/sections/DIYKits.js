@@ -81,24 +81,24 @@ const DIYKits = () => {
         >
           <Package className="w-12 h-12 sm:w-16 sm:h-16 text-gold-dark mx-auto mb-4 sm:mb-6" />
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-cinzel font-bold text-forest mb-4" data-testid="diy-kits-title">
-            DIY Florarium Kits
+            {t('diy.title')}
           </h2>
           
           {/* New Description */}
           <div className="max-w-3xl mx-auto space-y-4 text-forest/80 font-montserrat text-sm sm:text-base lg:text-lg leading-relaxed text-justify px-4">
             <p>
-              Love our gardens but want the hands-on experience of building one yourself? Choose any design from our entire collection — past and present. Even if it's no longer available in the shop, the concept lives on, and you can recreate it at home with our DIY Kit.
+              {t('diy.description1')}
             </p>
             <p>
-              We take care of the rest: every substrate layer, every plant, every tool — all carefully selected and packed for you, along with a detailed step-by-step guide to walk you through the whole process.
+              {t('diy.description2')}
             </p>
             <p className="mt-8">
-              Can't find your perfect design?{' '}
+              {t('diy.cantFind')}{' '}
               <button 
                 onClick={() => setIsCustomBuilderOpen(true)}
                 className="text-gold-dark hover:text-gold font-semibold underline decoration-gold/50 hover:decoration-gold transition-colors"
               >
-                Put together your own right here!
+                {t('diy.buildOwn')}
               </button>
             </p>
           </div>
@@ -109,19 +109,19 @@ const DIYKits = () => {
               <div className="w-14 h-14 rounded-full bg-gold/20 flex items-center justify-center">
                 <Package className="w-7 h-7 text-gold-dark" />
               </div>
-              <span className="font-cinzel font-bold text-base sm:text-lg">Everything Included</span>
+              <span className="font-cinzel font-bold text-base sm:text-lg">{t('diy.featureIncluded')}</span>
             </div>
             <div className="flex flex-col items-center gap-2 text-forest">
               <div className="w-14 h-14 rounded-full bg-gold/20 flex items-center justify-center">
                 <Wrench className="w-7 h-7 text-gold-dark" />
               </div>
-              <span className="font-cinzel font-bold text-base sm:text-lg">Tools Provided</span>
+              <span className="font-cinzel font-bold text-base sm:text-lg">{t('diy.featureTools')}</span>
             </div>
             <div className="flex flex-col items-center gap-2 text-forest">
               <div className="w-14 h-14 rounded-full bg-gold/20 flex items-center justify-center">
                 <BookOpen className="w-7 h-7 text-gold-dark" />
               </div>
-              <span className="font-cinzel font-bold text-base sm:text-lg">Step-by-Step Guide</span>
+              <span className="font-cinzel font-bold text-base sm:text-lg">{t('diy.featureGuide')}</span>
             </div>
           </div>
         </motion.div>
