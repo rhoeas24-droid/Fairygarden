@@ -203,6 +203,35 @@ const TerrariumGallery = () => {
             </div>
           </motion.div>
         </div>
+        
+        {/* Browse More Categories */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-16 text-center"
+        >
+          <h3 className="text-xl sm:text-2xl font-cinzel font-bold text-gold mb-6">
+            Explore More Categories
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            <div className="bg-forest/30 border border-gold/20 rounded-xl p-6 opacity-70">
+              <div className="text-gold font-cinzel font-bold mb-2">Bottles, Jars & Tools</div>
+              <div className="text-cream/60 text-sm font-montserrat mb-3">Professional tools and premium glass containers</div>
+              <span className="text-gold/50 text-xs font-montserrat uppercase">Coming Soon</span>
+            </div>
+            <div className="bg-forest/30 border border-gold/20 rounded-xl p-6 opacity-70">
+              <div className="text-gold font-cinzel font-bold mb-2">Plants & Substrate Mix</div>
+              <div className="text-cream/60 text-sm font-montserrat mb-3">Home-grown plants and our special substrate blend</div>
+              <span className="text-gold/50 text-xs font-montserrat uppercase">Coming Soon</span>
+            </div>
+            <div className="bg-forest/30 border border-gold/20 rounded-xl p-6 opacity-70">
+              <div className="text-gold font-cinzel font-bold mb-2">Decorations & Stones</div>
+              <div className="text-cream/60 text-sm font-montserrat mb-3">Driftwood, stones, moss and miniature figures</div>
+              <span className="text-gold/50 text-xs font-montserrat uppercase">Coming Soon</span>
+            </div>
+          </div>
+        </motion.div>
       </div>
       
       <CustomTerrariumBuilder
