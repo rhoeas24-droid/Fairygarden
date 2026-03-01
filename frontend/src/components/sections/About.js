@@ -325,7 +325,28 @@ const About = () => {
             {t('about.teamTitle')}
           </h3>
           
-          <div className="flex justify-center">
+          <div className="flex justify-center items-end gap-4 sm:gap-8 lg:gap-16">
+            {/* Left Mushroom - mirrored */}
+            <motion.div
+              className="hidden sm:block w-20 sm:w-24 lg:w-32 flex-shrink-0 self-end"
+              animate={{ 
+                opacity: [0.6, 1, 0.6],
+                y: [0, -5, 0]
+              }}
+              transition={{ 
+                duration: 2.5,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <img 
+                src="https://fairygarden4u.com/fairy_mushroom.png" 
+                alt=""
+                className="w-full h-auto"
+                style={{ transform: 'scaleX(-1)', filter: 'drop-shadow(0 0 10px rgba(212,175,55,0.4))' }}
+              />
+            </motion.div>
+
             {teamMembers.map((member, index) => (
               <motion.div
                 key={member.id}
@@ -359,6 +380,28 @@ const About = () => {
                 </div>
               </motion.div>
             ))}
+            
+            {/* Right Mushroom */}
+            <motion.div
+              className="hidden sm:block w-20 sm:w-24 lg:w-32 flex-shrink-0 self-end"
+              animate={{ 
+                opacity: [1, 0.6, 1],
+                y: [0, -5, 0]
+              }}
+              transition={{ 
+                duration: 2.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1.25
+              }}
+            >
+              <img 
+                src="https://fairygarden4u.com/fairy_mushroom.png" 
+                alt=""
+                className="w-full h-auto"
+                style={{ filter: 'drop-shadow(0 0 10px rgba(212,175,55,0.4))' }}
+              />
+            </motion.div>
           </div>
         </motion.div>
       </div>
