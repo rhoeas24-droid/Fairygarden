@@ -67,7 +67,7 @@ const DIYKits = () => {
             <p>
               We take care of the rest: every substrate layer, every plant, every tool — all carefully selected and packed for you, along with a detailed step-by-step guide to walk you through the whole process.
             </p>
-            <p className="mt-6">
+            <p className="mt-8 mb-12">
               Can't find your perfect design?{' '}
               <button 
                 onClick={() => setIsCustomBuilderOpen(true)}
