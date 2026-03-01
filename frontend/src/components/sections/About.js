@@ -96,9 +96,93 @@ const AboutMeModal = ({ isOpen, onClose }) => {
   );
 };
 
+// Our Story Modal Component
+const OurStoryModal = ({ isOpen, onClose }) => {
+  if (!isOpen) return null;
+  
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm overflow-hidden"
+          onClick={onClose}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            transition={{ type: "spring", damping: 25 }}
+            className="relative w-full max-w-3xl bg-forest border-2 border-gold/50 rounded-2xl shadow-2xl flex flex-col"
+            style={{ maxHeight: '85vh' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close button */}
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 z-20 p-2 rounded-full bg-forest border border-gold/30 text-gold hover:bg-gold hover:text-forest transition-all"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {/* Scrollable content */}
+            <div className="overflow-y-auto flex-1 p-6 sm:p-8 lg:p-10">
+              {/* Title */}
+              <div className="flex items-center gap-3 justify-center mb-6">
+                <Leaf className="w-8 h-8 text-gold" />
+                <h2 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold">
+                  Our Story
+                </h2>
+              </div>
+              
+              {/* Content */}
+              <div className="text-cream/90 font-montserrat text-sm sm:text-base leading-relaxed space-y-4 text-justify">
+                <p className="italic text-gold/90">
+                  Fairy Garden didn't start as a business. It started as a quiet obsession in 2020.
+                </p>
+                
+                <p>
+                  A bottle. Some soil. A few tiny plants. A sealed lid — and suddenly, a whole living world humming away completely on its own. That first closed terrarium was never meant to be anything more than a personal project, a creative escape, a way to bring a little nature indoors. But something about it refused to stay small.
+                </p>
+                
+                <p>
+                  What began as a hobby quickly became something deeper. Questions started piling up faster than answers. Why does this substrate hold moisture better than that one? What keeps mold from taking hold inside a sealed glass ecosystem? How do you build something truly self-sustaining — a bottle garden that doesn't just survive behind glass for a few weeks, but genuinely thrives for months, for years, possibly forever? Each bottle became an experiment. Each experiment became a lesson. Years of refining, testing and quietly perfecting went into what is now our own custom substrate mix and our own plant propagation methods — developed entirely out of love for getting it right.
+                </p>
+                
+                <p>
+                  Somewhere along the way, the hobby became a craft. The research became confidence. And the handcrafted terrariums — those little sealed worlds that had always felt like pure magic to us — started finding their way into other people's homes. They became art.
+                </p>
+                
+                <p>
+                  That's when something unexpected happened. The joy didn't stay ours alone. It travelled with every garden. And watching that happen — seeing someone else light up over a tiny self-sustaining ecosystem sitting on their windowsill — turned a deeply personal dream into something worth sharing with the world.
+                </p>
+                
+                <p className="text-gold/90">
+                  Fairy Garden is that dream, finally out of the bottle. (wink wink) 😉
+                </p>
+                
+                <p>
+                  A hobby that grew into a passion. A passion that grew into a craft. And a craft we now get to share with wonderful people who love nature just as much as we do.
+                </p>
+                
+                <p className="text-gold font-semibold">
+                  Welcome to our little world — we're so glad you found it.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
 const About = () => {
   const { t } = useTranslation();
   const [isAboutMeOpen, setIsAboutMeOpen] = useState(false);
+  const [isOurStoryOpen, setIsOurStoryOpen] = useState(false);
 
   return (
     <section
