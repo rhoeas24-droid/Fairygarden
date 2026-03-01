@@ -11,7 +11,7 @@ export default defineConfig({
     ['json', { outputFile: './test-results/results.json' }],
   ],
   use: {
-    baseURL: process.env.REACT_APP_BACKEND_URL || 'https://fairy-garden-preview.preview.emergentagent.com',
+    baseURL: process.env.REACT_APP_BACKEND_URL || 'https://enchanted-terms-test.preview.emergentagent.com',
     screenshot: 'on',
     trace: 'on-first-retry',
     headless: true,
