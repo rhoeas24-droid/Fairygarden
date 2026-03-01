@@ -3,6 +3,88 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Leaf, Sparkles, Star, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
+// Magic Comet Component
+const MagicComet = ({ color, delay, duration, startX, startY }) => {
+  const pathVariants = useMemo(() => {
+    // Random curved path
+    const endX = startX + (Math.random() - 0.5) * 60;
+    const endY = startY + (Math.random() - 0.5) * 60;
+    const midX = (startX + endX) / 2 + (Math.random() - 0.5) * 30;
+    const midY = (startY + endY) / 2 + (Math.random() - 0.5) * 30;
+    
+    return {
+      x: [startX, midX, endX, midX, startX],
+      y: [startY, midY, endY, midY, startY],
+    };
+  }, [startX, startY]);
+
+  return (
+    <motion.div
+      className="absolute pointer-events-none"
+      style={{ left: 0, top: 0 }}
+      animate={{
+        x: pathVariants.x.map(v => `${v}%`),
+        y: pathVariants.y.map(v => `${v}%`),
+      }}
+      transition={{
+        duration: duration,
+        delay: delay,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+    >
+      {/* Comet head */}
+      <div 
+        className="relative w-3 h-3 rounded-full"
+        style={{
+          backgroundColor: color,
+          boxShadow: `0 0 10px ${color}, 0 0 20px ${color}, 0 0 30px ${color}`,
+        }}
+      />
+      {/* Comet tail */}
+      <motion.div
+        className="absolute top-1/2 right-full w-16 h-1 -translate-y-1/2"
+        style={{
+          background: `linear-gradient(to left, ${color}, transparent)`,
+          filter: 'blur(2px)',
+        }}
+        animate={{
+          opacity: [0.8, 1, 0.8],
+          scaleX: [0.8, 1.2, 0.8],
+        }}
+        transition={{
+          duration: 1.5,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+      {/* Sparkle trail */}
+      {[...Array(5)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1 h-1 rounded-full"
+          style={{
+            backgroundColor: color,
+            right: 12 + i * 8,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            boxShadow: `0 0 4px ${color}`,
+          }}
+          animate={{
+            opacity: [0, 0.8, 0],
+            scale: [0.5, 1, 0.5],
+          }}
+          transition={{
+            duration: 1,
+            delay: i * 0.15,
+            repeat: Infinity,
+          }}
+        />
+      ))}
+    </motion.div>
+  );
+};
+
 const teamMembers = [
   {
     id: 1,
