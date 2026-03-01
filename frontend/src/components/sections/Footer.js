@@ -54,8 +54,8 @@ const Footer = () => {
     }
   };
 
-  const scrollToPrivacy = () => {
-    scrollToSection('privacy-policy');
+  const openPrivacyModal = () => {
+    window.dispatchEvent(new CustomEvent('openPrivacyModal'));
   };
 
   return (
