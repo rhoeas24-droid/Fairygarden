@@ -319,10 +319,10 @@ const TerrariumGallery = () => {
                 </div>
               </div>
               
-              {/* Decorations & Stones */}
+              {/* Decorations & Terrascaping */}
               <div id="shop-decorations" className="scroll-mt-24">
                 <h3 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold mb-6 text-center">
-                  Decorations & Stones
+                  Decorations & Terrascaping
                 </h3>
                 <p className="text-cream/70 font-montserrat text-center mb-8 max-w-2xl mx-auto">
                   Driftwood, stones, moss and miniature figures to bring your world to life
