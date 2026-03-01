@@ -45,10 +45,17 @@ const AboutMeModal = ({ isOpen, onClose }) => {
 
             {/* Scrollable content */}
             <div className="overflow-y-auto flex-1 p-6 sm:p-8 lg:p-10">
-              {/* Title */}
-              <h2 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold mb-6 text-center">
-                About Me
-              </h2>
+              {/* Title and Photo */}
+              <div className="flex flex-col items-center mb-6">
+                <img 
+                  src="https://fairygarden4u.com/attila_portrait.jpg" 
+                  alt="Attila Szlávik"
+                  className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover border-4 border-gold/50 shadow-lg mb-4"
+                />
+                <h2 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold text-center">
+                  About Me
+                </h2>
+              </div>
               
               {/* Content */}
               <div className="text-cream/90 font-montserrat text-sm sm:text-base leading-relaxed space-y-4 text-justify">
