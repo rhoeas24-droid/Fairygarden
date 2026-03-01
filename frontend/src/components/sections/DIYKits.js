@@ -183,7 +183,7 @@ const DIYKits = () => {
                     className="w-full mt-3 py-2 px-4 bg-forest hover:bg-forest/90 text-cream font-montserrat text-sm font-semibold rounded-lg transition-colors"
                     data-testid={`diy-add-to-cart-${product.id}`}
                   >
-                    Add DIY Kit to Cart
+                    {t('diy.addToCart')}
                   </button>
                 </div>
               </motion.div>
