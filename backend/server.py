@@ -376,8 +376,8 @@ async def get_wc_products(lang: str = 'en'):
         raise HTTPException(status_code=500, detail=str(e))
 
 @api_router.get("/wc/products/{product_id}")
-async def get_wc_product(product_id: int):
-    """Fetch single product from WooCommerce"""
+async def get_wc_product(product_id: int, lang: str = 'en'):
+    """Fetch single product from WooCommerce with optional language translation"""
     if not wcapi:
         raise HTTPException(status_code=503, detail="WooCommerce not configured")
     try:
@@ -386,9 +386,9 @@ async def get_wc_product(product_id: int):
             p = response.json()
             return {
                 "id": str(p["id"]),
-                "name": p["name"],
-                "description": p.get("description", ""),
-                "short_description": p.get("short_description", ""),
+                "name": get_translated_field(p, 'name', lang),
+                "description": get_translated_field(p, 'description', lang),
+                "short_description": get_translated_field(p, 'description', lang),
                 "price": float(p["price"]) if p["price"] else 0,
                 "regular_price": float(p["regular_price"]) if p.get("regular_price") else 0,
                 "sale_price": float(p["sale_price"]) if p.get("sale_price") else None,
