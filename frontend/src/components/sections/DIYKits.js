@@ -155,7 +155,7 @@ const DIYKits = () => {
                     {product.name}
                   </h3>
                   <p className="text-forest/60 font-montserrat text-xs line-clamp-2 mb-3 text-justify">
-                    {product.description}
+                    {stripHtml(product.description)}
                   </p>
                   
                   {/* Price - 15% less than ready-made */}
