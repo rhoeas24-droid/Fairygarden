@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Menu, X } from 'lucide-react';
+import { ShoppingCart, Menu, X, ChevronDown } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,7 @@ import LanguageSwitcher from './LanguageSwitcher';
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isShopDropdownOpen, setIsShopDropdownOpen] = useState(false);
   const { cartCount, setIsCartOpen } = useCart();
   const { t } = useTranslation();
 
@@ -25,11 +26,18 @@ const Navigation = () => {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     setIsMobileMenuOpen(false);
+    setIsShopDropdownOpen(false);
   };
+
+  const shopCategories = [
+    { label: 'Ready Florariums', id: 'gallery' },
+    { label: 'Bottles, Jars & Tools', id: 'shop-bottles', comingSoon: true },
+    { label: 'Plants & Substrate Mix', id: 'shop-plants', comingSoon: true },
+    { label: 'Decorations & Stones', id: 'shop-decorations', comingSoon: true },
+  ];
 
   const navLinks = [
     { label: t('nav.home'), id: 'hero' },
-    { label: t('nav.shop'), id: 'gallery' },
     { label: t('nav.diyKits'), id: 'diy-kits' },
     { label: t('nav.forBusiness'), id: 'for-business' },
     { label: t('nav.workshops'), id: 'workshops' },
