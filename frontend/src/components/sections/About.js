@@ -386,7 +386,7 @@ const About = () => {
             
             {/* Right Mushroom - normal */}
             <motion.div
-              className="hidden md:block w-24 lg:w-32 xl:w-40 flex-shrink-0"
+              className="w-32 lg:w-40 xl:w-48 flex-shrink-0"
               animate={{ 
                 opacity: [1, 0.4, 1],
                 scale: [1, 0.95, 1]
@@ -400,7 +400,8 @@ const About = () => {
               <img 
                 src="https://fairygarden4u.com/mushroom_decor.webp" 
                 alt="Decorative mushroom"
-                className="w-full h-auto drop-shadow-[0_0_15px_rgba(212,175,55,0.3)]"
+                className="w-full h-auto"
+                style={{ filter: 'drop-shadow(0 0 15px rgba(212,175,55,0.3))' }}
               />
             </motion.div>
           </div>
