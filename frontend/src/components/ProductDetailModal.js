@@ -150,24 +150,8 @@ const ProductDetailModal = ({ isOpen, onClose, product, isDIYKit = false }) => {
               </div>
             </div>
 
-            {/* DIY Kit Contents OR Care Instructions */}
-            {isDIYKit ? (
-              <div className="p-8 border-t border-gold/20 bg-forest/30">
-                <h3 className="text-xl font-cinzel text-gold mb-6 text-center flex items-center justify-center gap-2">
-                  <Package className="w-6 h-6" />
-                  {t('diyKit.whatsIncluded', "What's Included")}
-                </h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {diyKitContents.map((item, index) => (
-                    <div key={index} className="text-center p-4 bg-forest/50 rounded-xl border border-gold/20">
-                      <item.icon className="w-8 h-8 text-gold mx-auto mb-2" />
-                      <h4 className="text-gold font-semibold text-sm mb-1">{item.name}</h4>
-                      <p className="text-cream/70 text-xs">{item.desc}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : (
+            {/* DIY Kit - no extra section, contents shown on main page */}
+            {isDIYKit ? null : (
               <div className="p-8 border-t border-gold/20 bg-forest/30">
                 <h3 className="text-xl font-cinzel text-gold mb-6 text-center">
                   {t('product.careTitle', 'Care Instructions')}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Package, Wrench, BookOpen, Eye } from 'lucide-react';
+import { Package, Eye, Scissors, Leaf, Droplets, BookOpen, Bug } from 'lucide-react';
+import { GlassWater, Layers, FlaskConical, PenTool } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { toast } from 'sonner';
@@ -101,26 +102,26 @@ const DIYKits = () => {
             </p>
           </div>
           
-          {/* Features */}
-          <div className="flex flex-wrap justify-center gap-8 sm:gap-12 mt-16 mb-8">
-            <div className="flex flex-col items-center gap-2 text-forest">
-              <div className="w-14 h-14 rounded-full bg-gold/20 flex items-center justify-center">
-                <Package className="w-7 h-7 text-gold-dark" />
+          {/* Kit Contents Grid */}
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4 mt-10 sm:mt-16 mb-8 max-w-4xl mx-auto px-2">
+            {[
+              { icon: GlassWater, name: t('diyKit.glassContainer', 'Glass Container') },
+              { icon: Layers, name: t('diyKit.drainageMix', 'Drainage Mix') },
+              { icon: FlaskConical, name: t('diyKit.substrateMix', 'Substrate Mix') },
+              { icon: Leaf, name: t('diyKit.plants', 'Plants') },
+              { icon: Scissors, name: t('diyKit.scissors', 'Scissors') },
+              { icon: PenTool, name: t('diyKit.tweezers', 'Tweezers') },
+              { icon: PenTool, name: t('diyKit.brush', 'Brush') },
+              { icon: BookOpen, name: t('diyKit.guide', 'Step-by-Step Guide') },
+              { icon: Bug, name: t('diyKit.magicBugs', 'Magic Bugs') },
+            ].map((item, i) => (
+              <div key={i} className="flex flex-col items-center gap-1.5 sm:gap-2 text-forest">
+                <div className="w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-gold/20 flex items-center justify-center">
+                  <item.icon className="w-5 h-5 sm:w-7 sm:h-7 text-gold-dark" />
+                </div>
+                <span className="font-montserrat font-semibold text-xs sm:text-sm text-center leading-tight">{item.name}</span>
               </div>
-              <span className="font-cinzel font-bold text-base sm:text-lg">{t('diy.featureIncluded')}</span>
-            </div>
-            <div className="flex flex-col items-center gap-2 text-forest">
-              <div className="w-14 h-14 rounded-full bg-gold/20 flex items-center justify-center">
-                <Wrench className="w-7 h-7 text-gold-dark" />
-              </div>
-              <span className="font-cinzel font-bold text-base sm:text-lg">{t('diy.featureTools')}</span>
-            </div>
-            <div className="flex flex-col items-center gap-2 text-forest">
-              <div className="w-14 h-14 rounded-full bg-gold/20 flex items-center justify-center">
-                <BookOpen className="w-7 h-7 text-gold-dark" />
-              </div>
-              <span className="font-cinzel font-bold text-base sm:text-lg">{t('diy.featureGuide')}</span>
-            </div>
+            ))}
           </div>
         </motion.div>
 
