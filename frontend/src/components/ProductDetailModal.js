@@ -43,7 +43,7 @@ const ProductDetailModal = ({ isOpen, onClose, product, isDIYKit = false }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-start sm:items-center justify-center p-2 sm:p-4 pt-8 sm:pt-4 bg-black/80 backdrop-blur-sm"
           onClick={onClose}
         >
           <motion.div
@@ -51,7 +51,7 @@ const ProductDetailModal = ({ isOpen, onClose, product, isDIYKit = false }) => {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
             transition={{ type: "spring", damping: 25 }}
-            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-forest border-2 border-gold/50 rounded-2xl shadow-2xl"
+            className="relative w-full max-w-4xl max-h-[85vh] sm:max-h-[90vh] overflow-y-auto bg-forest border-2 border-gold/50 rounded-2xl shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button */}

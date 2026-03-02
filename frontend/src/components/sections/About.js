@@ -199,7 +199,6 @@ const About = () => {
         backgroundImage: 'url(/BG_TILE_FINAL.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
       }}
     >
       <div className="absolute inset-0 bg-forest/90" />

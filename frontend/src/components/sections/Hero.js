@@ -2,10 +2,11 @@ import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 const Hero = () => {
-  // Generate flowing stars with smooth sine-wave motion
+  // Generate flowing stars - fewer on mobile for performance
   const stars = useMemo(() => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const result = [];
-    const count = 60;
+    const count = isMobile ? 20 : 60;
     
     for (let i = 0; i < count; i++) {
       const colorRand = Math.random();

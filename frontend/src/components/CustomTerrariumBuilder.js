@@ -217,7 +217,7 @@ const CustomTerrariumBuilder = ({ isOpen, onClose }) => {
                 <FlaskConical className="w-5 h-5 text-gold" />
                 {t('customTerrarium.sizeLabel')}
               </label>
-              <div className="grid grid-cols-4 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 {Object.keys(PRICES.sizes).map((size) => (
                   <button
                     key={size}
@@ -278,7 +278,7 @@ const CustomTerrariumBuilder = ({ isOpen, onClose }) => {
                 <Leaf className="w-5 h-5 text-gold" />
                 {t('customTerrarium.worldLabel')}
               </label>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {Object.keys(PRICES.worlds).map((world) => (
                   <button
                     key={world}

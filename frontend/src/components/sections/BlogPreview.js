@@ -16,7 +16,7 @@ const BlogPostModal = ({ post, onClose }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-20 pb-8 overflow-y-auto"
+        className="fixed inset-0 z-50 flex items-start justify-center p-2 sm:p-4 pt-8 sm:pt-20 pb-4 sm:pb-8 overflow-y-auto"
         onClick={onClose}
         data-testid="blog-modal-overlay"
       >
@@ -26,7 +26,7 @@ const BlogPostModal = ({ post, onClose }) => {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 40, scale: 0.95 }}
           transition={{ duration: 0.3 }}
-          className="relative w-full max-w-3xl bg-cream rounded-2xl overflow-hidden shadow-2xl"
+          className="relative w-full max-w-3xl bg-cream rounded-2xl overflow-hidden shadow-2xl mb-4"
           onClick={(e) => e.stopPropagation()}
           data-testid="blog-modal"
         >
@@ -168,7 +168,6 @@ const BlogPreview = () => {
           backgroundImage: 'url(/BG_TILE_FINAL.jpg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          backgroundAttachment: 'fixed'
         }}
       >
         <div className="absolute inset-0 bg-forest/85" />

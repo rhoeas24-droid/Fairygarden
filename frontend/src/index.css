@@ -84,3 +84,29 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #8b7620;
 }
+
+/* iOS Safari: backgroundAttachment fixed doesn't work */
+@supports (-webkit-touch-callout: none) {
+  .bg-fixed-section {
+    background-attachment: scroll !important;
+  }
+}
+
+/* Safe area insets for notched phones */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Prevent iOS zoom on input focus */
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Smooth scrolling on iOS */
+.overflow-y-auto {
+  -webkit-overflow-scrolling: touch;
+}

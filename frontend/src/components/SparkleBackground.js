@@ -34,6 +34,9 @@ const SparkleBackground = () => {
           }
         },
         fpsLimit: 60,
+        responsive: [
+          { maxWidth: 768, options: { particles: { number: { value: 50 } } } }
+        ],
         particles: {
           number: {
             value: 200,

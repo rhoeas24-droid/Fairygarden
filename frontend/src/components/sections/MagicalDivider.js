@@ -13,10 +13,11 @@ const MagicalDivider = () => {
     }
   };
 
-  // Smooth flowing particles - elegant gold dust with continuous orbit
+  // Smooth flowing particles - fewer on mobile for performance
   const particles = useMemo(() => {
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     const result = [];
-    const count = 360;
+    const count = isMobile ? 60 : 360;
     
     for (let i = 0; i < count; i++) {
       const angle = (i / count) * Math.PI * 2;

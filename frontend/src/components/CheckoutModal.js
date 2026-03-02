@@ -104,8 +104,8 @@ const CheckoutModal = ({ isOpen, onClose }) => {
     } finally { setIsSubmitting(false); }
   };
 
-  const modalClass = "fixed inset-0 z-50 flex items-center justify-center pointer-events-none";
-  const modalInner = "pointer-events-auto w-[calc(100%-2rem)] max-w-2xl max-h-[90vh] bg-forest-dark border border-gold/30 rounded-2xl shadow-2xl flex flex-col overflow-hidden";
+  const modalClass = "fixed inset-0 z-50 flex items-start sm:items-center justify-center pt-4 sm:pt-0 pointer-events-none";
+  const modalInner = "pointer-events-auto w-[calc(100%-1rem)] sm:w-[calc(100%-2rem)] max-w-2xl max-h-[85vh] sm:max-h-[90vh] bg-forest-dark border border-gold/30 rounded-2xl shadow-2xl flex flex-col overflow-hidden";
 
   if (orderResult && orderResult.payment_method === 'bacs') {
     return (
