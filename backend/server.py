@@ -578,13 +578,29 @@ async def create_wc_order(checkout: CheckoutRequest):
         "line_items": line_items,
     }
     
-    # Add billing info if provided
-    if checkout.billing_email:
-        order_data["billing"] = {
-            "first_name": checkout.billing_first_name or "",
-            "last_name": checkout.billing_last_name or "",
-            "email": checkout.billing_email,
-        }
+    # Add billing info
+    billing = {
+        "first_name": checkout.billing_first_name or "",
+        "last_name": checkout.billing_last_name or "",
+        "email": checkout.billing_email or "",
+        "phone": checkout.billing_phone or "",
+        "address_1": checkout.billing_address_1 or "",
+        "city": checkout.billing_city or "",
+        "postcode": checkout.billing_postcode or "",
+        "country": checkout.billing_country or "",
+    }
+    order_data["billing"] = billing
+    order_data["shipping"] = {
+        "first_name": billing["first_name"],
+        "last_name": billing["last_name"],
+        "address_1": billing["address_1"],
+        "city": billing["city"],
+        "postcode": billing["postcode"],
+        "country": billing["country"],
+    }
+    
+    if checkout.order_notes:
+        order_data["customer_note"] = checkout.order_notes
     
     try:
         response = wcapi.post("orders", order_data)
