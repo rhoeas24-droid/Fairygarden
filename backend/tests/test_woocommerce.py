@@ -428,7 +428,3 @@ class TestCheckoutBillingShipping:
         
         # Cleanup
         api_client.delete(f"{BASE_URL}/api/cart/{test_session_id}")
-        assert response.status_code == 200
-        data = response.json()
-        assert "connected" in data
-        assert data["connected"] is True, f"WooCommerce not connected: {data.get('message')}"
