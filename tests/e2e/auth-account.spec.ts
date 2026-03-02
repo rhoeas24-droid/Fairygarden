@@ -9,11 +9,13 @@ test.describe('AuthModal - Login and Register', () => {
       localStorage.removeItem('customerToken');
     });
     
-    // Accept cookies
+    // Accept cookies first - wait for banner and click
     const acceptButton = page.getByRole('button', { name: /accept all/i });
-    if (await acceptButton.isVisible({ timeout: 3000 }).catch(() => false)) {
-      await acceptButton.click({ force: true });
-    }
+    await expect(acceptButton).toBeVisible({ timeout: 5000 });
+    await acceptButton.click({ force: true });
+    
+    // Wait for banner to disappear
+    await expect(page.getByTestId('cookie-consent-banner')).not.toBeVisible({ timeout: 3000 }).catch(() => {});
   });
 
   test('user icon in navbar opens AuthModal when not logged in', async ({ page }) => {
@@ -120,9 +122,9 @@ test.describe('AccountModal - Profile, Orders, Support Tabs', () => {
     
     // Accept cookies
     const acceptButton = page.getByRole('button', { name: /accept all/i });
-    if (await acceptButton.isVisible({ timeout: 3000 }).catch(() => false)) {
-      await acceptButton.click({ force: true });
-    }
+    await expect(acceptButton).toBeVisible({ timeout: 5000 });
+    await acceptButton.click({ force: true });
+    await expect(page.getByTestId('cookie-consent-banner')).not.toBeVisible({ timeout: 3000 }).catch(() => {});
     
     // Check mobile user button is visible
     const mobileUserButton = page.getByTestId('mobile-user-button');
@@ -145,11 +147,11 @@ test.describe('Guest Checkout Flow', () => {
       localStorage.setItem('sessionId', session);
     }, uniqueSession);
     
-    // Accept cookies
+    // Accept cookies first
     const acceptButton = page.getByRole('button', { name: /accept all/i });
-    if (await acceptButton.isVisible({ timeout: 3000 }).catch(() => false)) {
-      await acceptButton.click({ force: true });
-    }
+    await expect(acceptButton).toBeVisible({ timeout: 5000 });
+    await acceptButton.click({ force: true });
+    await expect(page.getByTestId('cookie-consent-banner')).not.toBeVisible({ timeout: 3000 }).catch(() => {});
   });
 
   test('guest can proceed to checkout without registration', async ({ page }) => {
