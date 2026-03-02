@@ -392,26 +392,37 @@ async def get_wc_products(lang: str = 'en', product_type: str = None):
                     attributes = product_data.get("attributes", {})
                     termek_tipus = attributes.get("Termék típus", [])
                     
+                    should_include = False
+                    target_variation_name = None
+                    
                     if product_type == "ready-florarium":
-                        # Include if in Ready Florariums category OR has Ready Florarium attribute
+                        target_variation_name = "Ready Florarium"
                         if "Ready Florariums" in categories or "Ready Florarium" in termek_tipus:
-                            # For variable products, check if this variation type exists
-                            if is_variable and "Ready Florarium" in termek_tipus:
-                                result.append(product_data)
-                            elif not is_variable and "Ready Florariums" in categories:
-                                result.append(product_data)
-                            elif "Ready Florarium" in termek_tipus:
-                                result.append(product_data)
+                            should_include = True
                     
                     elif product_type == "diy-kit":
-                        # Include if in DIY Kits category OR has DIY Kit attribute
+                        target_variation_name = "DIY Kit"
                         if "DIY Kits" in categories or "DIY Kit" in termek_tipus:
-                            if is_variable and "DIY Kit" in termek_tipus:
-                                result.append(product_data)
-                            elif not is_variable and "DIY Kits" in categories:
-                                result.append(product_data)
-                            elif "DIY Kit" in termek_tipus:
-                                result.append(product_data)
+                            should_include = True
+                    
+                    if should_include:
+                        # For variable products, fetch the specific variation price
+                        if is_variable and target_variation_name:
+                            try:
+                                var_response = wcapi.get(f"products/{p['id']}/variations", params={"per_page": 10})
+                                if var_response.status_code == 200:
+                                    variations = var_response.json()
+                                    for var in variations:
+                                        for attr in var.get("attributes", []):
+                                            if attr.get("option") == target_variation_name:
+                                                product_data["price"] = float(var["price"]) if var.get("price") else product_data["price"]
+                                                product_data["variation_id"] = var["id"]
+                                                product_data["stock_status"] = var.get("stock_status", "instock")
+                                                break
+                            except Exception as e:
+                                logger.warning(f"Failed to fetch variations for product {p['id']}: {e}")
+                        
+                        result.append(product_data)
                 else:
                     result.append(product_data)
             
