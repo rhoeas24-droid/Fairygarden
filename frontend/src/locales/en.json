@@ -216,7 +216,10 @@
     "qty": "Qty",
     "total": "Total",
     "checkout": "Checkout",
-    "checkoutSuccess": "Thank you for your order! We will contact you soon."
+    "checkoutSuccess": "Thank you for your order! We will contact you soon.",
+    "orderCreated": "Order created! Redirecting to payment...",
+    "checkoutError": "Checkout failed. Please try again.",
+    "processing": "Processing..."
   },
   "footer": {
     "tagline": "A Touch of Magic in a Bottle",

@@ -216,7 +216,10 @@
     "qty": "Qtà",
     "total": "Totale",
     "checkout": "Acquista",
-    "checkoutSuccess": "Grazie per il tuo ordine! Ti contatteremo presto."
+    "checkoutSuccess": "Grazie per il tuo ordine! Ti contatteremo presto.",
+    "orderCreated": "Ordine creato! Reindirizzamento al pagamento...",
+    "checkoutError": "Checkout fallito. Riprova.",
+    "processing": "Elaborazione..."
   },
   "footer": {
     "tagline": "Un Tocco di Magia in una Bottiglia",
