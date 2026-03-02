@@ -5,6 +5,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 import time
+import asyncio
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict, EmailStr
 from typing import List, Optional
@@ -41,28 +42,141 @@ if wc_url and wc_key and wc_secret:
         timeout=30
     )
 
-# ========== TTL Cache for WooCommerce Products ==========
-CACHE_TTL = 300  # 5 minutes
-_product_cache = {}  # key: (lang, product_type) -> {"data": [...], "timestamp": float}
+# ========== Persistent MongoDB Product Cache ==========
+# Products are cached in MongoDB so they NEVER disappear, even if WooCommerce is down.
+# A background task refreshes the cache every 10 minutes.
+CACHE_REFRESH_INTERVAL = 600  # 10 minutes
+_bg_task_started = False
 
-def get_cached_products(lang: str, product_type: str):
-    """Return cached products if still valid, else None."""
-    key = (lang, product_type or "all")
-    entry = _product_cache.get(key)
-    if entry and (time.time() - entry["timestamp"]) < CACHE_TTL:
-        logger.info(f"Cache HIT for ({lang}, {product_type})")
-        return entry["data"]
+async def get_cached_products_db(lang: str, product_type: str):
+    """Get products from MongoDB persistent cache."""
+    key = f"{lang}_{product_type or 'all'}"
+    doc = await db.wc_product_cache.find_one({"cache_key": key}, {"_id": 0})
+    if doc and doc.get("products"):
+        return doc["products"]
     return None
 
-def set_cached_products(lang: str, product_type: str, data: list):
-    """Store products in cache."""
-    key = (lang, product_type or "all")
-    _product_cache[key] = {"data": data, "timestamp": time.time()}
+async def set_cached_products_db(lang: str, product_type: str, data: list):
+    """Store products in MongoDB persistent cache."""
+    key = f"{lang}_{product_type or 'all'}"
+    await db.wc_product_cache.update_one(
+        {"cache_key": key},
+        {"$set": {"cache_key": key, "products": data, "updated_at": datetime.now(timezone.utc).isoformat(), "count": len(data)}},
+        upsert=True
+    )
 
-def invalidate_cache():
-    """Clear all cached products."""
-    _product_cache.clear()
-    logger.info("Product cache invalidated")
+def _fetch_wc_products_sync(lang: str, product_type: str):
+    """Synchronous fetch from WooCommerce API (called in thread to not block event loop)."""
+    if not wcapi:
+        return None
+    try:
+        params = {"per_page": 100, "status": "publish"}
+        response = wcapi.get("products", params=params)
+        if response.status_code != 200:
+            logger.error(f"WooCommerce API returned {response.status_code}")
+            return None
+        
+        products = response.json()
+        result = []
+        
+        for p in products:
+            is_variable = p.get("type") == "variable"
+            product_data = {
+                "id": str(p["id"]),
+                "name": get_translated_field(p, 'name', lang),
+                "description": get_translated_field(p, 'description', lang),
+                "price": float(p["price"]) if p["price"] else 0,
+                "regular_price": float(p["regular_price"]) if p.get("regular_price") else 0,
+                "sale_price": float(p["sale_price"]) if p.get("sale_price") else None,
+                "image": p["images"][0]["src"] if p.get("images") else "",
+                "images": [img["src"] for img in p.get("images", [])],
+                "category": p["categories"][0]["name"] if p.get("categories") else "Uncategorized",
+                "categories": [cat["name"] for cat in p.get("categories", [])],
+                "stock_status": p.get("stock_status", "instock"),
+                "permalink": p.get("permalink", ""),
+                "wc_id": p["id"],
+                "product_type": p.get("type", "simple"),
+                "dimensions": {
+                    "height": p.get("dimensions", {}).get("height", ""),
+                    "width": p.get("dimensions", {}).get("width", ""),
+                    "length": p.get("dimensions", {}).get("length", "")
+                },
+                "weight": p.get("weight", ""),
+                "attributes": {attr["name"]: attr["options"] for attr in p.get("attributes", [])}
+            }
+            
+            if product_type:
+                categories = product_data["categories"]
+                attributes = product_data.get("attributes", {})
+                termek_tipus = attributes.get("Termék típus", [])
+                should_include = False
+                target_variation_name = None
+                
+                if product_type == "ready-florarium":
+                    target_variation_name = "Ready Florarium"
+                    if "Ready Florariums" in categories or "Ready Florarium" in termek_tipus:
+                        should_include = True
+                elif product_type == "diy-kit":
+                    target_variation_name = "DIY Kit"
+                    if "DIY Kits" in categories or "DIY Kit" in termek_tipus:
+                        should_include = True
+                
+                if should_include:
+                    if is_variable and target_variation_name:
+                        try:
+                            var_response = wcapi.get(f"products/{p['id']}/variations", params={"per_page": 10})
+                            if var_response.status_code == 200:
+                                for var in var_response.json():
+                                    for attr in var.get("attributes", []):
+                                        if attr.get("option") == target_variation_name:
+                                            product_data["price"] = float(var["price"]) if var.get("price") else product_data["price"]
+                                            product_data["variation_id"] = var["id"]
+                                            product_data["stock_status"] = var.get("stock_status", "instock")
+                                            break
+                        except Exception as e:
+                            logger.warning(f"Failed to fetch variations for product {p['id']}: {e}")
+                    result.append(product_data)
+            else:
+                result.append(product_data)
+        
+        return result
+    except Exception as e:
+        logger.error(f"WooCommerce API fetch error: {e}")
+        return None
+
+async def fetch_wc_products_from_api(lang: str, product_type: str):
+    """Async wrapper - runs sync WC call in thread pool."""
+    return await asyncio.to_thread(_fetch_wc_products_sync, lang, product_type)
+
+async def refresh_product_cache():
+    """Background task: refresh all product cache combinations."""
+    langs = ['en', 'el', 'it']
+    product_types = [None, 'ready-florarium', 'diy-kit']
+    
+    for lang in langs:
+        for pt in product_types:
+            try:
+                data = await fetch_wc_products_from_api(lang, pt)
+                if data is not None and len(data) > 0:
+                    await set_cached_products_db(lang, pt, data)
+                    logger.info(f"Cache refreshed: ({lang}, {pt or 'all'}) -> {len(data)} products")
+                else:
+                    logger.warning(f"Cache refresh returned empty for ({lang}, {pt or 'all'}), keeping old data")
+            except Exception as e:
+                logger.error(f"Cache refresh failed for ({lang}, {pt}): {e}")
+
+async def background_cache_refresher():
+    """Runs forever, refreshing cache every CACHE_REFRESH_INTERVAL seconds."""
+    # Initial refresh on startup
+    logger.info("Starting initial product cache refresh...")
+    await refresh_product_cache()
+    logger.info("Initial cache refresh complete")
+    
+    while True:
+        await asyncio.sleep(CACHE_REFRESH_INTERVAL)
+        logger.info("Background cache refresh starting...")
+        await refresh_product_cache()
+        logger.info("Background cache refresh complete")
 
 app = FastAPI()
 api_router = APIRouter(prefix="/api")
@@ -404,94 +518,26 @@ async def get_wc_products(lang: str = 'en', product_type: str = None):
     if not wcapi:
         raise HTTPException(status_code=503, detail="WooCommerce not configured")
     
-    # Check cache first
-    cached = get_cached_products(lang, product_type)
+    # Always serve from persistent MongoDB cache
+    cached = await get_cached_products_db(lang, product_type)
     if cached is not None:
         return cached
     
+    # Cache miss: fetch from WooCommerce API directly (first load or new combination)
+    logger.info(f"Cache MISS for ({lang}, {product_type}), fetching from WooCommerce...")
     try:
-        params = {"per_page": 100, "status": "publish"}
-        
-        response = wcapi.get("products", params=params)
-        if response.status_code == 200:
-            products = response.json()
-            result = []
-            
-            for p in products:
-                is_variable = p.get("type") == "variable"
-                
-                product_data = {
-                    "id": str(p["id"]),
-                    "name": get_translated_field(p, 'name', lang),
-                    "description": get_translated_field(p, 'description', lang),
-                    "price": float(p["price"]) if p["price"] else 0,
-                    "regular_price": float(p["regular_price"]) if p.get("regular_price") else 0,
-                    "sale_price": float(p["sale_price"]) if p.get("sale_price") else None,
-                    "image": p["images"][0]["src"] if p.get("images") else "",
-                    "images": [img["src"] for img in p.get("images", [])],
-                    "category": p["categories"][0]["name"] if p.get("categories") else "Uncategorized",
-                    "categories": [cat["name"] for cat in p.get("categories", [])],
-                    "stock_status": p.get("stock_status", "instock"),
-                    "permalink": p.get("permalink", ""),
-                    "wc_id": p["id"],
-                    "product_type": p.get("type", "simple"),
-                    "dimensions": {
-                        "height": p.get("dimensions", {}).get("height", ""),
-                        "width": p.get("dimensions", {}).get("width", ""),
-                        "length": p.get("dimensions", {}).get("length", "")
-                    },
-                    "weight": p.get("weight", ""),
-                    "attributes": {attr["name"]: attr["options"] for attr in p.get("attributes", [])}
-                }
-                
-                if product_type:
-                    categories = product_data["categories"]
-                    attributes = product_data.get("attributes", {})
-                    termek_tipus = attributes.get("Termék típus", [])
-                    
-                    should_include = False
-                    target_variation_name = None
-                    
-                    if product_type == "ready-florarium":
-                        target_variation_name = "Ready Florarium"
-                        if "Ready Florariums" in categories or "Ready Florarium" in termek_tipus:
-                            should_include = True
-                    
-                    elif product_type == "diy-kit":
-                        target_variation_name = "DIY Kit"
-                        if "DIY Kits" in categories or "DIY Kit" in termek_tipus:
-                            should_include = True
-                    
-                    if should_include:
-                        if is_variable and target_variation_name:
-                            try:
-                                var_response = wcapi.get(f"products/{p['id']}/variations", params={"per_page": 10})
-                                if var_response.status_code == 200:
-                                    variations = var_response.json()
-                                    for var in variations:
-                                        for attr in var.get("attributes", []):
-                                            if attr.get("option") == target_variation_name:
-                                                product_data["price"] = float(var["price"]) if var.get("price") else product_data["price"]
-                                                product_data["variation_id"] = var["id"]
-                                                product_data["stock_status"] = var.get("stock_status", "instock")
-                                                break
-                            except Exception as e:
-                                logger.warning(f"Failed to fetch variations for product {p['id']}: {e}")
-                        
-                        result.append(product_data)
-                else:
-                    result.append(product_data)
-            
-            # Store in cache
-            set_cached_products(lang, product_type, result)
-            return result
-        else:
-            raise HTTPException(status_code=response.status_code, detail="WooCommerce API error")
-    except HTTPException:
-        raise
+        data = await fetch_wc_products_from_api(lang, product_type)
     except Exception as e:
         logger.error(f"WooCommerce API error: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        data = None
+    
+    if data is not None and len(data) > 0:
+        await set_cached_products_db(lang, product_type, data)
+        return data
+    
+    # Last resort: return empty list (should rarely happen - only on very first load with WC down)
+    logger.error(f"No cached data and WooCommerce API failed for ({lang}, {product_type})")
+    return []
 
 @api_router.get("/wc/products/{product_id}")
 async def get_wc_product(product_id: int, lang: str = 'en'):
@@ -842,7 +888,8 @@ async def create_wc_order(checkout: CheckoutRequest):
                     })
             
             # Invalidate product cache (stock may have changed)
-            invalidate_cache()
+            # Don't await - let it happen in background
+            asyncio.create_task(refresh_product_cache())
             
             # For bank transfer, return order details without payment redirect
             if checkout.payment_method == "bacs":
@@ -873,11 +920,18 @@ async def create_wc_order(checkout: CheckoutRequest):
         logger.error(f"Checkout error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-# Cache invalidation endpoint (useful for admin)
+# Cache management endpoints
 @api_router.post("/wc/cache/invalidate")
 async def invalidate_product_cache():
-    invalidate_cache()
-    return {"message": "Cache invalidated"}
+    """Force refresh product cache from WooCommerce."""
+    await refresh_product_cache()
+    return {"message": "Cache refreshed from WooCommerce"}
+
+@api_router.get("/wc/cache/status")
+async def get_cache_status():
+    """Check cache status."""
+    docs = await db.wc_product_cache.find({}, {"_id": 0, "cache_key": 1, "count": 1, "updated_at": 1}).to_list(50)
+    return {"entries": docs}
 
 app.include_router(api_router)
 
@@ -888,6 +942,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.on_event("startup")
+async def startup_event():
+    global _bg_task_started
+    if not _bg_task_started:
+        _bg_task_started = True
+        asyncio.create_task(background_cache_refresher())
+        logger.info("Background product cache refresher started")
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
