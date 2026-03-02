@@ -1,19 +1,43 @@
-import React from 'react';
-import { X, Trash2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, Trash2, Loader2 } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import GoldButton from './GoldButton';
 import { toast } from 'sonner';
+import axios from 'axios';
+
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const API = `${BACKEND_URL}/api`;
 
 const CartDrawer = () => {
   const { cart, removeFromCart, clearCart, cartTotal, isCartOpen, setIsCartOpen } = useCart();
   const { t } = useTranslation();
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
-  const handleCheckout = () => {
-    toast.success(t('cart.checkoutSuccess'));
-    clearCart();
-    setIsCartOpen(false);
+  const handleCheckout = async () => {
+    if (cart.length === 0) return;
+    
+    setIsCheckingOut(true);
+    try {
+      const sessionId = localStorage.getItem('sessionId');
+      const response = await axios.post(`${API}/wc/checkout`, {
+        session_id: sessionId,
+      });
+      
+      if (response.data.success && response.data.checkout_url) {
+        toast.success(t('cart.orderCreated', 'Order created! Redirecting to payment...'));
+        // Open WooCommerce checkout in a new tab
+        window.open(response.data.checkout_url, '_blank');
+        setIsCartOpen(false);
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      const msg = error.response?.data?.detail || t('cart.checkoutError', 'Checkout failed. Please try again.');
+      toast.error(msg);
+    } finally {
+      setIsCheckingOut(false);
+    }
   };
 
   return (
@@ -70,7 +94,7 @@ const CartDrawer = () => {
                       />
                       <div className="flex-1">
                         <h3 className="font-cinzel text-cream font-semibold">{item.product_name}</h3>
-                        <p className="text-gold font-montserrat">${item.product_price.toFixed(2)}</p>
+                        <p className="text-gold font-montserrat">&euro;{item.product_price.toFixed(2)}</p>
                         <p className="text-cream/60 text-sm">{t('cart.qty')}: {item.quantity}</p>
                       </div>
                       <button
@@ -91,15 +115,23 @@ const CartDrawer = () => {
                 <div className="flex justify-between items-center">
                   <span className="text-xl font-cinzel text-cream">{t('cart.total')}:</span>
                   <span className="text-2xl font-cinzel font-bold text-gold" data-testid="cart-total">
-                    ${cartTotal.toFixed(2)}
+                    &euro;{cartTotal.toFixed(2)}
                   </span>
                 </div>
                 <GoldButton
                   onClick={handleCheckout}
                   className="w-full"
                   dataTestId="checkout-button"
+                  disabled={isCheckingOut}
                 >
-                  {t('cart.checkout')}
+                  {isCheckingOut ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      {t('cart.processing', 'Processing...')}
+                    </span>
+                  ) : (
+                    t('cart.checkout')
+                  )}
                 </GoldButton>
               </div>
             )}
