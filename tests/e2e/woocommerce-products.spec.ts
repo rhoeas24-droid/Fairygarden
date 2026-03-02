@@ -91,3 +91,66 @@ test.describe('WooCommerce E-commerce Flow', () => {
     await expect(page.getByTestId('custom-terrarium-card')).toBeVisible({ timeout: 15000 });
   });
 });
+
+test.describe('File-Based Cache API Tests', () => {
+  test('cache status endpoint returns file-based cache info', async ({ request }) => {
+    const response = await request.get('/api/wc/cache/status');
+    expect(response.ok()).toBeTruthy();
+    
+    const data = await response.json();
+    expect(data.cache_type).toBe('file');
+    expect(data.cache_dir).toContain('product_cache');
+    expect(data.entries).toBeInstanceOf(Array);
+    expect(data.entries.length).toBeGreaterThan(0);
+    
+    // Verify entry structure
+    const entry = data.entries[0];
+    expect(entry).toHaveProperty('file');
+    expect(entry).toHaveProperty('count');
+    expect(entry).toHaveProperty('size_bytes');
+    expect(entry).toHaveProperty('modified');
+  });
+
+  test('products endpoint returns products from file cache (not empty)', async ({ request }) => {
+    const response = await request.get('/api/wc/products?lang=en');
+    expect(response.ok()).toBeTruthy();
+    
+    const products = await response.json();
+    expect(products).toBeInstanceOf(Array);
+    expect(products.length).toBeGreaterThan(0);
+    
+    // Verify product structure
+    const product = products[0];
+    expect(product).toHaveProperty('id');
+    expect(product).toHaveProperty('name');
+    expect(product).toHaveProperty('price');
+    expect(product).toHaveProperty('image');
+    expect(product).toHaveProperty('category');
+  });
+
+  test('Greek products load from file cache', async ({ request }) => {
+    const response = await request.get('/api/wc/products?lang=el');
+    expect(response.ok()).toBeTruthy();
+    
+    const products = await response.json();
+    expect(products.length).toBeGreaterThan(0);
+    expect(products[0]).toHaveProperty('name');
+    expect(products[0].price).toBeGreaterThan(0);
+  });
+
+  test('ready-florarium filter returns products', async ({ request }) => {
+    const response = await request.get('/api/wc/products?lang=en&product_type=ready-florarium');
+    expect(response.ok()).toBeTruthy();
+    
+    const products = await response.json();
+    expect(products.length).toBeGreaterThan(0);
+  });
+
+  test('diy-kit filter returns products', async ({ request }) => {
+    const response = await request.get('/api/wc/products?lang=en&product_type=diy-kit');
+    expect(response.ok()).toBeTruthy();
+    
+    const products = await response.json();
+    expect(products.length).toBeGreaterThan(0);
+  });
+});

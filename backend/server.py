@@ -42,28 +42,40 @@ if wc_url and wc_key and wc_secret:
         timeout=30
     )
 
-# ========== Persistent MongoDB Product Cache ==========
-# Products are cached in MongoDB so they NEVER disappear, even if WooCommerce is down.
-# A background task refreshes the cache every 10 minutes.
+# ========== File-Based Persistent Product Cache ==========
+# Products are cached as JSON files on disk. This survives process kills,
+# server restarts, and works without MongoDB or network access.
+import json as json_module
+
+CACHE_DIR = Path(__file__).parent / 'product_cache'
+CACHE_DIR.mkdir(exist_ok=True)
 CACHE_REFRESH_INTERVAL = 600  # 10 minutes
 _bg_task_started = False
 
-async def get_cached_products_db(lang: str, product_type: str):
-    """Get products from MongoDB persistent cache."""
-    key = f"{lang}_{product_type or 'all'}"
-    doc = await db.wc_product_cache.find_one({"cache_key": key}, {"_id": 0})
-    if doc and doc.get("products"):
-        return doc["products"]
+def _cache_file(lang: str, product_type: str) -> Path:
+    key = f"{lang}_{product_type or 'all'}.json"
+    return CACHE_DIR / key
+
+def get_cached_products_file(lang: str, product_type: str):
+    """Read products from disk cache. Always available, even after restart."""
+    f = _cache_file(lang, product_type)
+    if f.exists():
+        try:
+            data = json_module.loads(f.read_text(encoding='utf-8'))
+            if data and len(data) > 0:
+                return data
+        except Exception as e:
+            logger.error(f"Cache read error for {f}: {e}")
     return None
 
-async def set_cached_products_db(lang: str, product_type: str, data: list):
-    """Store products in MongoDB persistent cache."""
-    key = f"{lang}_{product_type or 'all'}"
-    await db.wc_product_cache.update_one(
-        {"cache_key": key},
-        {"$set": {"cache_key": key, "products": data, "updated_at": datetime.now(timezone.utc).isoformat(), "count": len(data)}},
-        upsert=True
-    )
+def set_cached_products_file(lang: str, product_type: str, data: list):
+    """Write products to disk cache."""
+    f = _cache_file(lang, product_type)
+    try:
+        f.write_text(json_module.dumps(data, ensure_ascii=False), encoding='utf-8')
+        logger.info(f"Cache saved: {f.name} -> {len(data)} products")
+    except Exception as e:
+        logger.error(f"Cache write error for {f}: {e}")
 
 def _fetch_wc_products_sync(lang: str, product_type: str):
     """Synchronous fetch from WooCommerce API (called in thread to not block event loop)."""
@@ -158,10 +170,9 @@ async def refresh_product_cache():
             try:
                 data = await fetch_wc_products_from_api(lang, pt)
                 if data is not None and len(data) > 0:
-                    await set_cached_products_db(lang, pt, data)
-                    logger.info(f"Cache refreshed: ({lang}, {pt or 'all'}) -> {len(data)} products")
+                    set_cached_products_file(lang, pt, data)
                 else:
-                    logger.warning(f"Cache refresh returned empty for ({lang}, {pt or 'all'}), keeping old data")
+                    logger.warning(f"WC returned empty for ({lang}, {pt or 'all'}), keeping old file cache")
             except Exception as e:
                 logger.error(f"Cache refresh failed for ({lang}, {pt}): {e}")
 
@@ -518,13 +529,14 @@ async def get_wc_products(lang: str = 'en', product_type: str = None):
     if not wcapi:
         raise HTTPException(status_code=503, detail="WooCommerce not configured")
     
-    # Always serve from persistent MongoDB cache
-    cached = await get_cached_products_db(lang, product_type)
+    # ALWAYS serve from persistent file-based cache first
+    cached = get_cached_products_file(lang, product_type)
     if cached is not None:
+        logger.info(f"Serving {len(cached)} products from file cache ({lang}, {product_type or 'all'})")
         return cached
     
-    # Cache miss: fetch from WooCommerce API directly (first load or new combination)
-    logger.info(f"Cache MISS for ({lang}, {product_type}), fetching from WooCommerce...")
+    # Cache miss: fetch from WooCommerce API directly (first load or new lang/type combo)
+    logger.info(f"File cache MISS for ({lang}, {product_type or 'all'}), fetching from WooCommerce...")
     try:
         data = await fetch_wc_products_from_api(lang, product_type)
     except Exception as e:
@@ -532,11 +544,11 @@ async def get_wc_products(lang: str = 'en', product_type: str = None):
         data = None
     
     if data is not None and len(data) > 0:
-        await set_cached_products_db(lang, product_type, data)
+        set_cached_products_file(lang, product_type, data)
         return data
     
-    # Last resort: return empty list (should rarely happen - only on very first load with WC down)
-    logger.error(f"No cached data and WooCommerce API failed for ({lang}, {product_type})")
+    # Last resort: return empty list (only on very first load with WC down and no cache file)
+    logger.error(f"No file cache and WooCommerce API failed for ({lang}, {product_type or 'all'})")
     return []
 
 @api_router.get("/wc/products/{product_id}")
@@ -929,9 +941,21 @@ async def invalidate_product_cache():
 
 @api_router.get("/wc/cache/status")
 async def get_cache_status():
-    """Check cache status."""
-    docs = await db.wc_product_cache.find({}, {"_id": 0, "cache_key": 1, "count": 1, "updated_at": 1}).to_list(50)
-    return {"entries": docs}
+    """Check file-based cache status."""
+    entries = []
+    if CACHE_DIR.exists():
+        for f in sorted(CACHE_DIR.glob("*.json")):
+            try:
+                data = json_module.loads(f.read_text(encoding='utf-8'))
+                entries.append({
+                    "file": f.name,
+                    "count": len(data) if isinstance(data, list) else 0,
+                    "size_bytes": f.stat().st_size,
+                    "modified": datetime.fromtimestamp(f.stat().st_mtime, tz=timezone.utc).isoformat()
+                })
+            except Exception:
+                entries.append({"file": f.name, "error": "unreadable"})
+    return {"cache_type": "file", "cache_dir": str(CACHE_DIR), "entries": entries}
 
 app.include_router(api_router)
 

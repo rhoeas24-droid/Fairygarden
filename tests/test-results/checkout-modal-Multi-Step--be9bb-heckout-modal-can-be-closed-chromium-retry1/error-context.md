@@ -1,0 +1,328 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic:
+      - generic:
+        - img
+    - generic:
+      - generic:
+        - img
+    - generic:
+      - generic:
+        - img
+    - navigation [ref=e5]:
+      - generic [ref=e7]:
+        - generic [ref=e8] [cursor=pointer]: Fairygarden
+        - generic [ref=e9]:
+          - button "Home" [ref=e10] [cursor=pointer]
+          - button "Shop" [ref=e12] [cursor=pointer]:
+            - text: Shop
+            - img [ref=e13]
+          - generic [ref=e15]:
+            - button "DIY Kits" [ref=e16] [cursor=pointer]
+            - button "For Business" [ref=e17] [cursor=pointer]
+            - button "Workshops" [ref=e18] [cursor=pointer]
+            - button "About" [ref=e19] [cursor=pointer]
+            - button "Blog" [ref=e20] [cursor=pointer]
+          - button "🇬🇧" [ref=e22] [cursor=pointer]:
+            - img [ref=e23]
+            - generic [ref=e26]: 🇬🇧
+          - button "Sign In" [ref=e27] [cursor=pointer]:
+            - img [ref=e28]
+          - button [ref=e32] [cursor=pointer]:
+            - img [ref=e33]
+    - main [ref=e37]:
+      - button "Explore the Magic" [ref=e48] [cursor=pointer]:
+        - generic [ref=e49]: Explore the Magic
+      - generic [ref=e54]:
+        - generic [ref=e55]:
+          - heading "Enchanted florariums" [level=2] [ref=e56]
+          - paragraph [ref=e57]: Discover our magical collection of handcrafted florariums, each one a miniature world of wonder
+          - paragraph [ref=e58]: Every florarium is unique and handcrafted, using mostly home-grown plants and our specially developed planting medium.
+        - generic [ref=e60] [cursor=pointer]:
+          - img "Build Your Own Terrarium" [ref=e62]
+          - generic [ref=e63]:
+            - heading "Build Your Own" [level=3] [ref=e64]
+            - paragraph [ref=e65]: Design your dream florarium! Choose size, style, and let our artisans bring your vision to life.
+            - generic [ref=e66]:
+              - generic [ref=e67]: from €47.51
+              - generic [ref=e68]: Start Creating
+        - button "Browse Our Webshop" [ref=e71] [cursor=pointer]:
+          - img [ref=e72]
+          - text: Browse Our Webshop
+          - img [ref=e75]
+      - generic [ref=e79]:
+        - img [ref=e80]
+        - heading "DIY Florarium Kits" [level=2] [ref=e84]
+        - generic [ref=e85]:
+          - paragraph [ref=e86]: Love our gardens but want the hands-on experience of building one yourself? Choose any design from our entire collection — past and present. Even if it's no longer available in the shop, the concept lives on, and you can recreate it at home with our DIY Kit.
+          - paragraph [ref=e87]: "We take care of the rest: every substrate layer, every plant, every tool — all carefully selected and packed for you, along with a detailed step-by-step guide to walk you through the whole process."
+          - paragraph [ref=e88]:
+            - text: Can't find your perfect design?
+            - button "Put together your own right here!" [ref=e89] [cursor=pointer]
+        - generic [ref=e90]:
+          - generic [ref=e91]:
+            - img [ref=e93]
+            - generic [ref=e97]: Everything Included
+          - generic [ref=e98]:
+            - img [ref=e100]
+            - generic [ref=e102]: Tools Provided
+          - generic [ref=e103]:
+            - img [ref=e105]
+            - generic [ref=e107]: Step-by-Step Guide
+      - generic [ref=e113]:
+        - generic [ref=e114]:
+          - img [ref=e115]
+          - heading "For Business" [level=2] [ref=e119]
+          - paragraph [ref=e120]: From team building workshops to bespoke corporate gifts and stunning office installations — we bring living botanical art to your business.
+        - generic [ref=e122]:
+          - generic [ref=e123]:
+            - img "Team Building Workshop" [ref=e128]
+            - generic [ref=e130]:
+              - generic [ref=e131]:
+                - img [ref=e132]
+                - heading "Team Building Workshop" [level=3] [ref=e137]
+              - paragraph [ref=e138]: A hands-on florarium building workshop is a creative and memorable alternative to conventional team building activities. Guided by our expert biologist, teams build their own florarium from scratch — choosing plants, moss, decorative elements, and container style along the way. The experience naturally encourages communication and collaboration without the forced atmosphere of traditional team exercises. Workshops run 2–3 hours, can be held at your premises or ours, and we handle all materials, tools, and setup. Every participant takes home their finished florarium, making it a lasting reminder of the day.
+          - generic [ref=e139]:
+            - img "Branded Mini Florarium" [ref=e144]
+            - generic [ref=e146]:
+              - generic [ref=e147]:
+                - img [ref=e148]
+                - heading "Branded Mini Florarium" [level=3] [ref=e152]
+              - paragraph [ref=e153]: A branded mini florarium is a corporate gift that stands out in a world saturated with pens, mugs, and notebooks. Each handcrafted piece comes with a custom label bearing your company name, logo, or a personalised message. Unlike consumable gifts, a living florarium continues to grow on the recipient's desk for years, keeping your brand visible long after the occasion. Available in a variety of styles and formats, they are easy to distribute at events, meetings, or seasonal gifting campaigns. Every piece is packaged in a gift box with care instructions for a premium unboxing experience.
+          - generic [ref=e154]:
+            - img "Exclusive Partner Gift" [ref=e159]
+            - generic [ref=e161]:
+              - generic [ref=e162]:
+                - img [ref=e163]
+                - heading "Exclusive Partner Gift" [level=3] [ref=e166]
+              - paragraph [ref=e167]: For high-value relationships, a bespoke large-format florarium makes a statement no standard corporate gift can match. Each piece is a one-of-a-kind living composition — handcrafted following a dedicated design consultation to reflect the recipient's personality, taste, or the nature of your partnership. These gifts are ideal for major milestones such as contract signings, anniversaries, or VIP client appreciation. The scarcity and craftsmanship of each piece communicates a level of investment that genuinely strengthens long-term business relationships. Delivery and setup at the recipient's office can be arranged for an added personal touch.
+          - generic [ref=e168]:
+            - img "Office & Reception Decor" [ref=e173]
+            - generic [ref=e175]:
+              - generic [ref=e176]:
+                - img [ref=e177]
+                - heading "Office & Reception Decor" [level=3] [ref=e179]
+              - paragraph [ref=e180]: A living florarium transforms any office or reception space into an environment that communicates creativity and care — values that speak to both clients and employees. We design, build, and install bespoke compositions tailored to your space, brand palette, and interior aesthetic, whether that means a lush tropical arrangement, a sculptural cactus garden, or an elegant hanging display. Every installation begins with an on-site consultation to assess lighting, space, and the desired atmosphere. We provide ongoing support should any plant care or replacement ever be needed. The result is a low-maintenance, high-impact botanical environment your team and visitors will notice.
+          - generic [ref=e181]:
+            - img "Event Rental Service" [ref=e186]
+            - generic [ref=e188]:
+              - generic [ref=e189]:
+                - img [ref=e190]
+                - heading "Event Rental Service" [level=3] [ref=e192]
+              - paragraph [ref=e193]: Our florarium rental service provides a sophisticated botanical atmosphere for corporate events, product launches, gala dinners, or exhibition stands — without the commitment of a purchase. We deliver, arrange, and collect a curated selection of florariums tailored to your event's theme, colour scheme, and spatial requirements. With styles ranging from lush tropical compositions to minimalist succulent arrangements and dramatic hanging displays, there is an option to suit any occasion. Rental packages cover everything from single-day events to multi-week exhibition installations. For recurring clients, we also offer a rotating subscription that regularly refreshes your space with new compositions.
+        - generic [ref=e194]:
+          - heading "Get in Touch" [level=3] [ref=e195]
+          - generic [ref=e196]:
+            - generic [ref=e197]:
+              - generic [ref=e198]: Name *
+              - textbox "Name *" [ref=e199]:
+                - /placeholder: Your full name
+            - generic [ref=e200]:
+              - generic [ref=e201]: Email *
+              - textbox "Email *" [ref=e202]:
+                - /placeholder: your.email@company.com
+            - generic [ref=e203]:
+              - generic [ref=e204]: Company
+              - textbox "Company" [ref=e205]:
+                - /placeholder: Your company name
+            - generic [ref=e206]:
+              - generic [ref=e207]: Service of Interest
+              - generic [ref=e208]:
+                - combobox "Service of Interest" [ref=e209] [cursor=pointer]:
+                  - option [selected]
+                  - generic:
+                    - option
+                    - option
+                    - option
+                    - option
+                    - option
+                - img
+            - generic [ref=e210]:
+              - generic [ref=e211]: Message *
+              - textbox "Message *" [ref=e212]:
+                - /placeholder: Tell us about your project or inquiry...
+            - generic [ref=e213]:
+              - generic [ref=e214]:
+                - checkbox "I have read and accept the Privacy Policy *" [ref=e215]
+                - generic [ref=e216]:
+                  - text: I have read and accept the
+                  - button "Privacy Policy" [ref=e217] [cursor=pointer]
+                  - text: "*"
+              - generic [ref=e218]:
+                - checkbox "Subscribe to our newsletter for updates and special offers" [ref=e219]
+                - generic [ref=e220]: Subscribe to our newsletter for updates and special offers
+            - button "Send Inquiry" [ref=e221] [cursor=pointer]:
+              - generic [ref=e222]: Send Inquiry
+          - generic [ref=e224]:
+            - generic [ref=e225]:
+              - img [ref=e226]
+              - generic [ref=e229]: contact@fairygarden4u.com
+            - generic [ref=e230]:
+              - img [ref=e231]
+              - generic [ref=e233]: +1 (555) 123-4567
+      - generic [ref=e235]:
+        - generic [ref=e236]:
+          - img [ref=e237]
+          - heading "florarium Workshops" [level=2] [ref=e242]
+          - paragraph [ref=e243]: Join our magical workshops and learn to create your own enchanted florarium. Perfect for team building, parties, or personal enrichment.
+        - generic [ref=e244]:
+          - generic [ref=e245]:
+            - img "Florarium Workshop" [ref=e246]
+            - paragraph [ref=e248]: Join our hands-on florarium workshop and create your own stunning closed florarium from start to finish! All materials, tools and plants are provided — all you need to bring is your enthusiasm. We start with a short introduction to the magic of closed ecosystems, then guide you through designing and building your own creation step by step. Every participant leaves with their finished florarium in hand. Workshops last approximately 2–3 hours and require a minimum of 5 registered participants to run.
+          - generic [ref=e249]:
+            - heading "Register for Workshop" [level=3] [ref=e250]
+            - generic [ref=e251]:
+              - generic [ref=e252]:
+                - generic [ref=e253]: Your Name *
+                - textbox "Your Name *" [ref=e254]:
+                  - /placeholder: Your full name
+              - generic [ref=e255]:
+                - generic [ref=e256]: Workshop Type *
+                - combobox "Workshop Type *" [ref=e257]:
+                  - option "For Single Person" [selected]
+                  - option "For Couples"
+                  - option "For Families (3+ persons)"
+              - generic [ref=e258]:
+                - generic [ref=e259]: Email *
+                - textbox "Email *" [ref=e260]:
+                  - /placeholder: your@email.com
+              - generic [ref=e261]:
+                - generic [ref=e262]: Phone
+                - textbox "Phone" [ref=e263]:
+                  - /placeholder: (555) 123-4567
+              - generic [ref=e264]:
+                - generic [ref=e265]:
+                  - checkbox "I have read and accept the Privacy Policy *" [ref=e266]
+                  - generic [ref=e267]:
+                    - text: I have read and accept the
+                    - button "Privacy Policy" [ref=e268] [cursor=pointer]
+                    - text: "*"
+                - generic [ref=e269]:
+                  - checkbox "Subscribe to our newsletter for updates and special offers" [ref=e270]
+                  - generic [ref=e271]: Subscribe to our newsletter for updates and special offers
+              - button "Register Now" [ref=e272] [cursor=pointer]:
+                - generic [ref=e273]: Register Now
+            - generic [ref=e275]:
+              - generic [ref=e276]:
+                - img [ref=e277]
+                - generic [ref=e279]: Workshops held every Saturday & Sunday
+              - generic [ref=e280]:
+                - img [ref=e281]
+                - generic [ref=e284]: 123 Enchanted Lane, Garden City
+      - generic [ref=e287]:
+        - generic [ref=e288]:
+          - img [ref=e289]
+          - heading "About Us" [level=2] [ref=e291]
+          - paragraph [ref=e292]: Discover the magic behind Fairygarden For You and meet the passionate team bringing enchantment to your world
+        - generic [ref=e293]:
+          - img "Our Story" [ref=e296]
+          - generic [ref=e299]:
+            - generic [ref=e300]:
+              - img [ref=e301]
+              - heading "Our Story" [level=3] [ref=e304]
+            - paragraph [ref=e305]: Fairy Garden didn't start as a business. It started as a quiet obsession in 2020.
+            - paragraph [ref=e306]: A bottle. Some soil. A few tiny plants. A sealed lid — and suddenly, a whole living world humming away completely on its own. That first closed florarium was never meant to be anything more than a personal project, a creative escape, a way to bring a little nature indoors. But something about it refused to stay small...
+            - button "Read More →" [ref=e307] [cursor=pointer]
+            - generic [ref=e308]:
+              - generic [ref=e309]:
+                - img [ref=e310]
+                - heading "Our Mission" [level=4] [ref=e312]
+              - paragraph [ref=e313]: "\" To inspire wonder and connection with nature through enchanting miniature gardens that transform any space into a magical sanctuary. \""
+        - generic [ref=e314]:
+          - generic [ref=e315]:
+            - img [ref=e317]
+            - heading "Sustainability" [level=4] [ref=e320]
+            - paragraph [ref=e321]: We use eco-friendly materials and sustainable practices in all our creations.
+          - generic [ref=e322]:
+            - img [ref=e324]
+            - heading "Craftsmanship" [level=4] [ref=e326]
+            - paragraph [ref=e327]: Every florarium is handcrafted with love and attention to detail.
+          - generic [ref=e328]:
+            - img [ref=e330]
+            - heading "Magic" [level=4] [ref=e332]
+            - paragraph [ref=e333]: We believe in bringing wonder and enchantment to everyday life.
+        - generic [ref=e334]:
+          - heading "The Sorcerer Behind The Magic" [level=3] [ref=e335]
+          - generic [ref=e339]:
+            - img "Attila Szlávik" [ref=e340]
+            - generic [ref=e342]:
+              - heading "Attila Szlávik" [level=4] [ref=e343] [cursor=pointer]
+              - paragraph [ref=e344]: Founder & Lead Designer
+      - generic [ref=e348]:
+        - heading "From Our Garden" [level=2] [ref=e349]
+        - paragraph [ref=e350]: Explore our latest articles on florarium care, plant selection, and the magic of miniature gardens
+    - contentinfo [ref=e351]:
+      - generic [ref=e353]:
+        - generic [ref=e354]:
+          - generic [ref=e355]:
+            - img "Fairygarden For You" [ref=e356]
+            - paragraph [ref=e357]: A Touch of Magic in a Bottle
+            - paragraph [ref=e358]: Creating enchanted miniature worlds since 2020
+          - generic [ref=e359]:
+            - heading "Quick Links" [level=3] [ref=e360]
+            - list [ref=e361]:
+              - listitem [ref=e362]:
+                - button "Home" [ref=e363] [cursor=pointer]
+              - listitem [ref=e364]:
+                - button "Shop" [ref=e365] [cursor=pointer]
+              - listitem [ref=e366]:
+                - button "DIY Kits" [ref=e367] [cursor=pointer]
+              - listitem [ref=e368]:
+                - button "Workshops" [ref=e369] [cursor=pointer]
+              - listitem [ref=e370]:
+                - button "Blog" [ref=e371] [cursor=pointer]
+          - generic [ref=e372]:
+            - heading "Contact Us" [level=3] [ref=e373]
+            - list [ref=e374]:
+              - listitem [ref=e375]:
+                - img [ref=e376]
+                - generic [ref=e379]:
+                  - text: 123 Enchanted Lane
+                  - text: Garden City, GC 12345
+              - listitem [ref=e380]:
+                - img [ref=e381]
+                - generic [ref=e383]: +1 (555) 123-4567
+              - listitem [ref=e384]:
+                - img [ref=e385]
+                - generic [ref=e388]: contact@fairygarden4u.com
+          - generic [ref=e389]:
+            - heading "Newsletter" [level=3] [ref=e390]
+            - paragraph [ref=e391]: Subscribe for magical updates and exclusive offers
+            - generic [ref=e392]:
+              - textbox "Your email" [ref=e393]
+              - generic [ref=e394]:
+                - checkbox "I accept the Privacy Policy *" [ref=e395]
+                - generic [ref=e396]:
+                  - text: I accept the
+                  - button "Privacy Policy" [ref=e397] [cursor=pointer]
+                  - text: "*"
+              - button "Subscribe" [ref=e398] [cursor=pointer]
+        - generic [ref=e399]:
+          - generic [ref=e400]:
+            - paragraph [ref=e401]: © 2024 Fairygarden For You. All rights reserved.
+            - generic [ref=e402]:
+              - link "Instagram" [ref=e403] [cursor=pointer]:
+                - /url: https://www.instagram.com
+                - img [ref=e404]
+              - link "YouTube" [ref=e407] [cursor=pointer]:
+                - /url: https://www.youtube.com
+                - img [ref=e408]
+          - generic [ref=e411]:
+            - button "Terms and Conditions" [ref=e412] [cursor=pointer]
+            - generic [ref=e413]: "|"
+            - button "Privacy Policy" [ref=e414] [cursor=pointer]
+          - paragraph [ref=e416]: "Newsletter: newsletter@fairygarden4u.com | Website: https://fairygarden4u.com"
+    - button "Scroll to top" [ref=e417] [cursor=pointer]:
+      - img [ref=e420]
+      - img [ref=e423]
+      - img [ref=e426]
+      - img [ref=e431]
+    - region "Notifications alt+T"
+  - link "Made with Emergent" [ref=e434] [cursor=pointer]:
+    - /url: https://app.emergent.sh/?utm_source=emergent-badge
+    - img [ref=e435]
+    - paragraph [ref=e438]: Made with Emergent
+```

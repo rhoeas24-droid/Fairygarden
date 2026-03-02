@@ -13,7 +13,7 @@ Design and build a single-page website for a magical terrarium brand, "Fairygard
 ## Live URLs
 - **Website**: https://fairygarden4u.com
 - **Backend API**: https://fairygarden4u.com/api
-- **Preview**: https://enchanted-terrariums.preview.emergentagent.com
+- **Preview**: https://terrarium-magic.preview.emergentagent.com
 
 ---
 

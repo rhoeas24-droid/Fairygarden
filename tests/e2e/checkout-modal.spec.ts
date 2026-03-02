@@ -32,6 +32,15 @@ test.describe('Multi-Step Checkout Modal Flow', () => {
     await page.getByTestId('checkout-button').click();
     await expect(page.getByTestId('cart-drawer-title')).not.toBeVisible({ timeout: 3000 });
     await expect(page.getByTestId('checkout-modal')).toBeVisible({ timeout: 5000 });
+    
+    // Checkout modal first shows "How would you like to proceed?" options
+    // Click "Buy Without Registration" to proceed as guest
+    const guestCheckoutOption = page.getByText('Buy Without Registration');
+    await expect(guestCheckoutOption).toBeVisible({ timeout: 5000 });
+    await guestCheckoutOption.click();
+    
+    // Wait for step 1 to be visible
+    await expect(page.getByTestId('checkout-step-address')).toBeVisible({ timeout: 5000 });
   });
 
   test('step 1: checkout modal shows address form (billing/shipping)', async ({ page }) => {

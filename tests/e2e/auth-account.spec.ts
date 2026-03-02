@@ -171,11 +171,17 @@ test.describe('Guest Checkout Flow', () => {
     // Click checkout button
     await page.getByTestId('checkout-button').click();
     
-    // Verify checkout modal opens (not auth modal)
+    // Verify checkout modal opens
     await expect(page.getByTestId('checkout-modal')).toBeVisible({ timeout: 5000 });
     
-    // Verify we can fill billing details as guest
-    await expect(page.getByTestId('checkout-first-name')).toBeVisible();
+    // Checkout modal first shows "How would you like to proceed?" options
+    // Click "Buy Without Registration" to proceed as guest
+    const guestCheckoutOption = page.getByText('Buy Without Registration');
+    await expect(guestCheckoutOption).toBeVisible({ timeout: 5000 });
+    await guestCheckoutOption.click();
+    
+    // Now verify we're on step 1 (billing details) as guest
+    await expect(page.getByTestId('checkout-first-name')).toBeVisible({ timeout: 5000 });
     await page.getByTestId('checkout-first-name').fill('Guest');
     await expect(page.getByTestId('checkout-first-name')).toHaveValue('Guest');
   });
