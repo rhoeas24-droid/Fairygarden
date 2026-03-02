@@ -364,7 +364,15 @@
     "orderNumber": "Order",
     "bankTransferInfo": "Bank Transfer Details",
     "orderRef": "Please use your order number as payment reference",
-    "close": "Close"
+    "close": "Close",
+    "howToProceed": "How would you like to proceed?",
+    "alreadyUser": "Already a user? Sign In",
+    "signInDesc": "Access your saved addresses and order history",
+    "createAccount": "Create Account",
+    "registerDesc": "Track orders and save your details for next time",
+    "or": "or",
+    "guestCheckout": "Buy Without Registration",
+    "guestDesc": "Continue as guest — no account needed"
   },
   "auth": {
     "login": "Sign In",

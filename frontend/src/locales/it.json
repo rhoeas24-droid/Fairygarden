@@ -364,7 +364,15 @@
     "orderNumber": "Ordine",
     "bankTransferInfo": "Dettagli Bonifico Bancario",
     "orderRef": "Usa il numero ordine come riferimento pagamento",
-    "close": "Chiudi"
+    "close": "Chiudi",
+    "howToProceed": "Come desideri procedere?",
+    "alreadyUser": "Hai già un account? Accedi",
+    "signInDesc": "Accedi ai tuoi indirizzi salvati e allo storico ordini",
+    "createAccount": "Crea Account",
+    "registerDesc": "Traccia gli ordini e salva i tuoi dati per la prossima volta",
+    "or": "oppure",
+    "guestCheckout": "Acquista senza registrazione",
+    "guestDesc": "Continua come ospite — nessun account necessario"
   },
   "auth": {
     "login": "Accedi",
