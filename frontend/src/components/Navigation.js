@@ -162,6 +162,13 @@ const Navigation = () => {
           <div className="lg:hidden flex items-center space-x-4">
             <LanguageSwitcher />
             <button
+              onClick={() => isLoggedIn ? setIsAccountOpen(true) : setIsAuthOpen(true)}
+              className="relative p-2 text-cream"
+              data-testid="mobile-user-button"
+            >
+              <UserCircle className={`w-6 h-6 ${isLoggedIn ? 'text-gold' : ''}`} />
+            </button>
+            <button
               onClick={() => setIsCartOpen(true)}
               className="relative p-2 text-cream"
               data-testid="mobile-cart-button"
