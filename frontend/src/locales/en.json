@@ -101,7 +101,32 @@
     "featureIncluded": "Everything Included",
     "featureTools": "Tools Provided",
     "featureGuide": "Step-by-Step Guide",
-    "addToCart": "Add DIY Kit to Cart"
+    "addToCart": "Add to Cart",
+    "viewDetails": "Details",
+    "noProducts": "DIY kits coming soon!"
+  },
+  "diyKit": {
+    "packageDimensions": "Package Dimensions",
+    "whatsIncluded": "What's Included",
+    "glassContainer": "Glass Container",
+    "glassContainerDesc": "Premium quality glass vessel",
+    "drainageMix": "Drainage Mix",
+    "drainageMixDesc": "Gravel and activated charcoal",
+    "substrateMix": "Substrate Mix",
+    "substrateMixDesc": "Special soil blend for terrariums",
+    "plants": "Plants",
+    "plantsDesc": "Carefully selected live plants",
+    "scissors": "Scissors",
+    "scissorsDesc": "For trimming and shaping",
+    "tweezers": "Tweezers",
+    "tweezersDesc": "Precision planting tool",
+    "brush": "Brush",
+    "brushDesc": "For cleaning glass surfaces",
+    "guide": "Step-by-Step Guide",
+    "guideDesc": "Detailed illustrated instructions",
+    "magicBugs": "Magic Bugs",
+    "magicBugsDesc": "Springtails for ecosystem balance",
+    "note": "Build your own magical terrarium with this complete kit. All materials carefully selected and packed."
   },
   "diyKits": {
     "title": "Create Your Own Magic",
