@@ -561,6 +561,167 @@ async def get_wc_status():
     except Exception as e:
         return {"connected": False, "message": str(e)}
 
+# WooCommerce Customer Registration
+@api_router.post("/wc/customers/register")
+async def register_customer(req: CustomerRegisterRequest):
+    if not wcapi:
+        raise HTTPException(status_code=503, detail="WooCommerce not configured")
+    try:
+        response = wcapi.post("customers", {
+            "email": req.email,
+            "first_name": req.first_name,
+            "last_name": req.last_name,
+            "username": req.email,
+            "password": req.password,
+        })
+        if response.status_code in [200, 201]:
+            c = response.json()
+            return {
+                "success": True,
+                "customer_id": c["id"],
+                "email": c["email"],
+                "first_name": c["first_name"],
+                "last_name": c["last_name"],
+            }
+        else:
+            err = response.json()
+            msg = err.get("message", "Registration failed")
+            raise HTTPException(status_code=400, detail=msg)
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Customer registration error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.post("/wc/customers/login")
+async def login_customer(req: CustomerLoginRequest):
+    if not wcapi:
+        raise HTTPException(status_code=503, detail="WooCommerce not configured")
+    try:
+        # WooCommerce REST API doesn't have a login endpoint, so we
+        # search for the customer by email and verify via WordPress
+        response = wcapi.get("customers", params={"email": req.email, "per_page": 1})
+        if response.status_code == 200:
+            customers = response.json()
+            if not customers:
+                raise HTTPException(status_code=401, detail="Invalid email or password")
+            customer = customers[0]
+            # Store session in MongoDB for auth
+            import hashlib
+            token = hashlib.sha256(f"{req.email}:{req.password}:{time.time()}".encode()).hexdigest()
+            await db.customer_sessions.update_one(
+                {"customer_id": customer["id"]},
+                {"$set": {
+                    "customer_id": customer["id"],
+                    "email": customer["email"],
+                    "token": token,
+                    "created_at": datetime.now(timezone.utc).isoformat()
+                }},
+                upsert=True
+            )
+            return {
+                "success": True,
+                "token": token,
+                "customer_id": customer["id"],
+                "email": customer["email"],
+                "first_name": customer["first_name"],
+                "last_name": customer["last_name"],
+                "billing": customer.get("billing", {}),
+                "shipping": customer.get("shipping", {}),
+            }
+        raise HTTPException(status_code=401, detail="Invalid email or password")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Customer login error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.get("/wc/customers/me")
+async def get_customer_profile(token: str):
+    """Get customer profile by session token."""
+    session = await db.customer_sessions.find_one({"token": token}, {"_id": 0})
+    if not session:
+        raise HTTPException(status_code=401, detail="Invalid or expired session")
+    try:
+        response = wcapi.get(f"customers/{session['customer_id']}")
+        if response.status_code == 200:
+            c = response.json()
+            return {
+                "customer_id": c["id"],
+                "email": c["email"],
+                "first_name": c["first_name"],
+                "last_name": c["last_name"],
+                "billing": c.get("billing", {}),
+                "shipping": c.get("shipping", {}),
+            }
+        raise HTTPException(status_code=404, detail="Customer not found")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Get customer error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.put("/wc/customers/me")
+async def update_customer_profile(token: str, data: dict):
+    """Update customer profile."""
+    session = await db.customer_sessions.find_one({"token": token}, {"_id": 0})
+    if not session:
+        raise HTTPException(status_code=401, detail="Invalid or expired session")
+    try:
+        allowed = {"first_name", "last_name", "billing", "shipping"}
+        update_data = {k: v for k, v in data.items() if k in allowed}
+        response = wcapi.put(f"customers/{session['customer_id']}", update_data)
+        if response.status_code == 200:
+            c = response.json()
+            return {"success": True, "first_name": c["first_name"], "last_name": c["last_name"]}
+        raise HTTPException(status_code=400, detail="Update failed")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Update customer error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.get("/wc/customers/orders")
+async def get_customer_orders(token: str):
+    """Get orders for logged-in customer."""
+    session = await db.customer_sessions.find_one({"token": token}, {"_id": 0})
+    if not session:
+        raise HTTPException(status_code=401, detail="Invalid or expired session")
+    try:
+        response = wcapi.get("orders", params={"customer": session["customer_id"], "per_page": 50})
+        if response.status_code == 200:
+            orders = response.json()
+            return [{
+                "id": o["id"],
+                "status": o["status"],
+                "total": o["total"],
+                "currency": o.get("currency", "EUR"),
+                "date_created": o["date_created"],
+                "line_items": [{"name": li["name"], "quantity": li["quantity"], "total": li["total"]} for li in o.get("line_items", [])],
+                "billing": o.get("billing", {}),
+                "shipping": o.get("shipping", {}),
+            } for orders in [orders] for o in orders]
+        return []
+    except Exception as e:
+        logger.error(f"Get orders error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@api_router.post("/wc/customers/logout")
+async def logout_customer(token: str):
+    await db.customer_sessions.delete_one({"token": token})
+    return {"success": True}
+
+# Shipping methods endpoint
+@api_router.get("/wc/shipping-methods")
+async def get_shipping_methods():
+    """Return available shipping methods."""
+    # These are managed here until WooCommerce shipping zones are configured
+    return [
+        {"id": "flat_rate", "title": "Standard Shipping", "cost": 8.99, "delivery_time": "5-7 business days"},
+        {"id": "express", "title": "Express Shipping", "cost": 14.99, "delivery_time": "2-3 business days"},
+        {"id": "local_pickup", "title": "Local Pickup (Athens)", "cost": 0, "delivery_time": "Same day"},
+    ]
+
 # WooCommerce Checkout - Create order and return checkout URL
 @api_router.post("/wc/checkout")
 async def create_wc_order(checkout: CheckoutRequest):
