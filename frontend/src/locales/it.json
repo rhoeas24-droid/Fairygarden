@@ -101,7 +101,32 @@
     "featureIncluded": "Tutto Incluso",
     "featureTools": "Strumenti Forniti",
     "featureGuide": "Guida Passo-Passo",
-    "addToCart": "Aggiungi Kit DIY al Carrello"
+    "addToCart": "Aggiungi",
+    "viewDetails": "Dettagli",
+    "noProducts": "I kit DIY arriveranno presto!"
+  },
+  "diyKit": {
+    "packageDimensions": "Dimensioni Confezione",
+    "whatsIncluded": "Cosa Include",
+    "glassContainer": "Contenitore in Vetro",
+    "glassContainerDesc": "Vaso in vetro di alta qualità",
+    "drainageMix": "Mix Drenaggio",
+    "drainageMixDesc": "Ghiaia e carbone attivo",
+    "substrateMix": "Mix Substrato",
+    "substrateMixDesc": "Terriccio speciale per terrarium",
+    "plants": "Piante",
+    "plantsDesc": "Piante vive accuratamente selezionate",
+    "scissors": "Forbici",
+    "scissorsDesc": "Per tagliare e modellare",
+    "tweezers": "Pinzette",
+    "tweezersDesc": "Strumento di precisione per piantare",
+    "brush": "Pennello",
+    "brushDesc": "Per pulire le superfici in vetro",
+    "guide": "Guida Passo-Passo",
+    "guideDesc": "Istruzioni illustrate dettagliate",
+    "magicBugs": "Magic Bugs",
+    "magicBugsDesc": "Springtails per l'equilibrio dell'ecosistema",
+    "note": "Costruisci il tuo magico terrarium con questo kit completo. Tutti i materiali accuratamente selezionati e confezionati."
   },
   "diyKits": {
     "title": "Crea la Tua Magia",
