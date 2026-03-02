@@ -1,17 +1,19 @@
 # Fairygarden For You - Product Requirements Document
 
 ## Original Problem Statement
-Design a single-page website homepage for a magical terrarium brand called "Fairygarden For You" with the tagline 'A Touch of Magic in a Bottle'. The aesthetic should be a dark enchanted forest with gold accents.
+Design and build a single-page website for a magical terrarium brand, "Fairygarden For You". The project includes a full React frontend, FastAPI backend, and complete e-commerce solution powered by WooCommerce.
 
 ## Tech Stack
-- **Frontend**: React, Tailwind CSS, Framer Motion
-- **Backend**: FastAPI (Python)
-- **Database**: MySQL on cPanel
-- **Deployment**: cPanel with Phusion Passenger
+- **Frontend**: React, Tailwind CSS, Framer Motion, react-i18next, @tsparticles/react v3
+- **Backend**: FastAPI (Python), Motor (async MongoDB driver)
+- **E-commerce/CMS**: WordPress + WooCommerce (Variable Products, Custom Fields for translations)
+- **Database**: MongoDB (cart, forms, sessions), MySQL (WordPress/WooCommerce)
+- **Deployment**: Manual cPanel deployment via curl commands
 
 ## Live URLs
 - **Website**: https://fairygarden4u.com
 - **Backend API**: https://fairygarden4u.com/api
+- **Preview**: https://enchanted-terrariums.preview.emergentagent.com
 
 ---
 
@@ -20,89 +22,119 @@ Design a single-page website homepage for a magical terrarium brand called "Fair
 ### Core Features
 - [x] Hero section with animated stars/sparkles
 - [x] Terrarium Gallery with golden window frame design
-- [x] Product Detail Modal (fixed broken frame image)
+- [x] Product Detail Modal
 - [x] "Build Your Own Terrarium" configurator with price calculator
-- [x] Shopping cart functionality
+- [x] Shopping cart functionality with variation_id support
 - [x] DIY Kits section
 - [x] For Business section with inquiry form
 - [x] Workshops section with signup form
 - [x] Blog Preview section
-- [x] About section with "About Me" and "Our Story" modals
+- [x] About section with particle "murmuration" animation
 - [x] Footer with newsletter signup
 - [x] Sticky navigation header
 - [x] Scroll to Top button
 - [x] Cookie consent banner (GDPR)
-- [x] Language switcher (EN, HU, GR, IT)
+- [x] Language switcher (EN, GR, IT)
 - [x] Responsive design (mobile, tablet, desktop)
 - [x] Custom favicon and page title
 
-### Legal Pages (March 1, 2025)
-- [x] **Terms & Conditions Modal** - Full unabbreviated text from user's document
-- [x] **Privacy Policy Modal** - Full unabbreviated text from user's document
+### Legal Pages
+- [x] Terms & Conditions Modal
+- [x] Privacy Policy Modal
 - [x] Footer links to T&C and Privacy modals
-- [x] All form checkbox links updated to open modals:
-  - Workshop form privacy link
-  - For Business form privacy link
-  - Custom Terrarium Builder privacy & terms links
-  - Cookie Consent privacy link
-  - Newsletter form privacy link
-- [x] Removed T&C and Privacy links from main navigation
+- [x] All form checkbox links updated to open modals
 
-### Recent Updates (Feb 28, 2025)
-- [x] Doubled stars and sparkles density (60 stars in Hero, 360 particles in MagicalDivider)
-- [x] Smooth, flowing animations (linear easing, 12-22 second cycles, elliptical paths)
-- [x] Fixed Product Detail Modal broken frame image
-- [x] Updated Premium Collection product image
+### WooCommerce Integration
+- [x] Variable Products (Ready Florarium / DIY Kit variants)
+- [x] Custom fields for translations (name_el, name_it, description_el, description_it)
+- [x] Backend proxy for WooCommerce REST API
+- [x] Category-based product filtering
+- [x] Variation price fetching for Variable Products
+- [x] DIY Kit Details Modal
+
+### Backend TTL Cache (Mar 2, 2026)
+- [x] 5-minute TTL cache for WooCommerce product API responses
+- [x] Cache invalidation endpoint (POST /api/wc/cache/invalidate)
+- [x] Automatic cache invalidation on checkout
+- [x] Logger initialization fix (moved to top of server.py)
+
+### WooCommerce Checkout (Mar 2, 2026)
+- [x] POST /api/wc/checkout creates WooCommerce order from cart
+- [x] Returns checkout URL for WooCommerce native payment page
+- [x] Cart cleared automatically after order creation
+- [x] CartDrawer updated with real checkout flow (loading state, error handling)
+- [x] Redirects to WooCommerce payment page in new tab
+
+### Bug Fixes (Mar 2, 2026)
+- [x] Fixed DIY Kit price bug (removed incorrect 0.85 multiplier)
+- [x] Added variation_id support in cart items
+- [x] Fixed GoldButton disabled state support
+- [x] Fixed SparkleBackground tsparticles v3 incompatibility
+- [x] Corrected Greek/Italian gender translations for Founder title
 
 ---
 
 ## Pending Tasks
 
 ### P1 - High Priority
-- [ ] Stripe payment integration
-- [ ] Admin dashboard (products, orders, blog management)
-- [ ] Replace remaining placeholder content (About Us, contact info)
+- [ ] Customer Portal (registration, login, order history)
+- [ ] Admin Dashboard confirmation (WooCommerce admin sufficient?)
+- [ ] Shipping cost calculation
+- [ ] Order confirmation email verification
 
 ### P2 - Medium Priority
-- [ ] User accounts (registration, login, order history)
-- [ ] Full blog page with detailed post views
+- [ ] Coupon codes and discounts
+- [ ] Product reviews and ratings
+- [ ] Wishlist feature
+- [ ] Product search bar
 - [ ] SEO meta tags implementation
+- [ ] Order tracking feature
 
-### P3 - Low Priority
-- [ ] Database cleanup (remove duplicate product entries)
+### P3 - Low Priority / Tech Debt
+- [ ] Legacy MySQL `products` table cleanup
+- [ ] i18n-navigation test update (quarantined)
+- [ ] server.py refactoring for even better WC API handling
 
 ---
 
 ## Database Schema
 
-**Table**: `products` in `medisolu_fairygarden`
-- `id` (UUID)
-- `name` (VARCHAR)
-- `description` (TEXT)
-- `price` (DECIMAL)
-- `image` (VARCHAR - absolute URL)
-- `category` (VARCHAR)
-- `created_at` (DATETIME)
+### MongoDB Collections
+- `cart`: session_id, product_id, product_name, product_price, product_image, quantity, variation_id
+- `contacts`: name, email, company, message
+- `workshops`: name, email, phone, workshop_type
+- `newsletter`: email
+- `custom_terrariums`: name, email, size, glass_type, world, lighting, calculated_price
+- `blog`: title, excerpt, content, image, author
+
+### WooCommerce (WordPress MySQL)
+- Products, Categories, Variations via REST API
+
+---
+
+## Key API Endpoints
+- `GET /api/wc/products?lang=en&product_type=ready-florarium|diy-kit` - Products (cached)
+- `GET /api/wc/products/{id}?lang=en` - Single product
+- `POST /api/wc/checkout` - Create WooCommerce order, return checkout URL
+- `POST /api/wc/cache/invalidate` - Clear product cache
+- `POST/GET/DELETE /api/cart/{session_id}` - Cart CRUD
+- `POST /api/contact` - Contact form
+- `POST /api/workshop/register` - Workshop registration
+- `POST /api/newsletter/subscribe` - Newsletter
+- `POST /api/custom-terrarium` - Custom terrarium order
 
 ---
 
 ## Code Architecture
 
-### Modal System
-- **App.js**: Contains global modal state (isTermsOpen, isPrivacyOpen)
-- **Event Listeners**: Use `window.dispatchEvent(new CustomEvent('openTermsModal'))` to trigger modals from anywhere
-- **Modal Components**: Located in `/app/frontend/src/components/sections/`
-  - `TermsConditions.js` - Exports `TermsModal` component with full legal text
-  - `PrivacyPolicy.js` - Exports `PrivacyModal` component with full GDPR text
-
 ### Key Files
-- `frontend/src/components/sections/Footer.js` - Footer with legal links
-- `frontend/src/components/Navigation.js` - Main menu (no longer has legal links)
-- `frontend/src/components/sections/Workshops.js` - Workshop form
-- `frontend/src/components/sections/ForBusiness.js` - Business inquiry form
-- `frontend/src/components/CustomTerrariumBuilder.js` - Build Your Own form
-- `frontend/src/components/CookieConsent.js` - GDPR cookie banner
-- `frontend/src/locales/*.json` - Translation files (hu, en, el, it)
+- `backend/server.py` - FastAPI backend with WC proxy, cache, checkout
+- `frontend/src/components/CartDrawer.js` - Cart with WC checkout
+- `frontend/src/components/sections/TerrariumGallery.js` - Ready Florariums
+- `frontend/src/components/sections/DIYKits.js` - DIY Kits
+- `frontend/src/contexts/CartContext.js` - Cart state management
+- `frontend/src/components/SparkleBackground.js` - Particle animation (v3)
+- `frontend/src/locales/{en,el,it}.json` - Translations
 
 ---
 
@@ -112,22 +144,7 @@ Design a single-page website homepage for a magical terrarium brand called "Fair
 1. Build frontend: `yarn build`
 2. Upload JS/CSS to file hosting (litterbox.catbox.moe)
 3. User runs `curl -L -o` commands in cPanel Terminal
-4. Update `index.html` with new filenames via `sed`
-5. Backend restart: `touch ~/fairygarden-backend/tmp/restart.txt`
-
-### Important Files on cPanel
-```
-/home/medisolu/
-├── fairygarden4u.com/          # Frontend webroot
-│   ├── static/css/main.*.css
-│   ├── static/js/main.*.js
-│   ├── ablak_frame.png         # Golden window frame
-│   └── [product images].jpg
-│
-└── fairygarden-backend/        # Backend
-    ├── server.py
-    └── tmp/restart.txt         # Touch to restart
-```
+4. Backend restart: `touch ~/fairygarden-backend/tmp/restart.txt`
 
 ### Cache Issues
 Always instruct user to:
@@ -138,4 +155,10 @@ Always instruct user to:
 ---
 
 ## User Language
-The user communicates in **Hungarian**. All responses should be in Hungarian.
+The user communicates in **Hungarian**. All responses must be in Hungarian.
+
+## Testing Status
+- Backend: 27/27 tests pass
+- Frontend: 13/13 tests pass
+- Total: 40/40 (100% pass rate)
+- Test files: /app/backend/tests/test_woocommerce.py, /app/tests/e2e/woocommerce-products.spec.ts, /app/tests/e2e/cart-checkout.spec.ts
