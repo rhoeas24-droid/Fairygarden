@@ -1,0 +1,166 @@
+{
+  "summary": "Update mode testing complete for multi-step checkout, AuthModal, AccountModal, and WooCommerce Customer API. All tests pass (39 backend, 28 frontend).",
+  "mode": "update",
+  "baseline_commit": "62c7f51d77c67209b4eb1fa0f35d683573acf7df",
+  "head_commit": "51d1a93c7748c7f93f138d42498d651cc8397d0e",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "regression_results": {
+    "total_specs": 67,
+    "passed": 67,
+    "failed": 0,
+    "skipped": 0,
+    "breakdown": {
+      "backend_pytest": {
+        "passed": 39,
+        "failed": 0,
+        "tests": ["test_api.py (11)", "test_woocommerce.py (28)"]
+      },
+      "frontend_specs": {
+        "checkout_modal": {
+          "passed": 7,
+          "failed": 0,
+          "file": "/app/tests/e2e/checkout-modal.spec.ts"
+        },
+        "auth_account": {
+          "passed": 8,
+          "failed": 0,
+          "file": "/app/tests/e2e/auth-account.spec.ts"
+        },
+        "cart_checkout": {
+          "passed": 8,
+          "failed": 0,
+          "file": "/app/tests/e2e/cart-checkout.spec.ts"
+        },
+        "woocommerce_products": {
+          "passed": 5,
+          "failed": 0,
+          "file": "/app/tests/e2e/woocommerce-products.spec.ts"
+        }
+      }
+    }
+  },
+  "specs_created": [
+    "/app/tests/e2e/auth-account.spec.ts"
+  ],
+  "specs_updated": [
+    "/app/tests/e2e/checkout-modal.spec.ts",
+    "/app/backend/tests/test_woocommerce.py"
+  ],
+  "quarantined_tests": [],
+  "test_report_links": [
+    "/app/backend/tests/test_woocommerce.py",
+    "/app/backend/tests/test_api.py",
+    "/app/test_reports/pytest/full_results.xml",
+    "/app/tests/e2e/checkout-modal.spec.ts",
+    "/app/tests/e2e/auth-account.spec.ts",
+    "/app/tests/e2e/cart-checkout.spec.ts",
+    "/app/tests/e2e/woocommerce-products.spec.ts"
+  ],
+  "action_items": [],
+  "updated_files": [
+    "/app/backend/tests/test_woocommerce.py",
+    "/app/tests/e2e/checkout-modal.spec.ts",
+    "/app/tests/e2e/auth-account.spec.ts"
+  ],
+  "tested_features": {
+    "multi_step_checkout": {
+      "step_1_address": {
+        "tested": true,
+        "result": "PASS",
+        "notes": "Billing/shipping address form visible, same-as-billing checkbox works, separate shipping fields appear when unchecked"
+      },
+      "step_2_shipping": {
+        "tested": true,
+        "result": "PASS",
+        "notes": "3 shipping methods visible (flat_rate, express, local_pickup), order notes field works, back/next navigation works"
+      },
+      "step_3_summary": {
+        "tested": true,
+        "result": "PASS",
+        "notes": "Order summary shows grand total, T&C/Privacy/Newsletter checkboxes visible, payment method selection works (online/bacs)"
+      }
+    },
+    "auth_modal": {
+      "login_mode": {
+        "tested": true,
+        "result": "PASS",
+        "notes": "Email/password fields visible, first_name/last_name/confirm_password hidden in login mode"
+      },
+      "register_mode": {
+        "tested": true,
+        "result": "PASS",
+        "notes": "All fields visible (first_name, last_name, email, password, password2), switch between modes works"
+      }
+    },
+    "account_modal": {
+      "mobile_user_button": {
+        "tested": true,
+        "result": "PASS",
+        "notes": "Mobile user button visible on smaller screens"
+      }
+    },
+    "guest_checkout": {
+      "tested": true,
+      "result": "PASS",
+      "notes": "Guest can proceed to checkout without registration, checkout modal opens (not auth modal)"
+    },
+    "backend_woocommerce_customer_api": {
+      "register_validation": {
+        "tested": true,
+        "result": "PASS",
+        "notes": "Invalid email returns 422"
+      },
+      "login_invalid_credentials": {
+        "tested": true,
+        "result": "PASS",
+        "notes": "Non-existent email returns 401"
+      },
+      "profile_invalid_token": {
+        "tested": true,
+        "result": "PASS",
+        "notes": "Invalid token returns 401"
+      },
+      "orders_invalid_token": {
+        "tested": true,
+        "result": "PASS",
+        "notes": "Invalid token returns 401"
+      },
+      "logout": {
+        "tested": true,
+        "result": "PASS",
+        "notes": "Logout endpoint works (success=true)"
+      }
+    },
+    "backend_shipping_methods": {
+      "tested": true,
+      "result": "PASS",
+      "notes": "GET /api/wc/shipping-methods returns 3 methods with correct structure, local_pickup is free"
+    },
+    "backend_checkout_bacs": {
+      "tested": true,
+      "result": "PASS",
+      "notes": "POST /api/wc/checkout with payment_method=bacs returns checkout_url=None"
+    },
+    "backend_checkout_newsletter": {
+      "tested": true,
+      "result": "PASS",
+      "notes": "POST /api/wc/checkout with subscribe_newsletter=True works correctly"
+    }
+  },
+  "success_rate": {
+    "backend": "100%",
+    "frontend": "100%"
+  },
+  "seed_data_creation": "Tests use unique UUIDs/timestamps for session IDs and test emails. All test data uses TEST_ prefix.",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "All new features fully tested: 1) Multi-step checkout (3 steps: Address with optional separate shipping, Shipping method selection, Summary with T&C/Privacy/Newsletter checkboxes). 2) AuthModal (login/register modes with all form fields). 3) WooCommerce Customer API (register validation, login, profile, orders, logout). 4) Guest checkout works without registration. 5) Bank transfer (bacs) returns checkout_url=None. Product IDs: 16, 20, 24, 28, 32, 36. Test data-testids: checkout-step-address, checkout-step-shipping, checkout-step-summary, auth-modal, auth-*, account-modal, account-tab-*, user-button."
+}
