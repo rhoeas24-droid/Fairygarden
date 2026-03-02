@@ -101,7 +101,32 @@
     "featureIncluded": "Όλα Περιλαμβάνονται",
     "featureTools": "Παρέχονται Εργαλεία",
     "featureGuide": "Οδηγός Βήμα-Βήμα",
-    "addToCart": "Προσθήκη DIY Σετ στο Καλάθι"
+    "addToCart": "Προσθήκη",
+    "viewDetails": "Λεπτομέρειες",
+    "noProducts": "Τα DIY σετ έρχονται σύντομα!"
+  },
+  "diyKit": {
+    "packageDimensions": "Διαστάσεις Συσκευασίας",
+    "whatsIncluded": "Τι Περιλαμβάνεται",
+    "glassContainer": "Γυάλινο Δοχείο",
+    "glassContainerDesc": "Υψηλής ποιότητας γυάλινο βάζο",
+    "drainageMix": "Μίγμα Αποστράγγισης",
+    "drainageMixDesc": "Χαλίκι και ενεργός άνθρακας",
+    "substrateMix": "Μίγμα Υποστρώματος",
+    "substrateMixDesc": "Ειδικό χώμα για terrarium",
+    "plants": "Φυτά",
+    "plantsDesc": "Προσεκτικά επιλεγμένα ζωντανά φυτά",
+    "scissors": "Ψαλίδι",
+    "scissorsDesc": "Για κόψιμο και διαμόρφωση",
+    "tweezers": "Τσιμπίδα",
+    "tweezersDesc": "Εργαλείο ακριβείας φύτευσης",
+    "brush": "Βούρτσα",
+    "brushDesc": "Για καθαρισμό γυάλινων επιφανειών",
+    "guide": "Οδηγός Βήμα-Βήμα",
+    "guideDesc": "Λεπτομερείς εικονογραφημένες οδηγίες",
+    "magicBugs": "Magic Bugs",
+    "magicBugsDesc": "Springtails για ισορροπία οικοσυστήματος",
+    "note": "Φτιάξτε το δικό σας μαγικό terrarium με αυτό το πλήρες σετ. Όλα τα υλικά προσεκτικά επιλεγμένα και συσκευασμένα."
   },
   "diyKits": {
     "title": "Δημιουργήστε τη Δική σας Μαγεία",
