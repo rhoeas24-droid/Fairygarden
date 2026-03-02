@@ -242,6 +242,10 @@ const Navigation = () => {
         )}
       </AnimatePresence>
     </motion.nav>
+
+    <AuthModal isOpen={isAuthOpen} onClose={() => setIsAuthOpen(false)} />
+    <AccountModal isOpen={isAccountOpen} onClose={() => setIsAccountOpen(false)} />
+    </>
   );
 };
 
