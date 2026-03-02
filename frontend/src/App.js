@@ -40,6 +40,7 @@ function App() {
   }, []);
   
   return (
+    <AuthProvider>
     <CartProvider>
       <div className="App relative">
         <SparkleBackground />
