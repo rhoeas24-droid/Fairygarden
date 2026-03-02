@@ -4,12 +4,20 @@ from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
+import time
 from pathlib import Path
 from pydantic import BaseModel, Field, ConfigDict, EmailStr
 from typing import List, Optional
 import uuid
 from datetime import datetime, timezone
 from woocommerce import API as WooCommerceAPI
+
+# Setup logging FIRST
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -32,6 +40,29 @@ if wc_url and wc_key and wc_secret:
         version="wc/v3",
         timeout=30
     )
+
+# ========== TTL Cache for WooCommerce Products ==========
+CACHE_TTL = 300  # 5 minutes
+_product_cache = {}  # key: (lang, product_type) -> {"data": [...], "timestamp": float}
+
+def get_cached_products(lang: str, product_type: str):
+    """Return cached products if still valid, else None."""
+    key = (lang, product_type or "all")
+    entry = _product_cache.get(key)
+    if entry and (time.time() - entry["timestamp"]) < CACHE_TTL:
+        logger.info(f"Cache HIT for ({lang}, {product_type})")
+        return entry["data"]
+    return None
+
+def set_cached_products(lang: str, product_type: str, data: list):
+    """Store products in cache."""
+    key = (lang, product_type or "all")
+    _product_cache[key] = {"data": data, "timestamp": time.time()}
+
+def invalidate_cache():
+    """Clear all cached products."""
+    _product_cache.clear()
+    logger.info("Product cache invalidated")
 
 app = FastAPI()
 api_router = APIRouter(prefix="/api")
@@ -63,6 +94,7 @@ class CartItem(BaseModel):
     product_price: float
     product_image: str
     quantity: int = 1
+    variation_id: Optional[int] = None
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class CartItemCreate(BaseModel):
@@ -72,6 +104,7 @@ class CartItemCreate(BaseModel):
     product_price: float
     product_image: str
     quantity: int = 1
+    variation_id: Optional[int] = None
 
 class ContactForm(BaseModel):
     model_config = ConfigDict(extra="ignore")
@@ -117,15 +150,15 @@ class CustomTerrariumOrder(BaseModel):
     id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     name: str
     email: EmailStr
-    size: str  # S, M, L, XL
-    glass_type: str  # container, bottle
-    world: str  # minimal, colorful, fairytale, magical, carnivorous, jungle
+    size: str
+    glass_type: str
+    world: str
     lighting: bool
     message: Optional[str] = None
     calculated_price: float
     deposit_amount: Optional[float] = None
     subscribed_to_newsletter: bool = False
-    status: str = "pending"  # pending, contacted, in_progress, completed
+    status: str = "pending"
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 class CustomTerrariumOrderCreate(BaseModel):
@@ -156,6 +189,12 @@ class BlogPostCreate(BaseModel):
     content: str
     image: str
     author: str
+
+class CheckoutRequest(BaseModel):
+    session_id: str
+    billing_first_name: Optional[str] = ""
+    billing_last_name: Optional[str] = ""
+    billing_email: Optional[str] = ""
 
 # Routes
 @api_router.get("/")
@@ -272,7 +311,6 @@ async def create_custom_terrarium_order(order: CustomTerrariumOrderCreate):
     doc['created_at'] = doc['created_at'].isoformat()
     await db.custom_terrariums.insert_one(doc)
     
-    # Also subscribe to newsletter if opted in
     if order.subscribed_to_newsletter:
         existing = await db.newsletter.find_one({"email": order.email}, {"_id": 0})
         if not existing:
@@ -310,17 +348,12 @@ async def create_blog_post(post: BlogPostCreate):
 
 # Helper function to get translated field from WooCommerce meta
 def get_translated_field(product: dict, field: str, lang: str) -> str:
-    """Get translated field from WooCommerce custom meta fields.
-    Custom fields format: name_el, name_it, description_el, description_it
-    """
     if lang == 'en':
-        # English is the default, use the main field
         if field == 'name':
             return product.get('name', '')
         elif field == 'description':
             return product.get('short_description', '') or product.get('description', '')
     
-    # Look for translated field in meta_data
     meta_key = f"{field}_{lang}"
     meta_data = product.get('meta_data', [])
     
@@ -330,7 +363,6 @@ def get_translated_field(product: dict, field: str, lang: str) -> str:
             if value:
                 return value
     
-    # Fallback to English if translation not found
     if field == 'name':
         return product.get('name', '')
     elif field == 'description':
@@ -341,16 +373,15 @@ def get_translated_field(product: dict, field: str, lang: str) -> str:
 # WooCommerce API Routes
 @api_router.get("/wc/products")
 async def get_wc_products(lang: str = 'en', product_type: str = None):
-    """Fetch products from WooCommerce with optional language translation.
-    
-    product_type filter:
-    - 'ready-florarium': Show products in Ready Florariums category OR variable products with that variation
-    - 'diy-kit': Show products in DIY Kits category OR variable products with that variation
-    """
     if not wcapi:
         raise HTTPException(status_code=503, detail="WooCommerce not configured")
+    
+    # Check cache first
+    cached = get_cached_products(lang, product_type)
+    if cached is not None:
+        return cached
+    
     try:
-        # Build params based on filter
         params = {"per_page": 100, "status": "publish"}
         
         response = wcapi.get("products", params=params)
@@ -361,7 +392,6 @@ async def get_wc_products(lang: str = 'en', product_type: str = None):
             for p in products:
                 is_variable = p.get("type") == "variable"
                 
-                # Build product data
                 product_data = {
                     "id": str(p["id"]),
                     "name": get_translated_field(p, 'name', lang),
@@ -386,7 +416,6 @@ async def get_wc_products(lang: str = 'en', product_type: str = None):
                     "attributes": {attr["name"]: attr["options"] for attr in p.get("attributes", [])}
                 }
                 
-                # Filter by product_type
                 if product_type:
                     categories = product_data["categories"]
                     attributes = product_data.get("attributes", {})
@@ -406,7 +435,6 @@ async def get_wc_products(lang: str = 'en', product_type: str = None):
                             should_include = True
                     
                     if should_include:
-                        # For variable products, fetch the specific variation price
                         if is_variable and target_variation_name:
                             try:
                                 var_response = wcapi.get(f"products/{p['id']}/variations", params={"per_page": 10})
@@ -426,16 +454,19 @@ async def get_wc_products(lang: str = 'en', product_type: str = None):
                 else:
                     result.append(product_data)
             
+            # Store in cache
+            set_cached_products(lang, product_type, result)
             return result
         else:
             raise HTTPException(status_code=response.status_code, detail="WooCommerce API error")
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"WooCommerce API error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @api_router.get("/wc/products/{product_id}")
 async def get_wc_product(product_id: int, lang: str = 'en'):
-    """Fetch single product from WooCommerce with optional language translation"""
     if not wcapi:
         raise HTTPException(status_code=503, detail="WooCommerce not configured")
     try:
@@ -460,13 +491,14 @@ async def get_wc_product(product_id: int, lang: str = 'en'):
             }
         else:
             raise HTTPException(status_code=response.status_code, detail="Product not found")
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"WooCommerce API error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @api_router.get("/wc/categories")
 async def get_wc_categories():
-    """Fetch product categories from WooCommerce"""
     if not wcapi:
         raise HTTPException(status_code=503, detail="WooCommerce not configured")
     try:
@@ -482,13 +514,14 @@ async def get_wc_categories():
             } for cat in categories]
         else:
             raise HTTPException(status_code=response.status_code, detail="WooCommerce API error")
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"WooCommerce API error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 @api_router.get("/wc/status")
 async def get_wc_status():
-    """Check WooCommerce connection status"""
     if not wcapi:
         return {"connected": False, "message": "WooCommerce not configured"}
     try:
@@ -500,6 +533,92 @@ async def get_wc_status():
     except Exception as e:
         return {"connected": False, "message": str(e)}
 
+# WooCommerce Checkout - Create order and return checkout URL
+@api_router.post("/wc/checkout")
+async def create_wc_order(checkout: CheckoutRequest):
+    """Create a WooCommerce order from the cart and return the payment URL."""
+    if not wcapi:
+        raise HTTPException(status_code=503, detail="WooCommerce not configured")
+    
+    # Fetch cart items from MongoDB
+    cart_items = await db.cart.find({"session_id": checkout.session_id}, {"_id": 0}).to_list(100)
+    if not cart_items:
+        raise HTTPException(status_code=400, detail="Cart is empty")
+    
+    # Build WooCommerce line items
+    line_items = []
+    for item in cart_items:
+        product_id_str = item.get("product_id", "")
+        # Handle DIY kit IDs like "diy-32"
+        clean_id = product_id_str.replace("diy-", "")
+        
+        li = {
+            "product_id": int(clean_id),
+            "quantity": item.get("quantity", 1),
+        }
+        
+        # If variation_id is stored, use it
+        if item.get("variation_id"):
+            li["variation_id"] = item["variation_id"]
+        
+        line_items.append(li)
+    
+    # Build order data
+    order_data = {
+        "payment_method": "",
+        "payment_method_title": "",
+        "set_paid": False,
+        "status": "pending",
+        "line_items": line_items,
+    }
+    
+    # Add billing info if provided
+    if checkout.billing_email:
+        order_data["billing"] = {
+            "first_name": checkout.billing_first_name or "",
+            "last_name": checkout.billing_last_name or "",
+            "email": checkout.billing_email,
+        }
+    
+    try:
+        response = wcapi.post("orders", order_data)
+        if response.status_code in [200, 201]:
+            order = response.json()
+            order_id = order["id"]
+            order_key = order.get("order_key", "")
+            
+            # Build the WooCommerce checkout payment URL
+            checkout_url = f"{wc_url}/checkout/order-pay/{order_id}/?pay_for_order=true&key={order_key}"
+            
+            # Clear cart after order creation
+            await db.cart.delete_many({"session_id": checkout.session_id})
+            
+            # Invalidate product cache (stock may have changed)
+            invalidate_cache()
+            
+            return {
+                "success": True,
+                "order_id": order_id,
+                "order_key": order_key,
+                "checkout_url": checkout_url,
+                "total": order.get("total", "0"),
+            }
+        else:
+            error_msg = response.json() if response.text else "Unknown error"
+            logger.error(f"WooCommerce order creation failed: {error_msg}")
+            raise HTTPException(status_code=response.status_code, detail=f"Order creation failed: {error_msg}")
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Checkout error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+# Cache invalidation endpoint (useful for admin)
+@api_router.post("/wc/cache/invalidate")
+async def invalidate_product_cache():
+    invalidate_cache()
+    return {"message": "Cache invalidated"}
+
 app.include_router(api_router)
 
 app.add_middleware(
@@ -509,12 +628,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
 
 @app.on_event("shutdown")
 async def shutdown_db_client():
