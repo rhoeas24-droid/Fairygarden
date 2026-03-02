@@ -192,6 +192,7 @@ class BlogPostCreate(BaseModel):
 
 class CheckoutRequest(BaseModel):
     session_id: str
+    customer_id: Optional[int] = None
     billing_first_name: Optional[str] = ""
     billing_last_name: Optional[str] = ""
     billing_email: Optional[str] = ""
@@ -200,7 +201,28 @@ class CheckoutRequest(BaseModel):
     billing_city: Optional[str] = ""
     billing_postcode: Optional[str] = ""
     billing_country: Optional[str] = ""
+    shipping_first_name: Optional[str] = ""
+    shipping_last_name: Optional[str] = ""
+    shipping_address_1: Optional[str] = ""
+    shipping_city: Optional[str] = ""
+    shipping_postcode: Optional[str] = ""
+    shipping_country: Optional[str] = ""
+    same_as_billing: bool = True
+    shipping_method: Optional[str] = ""
+    shipping_method_title: Optional[str] = ""
     order_notes: Optional[str] = ""
+    subscribe_newsletter: bool = False
+    payment_method: Optional[str] = ""
+
+class CustomerRegisterRequest(BaseModel):
+    email: EmailStr
+    password: str
+    first_name: str
+    last_name: str
+
+class CustomerLoginRequest(BaseModel):
+    email: EmailStr
+    password: str
 
 # Routes
 @api_router.get("/")
