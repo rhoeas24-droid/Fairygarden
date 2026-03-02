@@ -116,13 +116,15 @@ const CheckoutModal = ({ isOpen, onClose }) => {
         {isOpen && (
           <React.Fragment>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50" onClick={onClose} />
-            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 40 }} className={modalClass} data-testid="checkout-bank-transfer">
+            <div className={modalClass}>
+            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 40 }} className={modalInner} data-testid="checkout-bank-transfer">
               <div className="p-5 border-b border-gold/20 flex justify-between items-center">
                 <h2 className="text-xl font-cinzel font-bold text-gold">{t('checkout.orderConfirmed')}</h2>
                 <button onClick={onClose} className="text-cream/60 hover:text-gold"><X className="w-6 h-6" /></button>
               </div>
               <BankTransferResult orderResult={orderResult} onClose={onClose} t={t} />
             </motion.div>
+            </div>
           </React.Fragment>
         )}
       </AnimatePresence>
@@ -135,7 +137,8 @@ const CheckoutModal = ({ isOpen, onClose }) => {
         {isOpen && (
           <React.Fragment>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50" onClick={onClose} />
-            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 40 }} transition={{ type: 'spring', damping: 25, stiffness: 200 }} className={modalClass} data-testid="checkout-modal">
+            <div className={modalClass}>
+            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 40 }} transition={{ type: 'spring', damping: 25, stiffness: 200 }} className={modalInner} data-testid="checkout-modal">
               <div className="p-5 border-b border-gold/20 flex items-center justify-between shrink-0">
                 <h2 className="text-xl sm:text-2xl font-cinzel font-bold text-gold" data-testid="checkout-title">{t('checkout.title')}</h2>
                 <button onClick={onClose} className="text-cream/60 hover:text-gold transition-colors" data-testid="checkout-close"><X className="w-6 h-6" /></button>
@@ -163,6 +166,7 @@ const CheckoutModal = ({ isOpen, onClose }) => {
                 </div>
               )}
             </motion.div>
+            </div>
           </React.Fragment>
         )}
       </AnimatePresence>
