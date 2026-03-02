@@ -62,7 +62,7 @@ const ForBusiness = () => {
     name: '',
     email: '',
     company: '',
-    service: '',
+    service: [],
     message: '',
     privacyAccepted: false,
     subscribeNewsletter: false
@@ -103,6 +103,15 @@ const ForBusiness = () => {
     setFormData({ ...formData, [e.target.name]: value });
   };
 
+  const toggleService = (serviceId) => {
+    setFormData(prev => ({
+      ...prev,
+      service: prev.service.includes(serviceId)
+        ? prev.service.filter(s => s !== serviceId)
+        : [...prev.service, serviceId]
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -118,7 +127,7 @@ const ForBusiness = () => {
         name: formData.name,
         email: formData.email,
         company: formData.company,
-        service: formData.service,
+        service: formData.service.join(', '),
         message: formData.message
       });
       
@@ -133,7 +142,7 @@ const ForBusiness = () => {
       }
       
       toast.success(t('forBusiness.successMessage'));
-      setFormData({ name: '', email: '', company: '', service: '', message: '', privacyAccepted: false, subscribeNewsletter: false });
+      setFormData({ name: '', email: '', company: '', service: [], message: '', privacyAccepted: false, subscribeNewsletter: false });
     } catch (error) {
       toast.error(t('forBusiness.errorMessage'));
       console.error('Error submitting contact form:', error);
@@ -253,30 +262,33 @@ const ForBusiness = () => {
               />
             </div>
 
-            {/* Service Dropdown */}
+            {/* Service Multi-Select */}
             <div>
-              <label htmlFor="service" className="block text-cream font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
+              <label className="block text-cream font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
                 {t('forBusiness.serviceLabel')}
               </label>
-              <div className="relative">
-                <select
-                  id="service"
-                  name="service"
-                  value={formData.service}
-                  onChange={handleChange}
-                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black/20 border border-gold/40 text-cream
-                    focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base
-                    transition-all duration-200 appearance-none cursor-pointer"
-                  data-testid="contact-service-select"
-                >
-                  <option value="" className="bg-forest text-cream">{t('forBusiness.servicePlaceholder')}</option>
-                  {services.map((service) => (
-                    <option key={service.id} value={service.id} className="bg-forest text-cream">
+              <div className="space-y-2" data-testid="contact-service-select">
+                {services.map((service) => (
+                  <label
+                    key={service.id}
+                    className={`flex items-center gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-md border cursor-pointer transition-all duration-200 ${
+                      formData.service.includes(service.id)
+                        ? 'bg-gold/15 border-gold/60 text-gold'
+                        : 'bg-black/20 border-gold/20 text-cream/70 hover:border-gold/40'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={formData.service.includes(service.id)}
+                      onChange={() => toggleService(service.id)}
+                      className="w-4 h-4 accent-gold rounded"
+                      data-testid={`service-checkbox-${service.id}`}
+                    />
+                    <span className="font-montserrat text-sm sm:text-base">
                       {t(`forBusiness.services.${service.id}.title`)}
-                    </option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gold pointer-events-none" />
+                    </span>
+                  </label>
+                ))}
               </div>
             </div>
 
