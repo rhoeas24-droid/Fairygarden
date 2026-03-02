@@ -1,6 +1,6 @@
 import React from 'react';
 import { Check, X } from 'lucide-react';
-import GoldButton from '../GoldButton';
+import GoldButton from './GoldButton';
 
 export const SummaryStep = ({ cart, cartTotal, shippingCost, grandTotal, selectedShipping, form, update, t }) => (
   <div className="space-y-4" data-testid="checkout-step-summary">
