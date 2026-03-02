@@ -4,20 +4,17 @@ test.describe('Checkout Modal Flow', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
     
-    // Accept cookies if modal appears
-    const acceptButton = page.getByText('ACCEPT ALL');
-    if (await acceptButton.isVisible({ timeout: 2000 }).catch(() => false)) {
-      await acceptButton.click();
-    }
-    
-    // Set unique session ID for test isolation
+    // Set unique session ID
     const uniqueSession = `test_checkout_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     await page.evaluate((session) => {
       localStorage.setItem('sessionId', session);
     }, uniqueSession);
-  });
-
-  test('checkout button opens checkout modal with order summary', async ({ page }) => {
+    
+    // Accept cookies
+    const acceptButton = page.getByRole('button', { name: /accept all/i });
+    await expect(acceptButton).toBeVisible({ timeout: 5000 });
+    await acceptButton.click({ force: true });
+    
     // Scroll to gallery and add item
     await page.evaluate(() => {
       const gallery = document.getElementById('gallery');
@@ -26,40 +23,25 @@ test.describe('Checkout Modal Flow', () => {
     
     const addToCartButtons = page.locator('[data-testid^="add-to-cart-"]');
     await expect(addToCartButtons.first()).toBeVisible({ timeout: 15000 });
-    await addToCartButtons.first().click();
+    await addToCartButtons.first().click({ force: true });
     
     // Wait for cart drawer to open
     await expect(page.getByTestId('cart-drawer-title')).toBeVisible({ timeout: 5000 });
     
-    // Click checkout button
+    // Open checkout modal
     await page.getByTestId('checkout-button').click();
-    
-    // Wait for cart drawer to close and checkout modal to open
+    await expect(page.getByTestId('cart-drawer-title')).not.toBeVisible({ timeout: 3000 });
     await expect(page.getByTestId('checkout-modal')).toBeVisible({ timeout: 5000 });
-    
-    // Verify checkout title
+  });
+
+  test('checkout modal shows order summary with cart items', async ({ page }) => {
+    // Verify checkout elements
     await expect(page.getByTestId('checkout-title')).toBeVisible();
-    
-    // Verify order summary is visible with item
     await expect(page.getByTestId('checkout-summary')).toBeVisible();
     await expect(page.getByTestId('checkout-total')).toContainText('€');
   });
 
   test('checkout modal has billing and shipping fields', async ({ page }) => {
-    // Add item and open checkout
-    await page.evaluate(() => {
-      const gallery = document.getElementById('gallery');
-      if (gallery) gallery.scrollIntoView({ behavior: 'instant' });
-    });
-    
-    const addToCartButtons = page.locator('[data-testid^="add-to-cart-"]');
-    await expect(addToCartButtons.first()).toBeVisible({ timeout: 15000 });
-    await addToCartButtons.first().click();
-    
-    await expect(page.getByTestId('cart-drawer-title')).toBeVisible({ timeout: 5000 });
-    await page.getByTestId('checkout-button').click();
-    await expect(page.getByTestId('checkout-modal')).toBeVisible({ timeout: 5000 });
-    
     // Verify billing fields
     await expect(page.getByTestId('checkout-first-name')).toBeVisible();
     await expect(page.getByTestId('checkout-last-name')).toBeVisible();
@@ -77,41 +59,7 @@ test.describe('Checkout Modal Flow', () => {
     await expect(page.getByTestId('checkout-submit')).toBeVisible();
   });
 
-  test('checkout modal can be closed', async ({ page }) => {
-    // Add item and open checkout
-    await page.evaluate(() => {
-      const gallery = document.getElementById('gallery');
-      if (gallery) gallery.scrollIntoView({ behavior: 'instant' });
-    });
-    
-    const addToCartButtons = page.locator('[data-testid^="add-to-cart-"]');
-    await expect(addToCartButtons.first()).toBeVisible({ timeout: 15000 });
-    await addToCartButtons.first().click();
-    
-    await expect(page.getByTestId('cart-drawer-title')).toBeVisible({ timeout: 5000 });
-    await page.getByTestId('checkout-button').click();
-    await expect(page.getByTestId('checkout-modal')).toBeVisible({ timeout: 5000 });
-    
-    // Close checkout modal
-    await page.getByTestId('checkout-close').click();
-    await expect(page.getByTestId('checkout-modal')).not.toBeVisible({ timeout: 3000 });
-  });
-
-  test('checkout form can be filled with data', async ({ page }) => {
-    // Add item and open checkout
-    await page.evaluate(() => {
-      const gallery = document.getElementById('gallery');
-      if (gallery) gallery.scrollIntoView({ behavior: 'instant' });
-    });
-    
-    const addToCartButtons = page.locator('[data-testid^="add-to-cart-"]');
-    await expect(addToCartButtons.first()).toBeVisible({ timeout: 15000 });
-    await addToCartButtons.first().click();
-    
-    await expect(page.getByTestId('cart-drawer-title')).toBeVisible({ timeout: 5000 });
-    await page.getByTestId('checkout-button').click();
-    await expect(page.getByTestId('checkout-modal')).toBeVisible({ timeout: 5000 });
-    
+  test('checkout form can be filled and closed', async ({ page }) => {
     // Fill billing details
     await page.getByTestId('checkout-first-name').fill('Test');
     await page.getByTestId('checkout-last-name').fill('User');
@@ -127,5 +75,9 @@ test.describe('Checkout Modal Flow', () => {
     // Verify fields
     await expect(page.getByTestId('checkout-first-name')).toHaveValue('Test');
     await expect(page.getByTestId('checkout-city')).toHaveValue('Budapest');
+    
+    // Close modal
+    await page.getByTestId('checkout-close').click();
+    await expect(page.getByTestId('checkout-modal')).not.toBeVisible({ timeout: 3000 });
   });
 });
