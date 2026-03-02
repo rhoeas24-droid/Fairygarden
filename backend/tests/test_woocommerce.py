@@ -357,6 +357,77 @@ class TestWooCommerceStatus:
     def test_wc_status(self, api_client):
         """Test WooCommerce status endpoint"""
         response = api_client.get(f"{BASE_URL}/api/wc/status")
+
+
+
+class TestCheckoutBillingShipping:
+    """Test checkout with full billing and shipping data"""
+
+    def test_checkout_with_full_billing_data(self, api_client, test_session_id):
+        """Test checkout includes all billing fields"""
+        # Add item to cart
+        cart_item = {
+            "session_id": test_session_id,
+            "product_id": "16",  # Enchanted Forest
+            "product_name": "Enchanted Forest",
+            "product_price": 49.99,
+            "product_image": "https://example.com/test.jpg",
+            "quantity": 1,
+            "variation_id": 55
+        }
+        api_client.post(f"{BASE_URL}/api/cart", json=cart_item)
+        
+        # Create checkout with full billing data
+        checkout_data = {
+            "session_id": test_session_id,
+            "billing_first_name": "Test",
+            "billing_last_name": "Billing",
+            "billing_email": "testbilling@example.com",
+            "billing_phone": "+36301234567",
+            "billing_address_1": "123 Test Street",
+            "billing_city": "Budapest",
+            "billing_postcode": "1066",
+            "billing_country": "HU",
+            "order_notes": "Test order notes"
+        }
+        
+        response = api_client.post(f"{BASE_URL}/api/wc/checkout", json=checkout_data)
+        
+        assert response.status_code == 200
+        data = response.json()
+        assert data["success"] is True
+        assert "order_id" in data
+        assert "checkout_url" in data
+
+    def test_checkout_requires_email_for_wc(self, api_client, test_session_id):
+        """Test that checkout fails with invalid email"""
+        # Add item to cart
+        cart_item = {
+            "session_id": test_session_id,
+            "product_id": "20",  # Some product
+            "product_name": "Test Product",
+            "product_price": 39.99,
+            "product_image": "https://example.com/test.jpg",
+            "quantity": 1
+        }
+        api_client.post(f"{BASE_URL}/api/cart", json=cart_item)
+        
+        # Create checkout without email - should fail due to WC validation
+        checkout_data = {
+            "session_id": test_session_id,
+            "billing_first_name": "Test",
+            "billing_last_name": "User"
+            # No email provided
+        }
+        
+        response = api_client.post(f"{BASE_URL}/api/wc/checkout", json=checkout_data)
+        
+        # WooCommerce requires valid email
+        assert response.status_code == 400
+        assert "email" in response.text.lower()
+        
+        # Cleanup
+        api_client.delete(f"{BASE_URL}/api/cart/{test_session_id}")
         assert response.status_code == 200
         data = response.json()
         assert "connected" in data
