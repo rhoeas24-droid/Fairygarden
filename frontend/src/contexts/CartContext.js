@@ -46,7 +46,8 @@ export const CartProvider = ({ children }) => {
         product_name: product.name,
         product_price: product.price,
         product_image: product.image,
-        quantity: 1
+        quantity: 1,
+        variation_id: product.variation_id || null
       });
       await fetchCart(sessionId);
       setIsCartOpen(true);
