@@ -11,7 +11,7 @@ export default defineConfig({
     ['json', { outputFile: '/root/.emergent/automation_output/20260226_035616/results.json' }],
   ],
   use: {
-    baseURL: 'https://enchanted-garden-dev.preview.emergentagent.com',
+    baseURL: 'https://enchanted-terrariums.preview.emergentagent.com',
     screenshot: 'only-on-failure',
     trace: 'off',
     headless: true,
