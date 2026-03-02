@@ -360,6 +360,183 @@ class TestWooCommerceStatus:
 
 
 
+class TestShippingMethods:
+    """Test shipping methods endpoint"""
+
+    def test_get_shipping_methods(self, api_client):
+        """Test fetching available shipping methods"""
+        response = api_client.get(f"{BASE_URL}/api/wc/shipping-methods")
+        assert response.status_code == 200
+        methods = response.json()
+        assert isinstance(methods, list)
+        assert len(methods) == 3, "Should return 3 shipping methods"
+        
+        method_ids = [m["id"] for m in methods]
+        assert "flat_rate" in method_ids
+        assert "express" in method_ids
+        assert "local_pickup" in method_ids
+        
+        # Verify structure
+        for method in methods:
+            assert "id" in method
+            assert "title" in method
+            assert "cost" in method
+            assert "delivery_time" in method
+            assert isinstance(method["cost"], (int, float))
+
+    def test_local_pickup_is_free(self, api_client):
+        """Test that local pickup shipping is free"""
+        response = api_client.get(f"{BASE_URL}/api/wc/shipping-methods")
+        assert response.status_code == 200
+        methods = response.json()
+        
+        local_pickup = next((m for m in methods if m["id"] == "local_pickup"), None)
+        assert local_pickup is not None
+        assert local_pickup["cost"] == 0
+
+
+class TestCheckoutPaymentMethods:
+    """Test checkout with different payment methods"""
+
+    def test_checkout_with_bacs_returns_no_checkout_url(self, api_client, test_session_id):
+        """Test checkout with bank transfer (bacs) returns checkout_url=None"""
+        # Add item to cart
+        cart_item = {
+            "session_id": test_session_id,
+            "product_id": "16",
+            "product_name": "Enchanted Forest",
+            "product_price": 49.99,
+            "product_image": "https://example.com/test.jpg",
+            "quantity": 1,
+            "variation_id": 55
+        }
+        api_client.post(f"{BASE_URL}/api/cart", json=cart_item)
+        
+        # Checkout with bacs
+        checkout_data = {
+            "session_id": test_session_id,
+            "billing_first_name": "Test",
+            "billing_last_name": "BACS",
+            "billing_email": "testbacs@example.com",
+            "payment_method": "bacs"
+        }
+        
+        response = api_client.post(f"{BASE_URL}/api/wc/checkout", json=checkout_data)
+        
+        assert response.status_code == 200
+        data = response.json()
+        assert data["success"] is True
+        assert data["payment_method"] == "bacs"
+        assert data["checkout_url"] is None  # Bank transfer doesn't redirect
+        assert "order_id" in data
+        assert "total" in data
+
+    def test_checkout_with_shipping_method(self, api_client, test_session_id):
+        """Test checkout with shipping method selection"""
+        # Add item to cart
+        cart_item = {
+            "session_id": test_session_id,
+            "product_id": "20",
+            "product_name": "Test Product",
+            "product_price": 39.99,
+            "product_image": "https://example.com/test.jpg",
+            "quantity": 1
+        }
+        api_client.post(f"{BASE_URL}/api/cart", json=cart_item)
+        
+        # Checkout with express shipping
+        checkout_data = {
+            "session_id": test_session_id,
+            "billing_first_name": "Test",
+            "billing_last_name": "Express",
+            "billing_email": "testexpress@example.com",
+            "shipping_method": "express"
+        }
+        
+        response = api_client.post(f"{BASE_URL}/api/wc/checkout", json=checkout_data)
+        
+        assert response.status_code == 200
+        data = response.json()
+        assert data["success"] is True
+
+    def test_checkout_with_newsletter_subscription(self, api_client, test_session_id):
+        """Test checkout with newsletter subscription opt-in"""
+        unique_email = f"testnewsletter_{uuid.uuid4().hex[:8]}@example.com"
+        
+        # Add item to cart
+        cart_item = {
+            "session_id": test_session_id,
+            "product_id": "24",
+            "product_name": "Test Newsletter Product",
+            "product_price": 44.99,
+            "product_image": "https://example.com/test.jpg",
+            "quantity": 1
+        }
+        api_client.post(f"{BASE_URL}/api/cart", json=cart_item)
+        
+        # Checkout with newsletter subscription
+        checkout_data = {
+            "session_id": test_session_id,
+            "billing_first_name": "Test",
+            "billing_last_name": "Newsletter",
+            "billing_email": unique_email,
+            "subscribe_newsletter": True
+        }
+        
+        response = api_client.post(f"{BASE_URL}/api/wc/checkout", json=checkout_data)
+        
+        assert response.status_code == 200
+        data = response.json()
+        assert data["success"] is True
+
+
+class TestWooCommerceCustomerAPI:
+    """Test WooCommerce Customer API endpoints (register, login, profile, orders)"""
+
+    def test_customer_register_invalid_email(self, api_client):
+        """Test registration fails with invalid email format"""
+        response = api_client.post(f"{BASE_URL}/api/wc/customers/register", json={
+            "email": "invalid-email",
+            "password": "testpassword123",
+            "first_name": "Test",
+            "last_name": "Invalid"
+        })
+        # Pydantic validation should reject invalid email
+        assert response.status_code == 422
+
+    def test_customer_login_invalid_credentials(self, api_client):
+        """Test login fails with non-existent email"""
+        response = api_client.post(f"{BASE_URL}/api/wc/customers/login", json={
+            "email": "nonexistent_user_123456@example.com",
+            "password": "wrongpassword"
+        })
+        assert response.status_code == 401
+        assert "invalid" in response.json().get("detail", "").lower()
+
+    def test_customer_profile_invalid_token(self, api_client):
+        """Test profile fetch fails with invalid token"""
+        response = api_client.get(f"{BASE_URL}/api/wc/customers/me", params={
+            "token": "invalid_token_abc123"
+        })
+        assert response.status_code == 401
+
+    def test_customer_orders_invalid_token(self, api_client):
+        """Test orders fetch fails with invalid token"""
+        response = api_client.get(f"{BASE_URL}/api/wc/customers/orders", params={
+            "token": "invalid_token_xyz789"
+        })
+        assert response.status_code == 401
+
+    def test_customer_logout(self, api_client):
+        """Test logout endpoint works even with invalid token"""
+        response = api_client.post(f"{BASE_URL}/api/wc/customers/logout", params={
+            "token": "any_token"
+        })
+        # Logout should succeed silently even for invalid tokens
+        assert response.status_code == 200
+        assert response.json().get("success") is True
+
+
 class TestCheckoutBillingShipping:
     """Test checkout with full billing and shipping data"""
 
