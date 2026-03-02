@@ -195,6 +195,12 @@ class CheckoutRequest(BaseModel):
     billing_first_name: Optional[str] = ""
     billing_last_name: Optional[str] = ""
     billing_email: Optional[str] = ""
+    billing_phone: Optional[str] = ""
+    billing_address_1: Optional[str] = ""
+    billing_city: Optional[str] = ""
+    billing_postcode: Optional[str] = ""
+    billing_country: Optional[str] = ""
+    order_notes: Optional[str] = ""
 
 # Routes
 @api_router.get("/")
