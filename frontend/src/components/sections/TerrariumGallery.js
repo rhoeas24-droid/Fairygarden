@@ -178,10 +178,14 @@ const TerrariumGallery = () => {
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-cinzel font-bold text-gold mb-3 sm:mb-4" data-testid="gallery-title">
             {t('gallery.title')}
           </h2>
-          <p className="text-cream/80 font-montserrat text-sm sm:text-base lg:text-lg max-w-3xl mx-auto text-justify">
+          <p className="text-cream font-montserrat text-sm sm:text-base lg:text-lg max-w-3xl mx-auto text-justify
+            bg-forest/50 backdrop-blur-md border border-gold/15 rounded-xl px-5 py-3 sm:px-6 sm:py-4
+            shadow-[0_4px_30px_rgba(0,0,0,0.3)]">
             {t('gallery.subtitle')}
           </p>
-          <p className="text-gold/80 font-montserrat text-xs sm:text-sm mt-3 sm:mt-4 max-w-2xl mx-auto italic text-justify">
+          <p className="text-gold font-montserrat text-xs sm:text-sm mt-3 sm:mt-4 max-w-2xl mx-auto italic text-justify
+            bg-forest/40 backdrop-blur-sm border border-gold/10 rounded-lg px-4 py-2.5
+            shadow-[0_2px_20px_rgba(212,175,55,0.08)]">
             {t('gallery.uniqueNote')}
           </p>
         </motion.div>
