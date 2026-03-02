@@ -285,7 +285,7 @@ async def background_cache_refresher():
 
 # ========== FastAPI App ==========
 app = FastAPI()
-api_router = APIRouter(prefix="/api")
+api_router = APIRouter()
 
 # Pydantic Models
 class CartItem(BaseModel):
