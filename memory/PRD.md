@@ -58,18 +58,21 @@ Design and build a single-page website for a magical terrarium brand, "Fairygard
 - [x] Automatic cache invalidation on checkout
 - [x] Logger initialization fix (moved to top of server.py)
 
-### WooCommerce Checkout (Mar 2, 2026)
-- [x] POST /api/wc/checkout creates WooCommerce order from cart
-- [x] Returns checkout URL for WooCommerce native payment page
-- [x] Cart cleared automatically after order creation
-- [x] **Custom CheckoutModal** with dark forest/gold design matching the site
-- [x] Billing details form (name, email, phone)
-- [x] Shipping address form (address, city, postcode, country)
-- [x] Order notes field
-- [x] Order summary with cart items and total
-- [x] Loading state and error handling
-- [x] Redirects to WooCommerce payment page in new tab after order creation
-- [x] Multi-language support (EN, GR, IT) for all checkout labels
+### User Authentication & Account (Mar 2, 2026)
+- [x] WooCommerce Customer API integration (register, login, profile, orders, logout)
+- [x] AuthModal with login/register modes, password confirmation, show/hide password
+- [x] AccountModal with 3 tabs: Profile (edit name), Orders (WC order history), Support (care guide, issue reporting, contact)
+- [x] User icon in Navigation (opens AuthModal when not logged in, AccountModal when logged in)
+- [x] Customer token-based session management (MongoDB)
+
+### Multi-step Checkout (Mar 2, 2026)
+- [x] Step 1: Billing details + optional separate shipping address
+- [x] Step 2: Shipping method selection (Standard €8.99, Express €14.99, Local Pickup free) + order notes
+- [x] Step 3: Order summary with subtotal/shipping/total, payment method (Online/Bank Transfer), mandatory T&C + Privacy checkboxes, optional newsletter subscription
+- [x] Bank transfer orders show custom confirmation with Lorem Ipsum placeholder
+- [x] Guest checkout (no registration required)
+- [x] Logged-in users get pre-filled billing details from WooCommerce profile
+- [x] Multi-language support for all new labels (EN/GR/IT)
 
 ### Bug Fixes (Mar 2, 2026)
 - [x] Fixed DIY Kit price bug (removed incorrect 0.85 multiplier)
@@ -83,10 +86,10 @@ Design and build a single-page website for a magical terrarium brand, "Fairygard
 ## Pending Tasks
 
 ### P1 - High Priority
-- [ ] Customer Portal (registration, login, order history)
-- [ ] Admin Dashboard confirmation (WooCommerce admin sufficient?)
-- [ ] Shipping cost calculation
+- [ ] Shipping cost configuration in WooCommerce admin
 - [ ] Order confirmation email verification
+- [ ] Account activation email (WordPress)
+- [ ] Bank transfer message customization (replace Lorem Ipsum)
 
 ### P2 - Medium Priority
 - [ ] Coupon codes and discounts
@@ -135,8 +138,11 @@ Design and build a single-page website for a magical terrarium brand, "Fairygard
 
 ### Key Files
 - `backend/server.py` - FastAPI backend with WC proxy, cache, checkout
-- `frontend/src/components/CheckoutModal.js` - Custom checkout form
+- `frontend/src/components/CheckoutModal.js` - Multi-step checkout (3 steps)
 - `frontend/src/components/CartDrawer.js` - Cart with checkout modal trigger
+- `frontend/src/components/AuthModal.js` - Login/Register modal
+- `frontend/src/components/AccountModal.js` - Account (Profile/Orders/Support)
+- `frontend/src/contexts/AuthContext.js` - Auth state management (WC Customer API)
 - `frontend/src/components/sections/TerrariumGallery.js` - Ready Florariums
 - `frontend/src/components/sections/DIYKits.js` - DIY Kits
 - `frontend/src/contexts/CartContext.js` - Cart state management
@@ -165,7 +171,7 @@ Always instruct user to:
 The user communicates in **Hungarian**. All responses must be in Hungarian.
 
 ## Testing Status
-- Backend: 29/29 tests pass
-- Frontend: 16/16 tests pass
-- Total: 45/45 (100% pass rate)
-- Test files: /app/backend/tests/test_woocommerce.py, /app/tests/e2e/woocommerce-products.spec.ts, /app/tests/e2e/cart-checkout.spec.ts, /app/tests/e2e/checkout-modal.spec.ts
+- Backend: 39/39 tests pass
+- Frontend: 28/28 tests pass
+- Total: 67/67 (100% pass rate)
+- Test files: /app/backend/tests/test_woocommerce.py, /app/backend/tests/test_api.py, /app/tests/e2e/woocommerce-products.spec.ts, /app/tests/e2e/cart-checkout.spec.ts, /app/tests/e2e/checkout-modal.spec.ts, /app/tests/e2e/auth-account.spec.ts
