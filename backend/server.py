@@ -831,13 +831,35 @@ async def create_wc_order(checkout: CheckoutRequest):
             # Clear cart after order creation
             await db.cart.delete_many({"session_id": checkout.session_id})
             
+            # Subscribe to newsletter if opted in
+            if checkout.subscribe_newsletter and checkout.billing_email:
+                existing = await db.newsletter.find_one({"email": checkout.billing_email}, {"_id": 0})
+                if not existing:
+                    await db.newsletter.insert_one({
+                        "id": str(uuid.uuid4()),
+                        "email": checkout.billing_email,
+                        "created_at": datetime.now(timezone.utc).isoformat()
+                    })
+            
             # Invalidate product cache (stock may have changed)
             invalidate_cache()
+            
+            # For bank transfer, return order details without payment redirect
+            if checkout.payment_method == "bacs":
+                return {
+                    "success": True,
+                    "order_id": order_id,
+                    "order_key": order_key,
+                    "payment_method": "bacs",
+                    "checkout_url": None,
+                    "total": order.get("total", "0"),
+                }
             
             return {
                 "success": True,
                 "order_id": order_id,
                 "order_key": order_key,
+                "payment_method": "online",
                 "checkout_url": checkout_url,
                 "total": order.get("total", "0"),
             }
