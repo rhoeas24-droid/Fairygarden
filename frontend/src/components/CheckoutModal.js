@@ -92,8 +92,7 @@ const CheckoutModal = ({ isOpen, onClose }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 40 }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-4 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2
-              sm:w-full sm:max-w-2xl sm:max-h-[90vh]
+            className="fixed top-[5vh] left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-2xl max-h-[90vh]
               bg-forest-dark border border-gold/30 rounded-2xl shadow-2xl z-50
               flex flex-col overflow-hidden"
             data-testid="checkout-modal"
