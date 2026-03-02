@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Leaf, Droplets, Sun, ThermometerSun, Ruler, ShoppingCart } from 'lucide-react';
+import { X, Leaf, Droplets, Sun, ThermometerSun, Ruler, ShoppingCart, Package, Scissors, PenTool, Layers, FlaskConical, GlassWater, BookOpen, Bug } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useCart } from '../contexts/CartContext';
 import { toast } from 'sonner';
@@ -11,7 +11,7 @@ const stripHtml = (html) => {
   return html.replace(/<[^>]*>/g, '').trim();
 };
 
-const ProductDetailModal = ({ isOpen, onClose, product }) => {
+const ProductDetailModal = ({ isOpen, onClose, product, isDIYKit = false }) => {
   const { t } = useTranslation();
   const { addToCart } = useCart();
 
@@ -28,12 +28,25 @@ const ProductDetailModal = ({ isOpen, onClose, product }) => {
   const width = product.dimensions?.width || '~15';
   const weight = product.weight || '~1.5';
 
-  // Care instructions with translations
+  // Care instructions for Ready Florariums
   const careInstructions = [
     { icon: Sun, title: t('product.care.light'), desc: t('product.care.lightDesc') },
     { icon: Droplets, title: t('product.care.water'), desc: t('product.care.waterDesc') },
     { icon: ThermometerSun, title: t('product.care.temp'), desc: t('product.care.tempDesc') },
     { icon: Leaf, title: t('product.care.maintenance'), desc: t('product.care.maintenanceDesc') },
+  ];
+
+  // DIY Kit contents
+  const diyKitContents = [
+    { icon: GlassWater, name: t('diyKit.glassContainer', 'Glass Container'), desc: t('diyKit.glassContainerDesc', 'Premium quality glass vessel') },
+    { icon: Layers, name: t('diyKit.drainageMix', 'Drainage Mix'), desc: t('diyKit.drainageMixDesc', 'Gravel and activated charcoal') },
+    { icon: FlaskConical, name: t('diyKit.substrateMix', 'Substrate Mix'), desc: t('diyKit.substrateMixDesc', 'Special soil blend for terrariums') },
+    { icon: Leaf, name: t('diyKit.plants', 'Plants'), desc: t('diyKit.plantsDesc', 'Carefully selected live plants') },
+    { icon: Scissors, name: t('diyKit.scissors', 'Scissors'), desc: t('diyKit.scissorsDesc', 'For trimming and shaping') },
+    { icon: PenTool, name: t('diyKit.tweezers', 'Tweezers'), desc: t('diyKit.tweezersDesc', 'Precision planting tool') },
+    { icon: PenTool, name: t('diyKit.brush', 'Brush'), desc: t('diyKit.brushDesc', 'For cleaning glass surfaces') },
+    { icon: BookOpen, name: t('diyKit.guide', 'Step-by-Step Guide'), desc: t('diyKit.guideDesc', 'Detailed instructions') },
+    { icon: Bug, name: t('diyKit.magicBugs', 'Magic Bugs'), desc: t('diyKit.magicBugsDesc', 'Springtails for ecosystem balance') },
   ];
 
   return (
@@ -66,6 +79,11 @@ const ProductDetailModal = ({ isOpen, onClose, product }) => {
               {/* Left - Image */}
               <div className="relative p-8 bg-forest/50 flex items-center justify-center">
                 <div className="relative w-full max-w-sm">
+                  {isDIYKit && (
+                    <div className="absolute -top-2 -right-2 z-10 bg-gold text-forest px-3 py-1 rounded-full text-xs font-bold">
+                      DIY KIT
+                    </div>
+                  )}
                   <img
                     src={product.image}
                     alt={product.name}
@@ -78,7 +96,7 @@ const ProductDetailModal = ({ isOpen, onClose, product }) => {
               <div className="p-8 space-y-6">
                 <div>
                   <h2 className="text-3xl font-cinzel font-bold text-gold mb-2">
-                    {product.name}
+                    {product.name} {isDIYKit && '- DIY Kit'}
                   </h2>
                   <p className="text-cream/80 font-montserrat leading-relaxed text-justify">
                     {stripHtml(product.description)}
@@ -95,11 +113,11 @@ const ProductDetailModal = ({ isOpen, onClose, product }) => {
                   </span>
                 </div>
 
-                {/* Dimensions from WooCommerce */}
+                {/* Package Dimensions */}
                 <div className="border-t border-gold/20 pt-4">
                   <h3 className="text-lg font-cinzel text-gold mb-3 flex items-center gap-2">
                     <Ruler className="w-5 h-5" />
-                    {t('product.dimensions')}
+                    {isDIYKit ? t('diyKit.packageDimensions', 'Package Dimensions') : t('product.dimensions')}
                   </h3>
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div className="bg-forest/50 rounded-lg p-3 border border-gold/20">
@@ -127,31 +145,52 @@ const ProductDetailModal = ({ isOpen, onClose, product }) => {
                     active:translate-y-1 transition-all duration-200"
                 >
                   <ShoppingCart className="w-5 h-5" />
-                  {t('gallery.addToCart')}
+                  {isDIYKit ? t('diy.addToCart') : t('gallery.addToCart')}
                 </button>
               </div>
             </div>
 
-            {/* Care Instructions */}
-            <div className="p-8 border-t border-gold/20 bg-forest/30">
-              <h3 className="text-xl font-cinzel text-gold mb-6 text-center">
-                {t('product.careTitle', 'Care Instructions')}
-              </h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {careInstructions.map((item, index) => (
-                  <div key={index} className="text-center p-4 bg-forest/50 rounded-xl border border-gold/20">
-                    <item.icon className="w-8 h-8 text-gold mx-auto mb-2" />
-                    <h4 className="text-gold font-semibold text-sm mb-1">{item.title}</h4>
-                    <p className="text-cream/70 text-xs">{item.desc}</p>
-                  </div>
-                ))}
+            {/* DIY Kit Contents OR Care Instructions */}
+            {isDIYKit ? (
+              <div className="p-8 border-t border-gold/20 bg-forest/30">
+                <h3 className="text-xl font-cinzel text-gold mb-6 text-center flex items-center justify-center gap-2">
+                  <Package className="w-6 h-6" />
+                  {t('diyKit.whatsIncluded', "What's Included")}
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  {diyKitContents.map((item, index) => (
+                    <div key={index} className="text-center p-4 bg-forest/50 rounded-xl border border-gold/20">
+                      <item.icon className="w-8 h-8 text-gold mx-auto mb-2" />
+                      <h4 className="text-gold font-semibold text-sm mb-1">{item.name}</h4>
+                      <p className="text-cream/70 text-xs">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="p-8 border-t border-gold/20 bg-forest/30">
+                <h3 className="text-xl font-cinzel text-gold mb-6 text-center">
+                  {t('product.careTitle', 'Care Instructions')}
+                </h3>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {careInstructions.map((item, index) => (
+                    <div key={index} className="text-center p-4 bg-forest/50 rounded-xl border border-gold/20">
+                      <item.icon className="w-8 h-8 text-gold mx-auto mb-2" />
+                      <h4 className="text-gold font-semibold text-sm mb-1">{item.title}</h4>
+                      <p className="text-cream/70 text-xs">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
-            {/* Note about uniqueness */}
+            {/* Note */}
             <div className="p-6 bg-gold/10 border-t border-gold/20">
               <p className="text-center text-cream/80 text-sm italic font-montserrat">
-                {t('product.uniqueNote', 'Each florarium is handcrafted and unique. The actual product may slightly differ from the image shown.')}
+                {isDIYKit 
+                  ? t('diyKit.note', 'Build your own magical terrarium with this complete kit. All materials carefully selected and packed.')
+                  : t('product.uniqueNote', 'Each florarium is handcrafted and unique. The actual product may slightly differ from the image shown.')
+                }
               </p>
             </div>
           </motion.div>
