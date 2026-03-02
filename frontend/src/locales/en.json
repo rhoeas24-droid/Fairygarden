@@ -321,5 +321,27 @@
     "analytical": "Analytical Cookies",
     "analyticalDesc": "Help us understand how visitors interact with our website (Google Analytics).",
     "required": "Required"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "orderSummary": "Order Summary",
+    "billingDetails": "Billing Details",
+    "shippingAddress": "Shipping Address",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "city": "City",
+    "postcode": "Postcode",
+    "country": "Country",
+    "notes": "Order Notes",
+    "notesPlaceholder": "Any special instructions for your order...",
+    "placeOrder": "Place Order & Pay",
+    "processing": "Processing...",
+    "paymentRedirect": "You will be redirected to our secure payment page to complete your purchase.",
+    "orderCreated": "Order created! Redirecting to payment...",
+    "error": "Checkout failed. Please try again.",
+    "fillRequired": "Please fill in all required fields."
   }
 }

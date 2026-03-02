@@ -321,5 +321,27 @@
     "analytical": "Cookie Analitici",
     "analyticalDesc": "Ci aiutano a capire come i visitatori utilizzano il nostro sito.",
     "required": "Richiesto"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "orderSummary": "Riepilogo Ordine",
+    "billingDetails": "Dati di Fatturazione",
+    "shippingAddress": "Indirizzo di Spedizione",
+    "firstName": "Nome",
+    "lastName": "Cognome",
+    "email": "Email",
+    "phone": "Telefono",
+    "address": "Indirizzo",
+    "city": "Città",
+    "postcode": "CAP",
+    "country": "Paese",
+    "notes": "Note Ordine",
+    "notesPlaceholder": "Istruzioni speciali per il tuo ordine...",
+    "placeOrder": "Effettua Ordine e Paga",
+    "processing": "Elaborazione...",
+    "paymentRedirect": "Sarai reindirizzato alla nostra pagina di pagamento sicura per completare l'acquisto.",
+    "orderCreated": "Ordine creato! Reindirizzamento al pagamento...",
+    "error": "Checkout fallito. Riprova.",
+    "fillRequired": "Compila tutti i campi obbligatori."
   }
 }
