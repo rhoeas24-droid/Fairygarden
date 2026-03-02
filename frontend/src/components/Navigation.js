@@ -138,6 +138,14 @@ const Navigation = () => {
             ))}
             <LanguageSwitcher />
             <button
+              onClick={() => isLoggedIn ? setIsAccountOpen(true) : setIsAuthOpen(true)}
+              className="relative p-2 text-cream hover:text-gold transition-colors"
+              data-testid="user-button"
+              title={isLoggedIn ? customer?.first_name : t('auth.login', 'Sign In')}
+            >
+              <UserCircle className={`w-6 h-6 ${isLoggedIn ? 'text-gold' : ''}`} />
+            </button>
+            <button
               onClick={() => setIsCartOpen(true)}
               className="relative p-2 text-cream hover:text-gold transition-colors"
               data-testid="cart-button"
