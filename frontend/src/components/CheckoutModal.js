@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Loader2, MapPin, User, Mail, Phone, FileText, Truck, Check, ChevronRight, ChevronLeft, ShieldCheck } from 'lucide-react';
+import { X, Loader2, MapPin, User, Mail, Phone, FileText, Truck, Check, ChevronRight, ChevronLeft, ShieldCheck, LogIn, UserPlus, ShoppingBag } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
 import GoldButton from './GoldButton';
+import AuthModal from './AuthModal';
 import { toast } from 'sonner';
 import axios from 'axios';
 
