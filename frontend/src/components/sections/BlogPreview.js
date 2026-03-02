@@ -10,6 +10,12 @@ const API = `${BACKEND_URL}/api`;
 const BlogCard = ({ post, index }) => {
   const { t } = useTranslation();
   
+  const handleReadMore = () => {
+    if (post.link) {
+      window.open(post.link, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 50 }}
@@ -17,8 +23,9 @@ const BlogCard = ({ post, index }) => {
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300
-        hover:-translate-y-2 group"
+        hover:-translate-y-2 group cursor-pointer"
       data-testid={`blog-card-${post.id}`}
+      onClick={handleReadMore}
     >
       <div className="relative overflow-hidden h-40 sm:h-48 lg:h-56">
         <img

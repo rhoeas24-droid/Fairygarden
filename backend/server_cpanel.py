@@ -627,6 +627,7 @@ async def get_blog_posts():
                 "image": img,
                 "author": author,
                 "published_at": p.get("date", ""),
+                "link": p.get("link", ""),
             })
         return posts
     except Exception as e:
