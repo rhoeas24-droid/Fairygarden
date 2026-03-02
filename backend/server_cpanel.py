@@ -105,6 +105,12 @@ def init_db():
                 INDEX idx_token (token),
                 INDEX idx_customer (customer_id)
             )''')
+            # Add variation_id column if missing (from older schema)
+            try:
+                cursor.execute("ALTER TABLE cart ADD COLUMN variation_id INT DEFAULT NULL")
+                logger.info("Added variation_id column to cart table")
+            except Exception:
+                pass  # Column already exists
         conn.commit()
         logger.info("Database tables initialized")
     except Exception as e:
