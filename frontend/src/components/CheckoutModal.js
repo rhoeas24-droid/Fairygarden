@@ -8,8 +8,8 @@ import GoldButton from './GoldButton';
 import AuthModal from './AuthModal';
 import { toast } from 'sonner';
 import axios from 'axios';
-import { StepIndicator, AuthPreStep, AddressStep, ShippingStep } from './checkout/CheckoutSteps';
-import { SummaryStep, BankTransferResult } from './checkout/CheckoutSummary';
+import { StepIndicator, AuthPreStep, AddressStep, ShippingStep } from './CheckoutSteps';
+import { SummaryStep, BankTransferResult } from './CheckoutSummary';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
