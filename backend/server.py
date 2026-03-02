@@ -57,7 +57,7 @@ def _cache_file(lang: str, product_type: str) -> Path:
     return CACHE_DIR / key
 
 def get_cached_products_file(lang: str, product_type: str):
-    """Read products from disk cache. Always available, even after restart."""
+    """Read products from disk cache. Falls back to 'en' if requested lang not cached."""
     f = _cache_file(lang, product_type)
     if f.exists():
         try:
@@ -66,6 +66,17 @@ def get_cached_products_file(lang: str, product_type: str):
                 return data
         except Exception as e:
             logger.error(f"Cache read error for {f}: {e}")
+    # Fallback: if requested language cache doesn't exist, serve English cache
+    if lang != 'en':
+        fallback = _cache_file('en', product_type)
+        if fallback.exists():
+            try:
+                data = json_module.loads(fallback.read_text(encoding='utf-8'))
+                if data and len(data) > 0:
+                    logger.info(f"Serving English fallback cache for ({lang}, {product_type or 'all'})")
+                    return data
+            except Exception as e:
+                logger.error(f"Fallback cache read error: {e}")
     return None
 
 def set_cached_products_file(lang: str, product_type: str, data: list):
@@ -162,7 +173,7 @@ async def fetch_wc_products_from_api(lang: str, product_type: str):
 
 async def refresh_product_cache():
     """Background task: refresh all product cache combinations."""
-    langs = ['en', 'el', 'it']
+    langs = ['en', 'el', 'it', 'hu']
     product_types = [None, 'ready-florarium', 'diy-kit']
     
     for lang in langs:
