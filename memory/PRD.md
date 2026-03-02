@@ -62,8 +62,14 @@ Design and build a single-page website for a magical terrarium brand, "Fairygard
 - [x] POST /api/wc/checkout creates WooCommerce order from cart
 - [x] Returns checkout URL for WooCommerce native payment page
 - [x] Cart cleared automatically after order creation
-- [x] CartDrawer updated with real checkout flow (loading state, error handling)
-- [x] Redirects to WooCommerce payment page in new tab
+- [x] **Custom CheckoutModal** with dark forest/gold design matching the site
+- [x] Billing details form (name, email, phone)
+- [x] Shipping address form (address, city, postcode, country)
+- [x] Order notes field
+- [x] Order summary with cart items and total
+- [x] Loading state and error handling
+- [x] Redirects to WooCommerce payment page in new tab after order creation
+- [x] Multi-language support (EN, GR, IT) for all checkout labels
 
 ### Bug Fixes (Mar 2, 2026)
 - [x] Fixed DIY Kit price bug (removed incorrect 0.85 multiplier)
@@ -129,7 +135,8 @@ Design and build a single-page website for a magical terrarium brand, "Fairygard
 
 ### Key Files
 - `backend/server.py` - FastAPI backend with WC proxy, cache, checkout
-- `frontend/src/components/CartDrawer.js` - Cart with WC checkout
+- `frontend/src/components/CheckoutModal.js` - Custom checkout form
+- `frontend/src/components/CartDrawer.js` - Cart with checkout modal trigger
 - `frontend/src/components/sections/TerrariumGallery.js` - Ready Florariums
 - `frontend/src/components/sections/DIYKits.js` - DIY Kits
 - `frontend/src/contexts/CartContext.js` - Cart state management
@@ -158,7 +165,7 @@ Always instruct user to:
 The user communicates in **Hungarian**. All responses must be in Hungarian.
 
 ## Testing Status
-- Backend: 27/27 tests pass
-- Frontend: 13/13 tests pass
-- Total: 40/40 (100% pass rate)
-- Test files: /app/backend/tests/test_woocommerce.py, /app/tests/e2e/woocommerce-products.spec.ts, /app/tests/e2e/cart-checkout.spec.ts
+- Backend: 29/29 tests pass
+- Frontend: 16/16 tests pass
+- Total: 45/45 (100% pass rate)
+- Test files: /app/backend/tests/test_woocommerce.py, /app/tests/e2e/woocommerce-products.spec.ts, /app/tests/e2e/cart-checkout.spec.ts, /app/tests/e2e/checkout-modal.spec.ts
