@@ -754,14 +754,24 @@ async def create_wc_order(checkout: CheckoutRequest):
     
     # Build order data
     order_data = {
-        "payment_method": "",
-        "payment_method_title": "",
         "set_paid": False,
         "status": "pending",
         "line_items": line_items,
     }
     
-    # Add billing info
+    # Payment method
+    if checkout.payment_method == "bacs":
+        order_data["payment_method"] = "bacs"
+        order_data["payment_method_title"] = "Direct Bank Transfer"
+    else:
+        order_data["payment_method"] = ""
+        order_data["payment_method_title"] = ""
+    
+    # Customer ID if logged in
+    if checkout.customer_id:
+        order_data["customer_id"] = checkout.customer_id
+    
+    # Billing info
     billing = {
         "first_name": checkout.billing_first_name or "",
         "last_name": checkout.billing_last_name or "",
@@ -773,14 +783,37 @@ async def create_wc_order(checkout: CheckoutRequest):
         "country": checkout.billing_country or "",
     }
     order_data["billing"] = billing
-    order_data["shipping"] = {
-        "first_name": billing["first_name"],
-        "last_name": billing["last_name"],
-        "address_1": billing["address_1"],
-        "city": billing["city"],
-        "postcode": billing["postcode"],
-        "country": billing["country"],
-    }
+    
+    # Shipping info
+    if checkout.same_as_billing:
+        order_data["shipping"] = {
+            "first_name": billing["first_name"],
+            "last_name": billing["last_name"],
+            "address_1": billing["address_1"],
+            "city": billing["city"],
+            "postcode": billing["postcode"],
+            "country": billing["country"],
+        }
+    else:
+        order_data["shipping"] = {
+            "first_name": checkout.shipping_first_name or billing["first_name"],
+            "last_name": checkout.shipping_last_name or billing["last_name"],
+            "address_1": checkout.shipping_address_1 or "",
+            "city": checkout.shipping_city or "",
+            "postcode": checkout.shipping_postcode or "",
+            "country": checkout.shipping_country or "",
+        }
+    
+    # Shipping method
+    if checkout.shipping_method:
+        shipping_methods = {
+            "flat_rate": {"id": "flat_rate", "title": "Standard Shipping", "total": "8.99"},
+            "express": {"id": "express", "title": "Express Shipping", "total": "14.99"},
+            "local_pickup": {"id": "local_pickup", "title": "Local Pickup", "total": "0.00"},
+        }
+        sm = shipping_methods.get(checkout.shipping_method, {})
+        if sm:
+            order_data["shipping_lines"] = [{"method_id": sm["id"], "method_title": sm["title"], "total": sm["total"]}]
     
     if checkout.order_notes:
         order_data["customer_note"] = checkout.order_notes
