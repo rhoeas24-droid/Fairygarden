@@ -237,10 +237,62 @@ const CheckoutModal = ({ isOpen, onClose }) => {
               </button>
             </div>
 
-            <StepIndicator steps={steps} currentStep={step} />
+            {step >= 0 && <StepIndicator steps={steps} currentStep={step} />}
 
             {/* Content */}
             <div className="flex-1 overflow-y-auto p-5">
+              {/* Pre-step: Auth options (only for guest users) */}
+              {step === -1 && (
+                <div className="space-y-4 py-2" data-testid="checkout-step-auth">
+                  <p className="text-cream/70 font-montserrat text-sm text-center mb-2">
+                    {t('checkout.howToProceed', 'How would you like to proceed?')}
+                  </p>
+                  <button onClick={() => { setShowAuthModal(true); setAuthMode('login'); }}
+                    className="w-full flex items-center gap-4 p-4 bg-forest/40 border border-gold/20 rounded-xl
+                      hover:border-gold/40 hover:bg-gold/5 transition-all group"
+                    data-testid="checkout-signin-option">
+                    <div className="w-10 h-10 rounded-full bg-gold/15 flex items-center justify-center shrink-0 group-hover:bg-gold/25 transition-colors">
+                      <LogIn className="w-5 h-5 text-gold" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-cream font-cinzel font-bold text-sm">{t('checkout.alreadyUser', 'Already a user? Sign In')}</p>
+                      <p className="text-cream/50 font-montserrat text-xs">{t('checkout.signInDesc', 'Access your saved addresses and order history')}</p>
+                    </div>
+                    <ChevronRight className="w-5 h-5 text-gold/40 ml-auto" />
+                  </button>
+                  <button onClick={() => { setShowAuthModal(true); setAuthMode('register'); }}
+                    className="w-full flex items-center gap-4 p-4 bg-forest/40 border border-gold/20 rounded-xl
+                      hover:border-gold/40 hover:bg-gold/5 transition-all group"
+                    data-testid="checkout-register-option">
+                    <div className="w-10 h-10 rounded-full bg-gold/15 flex items-center justify-center shrink-0 group-hover:bg-gold/25 transition-colors">
+                      <UserPlus className="w-5 h-5 text-gold" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-cream font-cinzel font-bold text-sm">{t('checkout.createAccount', 'Create Account')}</p>
+                      <p className="text-cream/50 font-montserrat text-xs">{t('checkout.registerDesc', 'Track orders and save your details for next time')}</p>
+                    </div>
+                    <ChevronRight className="w-5 h-5 text-gold/40 ml-auto" />
+                  </button>
+                  <div className="relative my-3">
+                    <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gold/15" /></div>
+                    <div className="relative flex justify-center"><span className="px-3 bg-forest-dark text-cream/40 font-montserrat text-xs uppercase">{t('checkout.or', 'or')}</span></div>
+                  </div>
+                  <button onClick={() => setStep(0)}
+                    className="w-full flex items-center gap-4 p-4 bg-forest/40 border border-gold/20 rounded-xl
+                      hover:border-gold/40 hover:bg-gold/5 transition-all group"
+                    data-testid="checkout-guest-option">
+                    <div className="w-10 h-10 rounded-full bg-gold/15 flex items-center justify-center shrink-0 group-hover:bg-gold/25 transition-colors">
+                      <ShoppingBag className="w-5 h-5 text-gold" />
+                    </div>
+                    <div className="text-left">
+                      <p className="text-cream font-cinzel font-bold text-sm">{t('checkout.guestCheckout', 'Buy Without Registration')}</p>
+                      <p className="text-cream/50 font-montserrat text-xs">{t('checkout.guestDesc', 'Continue as guest — no account needed')}</p>
+                    </div>
+                    <ChevronRight className="w-5 h-5 text-gold/40 ml-auto" />
+                  </button>
+                </div>
+              )}
+
               {/* Step 0: Address */}
               {step === 0 && (
                 <div className="space-y-5" data-testid="checkout-step-address">
