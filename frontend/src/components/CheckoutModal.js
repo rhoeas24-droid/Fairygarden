@@ -72,7 +72,7 @@ const CheckoutModal = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     if (isOpen) {
-      setStep(0);
+      setStep(isLoggedIn ? 0 : -1);
       setOrderResult(null);
       fetchShippingMethods();
       if (isLoggedIn && customer) {
