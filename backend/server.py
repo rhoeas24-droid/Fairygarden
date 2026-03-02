@@ -1,7 +1,6 @@
 from fastapi import FastAPI, APIRouter, HTTPException
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
-from motor.motor_asyncio import AsyncIOMotorClient
 import os
 import logging
 import time
@@ -23,9 +22,20 @@ logger = logging.getLogger(__name__)
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+# MongoDB - optional (not available on cPanel)
+db = None
+client = None
+try:
+    from motor.motor_asyncio import AsyncIOMotorClient
+    mongo_url = os.environ.get('MONGO_URL')
+    if mongo_url:
+        client = AsyncIOMotorClient(mongo_url)
+        db = client[os.environ.get('DB_NAME', 'fairygarden')]
+        logger.info("MongoDB connected")
+    else:
+        logger.warning("MONGO_URL not set - MongoDB features disabled")
+except Exception as e:
+    logger.warning(f"MongoDB not available: {e} - running without MongoDB")
 
 # WooCommerce API Setup
 wc_url = os.environ.get('WOOCOMMERCE_URL', '')
