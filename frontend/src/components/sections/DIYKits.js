@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Package, Wrench, BookOpen } from 'lucide-react';
+import { Package, Wrench, BookOpen, Eye } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { useCart } from '../../contexts/CartContext';
 import CustomTerrariumBuilder from '../CustomTerrariumBuilder';
+import ProductDetailModal from '../ProductDetailModal';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -21,6 +22,7 @@ const DIYKits = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isCustomBuilderOpen, setIsCustomBuilderOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const { addToCart } = useCart();
 
   useEffect(() => {
