@@ -76,6 +76,7 @@ function App() {
         <PrivacyModal isOpen={isPrivacyOpen} onClose={() => setIsPrivacyOpen(false)} />
       </div>
     </CartProvider>
+    </AuthProvider>
   );
 }
 
