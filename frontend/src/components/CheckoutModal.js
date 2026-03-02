@@ -217,6 +217,7 @@ const CheckoutModal = ({ isOpen, onClose }) => {
   }
 
   return (
+    <>
     <AnimatePresence>
       {isOpen && (
         <>
