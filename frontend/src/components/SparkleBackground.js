@@ -1,16 +1,28 @@
-import React, { useCallback } from 'react';
-import Particles from 'react-tsparticles';
-import { loadFull } from 'tsparticles';
+import React, { useEffect, useState, useCallback } from 'react';
+import Particles, { initParticlesEngine } from '@tsparticles/react';
+import { loadSlim } from '@tsparticles/slim';
 
 const SparkleBackground = () => {
-  const particlesInit = useCallback(async (engine) => {
-    await loadFull(engine);
+  const [init, setInit] = useState(false);
+
+  useEffect(() => {
+    initParticlesEngine(async (engine) => {
+      await loadSlim(engine);
+    }).then(() => setInit(true));
   }, []);
+
+  const particlesLoaded = useCallback((container) => {
+    console.log('Particles loaded', container);
+  }, []);
+
+  if (!init) {
+    return null;
+  }
 
   return (
     <Particles
       id="tsparticles"
-      init={particlesInit}
+      particlesLoaded={particlesLoaded}
       options={{
         fullScreen: {
           enable: true,
@@ -41,7 +53,7 @@ const SparkleBackground = () => {
             animation: {
               enable: true,
               speed: 0.5,
-              minimumValue: 0.2,
+              startValue: 'random',
               sync: false
             }
           },
@@ -56,19 +68,6 @@ const SparkleBackground = () => {
             straight: false,
             outModes: {
               default: 'out'
-            },
-            path: {
-              enable: true,
-              options: {
-                size: 5,
-                draw: false,
-                increment: 0.001
-              }
-            },
-            trail: {
-              enable: true,
-              length: 5,
-              fillColor: 'transparent'
             },
             warp: true
           }
