@@ -267,7 +267,7 @@ async def fetch_wc_products_from_api(lang: str, product_type: str):
     return await asyncio.to_thread(_fetch_wc_products_sync, lang, product_type)
 
 async def refresh_product_cache():
-    langs = ['en', 'el', 'it', 'hu']
+    langs = ['en', 'el', 'it']
     product_types = [None, 'ready-florarium', 'diy-kit']
     for lang in langs:
         for pt in product_types:

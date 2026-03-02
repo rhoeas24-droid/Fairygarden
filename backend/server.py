@@ -183,7 +183,7 @@ async def fetch_wc_products_from_api(lang: str, product_type: str):
 
 async def refresh_product_cache():
     """Background task: refresh all product cache combinations."""
-    langs = ['en', 'el', 'it', 'hu']
+    langs = ['en', 'el', 'it']
     product_types = [None, 'ready-florarium', 'diy-kit']
     
     for lang in langs:

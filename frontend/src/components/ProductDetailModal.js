@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Leaf, Droplets, Sun, ThermometerSun, Ruler, ShoppingCart, Package, Scissors, PenTool, Layers, FlaskConical, GlassWater, BookOpen, Bug } from 'lucide-react';
+import { X, Leaf, Droplets, Sun, ThermometerSun, Ruler, ShoppingCart } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useCart } from '../contexts/CartContext';
 import { toast } from 'sonner';
@@ -34,19 +34,6 @@ const ProductDetailModal = ({ isOpen, onClose, product, isDIYKit = false }) => {
     { icon: Droplets, title: t('product.care.water'), desc: t('product.care.waterDesc') },
     { icon: ThermometerSun, title: t('product.care.temp'), desc: t('product.care.tempDesc') },
     { icon: Leaf, title: t('product.care.maintenance'), desc: t('product.care.maintenanceDesc') },
-  ];
-
-  // DIY Kit contents
-  const diyKitContents = [
-    { icon: GlassWater, name: t('diyKit.glassContainer', 'Glass Container'), desc: t('diyKit.glassContainerDesc', 'Premium quality glass vessel') },
-    { icon: Layers, name: t('diyKit.drainageMix', 'Drainage Mix'), desc: t('diyKit.drainageMixDesc', 'Gravel and activated charcoal') },
-    { icon: FlaskConical, name: t('diyKit.substrateMix', 'Substrate Mix'), desc: t('diyKit.substrateMixDesc', 'Special soil blend for terrariums') },
-    { icon: Leaf, name: t('diyKit.plants', 'Plants'), desc: t('diyKit.plantsDesc', 'Carefully selected live plants') },
-    { icon: Scissors, name: t('diyKit.scissors', 'Scissors'), desc: t('diyKit.scissorsDesc', 'For trimming and shaping') },
-    { icon: PenTool, name: t('diyKit.tweezers', 'Tweezers'), desc: t('diyKit.tweezersDesc', 'Precision planting tool') },
-    { icon: PenTool, name: t('diyKit.brush', 'Brush'), desc: t('diyKit.brushDesc', 'For cleaning glass surfaces') },
-    { icon: BookOpen, name: t('diyKit.guide', 'Step-by-Step Guide'), desc: t('diyKit.guideDesc', 'Detailed instructions') },
-    { icon: Bug, name: t('diyKit.magicBugs', 'Magic Bugs'), desc: t('diyKit.magicBugsDesc', 'Springtails for ecosystem balance') },
   ];
 
   return (

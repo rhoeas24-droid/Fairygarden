@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Package, Eye, Scissors, Leaf, Droplets, BookOpen, Bug, Sparkles } from 'lucide-react';
+import { Package, Eye, Scissors, Leaf, BookOpen, Bug, Sparkles } from 'lucide-react';
 import { GlassWater, Layers, FlaskConical, PenTool } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
