@@ -337,8 +337,12 @@ class TestWooCommerceCheckout:
         assert add_response.status_code == 200
         
         # Create checkout - should strip "diy-" prefix
+        # Billing email is now required for WC order creation
         checkout_response = api_client.post(f"{BASE_URL}/api/wc/checkout", json={
-            "session_id": test_session_id
+            "session_id": test_session_id,
+            "billing_first_name": "Test",
+            "billing_last_name": "DIY User",
+            "billing_email": "diytest@example.com"
         })
         
         assert checkout_response.status_code == 200
