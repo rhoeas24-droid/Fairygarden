@@ -60,11 +60,11 @@ const DIYKits = () => {
       ...product,
       id: `diy-${product.id}`,
       name: `DIY Kit: ${product.name}`,
-      price: product.price * 0.85, // 15% cheaper as DIY
-      isDIYKit: true
+      isDIYKit: true,
+      variation_id: product.variation_id || null
     };
     addToCart(diyProduct);
-    toast.success(`DIY Kit: ${product.name} added to cart!`);
+    toast.success(t('gallery.addedToCart', { name: `DIY Kit: ${product.name}` }));
   };
 
   return (

@@ -27,7 +27,10 @@ const ProductCard = ({ product, index, onViewDetails }) => {
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
-    addToCart(product);
+    addToCart({
+      ...product,
+      variation_id: product.variation_id || null
+    });
     toast.success(t('gallery.addedToCart', { name: product.name }));
   };
 
