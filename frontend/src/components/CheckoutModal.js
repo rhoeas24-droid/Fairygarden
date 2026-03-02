@@ -97,10 +97,7 @@ const CheckoutModal = ({ isOpen, onClose }) => {
       if (response.data.success) {
         setOrderResult(response.data);
         await clearCart();
-        if (response.data.payment_method !== 'bacs' && response.data.checkout_url) {
-          toast.success(t('checkout.orderCreated'));
-          window.open(response.data.checkout_url, '_blank');
-        }
+        toast.success(t('checkout.orderCreated'));
       }
     } catch (error) {
       toast.error(error.response?.data?.detail || t('checkout.error'));
@@ -123,6 +120,44 @@ const CheckoutModal = ({ isOpen, onClose }) => {
                 <button onClick={onClose} className="text-cream/60 hover:text-gold"><X className="w-6 h-6" /></button>
               </div>
               <BankTransferResult orderResult={orderResult} onClose={onClose} t={t} />
+            </motion.div>
+            </div>
+          </React.Fragment>
+        )}
+      </AnimatePresence>
+    );
+  }
+
+  if (orderResult) {
+    return (
+      <AnimatePresence>
+        {isOpen && (
+          <React.Fragment>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50" onClick={onClose} />
+            <div className={modalClass}>
+            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 40 }} className={modalInner} data-testid="checkout-order-confirmed">
+              <div className="p-5 border-b border-gold/20 flex justify-between items-center">
+                <h2 className="text-xl font-cinzel font-bold text-gold">{t('checkout.orderConfirmed')}</h2>
+                <button onClick={onClose} className="text-cream/60 hover:text-gold"><X className="w-6 h-6" /></button>
+              </div>
+              <div className="p-6 text-center space-y-4 overflow-y-auto">
+                <div className="w-16 h-16 mx-auto rounded-full bg-gold/20 flex items-center justify-center">
+                  <ShieldCheck className="w-8 h-8 text-gold" />
+                </div>
+                <h3 className="text-2xl font-cinzel font-bold text-cream">{t('checkout.thankYou', 'Thank you for your order!')}</h3>
+                <p className="text-cream/70 font-montserrat">
+                  {t('checkout.orderNumber', 'Order number')}: <span className="text-gold font-bold">#{orderResult.order_id}</span>
+                </p>
+                <p className="text-cream/70 font-montserrat text-sm">
+                  {t('checkout.totalAmount', 'Total')}: <span className="text-gold font-bold">{'\u20AC'}{orderResult.total}</span>
+                </p>
+                <p className="text-cream/60 font-montserrat text-sm">
+                  {t('checkout.confirmationEmail', 'You will receive a confirmation email shortly.')}
+                </p>
+                <GoldButton onClick={onClose} className="mt-4 px-8" dataTestId="order-confirmed-close">
+                  {t('checkout.continueShopping', 'Continue Shopping')}
+                </GoldButton>
+              </div>
             </motion.div>
             </div>
           </React.Fragment>
