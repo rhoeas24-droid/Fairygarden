@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Package, Eye, Scissors, Leaf, Droplets, BookOpen, Bug } from 'lucide-react';
+import { Package, Eye, Scissors, Leaf, Droplets, BookOpen, Bug, Sparkles } from 'lucide-react';
 import { GlassWater, Layers, FlaskConical, PenTool } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
@@ -103,12 +103,17 @@ const DIYKits = () => {
           </div>
           
           {/* Kit Contents Grid */}
-          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4 mt-10 sm:mt-16 mb-8 max-w-4xl mx-auto px-2">
+          <div className="mt-10 sm:mt-16 mb-8 max-w-4xl mx-auto px-2">
+            <h3 className="text-xl sm:text-2xl font-cinzel font-bold text-forest mb-6 text-center">
+              {t('diy.kitsInclude', 'Our kits include:')}
+            </h3>
+            <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 sm:gap-4">
             {[
               { icon: GlassWater, name: t('diyKit.glassContainer', 'Glass Container') },
               { icon: Layers, name: t('diyKit.drainageMix', 'Drainage Mix') },
               { icon: FlaskConical, name: t('diyKit.substrateMix', 'Substrate Mix') },
               { icon: Leaf, name: t('diyKit.plants', 'Plants') },
+              { icon: Sparkles, name: t('diyKit.decorItems', 'Decor Items') },
               { icon: Scissors, name: t('diyKit.scissors', 'Scissors') },
               { icon: PenTool, name: t('diyKit.tweezers', 'Tweezers') },
               { icon: PenTool, name: t('diyKit.brush', 'Brush') },
@@ -122,6 +127,7 @@ const DIYKits = () => {
                 <span className="font-montserrat font-semibold text-xs sm:text-sm text-center leading-tight">{item.name}</span>
               </div>
             ))}
+            </div>
           </div>
         </motion.div>
 
