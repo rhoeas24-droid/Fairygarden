@@ -49,10 +49,12 @@ const CheckoutModal = ({ isOpen, onClose }) => {
   const { cart, cartTotal, clearCart } = useCart();
   const { isLoggedIn, customer } = useAuth();
   const { t } = useTranslation();
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(-1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [shippingMethods, setShippingMethods] = useState([]);
   const [orderResult, setOrderResult] = useState(null);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [authMode, setAuthMode] = useState('login');
 
   const [form, setForm] = useState({
     billing_first_name: '', billing_last_name: '', billing_email: '', billing_phone: '',
