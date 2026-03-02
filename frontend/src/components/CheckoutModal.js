@@ -514,7 +514,8 @@ const CheckoutModal = ({ isOpen, onClose }) => {
               )}
             </div>
 
-            {/* Footer Navigation */}
+            {/* Footer Navigation - only show for checkout steps */}
+            {step >= 0 && (
             <div className="p-4 border-t border-gold/20 shrink-0 flex items-center gap-3">
               {step > 0 && (
                 <button onClick={() => setStep(step - 1)}
@@ -547,10 +548,18 @@ const CheckoutModal = ({ isOpen, onClose }) => {
                 </GoldButton>
               )}
             </div>
+            )}
           </motion.div>
         </>
       )}
     </AnimatePresence>
+
+    <AuthModal isOpen={showAuthModal}
+      onClose={() => setShowAuthModal(false)}
+      onLoginSuccess={() => { setShowAuthModal(false); setStep(0); }}
+      defaultMode={authMode}
+    />
+    </>
   );
 };
 
