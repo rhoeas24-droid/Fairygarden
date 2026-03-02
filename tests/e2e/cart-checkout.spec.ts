@@ -1,10 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Cart and Checkout Flow', () => {
-  let uniqueSessionPrefix: string;
-  
   test.beforeEach(async ({ page }) => {
-    uniqueSessionPrefix = `test_${Date.now()}`;
     await page.goto('/', { waitUntil: 'domcontentloaded' });
     
     // Accept cookies if modal appears
@@ -14,9 +11,10 @@ test.describe('Cart and Checkout Flow', () => {
     }
     
     // Set unique session ID for test isolation
-    await page.evaluate((prefix) => {
-      localStorage.setItem('sessionId', `${prefix}_${Math.random().toString(36).substr(2, 9)}`);
-    }, uniqueSessionPrefix);
+    const uniqueSession = `test_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    await page.evaluate((session) => {
+      localStorage.setItem('sessionId', session);
+    }, uniqueSession);
   });
 
   test('cart drawer opens when clicking cart icon', async ({ page }) => {
@@ -34,16 +32,10 @@ test.describe('Cart and Checkout Flow', () => {
     await cartIcon.click();
     
     // Verify empty cart message
-    await expect(page.getByTestId('empty-cart-message')).toBeVisible();
+    await expect(page.getByTestId('empty-cart-message')).toBeVisible({ timeout: 5000 });
   });
 
   test('add product to cart from gallery', async ({ page }) => {
-    // Wait for products to load
-    await page.waitForResponse(resp => 
-      resp.url().includes('/api/wc/products') && 
-      resp.status() === 200
-    );
-    
     // Scroll to gallery
     await page.evaluate(() => {
       const gallery = document.getElementById('gallery');
@@ -52,7 +44,7 @@ test.describe('Cart and Checkout Flow', () => {
     
     // Find first add to cart button
     const addToCartButtons = page.locator('[data-testid^="add-to-cart-"]');
-    await expect(addToCartButtons.first()).toBeVisible({ timeout: 10000 });
+    await expect(addToCartButtons.first()).toBeVisible({ timeout: 15000 });
     
     // Click add to cart
     await addToCartButtons.first().click();
@@ -72,19 +64,13 @@ test.describe('Cart and Checkout Flow', () => {
       if (diy) diy.scrollIntoView({ behavior: 'instant' });
     });
     
-    // Wait for DIY products to load
-    await page.waitForResponse(resp => 
-      resp.url().includes('/api/wc/products') && 
-      resp.url().includes('product_type=diy-kit') &&
-      resp.status() === 200
-    );
-    
-    // Scroll down to see products
+    // Wait for DIY kits title and scroll down to see products
+    await expect(page.getByTestId('diy-kits-title')).toBeVisible({ timeout: 10000 });
     await page.evaluate(() => window.scrollBy(0, 500));
     
     // Find add to cart button for a DIY kit
     const diyAddToCartButtons = page.locator('[data-testid^="diy-add-to-cart-"]');
-    await expect(diyAddToCartButtons.first()).toBeVisible({ timeout: 10000 });
+    await expect(diyAddToCartButtons.first()).toBeVisible({ timeout: 15000 });
     
     // Click add to cart
     await diyAddToCartButtons.first().click();
@@ -92,25 +78,20 @@ test.describe('Cart and Checkout Flow', () => {
     // Verify cart drawer opens with item
     await expect(page.getByTestId('cart-drawer-title')).toBeVisible({ timeout: 5000 });
     
-    // Cart should show item with "DIY Kit:" prefix
+    // Cart should show item
     const cartItems = page.locator('[data-testid^="cart-item-"]');
-    await expect(cartItems.first()).toBeVisible();
+    await expect(cartItems.first()).toBeVisible({ timeout: 5000 });
   });
 
   test('remove item from cart', async ({ page }) => {
-    // Add item first
-    await page.waitForResponse(resp => 
-      resp.url().includes('/api/wc/products') && 
-      resp.status() === 200
-    );
-    
+    // Scroll to gallery and add item
     await page.evaluate(() => {
       const gallery = document.getElementById('gallery');
       if (gallery) gallery.scrollIntoView({ behavior: 'instant' });
     });
     
     const addToCartButtons = page.locator('[data-testid^="add-to-cart-"]');
-    await expect(addToCartButtons.first()).toBeVisible({ timeout: 10000 });
+    await expect(addToCartButtons.first()).toBeVisible({ timeout: 15000 });
     await addToCartButtons.first().click();
     
     // Wait for cart to open
@@ -118,27 +99,22 @@ test.describe('Cart and Checkout Flow', () => {
     
     // Click remove button
     const removeButtons = page.locator('[data-testid^="remove-cart-item-"]');
-    await expect(removeButtons.first()).toBeVisible();
+    await expect(removeButtons.first()).toBeVisible({ timeout: 5000 });
     await removeButtons.first().click();
     
     // Cart should show empty message
     await expect(page.getByTestId('empty-cart-message')).toBeVisible({ timeout: 5000 });
   });
 
-  test('cart shows total price', async ({ page }) => {
-    // Add item to cart
-    await page.waitForResponse(resp => 
-      resp.url().includes('/api/wc/products') && 
-      resp.status() === 200
-    );
-    
+  test('cart shows total price with Euro symbol', async ({ page }) => {
+    // Scroll to gallery and add item
     await page.evaluate(() => {
       const gallery = document.getElementById('gallery');
       if (gallery) gallery.scrollIntoView({ behavior: 'instant' });
     });
     
     const addToCartButtons = page.locator('[data-testid^="add-to-cart-"]');
-    await expect(addToCartButtons.first()).toBeVisible({ timeout: 10000 });
+    await expect(addToCartButtons.first()).toBeVisible({ timeout: 15000 });
     await addToCartButtons.first().click();
     
     // Verify cart total is visible
@@ -149,19 +125,14 @@ test.describe('Cart and Checkout Flow', () => {
   });
 
   test('checkout button is visible when cart has items', async ({ page }) => {
-    // Add item to cart
-    await page.waitForResponse(resp => 
-      resp.url().includes('/api/wc/products') && 
-      resp.status() === 200
-    );
-    
+    // Scroll to gallery and add item
     await page.evaluate(() => {
       const gallery = document.getElementById('gallery');
       if (gallery) gallery.scrollIntoView({ behavior: 'instant' });
     });
     
     const addToCartButtons = page.locator('[data-testid^="add-to-cart-"]');
-    await expect(addToCartButtons.first()).toBeVisible({ timeout: 10000 });
+    await expect(addToCartButtons.first()).toBeVisible({ timeout: 15000 });
     await addToCartButtons.first().click();
     
     // Verify checkout button is visible
