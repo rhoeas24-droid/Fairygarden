@@ -343,33 +343,23 @@ def get_translated_field(product: dict, field: str, lang: str) -> str:
 async def get_wc_products(lang: str = 'en', product_type: str = None):
     """Fetch products from WooCommerce with optional language translation.
     
-    Language support via custom fields:
-    - name_el, name_it for Greek/Italian product names
-    - description_el, description_it for Greek/Italian descriptions
-    
     product_type filter:
-    - 'ready-florarium': Only show products with Ready Florarium variation in stock
-    - 'diy-kit': Only show products with DIY Kit variation in stock
-    - None: Show all products
+    - 'ready-florarium': Show products in Ready Florariums category OR variable products with that variation
+    - 'diy-kit': Show products in DIY Kits category OR variable products with that variation
     """
     if not wcapi:
         raise HTTPException(status_code=503, detail="WooCommerce not configured")
     try:
-        response = wcapi.get("products", params={"per_page": 100, "status": "publish"})
+        # Build params based on filter
+        params = {"per_page": 100, "status": "publish"}
+        
+        response = wcapi.get("products", params=params)
         if response.status_code == 200:
             products = response.json()
             result = []
             
             for p in products:
-                # Check if this is a variable product
                 is_variable = p.get("type") == "variable"
-                
-                # For variable products, fetch variations
-                variations = []
-                if is_variable:
-                    var_response = wcapi.get(f"products/{p['id']}/variations", params={"per_page": 100})
-                    if var_response.status_code == 200:
-                        variations = var_response.json()
                 
                 # Build product data
                 product_data = {
@@ -393,54 +383,35 @@ async def get_wc_products(lang: str = 'en', product_type: str = None):
                         "length": p.get("dimensions", {}).get("length", "")
                     },
                     "weight": p.get("weight", ""),
-                    "attributes": {attr["name"]: attr["options"] for attr in p.get("attributes", [])},
-                    "variations": []
+                    "attributes": {attr["name"]: attr["options"] for attr in p.get("attributes", [])}
                 }
                 
-                # Process variations for variable products
-                if is_variable and variations:
-                    for var in variations:
-                        var_type = None
-                        for attr in var.get("attributes", []):
-                            if attr.get("name") == "Termék típus" or attr.get("slug") == "termek-tipus":
-                                var_type = attr.get("option", "").lower().replace(" ", "-")
-                        
-                        var_data = {
-                            "id": var["id"],
-                            "type": var_type,
-                            "price": float(var["price"]) if var.get("price") else product_data["price"],
-                            "regular_price": float(var["regular_price"]) if var.get("regular_price") else 0,
-                            "stock_status": var.get("stock_status", "instock"),
-                            "stock_quantity": var.get("stock_quantity", 0),
-                            "in_stock": var.get("stock_status") == "instock"
-                        }
-                        product_data["variations"].append(var_data)
-                    
-                    # Update main product price based on variations
-                    if product_data["variations"]:
-                        prices = [v["price"] for v in product_data["variations"] if v["price"] > 0]
-                        if prices:
-                            product_data["price"] = min(prices)
-                            product_data["price_range"] = {"min": min(prices), "max": max(prices)}
-                
-                # Filter by product_type if specified
+                # Filter by product_type
                 if product_type:
-                    if is_variable:
-                        # Check if requested variation is in stock
-                        matching_var = next((v for v in product_data["variations"] 
-                                           if v["type"] == product_type and v["in_stock"]), None)
-                        if matching_var:
-                            # Use the variation's price
-                            product_data["price"] = matching_var["price"]
-                            product_data["variation_id"] = matching_var["id"]
-                            product_data["stock_status"] = "instock"
-                            result.append(product_data)
-                    else:
-                        # Simple product - include based on category
-                        if product_type == "ready-florarium" and "Ready Florariums" in product_data["categories"]:
-                            result.append(product_data)
-                        elif product_type == "diy-kit" and "DIY Kits" in product_data["categories"]:
-                            result.append(product_data)
+                    categories = product_data["categories"]
+                    attributes = product_data.get("attributes", {})
+                    termek_tipus = attributes.get("Termék típus", [])
+                    
+                    if product_type == "ready-florarium":
+                        # Include if in Ready Florariums category OR has Ready Florarium attribute
+                        if "Ready Florariums" in categories or "Ready Florarium" in termek_tipus:
+                            # For variable products, check if this variation type exists
+                            if is_variable and "Ready Florarium" in termek_tipus:
+                                result.append(product_data)
+                            elif not is_variable and "Ready Florariums" in categories:
+                                result.append(product_data)
+                            elif "Ready Florarium" in termek_tipus:
+                                result.append(product_data)
+                    
+                    elif product_type == "diy-kit":
+                        # Include if in DIY Kits category OR has DIY Kit attribute
+                        if "DIY Kits" in categories or "DIY Kit" in termek_tipus:
+                            if is_variable and "DIY Kit" in termek_tipus:
+                                result.append(product_data)
+                            elif not is_variable and "DIY Kits" in categories:
+                                result.append(product_data)
+                            elif "DIY Kit" in termek_tipus:
+                                result.append(product_data)
                 else:
                     result.append(product_data)
             
