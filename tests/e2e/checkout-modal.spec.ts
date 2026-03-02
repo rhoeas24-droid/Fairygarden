@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Checkout Modal Flow', () => {
+test.describe('Multi-Step Checkout Modal Flow', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/', { waitUntil: 'domcontentloaded' });
     
@@ -34,48 +34,157 @@ test.describe('Checkout Modal Flow', () => {
     await expect(page.getByTestId('checkout-modal')).toBeVisible({ timeout: 5000 });
   });
 
-  test('checkout modal shows order summary with cart items', async ({ page }) => {
-    // Verify checkout elements
+  test('step 1: checkout modal shows address form (billing/shipping)', async ({ page }) => {
+    // Verify step 1 - Address
     await expect(page.getByTestId('checkout-title')).toBeVisible();
-    await expect(page.getByTestId('checkout-summary')).toBeVisible();
-    await expect(page.getByTestId('checkout-total')).toContainText('€');
-  });
-
-  test('checkout modal has billing and shipping fields', async ({ page }) => {
+    await expect(page.getByTestId('checkout-step-address')).toBeVisible();
+    
     // Verify billing fields
     await expect(page.getByTestId('checkout-first-name')).toBeVisible();
     await expect(page.getByTestId('checkout-last-name')).toBeVisible();
     await expect(page.getByTestId('checkout-email')).toBeVisible();
     await expect(page.getByTestId('checkout-phone')).toBeVisible();
-    
-    // Verify shipping fields
     await expect(page.getByTestId('checkout-address')).toBeVisible();
     await expect(page.getByTestId('checkout-city')).toBeVisible();
     await expect(page.getByTestId('checkout-postcode')).toBeVisible();
     await expect(page.getByTestId('checkout-country')).toBeVisible();
     
-    // Verify notes and submit
-    await expect(page.getByTestId('checkout-notes')).toBeVisible();
-    await expect(page.getByTestId('checkout-submit')).toBeVisible();
+    // Verify same as billing checkbox is visible
+    await expect(page.getByTestId('same-as-billing')).toBeVisible();
+    
+    // Verify Next button is visible
+    await expect(page.getByTestId('checkout-next')).toBeVisible();
   });
 
-  test('checkout form can be filled and closed', async ({ page }) => {
-    // Fill billing details
+  test('step 1: separate shipping address fields appear when unchecked', async ({ page }) => {
+    // Uncheck "same as billing"
+    const sameAsBilling = page.getByTestId('same-as-billing').locator('input[type="checkbox"]');
+    await sameAsBilling.uncheck();
+    
+    // Verify separate shipping fields appear
+    await expect(page.getByTestId('checkout-ship-first')).toBeVisible();
+    await expect(page.getByTestId('checkout-ship-last')).toBeVisible();
+    await expect(page.getByTestId('checkout-ship-address')).toBeVisible();
+    await expect(page.getByTestId('checkout-ship-city')).toBeVisible();
+    await expect(page.getByTestId('checkout-ship-postcode')).toBeVisible();
+    await expect(page.getByTestId('checkout-ship-country')).toBeVisible();
+  });
+
+  test('step 2: shipping method selection and order notes', async ({ page }) => {
+    // Fill step 1 - required billing fields
     await page.getByTestId('checkout-first-name').fill('Test');
     await page.getByTestId('checkout-last-name').fill('User');
     await page.getByTestId('checkout-email').fill('test@example.com');
-    await page.getByTestId('checkout-phone').fill('+36301234567');
-    
-    // Fill shipping details
     await page.getByTestId('checkout-address').fill('123 Test Street');
-    await page.getByTestId('checkout-city').fill('Budapest');
-    await page.getByTestId('checkout-postcode').fill('1066');
-    await page.getByTestId('checkout-country').fill('Hungary');
+    await page.getByTestId('checkout-city').fill('Athens');
+    await page.getByTestId('checkout-postcode').fill('10557');
+    await page.getByTestId('checkout-country').fill('Greece');
     
-    // Verify fields
-    await expect(page.getByTestId('checkout-first-name')).toHaveValue('Test');
-    await expect(page.getByTestId('checkout-city')).toHaveValue('Budapest');
+    // Go to step 2
+    await page.getByTestId('checkout-next').click();
+    await expect(page.getByTestId('checkout-step-shipping')).toBeVisible({ timeout: 5000 });
     
+    // Verify shipping method options
+    await expect(page.getByTestId('shipping-flat_rate')).toBeVisible();
+    await expect(page.getByTestId('shipping-express')).toBeVisible();
+    await expect(page.getByTestId('shipping-local_pickup')).toBeVisible();
+    
+    // Verify order notes field
+    await expect(page.getByTestId('checkout-notes')).toBeVisible();
+    
+    // Test selecting express shipping
+    await page.getByTestId('shipping-express').click();
+    
+    // Fill order notes
+    await page.getByTestId('checkout-notes').fill('Please handle with care');
+    
+    // Verify Back button is visible
+    await expect(page.getByTestId('checkout-back')).toBeVisible();
+    await expect(page.getByTestId('checkout-next')).toBeVisible();
+  });
+
+  test('step 3: summary with payment method and checkboxes', async ({ page }) => {
+    // Fill step 1 - required billing fields
+    await page.getByTestId('checkout-first-name').fill('Test');
+    await page.getByTestId('checkout-last-name').fill('Summary');
+    await page.getByTestId('checkout-email').fill('summary@example.com');
+    await page.getByTestId('checkout-address').fill('456 Summary Avenue');
+    await page.getByTestId('checkout-city').fill('Athens');
+    await page.getByTestId('checkout-postcode').fill('10558');
+    await page.getByTestId('checkout-country').fill('Greece');
+    
+    // Go to step 2
+    await page.getByTestId('checkout-next').click();
+    await expect(page.getByTestId('checkout-step-shipping')).toBeVisible({ timeout: 5000 });
+    
+    // Go to step 3
+    await page.getByTestId('checkout-next').click();
+    await expect(page.getByTestId('checkout-step-summary')).toBeVisible({ timeout: 5000 });
+    
+    // Verify order summary with grand total
+    await expect(page.getByTestId('checkout-grand-total')).toContainText('€');
+    
+    // Verify T&C and Privacy checkboxes
+    await expect(page.getByTestId('accept-terms')).toBeVisible();
+    await expect(page.getByTestId('accept-privacy')).toBeVisible();
+    await expect(page.getByTestId('subscribe-newsletter')).toBeVisible();
+    
+    // Verify Place Order button
+    await expect(page.getByTestId('checkout-submit')).toBeVisible();
+  });
+
+  test('step 3: bank transfer payment option available', async ({ page }) => {
+    // Fill and navigate to step 3
+    await page.getByTestId('checkout-first-name').fill('Bank');
+    await page.getByTestId('checkout-last-name').fill('Transfer');
+    await page.getByTestId('checkout-email').fill('bank@example.com');
+    await page.getByTestId('checkout-address').fill('789 Bank Street');
+    await page.getByTestId('checkout-city').fill('Athens');
+    await page.getByTestId('checkout-postcode').fill('10559');
+    await page.getByTestId('checkout-country').fill('Greece');
+    
+    await page.getByTestId('checkout-next').click();
+    await expect(page.getByTestId('checkout-step-shipping')).toBeVisible({ timeout: 5000 });
+    
+    await page.getByTestId('checkout-next').click();
+    await expect(page.getByTestId('checkout-step-summary')).toBeVisible({ timeout: 5000 });
+    
+    // Verify both payment methods are visible
+    const onlinePayment = page.locator('input[type="radio"][value="online"]');
+    const bacsPayment = page.locator('input[type="radio"][value="bacs"]');
+    
+    await expect(onlinePayment).toBeVisible();
+    await expect(bacsPayment).toBeVisible();
+    
+    // Select bank transfer
+    await bacsPayment.click();
+    await expect(bacsPayment).toBeChecked();
+  });
+
+  test('checkout navigation - back button works', async ({ page }) => {
+    // Fill step 1
+    await page.getByTestId('checkout-first-name').fill('Back');
+    await page.getByTestId('checkout-last-name').fill('Test');
+    await page.getByTestId('checkout-email').fill('back@example.com');
+    await page.getByTestId('checkout-address').fill('Back Street');
+    await page.getByTestId('checkout-city').fill('Athens');
+    await page.getByTestId('checkout-postcode').fill('10560');
+    await page.getByTestId('checkout-country').fill('Greece');
+    
+    // Go to step 2
+    await page.getByTestId('checkout-next').click();
+    await expect(page.getByTestId('checkout-step-shipping')).toBeVisible({ timeout: 5000 });
+    
+    // Go back to step 1
+    await page.getByTestId('checkout-back').click();
+    await expect(page.getByTestId('checkout-step-address')).toBeVisible({ timeout: 5000 });
+    
+    // Verify form data is preserved
+    await expect(page.getByTestId('checkout-first-name')).toHaveValue('Back');
+    await expect(page.getByTestId('checkout-last-name')).toHaveValue('Test');
+  });
+
+  test('checkout modal can be closed', async ({ page }) => {
     // Close modal
     await page.getByTestId('checkout-close').click();
     await expect(page.getByTestId('checkout-modal')).not.toBeVisible({ timeout: 3000 });
