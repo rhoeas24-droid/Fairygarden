@@ -596,26 +596,42 @@ async def get_custom_terrarium_orders():
 # Blog
 @api_router.get("/blog/posts")
 async def get_blog_posts():
-    conn = get_db()
+    """Fetch blog posts from WordPress REST API."""
+    import requests
+    wp_base = os.environ.get('WOOCOMMERCE_URL', '').rstrip('/')
+    if not wp_base:
+        return []
     try:
-        with conn.cursor() as cursor:
-            cursor.execute("SELECT * FROM blog ORDER BY published_at DESC LIMIT 10")
-            return cursor.fetchall()
-    finally:
-        conn.close()
-
-@api_router.post("/blog/posts")
-async def create_blog_post(post: BlogPostCreate):
-    conn = get_db()
-    try:
-        with conn.cursor() as cursor:
-            pid = str(uuid.uuid4())
-            cursor.execute("INSERT INTO blog (id,title,excerpt,content,image,author) VALUES (%s,%s,%s,%s,%s,%s)",
-                          (pid, post.title, post.excerpt, post.content, post.image, post.author))
-        conn.commit()
-        return {**post.model_dump(), "id": pid}
-    finally:
-        conn.close()
+        resp = requests.get(f"{wp_base}/wp-json/wp/v2/posts", params={"_embed": 1, "per_page": 6}, timeout=15)
+        if resp.status_code != 200:
+            return []
+        posts = []
+        for p in resp.json():
+            img = ""
+            if "_embedded" in p and "wp:featuredmedia" in p["_embedded"]:
+                media = p["_embedded"]["wp:featuredmedia"]
+                if media:
+                    img = media[0].get("source_url", "")
+            author = "Fairygarden"
+            if "_embedded" in p and "author" in p["_embedded"]:
+                authors = p["_embedded"]["author"]
+                if authors:
+                    author = authors[0].get("name", "Fairygarden")
+            excerpt = p.get("excerpt", {}).get("rendered", "")
+            excerpt = excerpt.replace("<p>", "").replace("</p>", "").replace("\n", "").strip()
+            posts.append({
+                "id": str(p["id"]),
+                "title": p.get("title", {}).get("rendered", ""),
+                "excerpt": excerpt,
+                "content": p.get("content", {}).get("rendered", ""),
+                "image": img,
+                "author": author,
+                "published_at": p.get("date", ""),
+            })
+        return posts
+    except Exception as e:
+        logger.error(f"WordPress blog fetch error: {e}")
+        return []
 
 # Auth - WooCommerce Customers
 @api_router.post("/wc/customers/register")
