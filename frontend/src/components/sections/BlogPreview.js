@@ -1,20 +1,93 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Calendar, User, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Calendar, User, ArrowRight, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-const BlogCard = ({ post, index }) => {
+const BlogPostModal = ({ post, onClose }) => {
+  if (!post) return null;
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-20 pb-8 overflow-y-auto"
+        onClick={onClose}
+        data-testid="blog-modal-overlay"
+      >
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" />
+        <motion.div
+          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 40, scale: 0.95 }}
+          transition={{ duration: 0.3 }}
+          className="relative w-full max-w-3xl bg-cream rounded-2xl overflow-hidden shadow-2xl"
+          onClick={(e) => e.stopPropagation()}
+          data-testid="blog-modal"
+        >
+          {/* Close button */}
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-forest/80 text-cream hover:bg-forest transition-colors"
+            data-testid="blog-modal-close"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          {/* Hero image */}
+          {post.image && (
+            <div className="relative h-48 sm:h-64 lg:h-80 overflow-hidden">
+              <img
+                src={post.image}
+                alt={post.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-forest/80 via-forest/20 to-transparent" />
+            </div>
+          )}
+
+          {/* Content */}
+          <div className="p-6 sm:p-8 lg:p-10">
+            {/* Meta */}
+            <div className="flex items-center gap-4 text-forest/60 text-sm font-montserrat mb-4">
+              <div className="flex items-center gap-2">
+                <Calendar className="w-4 h-4" />
+                <span>{new Date(post.published_at).toLocaleDateString()}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <User className="w-4 h-4" />
+                <span>{post.author}</span>
+              </div>
+            </div>
+
+            {/* Title */}
+            <h2 className="text-2xl sm:text-3xl font-cinzel font-bold text-forest mb-6">
+              {post.title}
+            </h2>
+
+            {/* Post content - rendered HTML from WordPress */}
+            <div
+              className="prose prose-lg max-w-none font-montserrat text-forest/85
+                prose-headings:font-cinzel prose-headings:text-forest
+                prose-a:text-gold-dark prose-a:no-underline hover:prose-a:underline
+                prose-img:rounded-xl prose-img:shadow-lg
+                prose-p:leading-relaxed prose-p:text-justify"
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+};
+
+const BlogCard = ({ post, index, onReadMore }) => {
   const { t } = useTranslation();
-  
-  const handleReadMore = () => {
-    if (post.link) {
-      window.open(post.link, '_blank', 'noopener,noreferrer');
-    }
-  };
 
   return (
     <motion.article
@@ -25,7 +98,7 @@ const BlogCard = ({ post, index }) => {
       className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300
         hover:-translate-y-2 group cursor-pointer"
       data-testid={`blog-card-${post.id}`}
-      onClick={handleReadMore}
+      onClick={() => onReadMore(post)}
     >
       <div className="relative overflow-hidden h-40 sm:h-48 lg:h-56">
         <img
@@ -70,6 +143,7 @@ const BlogCard = ({ post, index }) => {
 
 const BlogPreview = () => {
   const [posts, setPosts] = useState([]);
+  const [selectedPost, setSelectedPost] = useState(null);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -86,40 +160,44 @@ const BlogPreview = () => {
   };
 
   return (
-    <section
-      id="blog"
-      className="relative py-12 sm:py-16 lg:py-24 px-3 sm:px-4"
-      style={{
-        backgroundImage: 'url(/BG_TILE_FINAL.jpg)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundAttachment: 'fixed'
-      }}
-    >
-      <div className="absolute inset-0 bg-forest/85" />
-      
-      <div className="relative z-10 max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-10 sm:mb-16"
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-cinzel font-bold text-gold mb-3 sm:mb-4" data-testid="blog-title">
-            {t('blog.title')}
-          </h2>
-          <p className="text-cream/80 font-montserrat text-sm sm:text-base lg:text-lg max-w-2xl mx-auto px-2 text-justify">
-            {t('blog.subtitle')}
-          </p>
-        </motion.div>
+    <>
+      <section
+        id="blog"
+        className="relative py-12 sm:py-16 lg:py-24 px-3 sm:px-4"
+        style={{
+          backgroundImage: 'url(/BG_TILE_FINAL.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed'
+        }}
+      >
+        <div className="absolute inset-0 bg-forest/85" />
+        
+        <div className="relative z-10 max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-10 sm:mb-16"
+          >
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-cinzel font-bold text-gold mb-3 sm:mb-4" data-testid="blog-title">
+              {t('blog.title')}
+            </h2>
+            <p className="text-cream/80 font-montserrat text-sm sm:text-base lg:text-lg max-w-2xl mx-auto px-2 text-justify">
+              {t('blog.subtitle')}
+            </p>
+          </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-          {posts.map((post, index) => (
-            <BlogCard key={post.id} post={post} index={index} />
-          ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+            {posts.map((post, index) => (
+              <BlogCard key={post.id} post={post} index={index} onReadMore={setSelectedPost} />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <BlogPostModal post={selectedPost} onClose={() => setSelectedPost(null)} />
+    </>
   );
 };
 
