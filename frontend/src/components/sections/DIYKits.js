@@ -176,14 +176,24 @@ const DIYKits = () => {
                     </div>
                   </div>
                   
-                  {/* Add to Cart Button */}
-                  <button
-                    onClick={() => handleAddToCart(product)}
-                    className="w-full mt-3 py-2 px-4 bg-forest hover:bg-forest/90 text-cream font-montserrat text-sm font-semibold rounded-lg transition-colors"
-                    data-testid={`diy-add-to-cart-${product.id}`}
-                  >
-                    {t('diy.addToCart')}
-                  </button>
+                  {/* Buttons */}
+                  <div className="flex gap-2 mt-3">
+                    <button
+                      onClick={() => setSelectedProduct(product)}
+                      className="flex-1 py-2 px-3 bg-gold/20 hover:bg-gold/30 text-forest font-montserrat text-sm font-semibold rounded-lg transition-colors flex items-center justify-center gap-1"
+                      data-testid={`diy-view-${product.id}`}
+                    >
+                      <Eye className="w-4 h-4" />
+                      {t('diy.viewDetails', 'Details')}
+                    </button>
+                    <button
+                      onClick={() => handleAddToCart(product)}
+                      className="flex-1 py-2 px-3 bg-forest hover:bg-forest/90 text-cream font-montserrat text-sm font-semibold rounded-lg transition-colors"
+                      data-testid={`diy-add-to-cart-${product.id}`}
+                    >
+                      {t('diy.addToCart')}
+                    </button>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -194,6 +204,13 @@ const DIYKits = () => {
       <CustomTerrariumBuilder
         isOpen={isCustomBuilderOpen}
         onClose={() => setIsCustomBuilderOpen(false)}
+      />
+      
+      <ProductDetailModal
+        isOpen={!!selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+        product={selectedProduct}
+        isDIYKit={true}
       />
     </section>
   );
