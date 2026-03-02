@@ -2,13 +2,13 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: '/app/tests/e2e',
-  outputDir: '/root/.emergent/automation_output/20260302_074953/test-results',
+  outputDir: '/root/.emergent/automation_output/20260302_075103/test-results',
   timeout: 60000,
   retries: 0,
   workers: 1,
   reporter: [
     ['line'],
-    ['json', { outputFile: '/root/.emergent/automation_output/20260302_074953/results.json' }],
+    ['json', { outputFile: '/root/.emergent/automation_output/20260302_075103/results.json' }],
   ],
   use: {
     baseURL: 'https://enchanted-terrariums.preview.emergentagent.com',
