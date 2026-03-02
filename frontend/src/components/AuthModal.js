@@ -6,15 +6,19 @@ import { useAuth } from '../contexts/AuthContext';
 import GoldButton from './GoldButton';
 import { toast } from 'sonner';
 
-const AuthModal = ({ isOpen, onClose, onLoginSuccess }) => {
+const AuthModal = ({ isOpen, onClose, onLoginSuccess, defaultMode }) => {
   const { t } = useTranslation();
   const { login, register } = useAuth();
-  const [mode, setMode] = useState('login'); // login | register
+  const [mode, setMode] = useState(defaultMode || 'login');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({
     email: '', password: '', password2: '', firstName: '', lastName: '',
   });
+
+  useEffect(() => {
+    if (isOpen) setMode(defaultMode || 'login');
+  }, [isOpen, defaultMode]);
 
   const update = (f) => (e) => setForm(prev => ({ ...prev, [f]: e.target.value }));
 
