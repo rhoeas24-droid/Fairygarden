@@ -49,9 +49,10 @@ const Navigation = () => {
   };
 
   const shopCategories = [
+    { label: 'Our Shop', id: 'our-shop', isMain: true },
     { label: 'Ready Florariums', id: 'gallery' },
+    { label: 'DIY Kits', id: 'diy-kits' },
     { label: 'Bottles, Jars & Tools', id: 'shop-bottles' },
-    { label: 'Plants & Substrate Mix', id: 'shop-plants' },
     { label: 'Decorations & Terrascaping', id: 'shop-decorations' },
   ];
 
@@ -136,7 +137,12 @@ const Navigation = () => {
                         <button
                           key={category.id}
                           onClick={() => scrollToSection(category.id)}
-                          className={`w-full text-left px-4 py-3 font-montserrat text-sm transition-colors text-cream hover:text-gold hover:bg-gold/10 ${index !== shopCategories.length - 1 ? 'border-b border-gold/10' : ''}`}
+                          className={`w-full text-left px-4 py-3 font-montserrat text-sm transition-colors 
+                            ${category.isMain 
+                              ? 'text-gold font-semibold bg-gold/10 hover:bg-gold/20 border-b border-gold/20' 
+                              : 'text-cream hover:text-gold hover:bg-gold/10'
+                            } 
+                            ${index !== shopCategories.length - 1 && !category.isMain ? 'border-b border-gold/10' : ''}`}
                         >
                           {category.label}
                         </button>
@@ -272,7 +278,11 @@ const Navigation = () => {
                           <button
                             key={cat.id}
                             onClick={() => scrollToSection(cat.id)}
-                            className="w-full flex items-center px-8 py-2.5 text-cream/70 hover:text-gold text-sm font-montserrat transition-colors"
+                            className={`w-full flex items-center px-8 py-2.5 text-sm font-montserrat transition-colors
+                              ${cat.isMain 
+                                ? 'text-gold font-semibold bg-gold/10' 
+                                : 'text-cream/70 hover:text-gold'
+                              }`}
                           >
                             {cat.label}
                           </button>

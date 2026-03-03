@@ -11,6 +11,7 @@ import ScrollToTop from './components/ScrollToTop';
 import GoogleAnalytics from './components/GoogleAnalytics';
 import Hero from './components/sections/Hero';
 import MagicalDivider from './components/sections/MagicalDivider';
+import OurShop from './components/sections/OurShop';
 import TerrariumGallery from './components/sections/TerrariumGallery';
 import DIYKits from './components/sections/DIYKits';
 import ForBusiness from './components/sections/ForBusiness';
@@ -41,6 +42,45 @@ function App() {
     };
   }, []);
   
+  // Handle hash links on page load (after construction banner dismissed)
+  useEffect(() => {
+    const handleHashScroll = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const targetId = hash.substring(1); // Remove the # character
+        setTimeout(() => {
+          const element = document.getElementById(targetId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 500); // Small delay to allow page to settle
+      }
+    };
+    
+    // Listen for construction banner dismissal
+    const checkAndScroll = () => {
+      const dismissed = sessionStorage.getItem('constructionDismissed');
+      if (dismissed) {
+        handleHashScroll();
+      }
+    };
+    
+    // Check on mount
+    checkAndScroll();
+    
+    // Also listen for hash changes during session
+    window.addEventListener('hashchange', handleHashScroll);
+    
+    // Custom event when construction banner is dismissed
+    const handleConstructionDismissed = () => handleHashScroll();
+    window.addEventListener('constructionDismissed', handleConstructionDismissed);
+    
+    return () => {
+      window.removeEventListener('hashchange', handleHashScroll);
+      window.removeEventListener('constructionDismissed', handleConstructionDismissed);
+    };
+  }, []);
+  
   return (
     <AuthProvider>
     <CartProvider>
@@ -59,6 +99,7 @@ function App() {
         <main>
           <Hero />
           <MagicalDivider />
+          <OurShop />
           <TerrariumGallery />
           <DIYKits />
           <ForBusiness />

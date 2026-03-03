@@ -83,6 +83,8 @@ const UnderConstructionBanner = () => {
     else {
       setPhase('hidden');
       sessionStorage.setItem('constructionDismissed', '1');
+      // Dispatch event to notify App.js
+      window.dispatchEvent(new CustomEvent('constructionDismissed'));
     }
   };
 
