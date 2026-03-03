@@ -20,6 +20,7 @@ import BlogPreview from './components/sections/BlogPreview';
 import TermsConditions, { TermsModal } from './components/sections/TermsConditions';
 import PrivacyPolicy, { PrivacyModal } from './components/sections/PrivacyPolicy';
 import Footer from './components/sections/Footer';
+import UnderConstructionBanner from './components/UnderConstructionBanner';
 import './App.css';
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
         
         <Navigation />
         <CartDrawer />
+        <UnderConstructionBanner />
         <GoogleAnalytics />
         
         <main>
