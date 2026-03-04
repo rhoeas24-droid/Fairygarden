@@ -1,163 +1,58 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
-import GoldButton from '../GoldButton';
+import { Gift, Truck, Heart, Award } from 'lucide-react';
+
+const features = [
+  {
+    icon: Gift,
+    title: 'Unique Gifts',
+    description: 'Discover unique and sustainable gift ideas — from ready-made terrariums and DIY kits to hands-on experiences at our workshops.',
+  },
+  {
+    icon: Truck,
+    title: 'Free Delivery',
+    description: 'Enjoy free delivery on all orders over €50. We ship our full product range across Cyprus.',
+  },
+  {
+    icon: Heart,
+    title: 'Handmade with Care',
+    description: 'Every ready-made terrarium is crafted using our own in-house propagated plants, planted in our specially developed and perfected substrate.',
+  },
+  {
+    icon: Award,
+    title: "Cyprus's Only Shippable Pre-Assembled Terrarium Provider",
+    description: 'Thanks to our unique technology, we are the only provider in Cyprus able to ship pre-assembled terrariums directly to your door.',
+  },
+];
 
 const MagicalDivider = () => {
-  const { t } = useTranslation();
-  
-  const scrollToGallery = () => {
-    const element = document.getElementById('gallery');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  // Smooth flowing particles - fewer on mobile for performance
-  const particles = useMemo(() => {
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-    const result = [];
-    const count = isMobile ? 60 : 360;
-    
-    for (let i = 0; i < count; i++) {
-      const angle = (i / count) * Math.PI * 2;
-      const baseRadius = 80 + Math.random() * 180;
-      
-      // Color distribution: 70% gold, 15% blue, 15% magenta
-      const colorRand = Math.random();
-      let color;
-      if (colorRand < 0.15) {
-        color = ['#00BFFF', '#1E90FF', '#87CEEB', '#4169E1', '#6495ED'][Math.floor(Math.random() * 5)];
-      } else if (colorRand < 0.30) {
-        color = ['#FF69B4', '#DB7093', '#FF1493', '#C71585', '#FF00FF'][Math.floor(Math.random() * 5)];
-      } else {
-        color = ['#f0e68c', '#d4af37', '#c9a84c', '#FFD700', '#DAA520', '#FFDF00'][Math.floor(Math.random() * 6)];
-      }
-      
-      result.push({
-        id: i,
-        angle,
-        radius: baseRadius,
-        size: 1 + Math.random() * 3,
-        color,
-        duration: 18 + Math.random() * 14, // Much slower for smooth flow
-        delay: (i / count) * 6,
-        opacity: 0.5 + Math.random() * 0.5
-      });
-    }
-    
-    return result;
-  }, []);
-
   return (
-    <section className="relative py-20 overflow-hidden" style={{
-      backgroundImage: 'url(/BG_TILE_FINAL.jpg)',
-      backgroundSize: 'cover',
-      backgroundPosition: 'center'
-    }}>
-      <div className="absolute inset-0 bg-forest/90" />
-      
-      <div className="relative z-10 max-w-7xl mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="flex flex-col items-center justify-center"
-        >
-          <div className="relative">
-            {/* Smooth flowing particles - continuous gentle orbit */}
-            {particles.map((particle) => (
-              <motion.div
-                key={particle.id}
-                className="absolute pointer-events-none"
-                style={{
-                  left: '50%',
-                  top: '50%',
-                  width: particle.size,
-                  height: particle.size,
-                  marginLeft: -particle.size / 2,
-                  marginTop: -particle.size / 2,
-                }}
-                animate={{
-                  x: [
-                    Math.cos(particle.angle) * particle.radius,
-                    Math.cos(particle.angle + Math.PI * 0.25) * particle.radius,
-                    Math.cos(particle.angle + Math.PI * 0.5) * particle.radius,
-                    Math.cos(particle.angle + Math.PI * 0.75) * particle.radius,
-                    Math.cos(particle.angle + Math.PI) * particle.radius,
-                    Math.cos(particle.angle + Math.PI * 1.25) * particle.radius,
-                    Math.cos(particle.angle + Math.PI * 1.5) * particle.radius,
-                    Math.cos(particle.angle + Math.PI * 1.75) * particle.radius,
-                    Math.cos(particle.angle + Math.PI * 2) * particle.radius,
-                  ],
-                  y: [
-                    Math.sin(particle.angle) * particle.radius * 0.5,
-                    Math.sin(particle.angle + Math.PI * 0.25) * particle.radius * 0.5,
-                    Math.sin(particle.angle + Math.PI * 0.5) * particle.radius * 0.5,
-                    Math.sin(particle.angle + Math.PI * 0.75) * particle.radius * 0.5,
-                    Math.sin(particle.angle + Math.PI) * particle.radius * 0.5,
-                    Math.sin(particle.angle + Math.PI * 1.25) * particle.radius * 0.5,
-                    Math.sin(particle.angle + Math.PI * 1.5) * particle.radius * 0.5,
-                    Math.sin(particle.angle + Math.PI * 1.75) * particle.radius * 0.5,
-                    Math.sin(particle.angle + Math.PI * 2) * particle.radius * 0.5,
-                  ],
-                  opacity: [
-                    particle.opacity * 0.8,
-                    particle.opacity * 0.9,
-                    particle.opacity,
-                    particle.opacity * 0.95,
-                    particle.opacity * 0.85,
-                    particle.opacity * 0.9,
-                    particle.opacity,
-                    particle.opacity * 0.95,
-                    particle.opacity * 0.8
-                  ],
-                }}
-                transition={{
-                  duration: particle.duration,
-                  delay: particle.delay,
-                  repeat: Infinity,
-                  ease: 'linear'
-                }}
-              >
-                <div
-                  className="w-full h-full rounded-full"
-                  style={{
-                    backgroundColor: particle.color,
-                    boxShadow: `0 0 ${particle.size * 4}px ${particle.color}`,
-                  }}
-                />
-              </motion.div>
-            ))}
-
-            {/* Button */}
+    <section className="relative py-12 sm:py-16 lg:py-20 px-4 bg-cream">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          {features.map((feature, index) => (
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              key={feature.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              className="relative z-10"
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="text-center sm:text-left"
             >
-              <GoldButton onClick={scrollToGallery} dataTestId="explore-magic-button">
-                {t('hero.button')}
-              </GoldButton>
-              
-              <motion.div
-                className="absolute inset-0 rounded-full bg-gold/30 blur-2xl -z-10"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.3, 0.5, 0.3]
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: 'easeInOut'
-                }}
-              />
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-3 mb-3">
+                <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center flex-shrink-0">
+                  <feature.icon className="w-5 h-5 text-gold-dark" />
+                </div>
+                <h3 className="text-base sm:text-lg font-cinzel font-bold text-forest leading-tight">
+                  {feature.title}
+                </h3>
+              </div>
+              <p className="text-forest/70 font-montserrat text-sm leading-relaxed">
+                {feature.description}
+              </p>
             </motion.div>
-          </div>
-        </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
