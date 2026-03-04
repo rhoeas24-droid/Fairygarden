@@ -32,7 +32,7 @@ const Footer = () => {
     setIsSubmitting(true);
     
     try {
-      await axios.post(`${API}/newsletter/subscribe`, { email: formData.email });
+      await axios.post(`https://fairygarden4u.com/mailpoet-subscribe.php`, { email: formData.email });
       toast.success(t('footer.subscribeSuccess'));
       setFormData({ email: '', privacyAccepted: false });
     } catch (error) {

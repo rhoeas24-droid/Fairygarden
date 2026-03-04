@@ -133,7 +133,7 @@ const ForBusiness = () => {
       
       if (formData.subscribeNewsletter) {
         try {
-          await axios.post(`${API}/newsletter/subscribe`, {
+          await axios.post(`https://fairygarden4u.com/mailpoet-subscribe.php`, {
             email: formData.email
           });
         } catch (err) {

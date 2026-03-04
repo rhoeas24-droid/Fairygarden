@@ -78,7 +78,7 @@ const UnderConstructionBanner = () => {
     e.preventDefault();
     if (!email) return;
     try {
-      await axios.post(`${API}/newsletter/subscribe`, { email });
+      await axios.post(`https://fairygarden4u.com/mailpoet-subscribe.php`, { email });
       setStatus('success');
       setEmail('');
       setTimeout(() => {
