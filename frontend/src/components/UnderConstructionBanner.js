@@ -50,10 +50,22 @@ const UnderConstructionBanner = () => {
   const barLang = messages[i18n.language] ? i18n.language : 'en';
   const barT = messages[barLang];
 
+  // Check if we're in preview environment - disable banner there
+  const isPreview = typeof window !== 'undefined' && (
+    window.location.hostname.includes('preview') ||
+    window.location.hostname.includes('emergentagent.com') ||
+    window.location.hostname === 'localhost'
+  );
+
   useEffect(() => {
+    // Skip banner in preview environment
+    if (isPreview) {
+      setPhase('hidden');
+      return;
+    }
     const dismissed = sessionStorage.getItem('constructionDismissed');
     if (dismissed) setPhase('hidden');
-  }, []);
+  }, [isPreview]);
 
   useEffect(() => {
     if (phase !== 'countdown') return;
