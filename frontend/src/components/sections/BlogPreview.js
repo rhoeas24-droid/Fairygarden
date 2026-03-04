@@ -150,6 +150,31 @@ const BlogPreview = () => {
     fetchBlogPosts();
   }, []);
 
+  // Handle direct blog post links via URL parameter
+  useEffect(() => {
+    const handleBlogLink = async () => {
+      const params = new URLSearchParams(window.location.search);
+      const postSlug = params.get('post');
+      
+      if (postSlug) {
+        try {
+          // Fetch the specific post by slug
+          const response = await axios.get(`${API}/blog/posts`);
+          const post = response.data.find(p => p.slug === postSlug);
+          if (post) {
+            setSelectedPost(post);
+            // Clean up URL
+            window.history.replaceState({}, '', window.location.pathname);
+          }
+        } catch (error) {
+          console.error('Error fetching blog post:', error);
+        }
+      }
+    };
+    
+    handleBlogLink();
+  }, []);
+
   const fetchBlogPosts = async () => {
     try {
       const response = await axios.get(`${API}/blog/posts`);
