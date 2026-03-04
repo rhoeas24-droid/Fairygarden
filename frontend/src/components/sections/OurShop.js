@@ -53,13 +53,13 @@ const CategoryCard = ({ category, index, productImages }) => {
       className="group cursor-pointer"
       data-testid={`shop-category-${category.imageKey}`}
     >
-      <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 p-4 sm:p-6 
+      <div className="flex flex-row items-center gap-4 p-4 h-[190px]
         bg-forest/40 backdrop-blur-sm border border-gold/20 rounded-2xl
         hover:bg-forest/60 hover:border-gold/40 transition-all duration-300
         hover:shadow-[0_8px_32px_rgba(212,175,55,0.15)]">
         
-        {/* Image Container - 300x300 on desktop, smaller on mobile */}
-        <div className="relative w-48 h-48 sm:w-[200px] sm:h-[200px] lg:w-[250px] lg:h-[250px] flex-shrink-0 overflow-hidden rounded-xl">
+        {/* Image Container - Fixed 150x150 */}
+        <div className="relative w-[150px] h-[150px] flex-shrink-0 overflow-hidden rounded-xl">
           {images.map((img, imgIndex) => (
             <img
               key={imgIndex}
@@ -79,19 +79,19 @@ const CategoryCard = ({ category, index, productImages }) => {
             opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </div>
         
-        {/* Text Content */}
-        <div className="flex-1 text-center sm:text-left">
-          <h3 className="text-xl sm:text-2xl lg:text-3xl font-cinzel font-bold text-gold mb-2 sm:mb-3
-            group-hover:text-gold-light transition-colors">
+        {/* Text Content - Fixed height, text truncates */}
+        <div className="flex-1 min-w-0 h-full flex flex-col justify-center">
+          <h3 className="text-lg sm:text-xl lg:text-2xl font-cinzel font-bold text-gold mb-2
+            group-hover:text-gold-light transition-colors leading-tight">
             {category.title}
           </h3>
-          <p className="text-cream/70 font-montserrat text-sm sm:text-base leading-relaxed mb-3 sm:mb-4">
+          <p className="text-cream/70 font-montserrat text-xs sm:text-sm leading-relaxed line-clamp-3">
             {category.description}
           </p>
-          <div className="inline-flex items-center gap-2 text-gold font-montserrat text-sm font-semibold
+          <div className="inline-flex items-center gap-2 text-gold font-montserrat text-xs font-semibold mt-2
             group-hover:gap-3 transition-all">
             <span>Explore</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
           </div>
         </div>
       </div>
