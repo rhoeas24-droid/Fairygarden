@@ -94,6 +94,20 @@ const CheckoutModal = ({ isOpen, onClose }) => {
         shipping_method: form.shipping_method, order_notes: form.order_notes,
         subscribe_newsletter: form.subscribe_newsletter, payment_method: form.payment_method,
       });
+      
+      // Subscribe to MailPoet if checkbox is checked
+      if (form.subscribe_newsletter && form.billing_email) {
+        try {
+          await fetch('https://fairygarden4u.com/shop/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `action=mailpoet_subscribe&email=${encodeURIComponent(form.billing_email)}`
+          });
+        } catch (err) {
+          console.log('Newsletter subscription error:', err);
+        }
+      }
+      
       if (response.data.success) {
         setOrderResult(response.data);
         await clearCart();

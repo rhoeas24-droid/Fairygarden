@@ -114,6 +114,19 @@ const CustomTerrariumBuilder = ({ isOpen, onClose }) => {
         subscribed_to_newsletter: formData.subscribeNewsletter
       });
       
+      // Subscribe to MailPoet if checkbox is checked
+      if (formData.subscribeNewsletter) {
+        try {
+          await fetch('https://fairygarden4u.com/shop/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `action=mailpoet_subscribe&email=${encodeURIComponent(formData.email)}`
+          });
+        } catch (err) {
+          console.log('Newsletter subscription error:', err);
+        }
+      }
+      
       toast.success(t('customTerrarium.successMessage'));
       onClose();
       setFormData({
