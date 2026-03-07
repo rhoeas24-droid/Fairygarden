@@ -133,8 +133,10 @@ const ForBusiness = () => {
       
       if (formData.subscribeNewsletter) {
         try {
-          await axios.post(`https://fairygarden4u.com/mailpoet-subscribe.php`, {
-            email: formData.email
+          await fetch('https://fairygarden4u.com/shop/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `action=mailpoet_subscribe&email=${encodeURIComponent(formData.email)}`
           });
         } catch (err) {
           console.log('Newsletter subscription error:', err);

@@ -32,22 +32,26 @@ const Footer = () => {
     setIsSubmitting(true);
     
     try {
-      const response = await axios.post('https://fairygarden4u.com/shop/wp-admin/admin-ajax.php', 
-        new URLSearchParams({ action: 'mailpoet_subscribe', email: formData.email }),
-        { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
-      );
+      // Use native fetch for simpler WordPress AJAX compatibility
+      const response = await fetch('https://fairygarden4u.com/shop/wp-admin/admin-ajax.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `action=mailpoet_subscribe&email=${encodeURIComponent(formData.email)}`
+      });
       
-      // WordPress AJAX returns {success: true/false, error: "..."}
-      if (response.data?.success === true) {
+      const data = await response.json();
+      console.log('MailPoet response:', data); // Debug log
+      
+      if (data.success === true) {
         toast.success(t('footer.subscribeSuccess'));
         setFormData({ email: '', privacyAccepted: false });
-      } else if (response.data?.error?.includes('already exists')) {
-        toast.error(t('footer.alreadySubscribed'));
+      } else if (data.error && data.error.includes('already exists')) {
+        toast.info(t('footer.alreadySubscribed'));
       } else {
-        toast.error(response.data?.error || t('footer.subscribeError'));
+        toast.error(data.error || t('footer.subscribeError'));
       }
     } catch (error) {
-      console.error('Error subscribing to newsletter:', error);
+      console.error('Newsletter subscription error:', error);
       toast.error(t('footer.subscribeError'));
     } finally {
       setIsSubmitting(false);
