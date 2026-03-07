@@ -32,16 +32,23 @@ const Footer = () => {
     setIsSubmitting(true);
     
     try {
-      await axios.post(`https://fairygarden4u.com/mailpoet-subscribe.php`, { email: formData.email });
-      toast.success(t('footer.subscribeSuccess'));
-      setFormData({ email: '', privacyAccepted: false });
-    } catch (error) {
-      if (error.response?.status === 400) {
+      const response = await axios.post('https://fairygarden4u.com/shop/wp-admin/admin-ajax.php', 
+        new URLSearchParams({ action: 'mailpoet_subscribe', email: formData.email }),
+        { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+      );
+      
+      // WordPress AJAX returns {success: true/false, error: "..."}
+      if (response.data?.success === true) {
+        toast.success(t('footer.subscribeSuccess'));
+        setFormData({ email: '', privacyAccepted: false });
+      } else if (response.data?.error?.includes('already exists')) {
         toast.error(t('footer.alreadySubscribed'));
       } else {
-        toast.error(t('footer.subscribeError'));
+        toast.error(response.data?.error || t('footer.subscribeError'));
       }
+    } catch (error) {
       console.error('Error subscribing to newsletter:', error);
+      toast.error(t('footer.subscribeError'));
     } finally {
       setIsSubmitting(false);
     }
