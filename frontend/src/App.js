@@ -14,6 +14,8 @@ import MagicalDivider from './components/sections/MagicalDivider';
 import OurShop from './components/sections/OurShop';
 import TerrariumGallery from './components/sections/TerrariumGallery';
 import DIYKits from './components/sections/DIYKits';
+import Plants from './components/sections/Plants';
+import SubstratesBugs from './components/sections/SubstratesBugs';
 import ForBusiness from './components/sections/ForBusiness';
 import Workshops from './components/sections/Workshops';
 import About from './components/sections/About';
@@ -102,6 +104,8 @@ function App() {
           <OurShop />
           <TerrariumGallery />
           <DIYKits />
+          <Plants />
+          <SubstratesBugs />
           <ForBusiness />
           <Workshops />
           <About />

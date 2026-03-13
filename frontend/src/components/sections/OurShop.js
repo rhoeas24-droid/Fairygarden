@@ -12,6 +12,8 @@ const defaultImages = {
   'diy-kits': 'https://fairygarden4u.com/build_your_own.jpg',
   'bottles-jars-tools': 'https://fairygarden4u.com/workshop_event.jpg',
   'decorations-terrascaping': 'https://fairygarden4u.com/workshop_event.jpg',
+  'plants': 'https://fairygarden4u.com/BG_TILE_FINAL.jpg',
+  'substrates-bugs': 'https://fairygarden4u.com/BG_TILE_FINAL.jpg',
 };
 
 const CategoryCard = ({ category, index, productImages }) => {
@@ -129,6 +131,8 @@ const OurShop = () => {
           'diy-kits': diyImages.length > 0 ? diyImages : [defaultImages['diy-kits']],
           'bottles-jars-tools': [defaultImages['bottles-jars-tools']],
           'decorations-terrascaping': [defaultImages['decorations-terrascaping']],
+          'plants': [defaultImages['plants']],
+          'substrates-bugs': [defaultImages['substrates-bugs']],
         });
       } catch (error) {
         console.error('Error fetching product images:', error);
@@ -152,14 +156,26 @@ const OurShop = () => {
       targetId: 'diy-kits',
     },
     {
+      title: 'Plants',
+      description: 'Carefully selected terrarium plants, propagated in-house. Perfect for creating your own miniature ecosystem.',
+      imageKey: 'plants',
+      targetId: 'plants',
+    },
+    {
+      title: 'Substrates & Bugs',
+      description: 'Premium substrates, drainage layers, and beneficial springtails to keep your terrarium thriving.',
+      imageKey: 'substrates-bugs',
+      targetId: 'substrates-bugs',
+    },
+    {
       title: 'Bottles, Jars & Tools',
-      description: 'Premium glass containers and professional tools for your florarium projects. Coming soon!',
+      description: 'Premium glass containers and professional tools for your florarium projects.',
       imageKey: 'bottles-jars-tools',
       targetId: 'shop-bottles',
     },
     {
       title: 'Decorations & Terrascaping',
-      description: 'Driftwood, stones, moss and miniature figures to bring your miniature world to life. Coming soon!',
+      description: 'Driftwood, stones, moss and miniature figures to bring your miniature world to life.',
       imageKey: 'decorations-terrascaping',
       targetId: 'shop-decorations',
     },
@@ -195,8 +211,8 @@ const OurShop = () => {
           </p>
         </motion.div>
         
-        {/* 2x2 Category Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+        {/* 3x2 Category Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {categories.map((category, index) => (
             <CategoryCard key={category.imageKey} category={category} index={index} productImages={productImages} />
           ))}
