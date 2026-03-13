@@ -6,9 +6,10 @@ const FloatingFairy = ({ delay = 0, duration = 8 }) => {
   return (
     <motion.div
       className="absolute pointer-events-none z-10"
+      style={{ maxWidth: '100%' }}
       initial={{ x: '-10%', y: '50vh', opacity: 0 }}
       animate={{
-        x: ['0%', '100vw'],
+        x: ['0%', '95%'],
         y: ['50vh', '30vh', '70vh', '40vh', '60vh'],
         opacity: [0, 1, 1, 1, 0]
       }}
