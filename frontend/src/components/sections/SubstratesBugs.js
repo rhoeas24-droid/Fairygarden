@@ -55,7 +55,16 @@ const SubstratesBugs = () => {
     : products.filter(p => p.tags?.includes(activeTab));
 
   return (
-    <section id="substrates-bugs" className="relative py-16 sm:py-20 lg:py-28 px-4 sm:px-6 bg-forest">
+    <section 
+      id="substrates-bugs" 
+      className="relative py-16 sm:py-20 lg:py-28 px-4 sm:px-6"
+      style={{
+        backgroundImage: 'url(/BG_TILE_FINAL.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div className="absolute inset-0 bg-forest-dark/90" />
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
