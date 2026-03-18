@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './contexts/CartContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { Toaster } from './components/ui/sonner';
@@ -24,14 +25,25 @@ import TermsConditions, { TermsModal } from './components/sections/TermsConditio
 import PrivacyPolicy, { PrivacyModal } from './components/sections/PrivacyPolicy';
 import Footer from './components/sections/Footer';
 import UnderConstructionBanner from './components/UnderConstructionBanner';
+
+// Corporate Pages
+import CorporateLayout from './pages/corporate/CorporateLayout';
+import CorporateHome from './pages/corporate/CorporateHome';
+import TeamRetreat from './pages/corporate/experiences/TeamRetreat';
+import TeamBuilding from './pages/corporate/experiences/TeamBuilding';
+import BrandedFlorariums from './pages/corporate/solutions/BrandedFlorariums';
+import OfficeDecor from './pages/corporate/solutions/OfficeDecor';
+import EventDecor from './pages/corporate/solutions/EventDecor';
+import PartnerGifts from './pages/corporate/solutions/PartnerGifts';
+
 import './App.css';
 
-function App() {
+// Home Page Component
+const HomePage = () => {
   const [isTermsOpen, setIsTermsOpen] = useState(false);
   const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
   
   useEffect(() => {
-    // Listen for modal open events
     const handleOpenTerms = () => setIsTermsOpen(true);
     const handleOpenPrivacy = () => setIsPrivacyOpen(true);
     
@@ -44,22 +56,20 @@ function App() {
     };
   }, []);
   
-  // Handle hash links on page load (after construction banner dismissed)
   useEffect(() => {
     const handleHashScroll = () => {
       const hash = window.location.hash;
       if (hash) {
-        const targetId = hash.substring(1); // Remove the # character
+        const targetId = hash.substring(1);
         setTimeout(() => {
           const element = document.getElementById(targetId);
           if (element) {
             element.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
-        }, 500); // Small delay to allow page to settle
+        }, 500);
       }
     };
     
-    // Listen for construction banner dismissal
     const checkAndScroll = () => {
       const dismissed = sessionStorage.getItem('constructionDismissed');
       if (dismissed) {
@@ -67,13 +77,9 @@ function App() {
       }
     };
     
-    // Check on mount
     checkAndScroll();
-    
-    // Also listen for hash changes during session
     window.addEventListener('hashchange', handleHashScroll);
     
-    // Custom event when construction banner is dismissed
     const handleConstructionDismissed = () => handleHashScroll();
     window.addEventListener('constructionDismissed', handleConstructionDismissed);
     
@@ -84,47 +90,68 @@ function App() {
   }, []);
   
   return (
+    <div className="App relative">
+      <SparkleBackground />
+      
+      <FloatingFairy delay={0} duration={12} />
+      <FloatingFairy delay={5} duration={15} />
+      <FloatingFairy delay={10} duration={10} />
+      
+      <Navigation />
+      <CartDrawer />
+      <UnderConstructionBanner />
+      <GoogleAnalytics />
+      
+      <main>
+        <Hero />
+        <MagicalDivider />
+        <OurShop />
+        <TerrariumGallery />
+        <DIYKits />
+        <Plants />
+        <SubstratesBugs />
+        <ForBusiness />
+        <Workshops />
+        <About />
+        <BlogPreview />
+        <TermsConditions />
+        <PrivacyPolicy />
+      </main>
+      
+      <Footer />
+      
+      <ScrollToTop />
+      <CookieConsent />
+      <Toaster position="top-right" richColors />
+      
+      <TermsModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
+      <PrivacyModal isOpen={isPrivacyOpen} onClose={() => setIsPrivacyOpen(false)} />
+    </div>
+  );
+};
+
+function App() {
+  return (
     <AuthProvider>
-    <CartProvider>
-      <div className="App relative">
-        <SparkleBackground />
-        
-        <FloatingFairy delay={0} duration={12} />
-        <FloatingFairy delay={5} duration={15} />
-        <FloatingFairy delay={10} duration={10} />
-        
-        <Navigation />
-        <CartDrawer />
-        <UnderConstructionBanner />
-        <GoogleAnalytics />
-        
-        <main>
-          <Hero />
-          <MagicalDivider />
-          <OurShop />
-          <TerrariumGallery />
-          <DIYKits />
-          <Plants />
-          <SubstratesBugs />
-          <ForBusiness />
-          <Workshops />
-          <About />
-          <BlogPreview />
-          <TermsConditions />
-          <PrivacyPolicy />
-        </main>
-        
-        <Footer />
-        
-        <ScrollToTop />
-        <CookieConsent />
-        <Toaster position="top-right" richColors />
-        
-        {/* Global Modals */}
-        <TermsModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
-        <PrivacyModal isOpen={isPrivacyOpen} onClose={() => setIsPrivacyOpen(false)} />
-      </div>
-    </CartProvider>
+      <CartProvider>
+        <Router>
+          <Routes>
+            {/* Home Page */}
+            <Route path="/" element={<HomePage />} />
+            
+            {/* Corporate Pages */}
+            <Route path="/corporate" element={<CorporateLayout />}>
+              <Route index element={<CorporateHome />} />
+              <Route path="experiences/retreat" element={<TeamRetreat />} />
+              <Route path="experiences/team-building" element={<TeamBuilding />} />
+              <Route path="solutions/branded-florariums" element={<BrandedFlorariums />} />
+              <Route path="solutions/office-decor" element={<OfficeDecor />} />
+              <Route path="solutions/event-decor" element={<EventDecor />} />
+              <Route path="solutions/partner-gifts" element={<PartnerGifts />} />
+            </Route>
+          </Routes>
+        </Router>
+      </CartProvider>
     </AuthProvider>
   );
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { ShoppingCart, Menu, X, ChevronDown, ChevronRight, UserCircle } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { useAuth } from '../contexts/AuthContext';
@@ -18,6 +19,8 @@ const Navigation = () => {
   const { cartCount, setIsCartOpen } = useCart();
   const { isLoggedIn, customer } = useAuth();
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -36,6 +39,22 @@ const Navigation = () => {
   }, [isMobileMenuOpen]);
 
   const scrollToSection = (id) => {
+    // Handle corporate page navigation
+    if (id === 'for-business') {
+      navigate('/corporate');
+      setIsMobileMenuOpen(false);
+      return;
+    }
+    
+    // If we're not on the home page, navigate there first
+    if (location.pathname !== '/') {
+      navigate('/#' + id);
+      setIsMobileMenuOpen(false);
+      setIsShopDropdownOpen(false);
+      setIsMobileShopOpen(false);
+      return;
+    }
+    
     if (id.startsWith('shop-')) {
       window.dispatchEvent(new CustomEvent('expandWebshop', { detail: { targetId: id } }));
     }

@@ -3,7 +3,6 @@ import { initReactI18next } from 'react-i18next';
 
 import enTranslations from './locales/en.json';
 import elTranslations from './locales/el.json';
-import itTranslations from './locales/it.json';
 
 // Get saved language preference from localStorage
 const getSavedLanguage = () => {
@@ -23,8 +22,7 @@ i18n
   .init({
     resources: {
       en: { translation: enTranslations },
-      el: { translation: elTranslations },
-      it: { translation: itTranslations }
+      el: { translation: elTranslations }
     },
     lng: getSavedLanguage() || DEFAULT_LANGUAGE,
     fallbackLng: 'en',
