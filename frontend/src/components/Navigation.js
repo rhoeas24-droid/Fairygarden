@@ -51,6 +51,8 @@ const Navigation = () => {
   const shopCategories = [
     { label: 'Ready Florariums', id: 'gallery' },
     { label: 'DIY Kits', id: 'diy-kits' },
+    { label: 'Plants', id: 'plants' },
+    { label: 'Substrates & Bugs', id: 'substrates-bugs' },
     { label: 'Bottles, Jars & Tools', id: 'shop-bottles' },
     { label: 'Decorations & Terrascaping', id: 'shop-decorations' },
   ];
