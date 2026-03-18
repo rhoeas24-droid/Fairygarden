@@ -84,10 +84,10 @@ const CategoryCard = ({ category, index, productImages }) => {
         {/* Text Content - Fixed height, text truncates */}
         <div className="flex-1 min-w-0 h-full flex flex-col justify-center overflow-hidden">
           <h3 className="text-base sm:text-lg lg:text-xl font-cinzel font-bold text-gold mb-2
-            group-hover:text-gold-light transition-colors leading-tight line-clamp-2">
+            group-hover:text-gold-light transition-colors leading-tight">
             {category.title}
           </h3>
-          <p className="text-cream/70 font-montserrat text-xs sm:text-sm leading-relaxed line-clamp-2">
+          <p className="text-cream/70 font-montserrat text-xs sm:text-sm leading-relaxed line-clamp-2 overflow-hidden">
             {category.description}
           </p>
           <div className="inline-flex items-center gap-2 text-gold font-montserrat text-xs font-semibold mt-2
