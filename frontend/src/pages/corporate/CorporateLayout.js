@@ -15,7 +15,18 @@ const CorporateLayout = () => {
   const isMainPage = location.pathname === '/corporate';
 
   return (
-    <div className="App relative min-h-screen">
+    <div 
+      className="App relative min-h-screen"
+      style={{
+        backgroundImage: 'url(/BG_TILE_FINAL.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+      }}
+    >
+      {/* Dark overlay */}
+      <div className="fixed inset-0 bg-forest-dark/85 pointer-events-none" />
+      
       <SparkleBackground />
       
       <FloatingFairy delay={0} duration={12} />
@@ -48,7 +59,7 @@ const CorporateLayout = () => {
       </div>
 
       {/* Main Content */}
-      <main className="pt-32">
+      <main className="relative z-10 pt-32">
         <Outlet />
       </main>
 
