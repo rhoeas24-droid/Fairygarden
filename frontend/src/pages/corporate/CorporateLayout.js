@@ -1,19 +1,29 @@
 import React from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Home, ArrowLeft, Leaf, Building2, Gift, Calendar, Users, Sparkles } from 'lucide-react';
+import { Home } from 'lucide-react';
 import Navigation from '../../components/Navigation';
 import Footer from '../../components/sections/Footer';
 import SparkleBackground from '../../components/SparkleBackground';
+import FloatingFairy from '../../components/FloatingFairy';
+import CartDrawer from '../../components/CartDrawer';
+import CookieConsent from '../../components/CookieConsent';
+import ScrollToTop from '../../components/ScrollToTop';
+import { Toaster } from '../../components/ui/sonner';
 
 const CorporateLayout = () => {
   const location = useLocation();
   const isMainPage = location.pathname === '/corporate';
 
   return (
-    <div className="min-h-screen bg-forest-dark">
+    <div className="App relative min-h-screen">
       <SparkleBackground />
+      
+      <FloatingFairy delay={0} duration={12} />
+      <FloatingFairy delay={5} duration={15} />
+      <FloatingFairy delay={10} duration={10} />
+      
       <Navigation />
+      <CartDrawer />
       
       {/* Breadcrumb */}
       <div className="fixed top-20 left-0 right-0 z-40 bg-forest/90 backdrop-blur-sm border-b border-gold/20">
@@ -43,6 +53,10 @@ const CorporateLayout = () => {
       </main>
 
       <Footer />
+      
+      <ScrollToTop />
+      <CookieConsent />
+      <Toaster position="top-right" richColors />
     </div>
   );
 };
