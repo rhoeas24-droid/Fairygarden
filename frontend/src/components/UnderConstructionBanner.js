@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Mail, Clock } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import axios from 'axios';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
+
+// TEMPORARILY DISABLED - set to true to re-enable
+const BANNER_ENABLED = false;
 
 const messages = {
   en: {
@@ -19,24 +21,14 @@ const messages = {
     dismiss: 'Close',
   },
   el: {
-    title: '\u03A5\u03C0\u03CC \u039A\u03B1\u03C4\u03B1\u03C3\u03BA\u03B5\u03C5\u03AE',
-    text: '\u0391\u03C5\u03C4\u03AE \u03B7 \u03B9\u03C3\u03C4\u03BF\u03C3\u03B5\u03BB\u03AF\u03B4\u03B1 \u03B2\u03C1\u03AF\u03C3\u03BA\u03B5\u03C4\u03B1\u03B9 \u03B1\u03BA\u03CC\u03BC\u03B1 \u03C5\u03C0\u03CC \u03BA\u03B1\u03C4\u03B1\u03C3\u03BA\u03B5\u03C5\u03AE. \u0395\u03C0\u03B9\u03C3\u03BA\u03B5\u03C6\u03B8\u03B5\u03AF\u03C4\u03B5 \u03BC\u03B1\u03C2 \u03BE\u03B1\u03BD\u03AC \u03B1\u03C1\u03B3\u03CC\u03C4\u03B5\u03C1\u03B1 \u03AE \u03B5\u03B3\u03B3\u03C1\u03B1\u03C6\u03B5\u03AF\u03C4\u03B5 \u03C3\u03C4\u03BF newsletter \u03BC\u03B1\u03C2!',
-    barText: '\u0397 \u03B9\u03C3\u03C4\u03BF\u03C3\u03B5\u03BB\u03AF\u03B4\u03B1 \u03B5\u03AF\u03BD\u03B1\u03B9 \u03C5\u03C0\u03CC \u03BA\u03B1\u03C4\u03B1\u03C3\u03BA\u03B5\u03C5\u03AE. \u0395\u03B3\u03B3\u03C1\u03B1\u03C6\u03B5\u03AF\u03C4\u03B5 \u03B3\u03B9\u03B1 \u03B5\u03BD\u03B7\u03BC\u03AD\u03C1\u03C9\u03C3\u03B7!',
-    subscribe: '\u0395\u03B3\u03B3\u03C1\u03B1\u03C6\u03AE',
-    placeholder: '\u0395\u03BC\u03B1\u03B9\u03BB',
-    success: '\u0395\u03B3\u03B3\u03C1\u03B1\u03C6\u03AE \u03B5\u03C0\u03B9\u03C4\u03C5\u03C7\u03AE\u03C2!',
-    error: '\u0397\u03B4\u03B7 \u03B5\u03B3\u03B3\u03B5\u03B3\u03C1\u03B1\u03BC\u03BC\u03AD\u03BD\u03BF\u03C2.',
-    dismiss: '\u039A\u03BB\u03B5\u03AF\u03C3\u03B9\u03BC\u03BF',
-  },
-  it: {
-    title: 'In Costruzione',
-    text: 'Questo sito \u00E8 ancora in fase di costruzione e aggiornamento. Torna a trovarci pi\u00F9 tardi o iscriviti alla nostra newsletter!',
-    barText: 'Sito in costruzione. Iscriviti per essere aggiornato!',
-    subscribe: 'Iscriviti',
-    placeholder: 'La tua email',
-    success: 'Iscritto! Ti terremo aggiornato.',
-    error: 'Gi\u00E0 iscritto o email non valida.',
-    dismiss: 'Chiudi',
+    title: 'Υπό Κατασκευή',
+    text: 'Αυτή η ιστοσελίδα βρίσκεται ακόμα υπό κατασκευή. Επισκεφθείτε μας ξανά αργότερα ή εγγραφείτε στο newsletter μας!',
+    barText: 'Η ιστοσελίδα είναι υπό κατασκευή. Εγγραφείτε για ενημέρωση!',
+    subscribe: 'Εγγραφή',
+    placeholder: 'Εμαιλ',
+    success: 'Εγγραφή επιτυχής!',
+    error: 'Ηδη εγγεγραμμένος.',
+    dismiss: 'Κλείσιμο',
   },
 };
 
@@ -50,7 +42,7 @@ const UnderConstructionBanner = () => {
   const barLang = messages[i18n.language] ? i18n.language : 'en';
   const barT = messages[barLang];
 
-  // Check if we're in preview environment - disable banner there
+  // Check if banner is disabled or in preview environment
   const isPreview = typeof window !== 'undefined' && (
     window.location.hostname.includes('preview') ||
     window.location.hostname.includes('emergentagent.com') ||
@@ -58,8 +50,8 @@ const UnderConstructionBanner = () => {
   );
 
   useEffect(() => {
-    // Skip banner in preview environment
-    if (isPreview) {
+    // Skip banner if disabled or in preview environment
+    if (!BANNER_ENABLED || isPreview) {
       setPhase('hidden');
       return;
     }
@@ -78,7 +70,11 @@ const UnderConstructionBanner = () => {
     e.preventDefault();
     if (!email) return;
     try {
-      await axios.post(`https://fairygarden4u.com/mailpoet-subscribe.php`, { email });
+      await fetch('https://fairygarden4u.com/shop/wp-admin/admin-ajax.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `action=mailpoet_subscribe&email=${encodeURIComponent(email)}`
+      });
       setStatus('success');
       setEmail('');
       setTimeout(() => {
@@ -95,7 +91,6 @@ const UnderConstructionBanner = () => {
     else {
       setPhase('hidden');
       sessionStorage.setItem('constructionDismissed', '1');
-      // Dispatch event to notify App.js
       window.dispatchEvent(new CustomEvent('constructionDismissed'));
     }
   };
@@ -116,7 +111,7 @@ const UnderConstructionBanner = () => {
           <div className="text-center px-6 max-w-lg">
             <Clock className="w-12 h-12 text-gold mx-auto mb-4" />
             <div className="space-y-6 mb-8">
-              {['en', 'el', 'it'].map(lang => (
+              {['en', 'el'].map(lang => (
                 <div key={lang}>
                   <h2 className="text-xl sm:text-2xl font-cinzel font-bold text-gold mb-1">
                     {messages[lang].title}
@@ -164,9 +159,9 @@ const UnderConstructionBanner = () => {
             data-testid="construction-popup"
           >
             <div className="p-5 sm:p-6 space-y-5">
-              {/* 3 languages stacked */}
-              {['en', 'el', 'it'].map((lang, i) => (
-                <div key={lang} className={i < 2 ? 'pb-4 border-b border-gold/15' : ''}>
+              {/* 2 languages stacked - English and Greek only */}
+              {['en', 'el'].map((lang, i) => (
+                <div key={lang} className={i < 1 ? 'pb-4 border-b border-gold/15' : ''}>
                   <h3 className="text-lg font-cinzel font-bold text-gold mb-1">
                     {messages[lang].title}
                   </h3>
@@ -217,7 +212,7 @@ const UnderConstructionBanner = () => {
         </motion.div>
       )}
 
-      {/* Bottom bar - follows site language, red border */}
+      {/* Bottom bar */}
       {phase === 'bar' && (
         <motion.div
           key="bar"

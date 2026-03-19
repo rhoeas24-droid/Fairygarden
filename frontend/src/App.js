@@ -29,8 +29,10 @@ import UnderConstructionBanner from './components/UnderConstructionBanner';
 // Corporate Pages
 import CorporateLayout from './pages/corporate/CorporateLayout';
 import CorporateHome from './pages/corporate/CorporateHome';
+import ExperiencesIndex from './pages/corporate/experiences/ExperiencesIndex';
 import TeamRetreat from './pages/corporate/experiences/TeamRetreat';
 import TeamBuilding from './pages/corporate/experiences/TeamBuilding';
+import SolutionsIndex from './pages/corporate/solutions/SolutionsIndex';
 import BrandedFlorariums from './pages/corporate/solutions/BrandedFlorariums';
 import OfficeDecor from './pages/corporate/solutions/OfficeDecor';
 import EventDecor from './pages/corporate/solutions/EventDecor';
@@ -142,8 +144,10 @@ function App() {
             {/* Corporate Pages */}
             <Route path="/corporate" element={<CorporateLayout />}>
               <Route index element={<CorporateHome />} />
+              <Route path="experiences" element={<ExperiencesIndex />} />
               <Route path="experiences/retreat" element={<TeamRetreat />} />
               <Route path="experiences/team-building" element={<TeamBuilding />} />
+              <Route path="solutions" element={<SolutionsIndex />} />
               <Route path="solutions/branded-florariums" element={<BrandedFlorariums />} />
               <Route path="solutions/office-decor" element={<OfficeDecor />} />
               <Route path="solutions/event-decor" element={<EventDecor />} />
