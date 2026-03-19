@@ -29,7 +29,7 @@ const CorporateHome = () => {
               <div className="w-12 h-0.5 bg-gold/40 mb-4" />
               
               <p className="text-cream/75 font-montserrat text-sm sm:text-base leading-relaxed">
-                Offer transformative team experiences and elegant brand solutions with handcrafted, self-sustaining living compositions designed to inspire & impress.
+                We offer transformative team experiences and elegant brand solutions with handcrafted, self-sustaining living compositions designed to inspire & impress.
               </p>
             </motion.div>
 
