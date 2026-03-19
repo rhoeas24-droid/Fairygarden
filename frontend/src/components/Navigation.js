@@ -14,6 +14,8 @@ const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isShopDropdownOpen, setIsShopDropdownOpen] = useState(false);
   const [isMobileShopOpen, setIsMobileShopOpen] = useState(false);
+  const [isBusinessDropdownOpen, setIsBusinessDropdownOpen] = useState(false);
+  const [isMobileBusinessOpen, setIsMobileBusinessOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const { cartCount, setIsCartOpen } = useCart();
@@ -27,7 +29,6 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Lock body scroll when mobile menu open
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -38,7 +39,6 @@ const Navigation = () => {
   }, [isMobileMenuOpen]);
 
   const scrollToSection = (id) => {
-    // If we're not on the home page, navigate there first
     if (location.pathname !== '/') {
       window.location.href = '/#' + id;
       setIsMobileMenuOpen(false);
@@ -68,9 +68,19 @@ const Navigation = () => {
     { label: 'Decorations & Terrascaping', id: 'shop-decorations' },
   ];
 
+  const businessCategories = [
+    { label: 'Experiences', path: '/corporate/experiences', isHeader: true },
+    { label: 'Retreat', path: '/corporate/experiences/retreat' },
+    { label: 'Team-building', path: '/corporate/experiences/team-building' },
+    { label: 'Solutions', path: '/corporate/solutions', isHeader: true },
+    { label: 'Branded Florariums', path: '/corporate/solutions/branded-florariums' },
+    { label: 'Office Decor', path: '/corporate/solutions/office-decor' },
+    { label: 'Event Decor', path: '/corporate/solutions/event-decor' },
+    { label: 'Partner Gifts', path: '/corporate/solutions/partner-gifts' },
+  ];
+
   return (
     <>
-      {/* Top Bar */}
       <motion.nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
@@ -83,7 +93,6 @@ const Navigation = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 lg:h-20">
-            {/* Mobile: hamburger left */}
             <div className="lg:hidden">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -94,7 +103,6 @@ const Navigation = () => {
               </button>
             </div>
 
-            {/* Logo center on mobile, left on desktop */}
             <motion.div
               className="text-xl lg:text-2xl font-cinzel font-bold text-gold cursor-pointer"
               onClick={() => scrollToSection('hero')}
@@ -109,7 +117,6 @@ const Navigation = () => {
               <button
                 onClick={() => scrollToSection('hero')}
                 className="text-cream hover:text-gold transition-colors font-montserrat text-sm font-semibold uppercase tracking-wider px-2"
-                data-testid="nav-link-hero"
               >
                 {t('nav.home')}
               </button>
@@ -123,7 +130,6 @@ const Navigation = () => {
                 <button
                   onClick={() => scrollToSection('our-shop')}
                   className="flex items-center gap-1 text-cream hover:text-gold transition-colors font-montserrat text-sm font-semibold uppercase tracking-wider px-2"
-                  data-testid="nav-link-shop"
                 >
                   {t('nav.shop')}
                   <ChevronDown className={`w-4 h-4 transition-transform ${isShopDropdownOpen ? 'rotate-180' : ''}`} />
@@ -151,38 +157,81 @@ const Navigation = () => {
                 </AnimatePresence>
               </div>
               
-              {/* EXPERIENCES - direct link */}
-              <Link
-                to="/corporate/experiences"
+              {/* DIY Kits */}
+              <button
+                onClick={() => scrollToSection('diy-kits')}
                 className="text-cream hover:text-gold transition-colors font-montserrat text-sm font-semibold uppercase tracking-wider px-2"
-                data-testid="nav-link-experiences"
               >
-                Experiences
-              </Link>
+                {t('nav.diyKits')}
+              </button>
               
-              {/* SOLUTIONS - direct link */}
-              <Link
-                to="/corporate/solutions"
-                className="text-cream hover:text-gold transition-colors font-montserrat text-sm font-semibold uppercase tracking-wider px-2"
-                data-testid="nav-link-solutions"
+              {/* For Business Dropdown */}
+              <div 
+                className="relative"
+                onMouseEnter={() => setIsBusinessDropdownOpen(true)}
+                onMouseLeave={() => setIsBusinessDropdownOpen(false)}
               >
-                Solutions
-              </Link>
+                <Link
+                  to="/corporate"
+                  className="flex items-center gap-1 text-cream hover:text-gold transition-colors font-montserrat text-sm font-semibold uppercase tracking-wider px-2"
+                >
+                  {t('nav.forBusiness')}
+                  <ChevronDown className={`w-4 h-4 transition-transform ${isBusinessDropdownOpen ? 'rotate-180' : ''}`} />
+                </Link>
+                
+                <AnimatePresence>
+                  {isBusinessDropdownOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className="absolute top-full left-0 mt-2 w-56 bg-forest/95 backdrop-blur-lg border border-gold/30 rounded-lg shadow-xl overflow-hidden"
+                    >
+                      {businessCategories.map((category, index) => (
+                        <Link
+                          key={category.path}
+                          to={category.path}
+                          onClick={() => setIsBusinessDropdownOpen(false)}
+                          className={`block w-full text-left px-4 py-2.5 font-montserrat text-sm transition-colors 
+                            ${category.isHeader ? 'text-gold font-semibold bg-gold/5 border-b border-gold/20' : 'text-cream hover:text-gold hover:bg-gold/10 pl-6'}
+                            ${index !== businessCategories.length - 1 && !category.isHeader ? 'border-b border-gold/10' : ''}`}
+                        >
+                          {category.label}
+                        </Link>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
               
               {/* Workshops */}
               <button
                 onClick={() => scrollToSection('workshops')}
                 className="text-cream hover:text-gold transition-colors font-montserrat text-sm font-semibold uppercase tracking-wider px-2"
-                data-testid="nav-link-workshops"
               >
                 {t('nav.workshops')}
+              </button>
+              
+              {/* About */}
+              <button
+                onClick={() => scrollToSection('about')}
+                className="text-cream hover:text-gold transition-colors font-montserrat text-sm font-semibold uppercase tracking-wider px-2"
+              >
+                {t('nav.about')}
+              </button>
+              
+              {/* Blog */}
+              <button
+                onClick={() => scrollToSection('blog')}
+                className="text-cream hover:text-gold transition-colors font-montserrat text-sm font-semibold uppercase tracking-wider px-2"
+              >
+                {t('nav.blog')}
               </button>
               
               <LanguageSwitcher />
               <button
                 onClick={() => isLoggedIn ? setIsAccountOpen(true) : setIsAuthOpen(true)}
                 className="relative p-2 text-cream hover:text-gold transition-colors"
-                data-testid="user-button"
                 title={isLoggedIn ? customer?.first_name : t('auth.login', 'Sign In')}
               >
                 <UserCircle className={`w-6 h-6 ${isLoggedIn ? 'text-gold' : ''}`} />
@@ -190,7 +239,6 @@ const Navigation = () => {
               <button
                 onClick={() => setIsCartOpen(true)}
                 className="relative p-2 text-cream hover:text-gold transition-colors"
-                data-testid="cart-button"
               >
                 <ShoppingCart className="w-6 h-6" />
                 {cartCount > 0 && (
@@ -206,14 +254,12 @@ const Navigation = () => {
               <button
                 onClick={() => isLoggedIn ? setIsAccountOpen(true) : setIsAuthOpen(true)}
                 className="relative p-2 text-cream"
-                data-testid="mobile-user-button"
               >
                 <UserCircle className={`w-5 h-5 ${isLoggedIn ? 'text-gold' : ''}`} />
               </button>
               <button
                 onClick={() => setIsCartOpen(true)}
                 className="relative p-2 text-cream"
-                data-testid="mobile-cart-button"
               >
                 <ShoppingCart className="w-5 h-5" />
                 {cartCount > 0 && (
@@ -231,7 +277,6 @@ const Navigation = () => {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -240,34 +285,27 @@ const Navigation = () => {
               onClick={() => setIsMobileMenuOpen(false)}
             />
             
-            {/* Drawer */}
             <motion.div
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               className="fixed top-0 left-0 bottom-0 w-72 bg-forest border-r border-gold/30 z-50 lg:hidden flex flex-col"
-              data-testid="mobile-drawer"
             >
-              {/* Drawer header */}
               <div className="flex items-center justify-between px-5 py-4 border-b border-gold/20">
                 <span className="font-cinzel font-bold text-gold text-lg">Menu</span>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="p-1 text-cream/60 hover:text-gold transition-colors"
-                  data-testid="mobile-drawer-close"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              {/* Nav links */}
               <div className="flex-1 overflow-y-auto py-2">
-                {/* Home */}
                 <button
                   onClick={() => scrollToSection('hero')}
                   className="w-full flex items-center px-5 py-3.5 text-cream hover:text-gold hover:bg-gold/5 transition-all font-montserrat text-sm font-semibold uppercase tracking-wider"
-                  data-testid="mobile-nav-home"
                 >
                   {t('nav.home')}
                 </button>
@@ -275,16 +313,8 @@ const Navigation = () => {
                 {/* Shop with expandable sub */}
                 <div>
                   <button
-                    onClick={() => {
-                      if (isMobileShopOpen) {
-                        // If already open, navigate to Our Shop
-                        scrollToSection('our-shop');
-                      } else {
-                        setIsMobileShopOpen(true);
-                      }
-                    }}
+                    onClick={() => setIsMobileShopOpen(!isMobileShopOpen)}
                     className="w-full flex items-center justify-between px-5 py-3.5 text-cream hover:text-gold hover:bg-gold/5 transition-all font-montserrat text-sm font-semibold uppercase tracking-wider"
-                    data-testid="mobile-nav-shop"
                   >
                     {t('nav.shop')}
                     <ChevronRight className={`w-4 h-4 transition-transform duration-200 ${isMobileShopOpen ? 'rotate-90' : ''}`} />
@@ -311,37 +341,75 @@ const Navigation = () => {
                   </AnimatePresence>
                 </div>
 
-                {/* EXPERIENCES - direct link */}
-                <Link
-                  to="/corporate/experiences"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                <button
+                  onClick={() => scrollToSection('diy-kits')}
                   className="w-full flex items-center px-5 py-3.5 text-cream hover:text-gold hover:bg-gold/5 transition-all font-montserrat text-sm font-semibold uppercase tracking-wider"
-                  data-testid="mobile-nav-experiences"
                 >
-                  Experiences
-                </Link>
+                  {t('nav.diyKits')}
+                </button>
 
-                {/* SOLUTIONS - direct link */}
-                <Link
-                  to="/corporate/solutions"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="w-full flex items-center px-5 py-3.5 text-cream hover:text-gold hover:bg-gold/5 transition-all font-montserrat text-sm font-semibold uppercase tracking-wider"
-                  data-testid="mobile-nav-solutions"
-                >
-                  Solutions
-                </Link>
+                {/* For Business with expandable sub */}
+                <div>
+                  <button
+                    onClick={() => setIsMobileBusinessOpen(!isMobileBusinessOpen)}
+                    className="w-full flex items-center justify-between px-5 py-3.5 text-cream hover:text-gold hover:bg-gold/5 transition-all font-montserrat text-sm font-semibold uppercase tracking-wider"
+                  >
+                    {t('nav.forBusiness')}
+                    <ChevronRight className={`w-4 h-4 transition-transform duration-200 ${isMobileBusinessOpen ? 'rotate-90' : ''}`} />
+                  </button>
+                  <AnimatePresence>
+                    {isMobileBusinessOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden bg-black/20"
+                      >
+                        <Link
+                          to="/corporate"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="w-full flex items-center px-8 py-2.5 text-gold text-sm font-montserrat font-semibold transition-colors"
+                        >
+                          All Services
+                        </Link>
+                        {businessCategories.map((cat) => (
+                          <Link
+                            key={cat.path}
+                            to={cat.path}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className={`w-full flex items-center py-2.5 text-sm font-montserrat transition-colors
+                              ${cat.isHeader ? 'px-8 text-gold font-semibold' : 'px-10 text-cream/70 hover:text-gold'}`}
+                          >
+                            {cat.label}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
 
-                {/* Workshops */}
                 <button
                   onClick={() => scrollToSection('workshops')}
                   className="w-full flex items-center px-5 py-3.5 text-cream hover:text-gold hover:bg-gold/5 transition-all font-montserrat text-sm font-semibold uppercase tracking-wider"
-                  data-testid="mobile-nav-workshops"
                 >
                   {t('nav.workshops')}
                 </button>
+
+                <button
+                  onClick={() => scrollToSection('about')}
+                  className="w-full flex items-center px-5 py-3.5 text-cream hover:text-gold hover:bg-gold/5 transition-all font-montserrat text-sm font-semibold uppercase tracking-wider"
+                >
+                  {t('nav.about')}
+                </button>
+
+                <button
+                  onClick={() => scrollToSection('blog')}
+                  className="w-full flex items-center px-5 py-3.5 text-cream hover:text-gold hover:bg-gold/5 transition-all font-montserrat text-sm font-semibold uppercase tracking-wider"
+                >
+                  {t('nav.blog')}
+                </button>
               </div>
 
-              {/* Drawer footer */}
               <div className="border-t border-gold/20 px-5 py-4 space-y-3">
                 <LanguageSwitcher />
                 <div className="text-cream/40 text-xs font-montserrat text-center">
