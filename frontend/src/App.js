@@ -122,7 +122,6 @@ const HomePage = () => {
       
       <Footer />
       
-      <ScrollToTop />
       <CookieConsent />
       <Toaster position="top-right" richColors />
       
@@ -137,6 +136,7 @@ function App() {
     <AuthProvider>
       <CartProvider>
         <Router>
+          <ScrollToTop />
           <Routes>
             {/* Home Page */}
             <Route path="/" element={<HomePage />} />
