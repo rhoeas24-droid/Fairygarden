@@ -4,12 +4,14 @@ import { ShoppingBag, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import Footer from '../components/sections/Footer';
+import CartDrawer from '../components/CartDrawer';
 import TerrariumGallery from '../components/sections/TerrariumGallery';
 import BottlesJars from '../components/sections/BottlesJars';
 import ToolsEquipments from '../components/sections/ToolsEquipments';
 import PlantsSubstratesBugs from '../components/sections/PlantsSubstratesBugs';
 import DecorationsTerrascaping from '../components/sections/DecorationsTerrascaping';
 import DIYKitsWebshop from '../components/sections/DIYKitsWebshop';
+import UnderConstructionBanner from '../components/UnderConstructionBanner';
 import { Toaster } from 'sonner';
 
 const categories = [
@@ -152,6 +154,8 @@ const Webshop = () => {
         </main>
         
         <Footer />
+        <CartDrawer />
+        <UnderConstructionBanner />
         <Toaster position="top-right" richColors />
       </div>
     </div>

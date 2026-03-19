@@ -33,7 +33,7 @@ const messages = {
 };
 
 const UnderConstructionBanner = () => {
-  const [phase, setPhase] = useState('countdown');
+  const [phase, setPhase] = useState('loading');
   const [countdown, setCountdown] = useState(10);
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState('');
@@ -54,13 +54,30 @@ const UnderConstructionBanner = () => {
       setPhase('hidden');
       return;
     }
+    
+    // Check if user has already seen the countdown
+    const hasSeenCountdown = sessionStorage.getItem('constructionCountdownSeen');
     const dismissed = sessionStorage.getItem('constructionDismissed');
-    if (dismissed) setPhase('hidden');
+    
+    if (dismissed) {
+      setPhase('hidden');
+    } else if (hasSeenCountdown) {
+      // Already seen countdown, show only bar
+      setPhase('bar');
+    } else {
+      // First time - show countdown
+      setPhase('countdown');
+    }
   }, [isPreview]);
 
   useEffect(() => {
     if (phase !== 'countdown') return;
-    if (countdown <= 0) { setPhase('popup'); return; }
+    if (countdown <= 0) { 
+      setPhase('popup');
+      // Mark that user has seen the countdown
+      sessionStorage.setItem('constructionCountdownSeen', '1');
+      return; 
+    }
     const timer = setTimeout(() => setCountdown(c => c - 1), 1000);
     return () => clearTimeout(timer);
   }, [countdown, phase]);
@@ -94,7 +111,7 @@ const UnderConstructionBanner = () => {
     }
   };
 
-  if (phase === 'hidden') return null;
+  if (phase === 'hidden' || phase === 'loading') return null;
 
   return (
     <AnimatePresence mode="wait">
