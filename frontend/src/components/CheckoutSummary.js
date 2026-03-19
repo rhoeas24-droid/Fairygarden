@@ -83,20 +83,48 @@ export const SummaryStep = ({ cart, cartTotal, shippingCost, grandTotal, selecte
   </div>
 );
 
-export const BankTransferResult = ({ orderResult, onClose, t }) => (
-  <div className="p-6 space-y-4 overflow-y-auto">
+export const BankTransferResult = ({ orderResult, onClose, t, customerName }) => (
+  <div className="p-6 space-y-4 overflow-y-auto max-h-[80vh]">
     <div className="text-center">
       <div className="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center mx-auto mb-4"><Check className="w-8 h-8 text-gold" /></div>
       <h3 className="text-lg font-cinzel text-gold font-bold mb-2">{t('checkout.orderNumber')} #{orderResult.order_id}</h3>
       <p className="text-gold font-cinzel text-2xl font-bold">&euro;{orderResult.total}</p>
     </div>
-    <div className="bg-forest/40 border border-gold/15 rounded-xl p-4 space-y-3">
+    <div className="bg-forest/40 border border-gold/15 rounded-xl p-4 space-y-4">
       <h4 className="font-cinzel text-gold text-sm font-bold uppercase">{t('checkout.bankTransferInfo')}</h4>
-      <p className="text-cream/80 font-montserrat text-sm leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <p className="text-cream/80 font-montserrat text-sm leading-relaxed">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-      <div className="bg-forest/60 rounded-lg p-3 border border-gold/10 mt-3">
-        <p className="text-cream/60 font-montserrat text-xs">{t('checkout.orderRef')}: <span className="text-gold font-bold">#{orderResult.order_id}</span></p>
+      
+      <p className="text-cream font-montserrat text-sm leading-relaxed">
+        Dear {customerName || 'Customer'},
+      </p>
+      
+      <p className="text-cream/80 font-montserrat text-sm leading-relaxed">
+        Thank you for your order! We are holding your items while we wait for your bank transfer.
+      </p>
+      
+      <div className="bg-forest/60 rounded-lg p-4 border border-gold/20 space-y-2">
+        <h5 className="text-gold font-cinzel font-bold text-sm">Payment Details:</h5>
+        <div className="text-cream/80 font-montserrat text-sm space-y-1">
+          <p><span className="text-cream/60">Account Name:</span> <span className="text-cream">FairyGarden For You</span></p>
+          <p><span className="text-cream/60">Bank Name:</span> <span className="text-cream">Piraeus Bank</span></p>
+          <p><span className="text-cream/60">IBAN:</span> <span className="text-cream font-mono text-xs">GR00 0000 0000 0000 0000 0000 000</span></p>
+          <p><span className="text-cream/60">BIC/SWIFT:</span> <span className="text-cream font-mono">PIABORAA</span></p>
+          <p><span className="text-cream/60">Amount:</span> <span className="text-gold font-bold">{orderResult.total} EUR</span></p>
+          <p><span className="text-cream/60">Reference:</span> <span className="text-gold font-bold">#{orderResult.order_id}</span> <span className="text-amber-400 text-xs">(Important!)</span></p>
+        </div>
       </div>
+      
+      <p className="text-cream/80 font-montserrat text-sm leading-relaxed">
+        Please transfer the total amount within <span className="text-cream font-semibold">5 days</span>. Note that bank transfers can take 1–3 business days to arrive. We will ship your order once payment is received.
+      </p>
+      
+      <p className="text-cream/80 font-montserrat text-sm leading-relaxed">
+        To speed up processing, please send a PDF proof of payment to <a href="mailto:contact@fairygarden4u.com" className="text-gold underline">contact@fairygarden4u.com</a> once you have completed the transfer (subject: <span className="text-cream font-semibold">Proof of Payment — #{orderResult.order_id}</span>). Once received, we will process your order immediately.
+      </p>
+      
+      <p className="text-cream/80 font-montserrat text-sm leading-relaxed pt-2">
+        Thank you,<br/>
+        <span className="text-gold font-cinzel font-bold">FairyGarden For You</span>
+      </p>
     </div>
     <GoldButton onClick={onClose} className="w-full" dataTestId="bank-transfer-close">{t('checkout.close')}</GoldButton>
   </div>

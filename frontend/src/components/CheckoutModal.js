@@ -133,7 +133,7 @@ const CheckoutModal = ({ isOpen, onClose }) => {
                 <h2 className="text-xl font-cinzel font-bold text-gold">{t('checkout.orderConfirmed')}</h2>
                 <button onClick={onClose} className="text-cream/60 hover:text-gold"><X className="w-6 h-6" /></button>
               </div>
-              <BankTransferResult orderResult={orderResult} onClose={onClose} t={t} />
+              <BankTransferResult orderResult={orderResult} onClose={onClose} t={t} customerName={form.billing_first_name} />
             </motion.div>
             </div>
           </React.Fragment>
