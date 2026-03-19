@@ -14,10 +14,6 @@ import GoogleAnalytics from './components/GoogleAnalytics';
 import Hero from './components/sections/Hero';
 import MagicalDivider from './components/sections/MagicalDivider';
 import OurShop from './components/sections/OurShop';
-import TerrariumGallery from './components/sections/TerrariumGallery';
-import DIYKits from './components/sections/DIYKits';
-import Plants from './components/sections/Plants';
-import SubstratesBugs from './components/sections/SubstratesBugs';
 import ForBusiness from './components/sections/ForBusiness';
 import Workshops from './components/sections/Workshops';
 import About from './components/sections/About';
@@ -26,6 +22,9 @@ import TermsConditions, { TermsModal } from './components/sections/TermsConditio
 import PrivacyPolicy, { PrivacyModal } from './components/sections/PrivacyPolicy';
 import Footer from './components/sections/Footer';
 import UnderConstructionBanner from './components/UnderConstructionBanner';
+
+// Pages
+import Webshop from './pages/Webshop';
 
 // Corporate Pages
 import CorporateLayout from './pages/corporate/CorporateLayout';
@@ -109,10 +108,6 @@ const HomePage = () => {
         <Hero />
         <MagicalDivider />
         <OurShop />
-        <TerrariumGallery />
-        <DIYKits />
-        <Plants />
-        <SubstratesBugs />
         <ForBusiness />
         <Workshops />
         <About />
@@ -141,6 +136,9 @@ function App() {
           <Routes>
             {/* Home Page */}
             <Route path="/" element={<HomePage />} />
+            
+            {/* Webshop */}
+            <Route path="/webshop" element={<Webshop />} />
             
             {/* Corporate Pages */}
             <Route path="/corporate" element={<CorporateLayout />}>

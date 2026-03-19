@@ -60,12 +60,12 @@ const Navigation = () => {
   };
 
   const shopCategories = [
-    { label: 'Ready Florariums', id: 'gallery' },
-    { label: 'DIY Kits', id: 'diy-kits' },
-    { label: 'Plants', id: 'plants' },
-    { label: 'Substrates & Bugs', id: 'substrates-bugs' },
-    { label: 'Bottles, Jars & Tools', id: 'shop-bottles' },
-    { label: 'Decorations & Terrascaping', id: 'shop-decorations' },
+    { label: 'Enchanted Florariums', path: '/webshop#enchanted-florariums' },
+    { label: 'Bottles & Jars', path: '/webshop#bottles-jars' },
+    { label: 'Tools & Equipments', path: '/webshop#tools-equipments' },
+    { label: 'Plants, Substrates & Bugs', path: '/webshop#plants-substrates-bugs' },
+    { label: 'Decorations & Terrascaping', path: '/webshop#decorations-terrascaping' },
+    { label: 'DIY Florarium Kits', path: '/webshop#diy-kits' },
   ];
 
   const businessCategories = [
@@ -127,13 +127,14 @@ const Navigation = () => {
                 onMouseEnter={() => setIsShopDropdownOpen(true)}
                 onMouseLeave={() => setIsShopDropdownOpen(false)}
               >
-                <button
-                  onClick={() => scrollToSection('our-shop')}
+                <Link
+                  to="/webshop"
+                  onClick={() => window.scrollTo(0, 0)}
                   className="flex items-center gap-1 text-cream hover:text-gold transition-colors font-montserrat text-sm font-semibold uppercase tracking-wider px-2"
                 >
                   {t('nav.shop')}
                   <ChevronDown className={`w-4 h-4 transition-transform ${isShopDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
+                </Link>
                 
                 <AnimatePresence>
                   {isShopDropdownOpen && (
@@ -141,29 +142,25 @@ const Navigation = () => {
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      className="absolute top-full left-0 mt-2 w-56 bg-forest/95 backdrop-blur-lg border border-gold/30 rounded-lg shadow-xl overflow-hidden"
+                      className="absolute top-full left-0 mt-2 w-64 bg-forest/95 backdrop-blur-lg border border-gold/30 rounded-lg shadow-xl overflow-hidden"
                     >
                       {shopCategories.map((category, index) => (
-                        <button
-                          key={category.id}
-                          onClick={() => scrollToSection(category.id)}
-                          className={`w-full text-left px-4 py-3 font-montserrat text-sm transition-colors text-cream hover:text-gold hover:bg-gold/10 ${index !== shopCategories.length - 1 ? 'border-b border-gold/10' : ''}`}
+                        <Link
+                          key={category.path}
+                          to={category.path}
+                          onClick={() => {
+                            setIsShopDropdownOpen(false);
+                            window.scrollTo(0, 0);
+                          }}
+                          className={`block w-full text-left px-4 py-3 font-montserrat text-sm transition-colors text-cream hover:text-gold hover:bg-gold/10 ${index !== shopCategories.length - 1 ? 'border-b border-gold/10' : ''}`}
                         >
                           {category.label}
-                        </button>
+                        </Link>
                       ))}
                     </motion.div>
                   )}
                 </AnimatePresence>
               </div>
-              
-              {/* DIY Kits */}
-              <button
-                onClick={() => scrollToSection('diy-kits')}
-                className="text-cream hover:text-gold transition-colors font-montserrat text-sm font-semibold uppercase tracking-wider px-2"
-              >
-                {t('nav.diyKits')}
-              </button>
               
               {/* For Business Dropdown */}
               <div 
@@ -327,26 +324,33 @@ const Navigation = () => {
                         exit={{ height: 0, opacity: 0 }}
                         className="overflow-hidden bg-black/20"
                       >
+                        <Link
+                          to="/webshop"
+                          onClick={() => {
+                            setIsMobileMenuOpen(false);
+                            window.scrollTo(0, 0);
+                          }}
+                          className="w-full flex items-center px-8 py-2.5 text-gold text-sm font-montserrat font-semibold transition-colors"
+                        >
+                          All Products
+                        </Link>
                         {shopCategories.map((cat) => (
-                          <button
-                            key={cat.id}
-                            onClick={() => scrollToSection(cat.id)}
+                          <Link
+                            key={cat.path}
+                            to={cat.path}
+                            onClick={() => {
+                              setIsMobileMenuOpen(false);
+                              window.scrollTo(0, 0);
+                            }}
                             className="w-full flex items-center px-8 py-2.5 text-cream/70 hover:text-gold text-sm font-montserrat transition-colors"
                           >
                             {cat.label}
-                          </button>
+                          </Link>
                         ))}
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
-
-                <button
-                  onClick={() => scrollToSection('diy-kits')}
-                  className="w-full flex items-center px-5 py-3.5 text-cream hover:text-gold hover:bg-gold/5 transition-all font-montserrat text-sm font-semibold uppercase tracking-wider"
-                >
-                  {t('nav.diyKits')}
-                </button>
 
                 {/* For Business with expandable sub */}
                 <div>
