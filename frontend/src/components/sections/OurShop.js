@@ -32,58 +32,48 @@ const CategoryCard = ({ category, index, productImages }) => {
   }, [images.length]);
   
   return (
-    <Link
-      to={`/webshop#${category.targetId}`}
-      onClick={() => window.scrollTo(0, 0)}
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="group"
+      data-testid={`shop-category-${category.imageKey}`}
     >
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: index * 0.1 }}
-        className="group cursor-pointer"
-        data-testid={`shop-category-${category.imageKey}`}
-      >
-        <div className="flex flex-row items-center gap-4 p-4 h-[190px]
-          bg-forest/40 backdrop-blur-sm border border-gold/20 rounded-2xl
-          hover:bg-forest/60 hover:border-gold/40 transition-all duration-300
-          hover:shadow-[0_8px_32px_rgba(212,175,55,0.15)]">
-          
-          {/* Image Container */}
-          <div className="relative w-[150px] h-[150px] flex-shrink-0 overflow-hidden rounded-xl">
-            {images.map((img, imgIndex) => (
-              <img
-                key={imgIndex}
-                src={img}
-                alt={category.title}
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
-                  imgIndex === currentImageIndex ? 'opacity-100' : 'opacity-0'
-                }`}
-              />
-            ))}
-            <div className="absolute inset-0 border-2 border-gold/30 rounded-xl pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent 
-              opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          </div>
-          
-          {/* Text Content */}
-          <div className="flex-1 min-w-0 h-full flex flex-col justify-center overflow-hidden">
-            <h3 className="text-base sm:text-lg lg:text-xl font-cinzel font-bold text-gold mb-2
-              group-hover:text-gold-light transition-colors leading-tight">
-              {category.title}
-            </h3>
-            <p className="text-cream/70 font-montserrat text-xs sm:text-sm leading-relaxed line-clamp-2 overflow-hidden">
-              {category.description}
-            </p>
-            <div className="inline-flex items-center gap-2 text-gold font-montserrat text-xs font-semibold mt-2
-              group-hover:gap-3 transition-all">
-              <span>Explore</span>
-              <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
+      <div className="flex flex-row items-center gap-4 p-4 h-[180px]
+        bg-forest/40 backdrop-blur-sm border border-gold/20 rounded-2xl
+        hover:bg-forest/60 hover:border-gold/40 transition-all duration-300
+        hover:shadow-[0_8px_32px_rgba(212,175,55,0.15)]">
+        
+        {/* Image Container */}
+        <div className="relative w-[140px] h-[140px] flex-shrink-0 overflow-hidden rounded-xl">
+          {images.map((img, imgIndex) => (
+            <img
+              key={imgIndex}
+              src={img}
+              alt={category.title}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+                imgIndex === currentImageIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          ))}
+          <div className="absolute inset-0 border-2 border-gold/30 rounded-xl pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent 
+            opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </div>
-      </motion.div>
-    </Link>
+        
+        {/* Text Content */}
+        <div className="flex-1 min-w-0 h-full flex flex-col justify-center overflow-hidden">
+          <h3 className="text-base sm:text-lg lg:text-xl font-cinzel font-bold text-gold mb-2
+            group-hover:text-gold-light transition-colors leading-tight">
+            {category.title}
+          </h3>
+          <p className="text-cream/70 font-montserrat text-xs sm:text-sm leading-relaxed line-clamp-3 overflow-hidden">
+            {category.description}
+          </p>
+        </div>
+      </div>
+    </motion.div>
   );
 };
 
@@ -130,37 +120,31 @@ const OurShop = () => {
       title: 'Enchanted Florariums',
       description: 'Handcrafted, ready-to-enjoy closed ecosystems. Each piece is unique, bringing a touch of enchanted nature into your space.',
       imageKey: 'enchanted-florariums',
-      targetId: 'enchanted-florariums',
     },
     {
       title: 'Bottles & Jars',
       description: 'Premium glass containers in various shapes and sizes, perfect for your florarium projects.',
       imageKey: 'bottles-jars',
-      targetId: 'bottles-jars',
     },
     {
       title: 'Tools & Equipments',
       description: 'Professional terrarium tools and equipment for creating and maintaining your miniature ecosystems.',
       imageKey: 'tools-equipments',
-      targetId: 'tools-equipments',
     },
     {
       title: 'Plants, Substrates & Bugs',
       description: 'Carefully selected plants, premium substrates, drainage layers, and beneficial springtails.',
       imageKey: 'plants-substrates-bugs',
-      targetId: 'plants-substrates-bugs',
     },
     {
       title: 'Decorations & Terrascaping',
       description: 'Driftwood, stones, moss and miniature figures to bring your miniature world to life.',
       imageKey: 'decorations-terrascaping',
-      targetId: 'decorations-terrascaping',
     },
     {
       title: 'DIY Florarium Kits',
       description: 'Everything you need to create your own magical terrarium. Complete kits with plants, tools, and guidance.',
       imageKey: 'diy-kits',
-      targetId: 'diy-kits',
     },
   ];
   
@@ -176,25 +160,28 @@ const OurShop = () => {
     >
       <div className="absolute inset-0 bg-forest/90" />
       
-      <div className="relative z-10 max-w-6xl mx-auto">
+      <div className="relative z-10 max-w-5xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-10 sm:mb-14"
         >
           <ShoppingBag className="w-12 h-12 sm:w-16 sm:h-16 text-gold mx-auto mb-4 sm:mb-6" />
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-cinzel font-bold text-gold mb-4" data-testid="our-shop-title">
             Our Shop
           </h2>
-          <p className="text-cream/80 font-montserrat text-sm sm:text-base lg:text-lg max-w-2xl mx-auto">
+          <p className="text-cream/80 font-montserrat text-sm sm:text-base lg:text-lg max-w-2xl mx-auto mb-6">
             Explore our collection of handcrafted florariums, DIY kits, and all the supplies you need to create your own magical miniature world.
+          </p>
+          <p className="text-gold font-cinzel text-lg sm:text-xl font-semibold">
+            Our products:
           </p>
         </motion.div>
         
-        {/* 3x2 Category Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-10">
+        {/* 2x3 Category Grid (2 columns, 3 rows) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 mb-10">
           {categories.map((category, index) => (
             <CategoryCard key={category.imageKey} category={category} index={index} productImages={productImages} />
           ))}

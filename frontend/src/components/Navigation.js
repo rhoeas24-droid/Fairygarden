@@ -12,8 +12,6 @@ import AccountModal from './AccountModal';
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isShopDropdownOpen, setIsShopDropdownOpen] = useState(false);
-  const [isMobileShopOpen, setIsMobileShopOpen] = useState(false);
   const [isBusinessDropdownOpen, setIsBusinessDropdownOpen] = useState(false);
   const [isMobileBusinessOpen, setIsMobileBusinessOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
@@ -42,31 +40,15 @@ const Navigation = () => {
     if (location.pathname !== '/') {
       window.location.href = '/#' + id;
       setIsMobileMenuOpen(false);
-      setIsShopDropdownOpen(false);
-      setIsMobileShopOpen(false);
       return;
     }
     
-    if (id.startsWith('shop-')) {
-      window.dispatchEvent(new CustomEvent('expandWebshop', { detail: { targetId: id } }));
-    }
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     setIsMobileMenuOpen(false);
-    setIsShopDropdownOpen(false);
-    setIsMobileShopOpen(false);
   };
-
-  const shopCategories = [
-    { label: 'Enchanted Florariums', path: '/webshop#enchanted-florariums' },
-    { label: 'Bottles & Jars', path: '/webshop#bottles-jars' },
-    { label: 'Tools & Equipments', path: '/webshop#tools-equipments' },
-    { label: 'Plants, Substrates & Bugs', path: '/webshop#plants-substrates-bugs' },
-    { label: 'Decorations & Terrascaping', path: '/webshop#decorations-terrascaping' },
-    { label: 'DIY Florarium Kits', path: '/webshop#diy-kits' },
-  ];
 
   const businessCategories = [
     { label: 'Experiences', path: '/corporate/experiences', isHeader: true },
@@ -121,46 +103,14 @@ const Navigation = () => {
                 {t('nav.home')}
               </button>
               
-              {/* Shop Dropdown */}
-              <div 
-                className="relative"
-                onMouseEnter={() => setIsShopDropdownOpen(true)}
-                onMouseLeave={() => setIsShopDropdownOpen(false)}
+              {/* Shop - Simple Link (no dropdown) */}
+              <Link
+                to="/webshop"
+                onClick={() => window.scrollTo(0, 0)}
+                className="text-cream hover:text-gold transition-colors font-montserrat text-sm font-semibold uppercase tracking-wider px-2"
               >
-                <Link
-                  to="/webshop"
-                  onClick={() => window.scrollTo(0, 0)}
-                  className="flex items-center gap-1 text-cream hover:text-gold transition-colors font-montserrat text-sm font-semibold uppercase tracking-wider px-2"
-                >
-                  {t('nav.shop')}
-                  <ChevronDown className={`w-4 h-4 transition-transform ${isShopDropdownOpen ? 'rotate-180' : ''}`} />
-                </Link>
-                
-                <AnimatePresence>
-                  {isShopDropdownOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="absolute top-full left-0 mt-2 w-64 bg-forest/95 backdrop-blur-lg border border-gold/30 rounded-lg shadow-xl overflow-hidden"
-                    >
-                      {shopCategories.map((category, index) => (
-                        <Link
-                          key={category.path}
-                          to={category.path}
-                          onClick={() => {
-                            setIsShopDropdownOpen(false);
-                            window.scrollTo(0, 0);
-                          }}
-                          className={`block w-full text-left px-4 py-3 font-montserrat text-sm transition-colors text-cream hover:text-gold hover:bg-gold/10 ${index !== shopCategories.length - 1 ? 'border-b border-gold/10' : ''}`}
-                        >
-                          {category.label}
-                        </Link>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                {t('nav.shop')}
+              </Link>
               
               {/* For Business Dropdown */}
               <div 
@@ -307,50 +257,17 @@ const Navigation = () => {
                   {t('nav.home')}
                 </button>
 
-                {/* Shop with expandable sub */}
-                <div>
-                  <button
-                    onClick={() => setIsMobileShopOpen(!isMobileShopOpen)}
-                    className="w-full flex items-center justify-between px-5 py-3.5 text-cream hover:text-gold hover:bg-gold/5 transition-all font-montserrat text-sm font-semibold uppercase tracking-wider"
-                  >
-                    {t('nav.shop')}
-                    <ChevronRight className={`w-4 h-4 transition-transform duration-200 ${isMobileShopOpen ? 'rotate-90' : ''}`} />
-                  </button>
-                  <AnimatePresence>
-                    {isMobileShopOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        className="overflow-hidden bg-black/20"
-                      >
-                        <Link
-                          to="/webshop"
-                          onClick={() => {
-                            setIsMobileMenuOpen(false);
-                            window.scrollTo(0, 0);
-                          }}
-                          className="w-full flex items-center px-8 py-2.5 text-gold text-sm font-montserrat font-semibold transition-colors"
-                        >
-                          All Products
-                        </Link>
-                        {shopCategories.map((cat) => (
-                          <Link
-                            key={cat.path}
-                            to={cat.path}
-                            onClick={() => {
-                              setIsMobileMenuOpen(false);
-                              window.scrollTo(0, 0);
-                            }}
-                            className="w-full flex items-center px-8 py-2.5 text-cream/70 hover:text-gold text-sm font-montserrat transition-colors"
-                          >
-                            {cat.label}
-                          </Link>
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+                {/* Shop - Simple Link (no submenu) */}
+                <Link
+                  to="/webshop"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    window.scrollTo(0, 0);
+                  }}
+                  className="w-full flex items-center px-5 py-3.5 text-cream hover:text-gold hover:bg-gold/5 transition-all font-montserrat text-sm font-semibold uppercase tracking-wider"
+                >
+                  {t('nav.shop')}
+                </Link>
 
                 {/* For Business with expandable sub */}
                 <div>
