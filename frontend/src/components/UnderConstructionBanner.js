@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-// TEMPORARILY DISABLED - set to true to re-enable
-const BANNER_ENABLED = false;
+// ENABLED - Under construction banner
+const BANNER_ENABLED = true;
 
 const messages = {
   en: {
@@ -42,10 +42,9 @@ const UnderConstructionBanner = () => {
   const barLang = messages[i18n.language] ? i18n.language : 'en';
   const barT = messages[barLang];
 
-  // Check if banner is disabled or in preview environment
+  // Check if banner should be hidden in preview environment only
   const isPreview = typeof window !== 'undefined' && (
-    window.location.hostname.includes('preview') ||
-    window.location.hostname.includes('emergentagent.com') ||
+    window.location.hostname.includes('preview.emergentagent.com') ||
     window.location.hostname === 'localhost'
   );
 
