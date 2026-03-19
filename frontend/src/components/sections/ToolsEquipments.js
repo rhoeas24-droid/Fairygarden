@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Wrench, ShoppingCart, Eye } from 'lucide-react';
+import { Wrench } from 'lucide-react';
 import axios from 'axios';
 import { useCart } from '../../contexts/CartContext';
 import ProductDetailModal from '../ProductDetailModal';
@@ -9,11 +9,80 @@ import { toast } from 'sonner';
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
+const ProductCard = ({ product, index, onViewDetails }) => {
+  const { addToCart } = useCart();
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation();
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: parseFloat(product.price),
+      image: product.image,
+      quantity: 1,
+    });
+    toast.success(`${product.name} added to cart!`);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className="hover:-translate-y-2 transition-all duration-300 group cursor-pointer"
+      onClick={() => onViewDetails(product)}
+    >
+      {/* Product image with gold frame overlay */}
+      <div className="relative" style={{ aspectRatio: '867/1535' }}>
+        <img
+          src={product.image || '/BG_TILE_FINAL.jpg'}
+          alt={product.name}
+          className="absolute object-cover z-0"
+          style={{
+            left: '9.8%',
+            top: '9.4%',
+            width: '80.4%',
+            height: '83.4%',
+          }}
+          onError={(e) => { e.target.style.display = 'none'; }}
+        />
+        <img
+          src="https://fairygarden4u.com/ablak_frame.png"
+          alt=""
+          className="absolute inset-0 w-full h-full object-contain pointer-events-none z-10"
+        />
+      </div>
+      
+      {/* Product info */}
+      <div className="p-3 sm:p-4 space-y-2 text-center">
+        <h3 className="text-sm sm:text-base font-cinzel font-bold text-gold uppercase tracking-wide">
+          {product.name}
+        </h3>
+        <div className="flex items-center justify-center gap-3 pt-1">
+          <span className="text-base sm:text-lg font-cinzel font-bold text-gold">
+            €{parseFloat(product.price).toFixed(2)}
+          </span>
+          <button
+            onClick={handleAddToCart}
+            className="px-3 sm:px-4 py-1.5 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
+              text-[#3e2b08] font-bold text-[10px] sm:text-xs uppercase rounded-full tracking-wider
+              shadow-[0_4px_8px_rgba(0,0,0,0.2)]
+              hover:shadow-[0_6px_12px_rgba(201,168,76,0.4)]
+              active:translate-y-0.5 transition-all duration-200"
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 const ToolsEquipments = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const { addToCart } = useCart();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -76,51 +145,14 @@ const ToolsEquipments = () => {
             <div className="w-12 h-12 border-4 border-gold/30 border-t-gold rounded-full animate-spin" />
           </div>
         ) : products.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {products.map((product, index) => (
-              <motion.div
-                key={product.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                onClick={() => setSelectedProduct(product)}
-                className="group cursor-pointer"
-              >
-                <div className="bg-forest-dark/50 backdrop-blur-sm border border-gold/20 rounded-xl overflow-hidden
-                  hover:border-gold/40 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(212,175,55,0.15)]">
-                  <div className="relative aspect-square overflow-hidden">
-                    <img
-                      src={product.image || '/BG_TILE_FINAL.jpg'}
-                      alt={product.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-forest/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <div className="absolute bottom-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button
-                        onClick={(e) => handleAddToCart(product, e)}
-                        className="p-2 bg-gold text-forest rounded-full hover:bg-gold-light transition-colors"
-                      >
-                        <ShoppingCart className="w-4 h-4" />
-                      </button>
-                      <button
-                        onClick={(e) => { e.stopPropagation(); setSelectedProduct(product); }}
-                        className="p-2 bg-forest/80 text-gold border border-gold/30 rounded-full hover:bg-forest transition-colors"
-                      >
-                        <Eye className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                  <div className="p-3 sm:p-4">
-                    <h3 className="font-cinzel font-bold text-gold text-sm sm:text-base mb-1 line-clamp-2">
-                      {product.name}
-                    </h3>
-                    <p className="text-gold font-montserrat font-bold text-lg">
-                      €{parseFloat(product.price).toFixed(2)}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
+              <ProductCard 
+                key={product.id} 
+                product={product} 
+                index={index}
+                onViewDetails={setSelectedProduct}
+              />
             ))}
           </div>
         ) : (

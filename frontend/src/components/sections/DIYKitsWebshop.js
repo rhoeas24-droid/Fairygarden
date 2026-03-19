@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Package, Eye } from 'lucide-react';
+import { Package } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { toast } from 'sonner';
@@ -15,12 +15,92 @@ const stripHtml = (html) => {
   return html.replace(/<[^>]*>/g, '').trim();
 };
 
+const ProductCard = ({ product, index, onViewDetails }) => {
+  const { addToCart } = useCart();
+  const { t } = useTranslation();
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation();
+    const diyProduct = {
+      ...product,
+      id: `diy-${product.id}`,
+      name: `DIY Kit: ${product.name}`,
+      isDIYKit: true,
+      variation_id: product.variation_id || null
+    };
+    addToCart(diyProduct);
+    toast.success(t('gallery.addedToCart', { name: `DIY Kit: ${product.name}` }));
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className="hover:-translate-y-2 transition-all duration-300 group cursor-pointer"
+      onClick={() => onViewDetails(product)}
+      data-testid={`diy-product-${product.id}`}
+    >
+      {/* Product image with gold frame overlay */}
+      <div className="relative" style={{ aspectRatio: '867/1535' }}>
+        <img
+          src={product.image}
+          alt={product.name}
+          className="absolute object-cover z-0"
+          style={{
+            left: '9.8%',
+            top: '9.4%',
+            width: '80.4%',
+            height: '83.4%',
+          }}
+          onError={(e) => { e.target.style.display = 'none'; }}
+        />
+        <img
+          src="https://fairygarden4u.com/ablak_frame.png"
+          alt=""
+          className="absolute inset-0 w-full h-full object-contain pointer-events-none z-10"
+        />
+        {/* DIY Badge */}
+        <div className="absolute top-[12%] left-[12%] z-20 bg-gold text-forest px-3 py-1 rounded-full text-xs font-bold font-montserrat">
+          DIY KIT
+        </div>
+      </div>
+      
+      {/* Product info */}
+      <div className="p-3 sm:p-4 space-y-2 text-center">
+        <h3 className="text-sm sm:text-base font-cinzel font-bold text-gold uppercase tracking-wide">
+          {product.name}
+        </h3>
+        <p className="text-cream/70 font-montserrat text-xs leading-relaxed line-clamp-2 text-justify">
+          {stripHtml(product.description)}
+        </p>
+        <div className="flex items-center justify-center gap-3 pt-1">
+          <span className="text-base sm:text-lg font-cinzel font-bold text-gold">
+            €{product.price.toFixed(2)}
+          </span>
+          <button
+            onClick={handleAddToCart}
+            className="px-3 sm:px-4 py-1.5 bg-gradient-to-br from-[#d4af37] via-[#c9a84c] to-[#8b7620]
+              text-[#3e2b08] font-bold text-[10px] sm:text-xs uppercase rounded-full tracking-wider
+              shadow-[0_4px_8px_rgba(0,0,0,0.2)]
+              hover:shadow-[0_6px_12px_rgba(201,168,76,0.4)]
+              active:translate-y-0.5 transition-all duration-200"
+            data-testid={`diy-add-to-cart-${product.id}`}
+          >
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 const DIYKitsWebshop = () => {
   const { t, i18n } = useTranslation();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const { addToCart } = useCart();
 
   useEffect(() => {
     fetchProducts();
@@ -47,18 +127,6 @@ const DIYKitsWebshop = () => {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleAddToCart = (product) => {
-    const diyProduct = {
-      ...product,
-      id: `diy-${product.id}`,
-      name: `DIY Kit: ${product.name}`,
-      isDIYKit: true,
-      variation_id: product.variation_id || null
-    };
-    addToCart(diyProduct);
-    toast.success(t('gallery.addedToCart', { name: `DIY Kit: ${product.name}` }));
   };
 
   return (
@@ -97,64 +165,14 @@ const DIYKitsWebshop = () => {
             <p className="text-cream/60 font-montserrat">{t('diy.noProducts', 'DIY kits coming soon!')}</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {products.map((product, index) => (
-              <motion.div
-                key={product.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="group bg-forest/50 backdrop-blur-sm border border-gold/20 rounded-xl overflow-hidden
-                  hover:border-gold/40 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(212,175,55,0.15)]"
-                data-testid={`diy-product-${product.id}`}
-              >
-                <div className="relative aspect-square overflow-hidden">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-3 left-3 bg-gold text-forest px-3 py-1 rounded-full text-xs font-bold font-montserrat">
-                    DIY KIT
-                  </div>
-                </div>
-
-                <div className="p-4">
-                  <h3 className="font-cinzel font-bold text-gold text-sm sm:text-base mb-1 line-clamp-1">
-                    {product.name}
-                  </h3>
-                  <p className="text-cream/70 font-montserrat text-xs line-clamp-2 mb-3 text-justify">
-                    {stripHtml(product.description)}
-                  </p>
-                  
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="text-gold font-cinzel font-bold text-lg">
-                        €{product.price.toFixed(2)}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex gap-2 mt-3">
-                    <button
-                      onClick={() => setSelectedProduct(product)}
-                      className="flex-1 py-2 px-3 bg-gold/20 hover:bg-gold/30 text-cream font-montserrat text-sm font-semibold rounded-lg transition-colors flex items-center justify-center gap-1"
-                      data-testid={`diy-view-${product.id}`}
-                    >
-                      <Eye className="w-4 h-4" />
-                      {t('diy.viewDetails', 'Details')}
-                    </button>
-                    <button
-                      onClick={() => handleAddToCart(product)}
-                      className="flex-1 py-2 px-3 bg-gold hover:bg-gold-light text-forest font-montserrat text-sm font-semibold rounded-lg transition-colors"
-                      data-testid={`diy-add-to-cart-${product.id}`}
-                    >
-                      {t('diy.addToCart')}
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
+              <ProductCard 
+                key={product.id} 
+                product={product} 
+                index={index}
+                onViewDetails={setSelectedProduct}
+              />
             ))}
           </div>
         )}
