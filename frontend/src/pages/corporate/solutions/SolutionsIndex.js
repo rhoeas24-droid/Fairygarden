@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Check, ChevronRight } from 'lucide-react';
+import { Check } from 'lucide-react';
 
 const SolutionsIndex = () => {
   const solutions = [
@@ -141,11 +141,15 @@ const SolutionsIndex = () => {
                     {/* Explore Button */}
                     <Link
                       to={solution.path}
-                      className="inline-flex items-center gap-2 text-gold font-montserrat text-sm font-semibold 
-                        hover:gap-3 transition-all group"
+                      className="inline-flex items-center justify-center w-fit px-5 py-2.5 
+                        bg-gradient-to-r from-[#C9A84C] via-[#D4B65A] to-[#C9A84C] 
+                        text-forest font-montserrat font-semibold text-sm
+                        rounded border border-[#A88A3D]
+                        shadow-[inset_0_1px_0_rgba(255,255,255,0.3),0_2px_4px_rgba(0,0,0,0.3)]
+                        hover:from-[#D4B65A] hover:via-[#E0C26A] hover:to-[#D4B65A]
+                        transition-all duration-200"
                     >
-                      <span className="border-b border-gold/50 group-hover:border-gold">Explore</span>
-                      <ChevronRight className="w-4 h-4" />
+                      Explore
                     </Link>
                   </div>
                 </div>

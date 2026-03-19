@@ -105,39 +105,51 @@ const ExperiencesIndex = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              <Link to="/corporate/experiences/retreat" className="block h-full group">
-                <div className="h-full border border-gold/30 rounded-lg bg-forest/40 backdrop-blur-sm p-5 hover:border-gold/50 transition-all">
-                  {/* Header */}
-                  <div className="flex items-center gap-2 mb-4">
-                    <Leaf className="w-5 h-5 text-gold" />
-                    <h3 className="text-lg font-cinzel font-bold text-gold uppercase tracking-wide">
-                      Team Retreat
-                    </h3>
+              <div className="h-full border border-gold/30 rounded-lg bg-forest/40 backdrop-blur-sm p-5">
+                {/* Header */}
+                <div className="flex items-center gap-2 mb-4">
+                  <Leaf className="w-5 h-5 text-gold" />
+                  <h3 className="text-lg font-cinzel font-bold text-gold uppercase tracking-wide">
+                    Team Retreat
+                  </h3>
+                </div>
+                
+                {/* Content with image */}
+                <div className="flex gap-4 mb-5">
+                  <div className="w-28 h-28 sm:w-32 sm:h-32 flex-shrink-0 rounded overflow-hidden">
+                    <img
+                      src="/business_teambuilding.png"
+                      alt="Team Retreat"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  
-                  {/* Content with image */}
-                  <div className="flex gap-4">
-                    <div className="w-28 h-28 sm:w-32 sm:h-32 flex-shrink-0 rounded overflow-hidden">
-                      <img
-                        src="/business_teambuilding.png"
-                        alt="Team Retreat"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-cream font-montserrat font-semibold text-sm mb-2">
-                        Focus:<br />
-                        <span className="text-gold">Reset, reflection, creativity</span>
-                      </p>
-                      <ul className="space-y-1 text-cream/70 font-montserrat text-xs">
-                        <li>• Uncovering hidden talents</li>
-                        <li>• Improving interpersonal bonds</li>
-                        <li>• Fostering personal insight</li>
-                      </ul>
-                    </div>
+                  <div className="flex-1">
+                    <p className="text-cream font-montserrat font-semibold text-sm mb-2">
+                      Focus:<br />
+                      <span className="text-gold">Reset, reflection, creativity</span>
+                    </p>
+                    <ul className="space-y-1 text-cream/70 font-montserrat text-xs">
+                      <li>• Uncovering hidden talents</li>
+                      <li>• Improving interpersonal bonds</li>
+                      <li>• Fostering personal insight</li>
+                    </ul>
                   </div>
                 </div>
-              </Link>
+                
+                {/* Explore Button */}
+                <Link
+                  to="/corporate/experiences/retreat"
+                  className="inline-flex items-center justify-center px-5 py-2.5 
+                    bg-gradient-to-r from-[#C9A84C] via-[#D4B65A] to-[#C9A84C] 
+                    text-forest font-montserrat font-semibold text-sm
+                    rounded border border-[#A88A3D]
+                    shadow-[inset_0_1px_0_rgba(255,255,255,0.3),0_2px_4px_rgba(0,0,0,0.3)]
+                    hover:from-[#D4B65A] hover:via-[#E0C26A] hover:to-[#D4B65A]
+                    transition-all duration-200"
+                >
+                  Explore
+                </Link>
+              </div>
             </motion.div>
 
             {/* Team Building Card */}
@@ -147,39 +159,51 @@ const ExperiencesIndex = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              <Link to="/corporate/experiences/team-building" className="block h-full group">
-                <div className="h-full border border-gold/30 rounded-lg bg-forest/40 backdrop-blur-sm p-5 hover:border-gold/50 transition-all">
-                  {/* Header */}
-                  <div className="flex items-center gap-2 mb-4">
-                    <Leaf className="w-5 h-5 text-gold" />
-                    <h3 className="text-lg font-cinzel font-bold text-gold uppercase tracking-wide">
-                      Team Building
-                    </h3>
+              <div className="h-full border border-gold/30 rounded-lg bg-forest/40 backdrop-blur-sm p-5">
+                {/* Header */}
+                <div className="flex items-center gap-2 mb-4">
+                  <Leaf className="w-5 h-5 text-gold" />
+                  <h3 className="text-lg font-cinzel font-bold text-gold uppercase tracking-wide">
+                    Team Building
+                  </h3>
+                </div>
+                
+                {/* Content with image */}
+                <div className="flex gap-4 mb-5">
+                  <div className="w-28 h-28 sm:w-32 sm:h-32 flex-shrink-0 rounded overflow-hidden">
+                    <img
+                      src="/business_teambuilding.png"
+                      alt="Team Building"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  
-                  {/* Content with image */}
-                  <div className="flex gap-4">
-                    <div className="w-28 h-28 sm:w-32 sm:h-32 flex-shrink-0 rounded overflow-hidden">
-                      <img
-                        src="/business_teambuilding.png"
-                        alt="Team Building"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-cream font-montserrat font-semibold text-sm mb-2">
-                        Focus:<br />
-                        <span className="text-gold">Collaboration, communication, trust</span>
-                      </p>
-                      <ul className="space-y-1 text-cream/70 font-montserrat text-xs">
-                        <li>• Fostering teamwork and synergy</li>
-                        <li>• Strengthening communication skills</li>
-                        <li>• Identifying and solving challenges collectively</li>
-                      </ul>
-                    </div>
+                  <div className="flex-1">
+                    <p className="text-cream font-montserrat font-semibold text-sm mb-2">
+                      Focus:<br />
+                      <span className="text-gold">Collaboration, communication, trust</span>
+                    </p>
+                    <ul className="space-y-1 text-cream/70 font-montserrat text-xs">
+                      <li>• Fostering teamwork and synergy</li>
+                      <li>• Strengthening communication skills</li>
+                      <li>• Identifying and solving challenges collectively</li>
+                    </ul>
                   </div>
                 </div>
-              </Link>
+                
+                {/* Explore Button */}
+                <Link
+                  to="/corporate/experiences/team-building"
+                  className="inline-flex items-center justify-center px-5 py-2.5 
+                    bg-gradient-to-r from-[#C9A84C] via-[#D4B65A] to-[#C9A84C] 
+                    text-forest font-montserrat font-semibold text-sm
+                    rounded border border-[#A88A3D]
+                    shadow-[inset_0_1px_0_rgba(255,255,255,0.3),0_2px_4px_rgba(0,0,0,0.3)]
+                    hover:from-[#D4B65A] hover:via-[#E0C26A] hover:to-[#D4B65A]
+                    transition-all duration-200"
+                >
+                  Explore
+                </Link>
+              </div>
             </motion.div>
           </div>
         </div>
