@@ -1,79 +1,220 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ChevronRight, Users, TreePine } from 'lucide-react';
+import { Check, Leaf } from 'lucide-react';
 
 const ExperiencesIndex = () => {
-  const experiences = [
-    {
-      title: 'Team Retreat',
-      path: '/corporate/experiences/retreat',
-      description: 'Immersive day or weekend experiences designed for reflection and team bonding.',
-      icon: TreePine
-    },
-    {
-      title: 'Team Building',
-      path: '/corporate/experiences/team-building',
-      description: 'Creative workshops for groups of any size, fostering collaboration and mindfulness.',
-      icon: Users
-    }
+  const teamGains = [
+    'Reveals hidden strengths and untapped potential',
+    'Deepens interpersonal understanding beyond workplace roles',
+    'Creates space for authentic connection and reflection',
+    'Develops skills aligned with your team\'s real challenges',
+    'Strengthens communication, trust, and collaboration',
+    'Designed around your company\'s specific goals and dynamics'
   ];
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
-        <div className="max-w-5xl mx-auto text-center">
+      <section className="relative py-12 sm:py-16 lg:py-20 px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Left - Text Content */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="order-2 lg:order-1"
+            >
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-cinzel font-bold mb-2 leading-tight">
+                <span className="text-gold italic">Florarium-Based Team Experiences</span>
+              </h1>
+              
+              <p className="text-base sm:text-lg font-cinzel text-gold/70 italic mb-4">
+                Creative. Reflective. Deeply Human.
+              </p>
+              
+              <div className="w-12 h-0.5 bg-gold/40 mb-4" />
+              
+              <p className="text-cream/75 font-montserrat text-sm sm:text-base leading-relaxed">
+                Bring your team together through a hands-on experience that blends creativity, nature, and meaningful collaboration.
+              </p>
+            </motion.div>
+
+            {/* Right - Image */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="order-1 lg:order-2"
+            >
+              <div className="relative">
+                <img
+                  src="/business_gift_exclusive.png"
+                  alt="Florarium Experience"
+                  className="w-full h-[280px] sm:h-[350px] lg:h-[400px] object-cover rounded-xl shadow-2xl"
+                />
+                <div className="absolute inset-0 rounded-xl ring-1 ring-gold/20" />
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Philosophy Quote Section */}
+      <section className="py-8 sm:py-12 px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
           >
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-cinzel font-bold text-gold italic mb-4">
-              Team Experiences
-            </h1>
-            <p className="text-cream/70 font-montserrat text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-              Bring your team together through shared creation, reflection, and collaboration. 
-              Our sustainable terrarium workshops foster mindfulness and connection.
+            <p className="text-gold font-cinzel italic text-base sm:text-lg mb-3">
+              We use self-sustaining living ecosystems as a tool for team development.
+            </p>
+            <p className="text-cream/60 font-montserrat text-sm">
+              Building = Creation · Caring = Responsibility · Repairing = Problem-Solving
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Experiences Grid */}
-      <section className="pb-16 sm:pb-20 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto">
+      {/* Two Paths Section */}
+      <section className="py-12 sm:py-16 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-10"
+          >
+            <h2 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold mb-2">
+              Two Paths, One Purpose
+            </h2>
+            <p className="text-cream/60 font-montserrat text-sm">
+              Choose the format that best suits your team's needs.
+            </p>
+          </motion.div>
+
+          {/* Two Cards */}
           <div className="grid md:grid-cols-2 gap-6">
-            {experiences.map((exp, index) => (
-              <motion.div
-                key={exp.path}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <Link
-                  to={exp.path}
-                  className="block h-full group"
-                >
-                  <div className="h-full p-6 bg-forest/40 border border-gold/20 rounded-lg 
-                    hover:border-gold/40 hover:bg-forest/50 transition-all flex flex-col">
-                    <exp.icon className="w-10 h-10 text-gold mb-4" />
-                    <h3 className="text-xl font-cinzel font-bold text-gold mb-2 
-                      group-hover:text-gold-light transition-colors">
-                      {exp.title}
+            {/* Team Retreat Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <Link to="/corporate/experiences/retreat" className="block h-full group">
+                <div className="h-full border border-gold/30 rounded-lg bg-forest/40 backdrop-blur-sm p-5 hover:border-gold/50 transition-all">
+                  {/* Header */}
+                  <div className="flex items-center gap-2 mb-4">
+                    <Leaf className="w-5 h-5 text-gold" />
+                    <h3 className="text-lg font-cinzel font-bold text-gold uppercase tracking-wide">
+                      Team Retreat
                     </h3>
-                    <p className="text-cream/60 font-montserrat text-sm leading-relaxed mb-4 flex-1">
-                      {exp.description}
-                    </p>
-                    <span className="inline-flex items-center gap-2 text-gold font-montserrat text-sm font-semibold">
-                      Learn More
-                      <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </span>
                   </div>
-                </Link>
-              </motion.div>
-            ))}
+                  
+                  {/* Content with image */}
+                  <div className="flex gap-4">
+                    <div className="w-28 h-28 sm:w-32 sm:h-32 flex-shrink-0 rounded overflow-hidden">
+                      <img
+                        src="/business_teambuilding.png"
+                        alt="Team Retreat"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-cream font-montserrat font-semibold text-sm mb-2">
+                        Focus:<br />
+                        <span className="text-gold">Reset, reflection, creativity</span>
+                      </p>
+                      <ul className="space-y-1 text-cream/70 font-montserrat text-xs">
+                        <li>• Uncovering hidden talents</li>
+                        <li>• Improving interpersonal bonds</li>
+                        <li>• Fostering personal insight</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+
+            {/* Team Building Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <Link to="/corporate/experiences/team-building" className="block h-full group">
+                <div className="h-full border border-gold/30 rounded-lg bg-forest/40 backdrop-blur-sm p-5 hover:border-gold/50 transition-all">
+                  {/* Header */}
+                  <div className="flex items-center gap-2 mb-4">
+                    <Leaf className="w-5 h-5 text-gold" />
+                    <h3 className="text-lg font-cinzel font-bold text-gold uppercase tracking-wide">
+                      Team Building
+                    </h3>
+                  </div>
+                  
+                  {/* Content with image */}
+                  <div className="flex gap-4">
+                    <div className="w-28 h-28 sm:w-32 sm:h-32 flex-shrink-0 rounded overflow-hidden">
+                      <img
+                        src="/business_teambuilding.png"
+                        alt="Team Building"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-cream font-montserrat font-semibold text-sm mb-2">
+                        Focus:<br />
+                        <span className="text-gold">Collaboration, communication, trust</span>
+                      </p>
+                      <ul className="space-y-1 text-cream/70 font-montserrat text-xs">
+                        <li>• Fostering teamwork and synergy</li>
+                        <li>• Strengthening communication skills</li>
+                        <li>• Identifying and solving challenges collectively</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* What Your Team Gains Section */}
+      <section className="py-12 sm:py-16 px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-8"
+          >
+            <h2 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold">
+              What Your Team Gains From This
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="grid sm:grid-cols-2 gap-x-8 gap-y-4"
+          >
+            {teamGains.map((gain, index) => (
+              <div key={index} className="flex items-start gap-3">
+                <Check className="w-5 h-5 text-gold shrink-0 mt-0.5" />
+                <span className="text-cream/80 font-montserrat text-sm">
+                  {gain}
+                </span>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
     </div>
