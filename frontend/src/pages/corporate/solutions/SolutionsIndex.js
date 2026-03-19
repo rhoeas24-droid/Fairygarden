@@ -187,35 +187,6 @@ const SolutionsIndex = () => {
           </motion.div>
         </div>
       </section>
-
-      {/* CTA Section */}
-      <section id="contact-form" className="py-12 sm:py-16 px-4 sm:px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-xl sm:text-2xl font-cinzel font-bold text-cream mb-6">
-              Ready to elevate your workspace or event?
-            </h2>
-            
-            <Link
-              to="/corporate#contact"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 
-                bg-gradient-to-r from-[#C9A84C] via-[#D4B65A] to-[#C9A84C] 
-                text-forest font-montserrat font-semibold text-sm
-                rounded border border-[#A88A3D]
-                shadow-[inset_0_1px_0_rgba(255,255,255,0.3),0_2px_4px_rgba(0,0,0,0.3)]
-                hover:from-[#D4B65A] hover:via-[#E0C26A] hover:to-[#D4B65A]
-                transition-all duration-200"
-            >
-              Request a Proposal
-              <ChevronRight className="w-4 h-4" />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Mail } from 'lucide-react';
 
 const CorporateHome = () => {
   return (
@@ -170,76 +169,6 @@ const CorporateHome = () => {
               </div>
             </motion.div>
           </div>
-        </div>
-      </section>
-
-      {/* Contact CTA */}
-      <section id="contact" className="py-12 sm:py-16 px-4 sm:px-6">
-        <div className="max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-8"
-          >
-            <h2 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold mb-3">
-              Let's Create Something Unique
-            </h2>
-            <p className="text-cream/60 font-montserrat text-sm">
-              Tell us about your vision and we'll craft a tailored proposal.
-            </p>
-          </motion.div>
-
-          <motion.form
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="space-y-4 bg-forest/30 backdrop-blur-sm border border-gold/20 rounded-xl p-5 sm:p-6"
-          >
-            <div className="grid sm:grid-cols-2 gap-4">
-              <input
-                type="text"
-                placeholder="Your Name"
-                className="w-full px-4 py-2.5 bg-forest/50 border border-gold/30 rounded-lg text-cream font-montserrat text-sm placeholder:text-cream/40 focus:border-gold focus:outline-none transition-colors"
-              />
-              <input
-                type="email"
-                placeholder="Email Address"
-                className="w-full px-4 py-2.5 bg-forest/50 border border-gold/30 rounded-lg text-cream font-montserrat text-sm placeholder:text-cream/40 focus:border-gold focus:outline-none transition-colors"
-              />
-            </div>
-            <input
-              type="text"
-              placeholder="Company Name"
-              className="w-full px-4 py-2.5 bg-forest/50 border border-gold/30 rounded-lg text-cream font-montserrat text-sm placeholder:text-cream/40 focus:border-gold focus:outline-none transition-colors"
-            />
-            <select
-              className="w-full px-4 py-2.5 bg-forest/50 border border-gold/30 rounded-lg text-cream font-montserrat text-sm focus:border-gold focus:outline-none transition-colors"
-            >
-              <option value="" className="bg-forest">Select Service Interest</option>
-              <option value="experiences" className="bg-forest">Team Experiences</option>
-              <option value="solutions" className="bg-forest">Florarium Solutions</option>
-            </select>
-            <textarea
-              placeholder="Tell us about your project..."
-              rows={3}
-              className="w-full px-4 py-2.5 bg-forest/50 border border-gold/30 rounded-lg text-cream font-montserrat text-sm placeholder:text-cream/40 focus:border-gold focus:outline-none resize-none transition-colors"
-            />
-            <button
-              type="submit"
-              className="w-full sm:w-auto px-6 py-2.5 
-                bg-gradient-to-r from-[#C9A84C] via-[#D4B65A] to-[#C9A84C] 
-                text-forest font-montserrat font-bold text-sm rounded
-                border border-[#A88A3D]
-                shadow-[inset_0_1px_0_rgba(255,255,255,0.3),0_2px_4px_rgba(0,0,0,0.3)]
-                hover:from-[#D4B65A] hover:via-[#E0C26A] hover:to-[#D4B65A]
-                transition-all flex items-center justify-center gap-2 mx-auto"
-            >
-              <Mail className="w-4 h-4" />
-              Request a Proposal
-            </button>
-          </motion.form>
         </div>
       </section>
     </div>

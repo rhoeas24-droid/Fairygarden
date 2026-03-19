@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Building2, CheckCircle, Mail, Leaf, Sparkles } from 'lucide-react';
+import { ArrowLeft, Building2, CheckCircle, Leaf, Sparkles } from 'lucide-react';
+import CorporateContactForm from '../CorporateContactForm';
 
 const OfficeDecor = () => {
   const services = [
@@ -159,24 +160,8 @@ const OfficeDecor = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 px-4 text-center bg-forest/50">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-cinzel font-bold text-gold mb-6">
-            Transform Your Workspace
-          </h2>
-          <p className="text-cream/70 font-montserrat mb-8">
-            Schedule a consultation and we'll visit your space to create a custom proposal.
-          </p>
-          <Link
-            to="/corporate#contact"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gold text-forest font-montserrat font-bold rounded-full hover:bg-gold-light transition-colors"
-          >
-            <Mail className="w-5 h-5" />
-            Schedule Consultation
-          </Link>
-        </div>
-      </section>
+      {/* Contact Form */}
+      <CorporateContactForm serviceType="Office Decor" />
     </div>
   );
 };

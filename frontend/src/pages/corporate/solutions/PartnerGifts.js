@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Gift, CheckCircle, Mail, Crown, Star, Award } from 'lucide-react';
+import { ArrowLeft, Gift, CheckCircle, Crown, Star, Award } from 'lucide-react';
+import CorporateContactForm from '../CorporateContactForm';
 
 const PartnerGifts = () => {
   const giftTiers = [
@@ -189,24 +190,8 @@ const PartnerGifts = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 px-4 text-center">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-cinzel font-bold text-gold mb-6">
-            Create an Unforgettable Gift
-          </h2>
-          <p className="text-cream/70 font-montserrat mb-8">
-            Tell us about the recipient and occasion, and we'll design the perfect piece.
-          </p>
-          <Link
-            to="/corporate#contact"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gold text-forest font-montserrat font-bold rounded-full hover:bg-gold-light transition-colors"
-          >
-            <Mail className="w-5 h-5" />
-            Discuss Your Gift
-          </Link>
-        </div>
-      </section>
+      {/* Contact Form */}
+      <CorporateContactForm serviceType="Partner Gifts" />
     </div>
   );
 };

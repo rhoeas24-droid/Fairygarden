@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Calendar, CheckCircle, Mail, Sparkles, Clock, Users } from 'lucide-react';
+import { ArrowLeft, Calendar, CheckCircle, Sparkles, Clock, Users } from 'lucide-react';
+import CorporateContactForm from '../CorporateContactForm';
 
 const EventDecor = () => {
   const eventTypes = [
@@ -151,24 +152,8 @@ const EventDecor = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 px-4 text-center bg-forest/50">
-        <div className="max-w-2xl mx-auto">
-          <h2 className="text-3xl font-cinzel font-bold text-gold mb-6">
-            Plan Your Event Decor
-          </h2>
-          <p className="text-cream/70 font-montserrat mb-8">
-            Tell us about your event and we'll create a custom rental proposal.
-          </p>
-          <Link
-            to="/corporate#contact"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gold text-forest font-montserrat font-bold rounded-full hover:bg-gold-light transition-colors"
-          >
-            <Mail className="w-5 h-5" />
-            Get Event Quote
-          </Link>
-        </div>
-      </section>
+      {/* Contact Form */}
+      <CorporateContactForm serviceType="Event Decor" />
     </div>
   );
 };
