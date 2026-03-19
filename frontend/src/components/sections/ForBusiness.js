@@ -1,166 +1,37 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Building2, Mail, Phone, Users, Gift, Gem, TreeDeciduous, CalendarDays, ChevronDown } from 'lucide-react';
+import { Building2, Users, Gift } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import GoldButton from '../GoldButton';
-import axios from 'axios';
-import { toast } from 'sonner';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-// Service card component with alternating layout
-const ServiceCard = ({ service, index, t }) => {
-  const isEven = index % 2 === 0;
-  
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ delay: index * 0.1, duration: 0.6 }}
-      className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-6 lg:gap-10 items-center mb-12 lg:mb-20`}
-      data-testid={`service-card-${service.id}`}
-    >
-      {/* Image */}
-      <div className="w-full lg:w-1/2">
-        <div className="relative group">
-          {/* Golden frame effect */}
-          <div className="absolute -inset-2 bg-gradient-to-r from-gold/30 via-gold/50 to-gold/30 rounded-2xl blur-sm opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
-          <div className="relative overflow-hidden rounded-xl border-2 border-gold/40 bg-forest-dark">
-            <img
-              src={service.image}
-              alt={t(`forBusiness.services.${service.id}.title`)}
-              className="w-full h-64 sm:h-80 lg:h-96 object-cover transform group-hover:scale-105 transition-transform duration-700"
-              loading="lazy"
-            />
-            {/* Overlay gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-forest-dark/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          </div>
-        </div>
-      </div>
-      
-      {/* Content */}
-      <div className="w-full lg:w-1/2 text-center lg:text-left">
-        <div className={`flex items-center gap-3 mb-4 justify-center ${isEven ? 'lg:justify-start' : 'lg:justify-end'}`}>
-          <service.icon className="w-8 h-8 text-gold" />
-          <h3 className="text-xl sm:text-2xl lg:text-3xl font-cinzel font-bold text-gold">
-            {t(`forBusiness.services.${service.id}.title`)}
-          </h3>
-        </div>
-        <p className="text-cream/85 font-montserrat text-sm sm:text-base leading-relaxed text-justify whitespace-pre-line">
-          {t(`forBusiness.services.${service.id}.description`)}
-        </p>
-      </div>
-    </motion.div>
-  );
-};
 
 const ForBusiness = () => {
   const { t } = useTranslation();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    service: [],
-    message: '',
-    privacyAccepted: false,
-    subscribeNewsletter: false
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Service definitions with images and icons
-  const services = [
+  const categories = [
     {
-      id: 'teambuilding',
+      id: 'experiences',
+      title: 'Team Experiences',
+      subtitle: 'Retreat & Team Building',
+      description: 'Hands-on florarium workshops designed to develop your team — aligned with your business goals, culture, and challenges.',
       image: '/business_teambuilding.png',
-      icon: Users
+      icon: Users,
+      link: '/corporate/experiences'
     },
     {
-      id: 'representativeGift',
-      image: '/business_gift_small.png',
-      icon: Gift
-    },
-    {
-      id: 'exclusiveGift',
+      id: 'solutions',
+      title: 'Florarium Solutions',
+      subtitle: 'For Workspaces & Brands',
+      description: 'Office & event decorations, branded gifts for employees and partners — living compositions that elevate your brand presence.',
       image: '/business_gift_exclusive.png',
-      icon: Gem
-    },
-    {
-      id: 'officeDecor',
-      image: '/business_office_decor.png',
-      icon: TreeDeciduous
-    },
-    {
-      id: 'eventRental',
-      image: '/business_event_rental.png',
-      icon: CalendarDays
+      icon: Gift,
+      link: '/corporate/solutions'
     }
   ];
-
-  const handleChange = (e) => {
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
-    setFormData({ ...formData, [e.target.name]: value });
-  };
-
-  const toggleService = (serviceId) => {
-    setFormData(prev => ({
-      ...prev,
-      service: prev.service.includes(serviceId)
-        ? prev.service.filter(s => s !== serviceId)
-        : [...prev.service, serviceId]
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (!formData.privacyAccepted) {
-      toast.error(t('forBusiness.privacyError'));
-      return;
-    }
-    
-    setIsSubmitting(true);
-    
-    try {
-      await axios.post(`${API}/contact`, {
-        name: formData.name,
-        email: formData.email,
-        company: formData.company,
-        service: formData.service.join(', '),
-        message: formData.message
-      });
-      
-      if (formData.subscribeNewsletter) {
-        try {
-          await fetch('https://fairygarden4u.com/shop/wp-admin/admin-ajax.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `action=mailpoet_subscribe&email=${encodeURIComponent(formData.email)}`
-          });
-        } catch (err) {
-          console.log('Newsletter subscription error:', err);
-        }
-      }
-      
-      toast.success(t('forBusiness.successMessage'));
-      setFormData({ name: '', email: '', company: '', service: [], message: '', privacyAccepted: false, subscribeNewsletter: false });
-    } catch (error) {
-      toast.error(t('forBusiness.errorMessage'));
-      console.error('Error submitting contact form:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const scrollToPrivacy = () => {
-    window.dispatchEvent(new CustomEvent('openPrivacyModal'));
-  };
 
   return (
     <section
       id="for-business"
-      className="relative py-12 sm:py-16 lg:py-24 px-3 sm:px-4"
+      className="relative py-12 sm:py-16 lg:py-20 px-3 sm:px-4"
       style={{
         backgroundImage: 'url(/BG_TILE_FINAL.jpg)',
         backgroundSize: 'cover',
@@ -175,201 +46,96 @@ const ForBusiness = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12 sm:mb-16 lg:mb-20"
+          className="text-center mb-10 sm:mb-14"
         >
-          <Building2 className="w-12 h-12 sm:w-16 sm:h-16 text-gold mx-auto mb-4 sm:mb-6" />
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-cinzel font-bold text-gold mb-3 sm:mb-4" data-testid="for-business-title">
+          <Building2 className="w-10 h-10 sm:w-12 sm:h-12 text-gold mx-auto mb-4" />
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-cinzel font-bold text-gold mb-3" data-testid="for-business-title">
             {t('forBusiness.title')}
           </h2>
-          <p className="text-cream/80 font-montserrat text-sm sm:text-base lg:text-lg max-w-3xl mx-auto px-2 text-justify">
-            {t('forBusiness.subtitle')}
+          <p className="text-cream/75 font-montserrat text-sm sm:text-base max-w-2xl mx-auto px-2">
+            From team development workshops to elegant brand solutions — we bring living botanical art to your business.
           </p>
         </motion.div>
 
-        {/* Services */}
-        <div className="mb-16 lg:mb-24">
-          {services.map((service, index) => (
-            <ServiceCard key={service.id} service={service} index={index} t={t} />
+        {/* Two Category Cards */}
+        <div className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
+          {categories.map((category, index) => (
+            <motion.div
+              key={category.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.15 }}
+              className="h-full"
+            >
+              <div className="relative overflow-hidden rounded-xl border border-gold/30 bg-forest/50 backdrop-blur-sm h-full flex flex-col">
+                {/* Image */}
+                <div className="h-[200px] sm:h-[240px] overflow-hidden">
+                  <img
+                    src={category.image}
+                    alt={category.title}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                
+                {/* Content */}
+                <div className="p-5 sm:p-6 flex flex-col flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <category.icon className="w-6 h-6 text-gold" />
+                    <h3 className="text-xl sm:text-2xl font-cinzel font-bold text-gold">
+                      {category.title}
+                    </h3>
+                  </div>
+                  
+                  <p className="text-gold/70 font-montserrat text-sm font-medium mb-3">
+                    {category.subtitle}
+                  </p>
+                  
+                  <p className="text-cream/70 font-montserrat text-sm leading-relaxed mb-5 flex-1">
+                    {category.description}
+                  </p>
+                  
+                  {/* Explore Button */}
+                  <Link
+                    to={category.link}
+                    onClick={() => window.scrollTo(0, 0)}
+                    className="inline-flex items-center justify-center w-fit px-5 py-2.5 
+                      bg-gradient-to-r from-[#C9A84C] via-[#D4B65A] to-[#C9A84C] 
+                      text-forest font-montserrat font-semibold text-sm
+                      rounded border border-[#A88A3D]
+                      shadow-[inset_0_1px_0_rgba(255,255,255,0.3),0_2px_4px_rgba(0,0,0,0.3)]
+                      hover:from-[#D4B65A] hover:via-[#E0C26A] hover:to-[#D4B65A]
+                      transition-all duration-200"
+                    data-testid={`explore-${category.id}-btn`}
+                  >
+                    Explore {category.title}
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
           ))}
         </div>
 
-        {/* Contact Form */}
+        {/* Optional: Simple CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="bg-forest/60 backdrop-blur-md border border-gold/30 rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12 max-w-2xl mx-auto"
-          id="business-contact-form"
+          transition={{ delay: 0.3 }}
+          className="text-center mt-10 sm:mt-14"
         >
-          <h3 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold text-center mb-6 sm:mb-8">
-            {t('forBusiness.formTitle')}
-          </h3>
-          
-          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-            <div>
-              <label htmlFor="name" className="block text-cream font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
-                {t('forBusiness.nameLabel')} *
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black/20 border border-gold/40 text-cream placeholder:text-cream/50
-                  focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base
-                  transition-all duration-200"
-                placeholder={t('forBusiness.namePlaceholder')}
-                data-testid="contact-name-input"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="email" className="block text-cream font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
-                {t('forBusiness.emailLabel')} *
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black/20 border border-gold/40 text-cream placeholder:text-cream/50
-                  focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base
-                  transition-all duration-200"
-                placeholder="your.email@company.com"
-                data-testid="contact-email-input"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="company" className="block text-cream font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
-                {t('forBusiness.companyLabel')}
-              </label>
-              <input
-                type="text"
-                id="company"
-                name="company"
-                value={formData.company}
-                onChange={handleChange}
-                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black/20 border border-gold/40 text-cream placeholder:text-cream/50
-                  focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base
-                  transition-all duration-200"
-                placeholder={t('forBusiness.companyPlaceholder')}
-                data-testid="contact-company-input"
-              />
-            </div>
-
-            {/* Service Multi-Select */}
-            <div>
-              <label className="block text-cream font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
-                {t('forBusiness.serviceLabel')}
-              </label>
-              <div className="space-y-2" data-testid="contact-service-select">
-                {services.map((service) => (
-                  <label
-                    key={service.id}
-                    className={`flex items-center gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-md border cursor-pointer transition-all duration-200 ${
-                      formData.service.includes(service.id)
-                        ? 'bg-gold/15 border-gold/60 text-gold'
-                        : 'bg-black/20 border-gold/20 text-cream/70 hover:border-gold/40'
-                    }`}
-                  >
-                    <input
-                      type="checkbox"
-                      checked={formData.service.includes(service.id)}
-                      onChange={() => toggleService(service.id)}
-                      className="w-4 h-4 accent-gold rounded"
-                      data-testid={`service-checkbox-${service.id}`}
-                    />
-                    <span className="font-montserrat text-sm sm:text-base">
-                      {t(`forBusiness.services.${service.id}.title`)}
-                    </span>
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="message" className="block text-cream font-montserrat font-semibold mb-1 sm:mb-2 text-sm sm:text-base">
-                {t('forBusiness.messageLabel')} *
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                required
-                rows={4}
-                className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-black/20 border border-gold/40 text-cream placeholder:text-cream/50
-                  focus:border-gold focus:ring-1 focus:ring-gold rounded-md font-montserrat text-sm sm:text-base
-                  transition-all duration-200"
-                placeholder={t('forBusiness.messagePlaceholder')}
-                data-testid="contact-message-input"
-              />
-            </div>
-
-            <div className="space-y-2 sm:space-y-3 pt-2">
-              <div className="flex items-start gap-2 sm:gap-3">
-                <input
-                  type="checkbox"
-                  id="privacyAccepted"
-                  name="privacyAccepted"
-                  checked={formData.privacyAccepted}
-                  onChange={handleChange}
-                  required
-                  className="mt-1 w-4 h-4 rounded border-gold/40 bg-black/20 text-gold
-                    focus:ring-gold focus:ring-offset-0"
-                  data-testid="privacy-checkbox"
-                />
-                <label htmlFor="privacyAccepted" className="text-cream/90 font-montserrat text-xs sm:text-sm">
-                  {t('forBusiness.privacyLabel')}{' '}
-                  <button
-                    type="button"
-                    onClick={scrollToPrivacy}
-                    className="text-gold hover:text-gold-light underline"
-                  >
-                    {t('forBusiness.privacyLink')}
-                  </button>{' '}
-                  *
-                </label>
-              </div>
-
-              <div className="flex items-start gap-2 sm:gap-3">
-                <input
-                  type="checkbox"
-                  id="subscribeNewsletter"
-                  name="subscribeNewsletter"
-                  checked={formData.subscribeNewsletter}
-                  onChange={handleChange}
-                  className="mt-1 w-4 h-4 rounded border-gold/40 bg-black/20 text-gold
-                    focus:ring-gold focus:ring-offset-0"
-                  data-testid="newsletter-checkbox"
-                />
-                <label htmlFor="subscribeNewsletter" className="text-cream/90 font-montserrat text-xs sm:text-sm">
-                  {t('forBusiness.newsletterLabel')}
-                </label>
-              </div>
-            </div>
-
-            <GoldButton type="submit" className="w-full" dataTestId="contact-submit-button" disabled={isSubmitting}>
-              {isSubmitting ? t('forBusiness.submitting') : t('forBusiness.submitButton')}
-            </GoldButton>
-          </form>
-
-          <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-gold/20 flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
-            <div className="flex items-center gap-2 sm:gap-3 text-cream/80 justify-center">
-              <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-gold" />
-              <span className="font-montserrat text-xs sm:text-sm break-all">contact@fairygarden4u.com</span>
-            </div>
-            <div className="flex items-center gap-2 sm:gap-3 text-cream/80 justify-center">
-              <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-gold" />
-              <span className="font-montserrat text-xs sm:text-sm">+1 (555) 123-4567</span>
-            </div>
-          </div>
+          <p className="text-cream/60 font-montserrat text-sm mb-4">
+            Not sure which option fits your needs?
+          </p>
+          <Link
+            to="/corporate"
+            onClick={() => window.scrollTo(0, 0)}
+            className="inline-flex items-center gap-2 text-gold font-montserrat text-sm font-semibold 
+              border-b border-gold/50 hover:border-gold transition-colors"
+          >
+            View all business services
+          </Link>
         </motion.div>
       </div>
     </section>
