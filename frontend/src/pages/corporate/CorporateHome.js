@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ChevronRight, Mail } from 'lucide-react';
+import { Mail } from 'lucide-react';
 
 const CorporateHome = () => {
   return (
@@ -29,7 +29,7 @@ const CorporateHome = () => {
               <div className="w-12 h-0.5 bg-gold/40 mb-4" />
               
               <p className="text-cream/75 font-montserrat text-sm sm:text-base leading-relaxed">
-                We offer transformative team experiences and elegant brand solutions with handcrafted, self-sustaining living compositions designed to inspire & impress.
+                Offer transformative team experiences and elegant brand solutions with handcrafted, self-sustaining living compositions designed to inspire & impress.
               </p>
             </motion.div>
 
@@ -97,14 +97,17 @@ const CorporateHome = () => {
                   <h3 className="text-xl sm:text-2xl font-cinzel font-bold text-gold mb-2">
                     Team Experiences
                   </h3>
-                  <p className="text-cream/65 font-montserrat text-sm leading-relaxed mb-5 flex-1">
+                  <p className="text-cream/65 font-montserrat text-sm leading-relaxed mb-5">
                     Bring your team together through shared creation, reflection, and collaboration.
                   </p>
                   
-                  {/* Styled Gold Button */}
+                  {/* Spacer to push button down */}
+                  <div className="flex-1" />
+                  
+                  {/* Button */}
                   <Link
                     to="/corporate/experiences"
-                    className="inline-flex items-center justify-between w-full max-w-[220px] px-4 py-2.5 
+                    className="inline-flex items-center justify-center w-full max-w-[220px] px-5 py-3 
                       bg-gradient-to-r from-[#C9A84C] via-[#D4B65A] to-[#C9A84C] 
                       text-forest font-montserrat font-semibold text-sm
                       rounded border border-[#A88A3D]
@@ -113,8 +116,7 @@ const CorporateHome = () => {
                       transition-all duration-200"
                     data-testid="explore-experiences-btn"
                   >
-                    <span>Explore Experiences</span>
-                    <ChevronRight className="w-4 h-4" />
+                    Explore Experiences
                   </Link>
                 </div>
               </div>
@@ -143,14 +145,17 @@ const CorporateHome = () => {
                   <h3 className="text-xl sm:text-2xl font-cinzel font-bold text-gold mb-2">
                     Florarium Solutions
                   </h3>
-                  <p className="text-cream/65 font-montserrat text-sm leading-relaxed mb-5 flex-1">
-                    Enhance your brand presence through elegant, living compositions —
+                  <p className="text-cream/65 font-montserrat text-sm leading-relaxed mb-5">
+                    Enhance your brand presence through elegant, living compositions.
                   </p>
                   
-                  {/* Styled Gold Button */}
+                  {/* Spacer to push button down */}
+                  <div className="flex-1" />
+                  
+                  {/* Button */}
                   <Link
                     to="/corporate/solutions"
-                    className="inline-flex items-center justify-between w-full max-w-[260px] px-4 py-2.5 
+                    className="inline-flex items-center justify-center w-full max-w-[260px] px-5 py-3 
                       bg-gradient-to-r from-[#C9A84C] via-[#D4B65A] to-[#C9A84C] 
                       text-forest font-montserrat font-semibold text-sm
                       rounded border border-[#A88A3D]
@@ -159,8 +164,7 @@ const CorporateHome = () => {
                       transition-all duration-200"
                     data-testid="explore-solutions-btn"
                   >
-                    <span>Explore Florarium Solutions</span>
-                    <ChevronRight className="w-4 h-4" />
+                    Explore Florarium Solutions
                   </Link>
                 </div>
               </div>
