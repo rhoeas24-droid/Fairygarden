@@ -4,7 +4,6 @@ import { ShoppingBag, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import Footer from '../components/sections/Footer';
-import GoldDivider from '../components/GoldDivider';
 import TerrariumGallery from '../components/sections/TerrariumGallery';
 import BottlesJars from '../components/sections/BottlesJars';
 import ToolsEquipments from '../components/sections/ToolsEquipments';
@@ -152,7 +151,6 @@ const Webshop = () => {
           <DIYKitsWebshop />
         </main>
         
-        <GoldDivider />
         <Footer />
         <Toaster position="top-right" richColors />
       </div>

@@ -22,7 +22,6 @@ import BlogPreview from './components/sections/BlogPreview';
 import TermsConditions, { TermsModal } from './components/sections/TermsConditions';
 import PrivacyPolicy, { PrivacyModal } from './components/sections/PrivacyPolicy';
 import Footer from './components/sections/Footer';
-import GoldDivider from './components/GoldDivider';
 import UnderConstructionBanner from './components/UnderConstructionBanner';
 
 // Pages
@@ -119,7 +118,6 @@ const HomePage = () => {
         <PrivacyPolicy />
       </main>
       
-      <GoldDivider />
       <Footer />
       
       <CookieConsent />
