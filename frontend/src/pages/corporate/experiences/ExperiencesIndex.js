@@ -139,6 +139,7 @@ const ExperiencesIndex = () => {
                 {/* Explore Button */}
                 <Link
                   to="/corporate/experiences/retreat"
+                  onClick={() => window.scrollTo(0, 0)}
                   className="inline-flex items-center justify-center px-5 py-2.5 
                     bg-gradient-to-r from-[#C9A84C] via-[#D4B65A] to-[#C9A84C] 
                     text-forest font-montserrat font-semibold text-sm
@@ -193,6 +194,7 @@ const ExperiencesIndex = () => {
                 {/* Explore Button */}
                 <Link
                   to="/corporate/experiences/team-building"
+                  onClick={() => window.scrollTo(0, 0)}
                   className="inline-flex items-center justify-center px-5 py-2.5 
                     bg-gradient-to-r from-[#C9A84C] via-[#D4B65A] to-[#C9A84C] 
                     text-forest font-montserrat font-semibold text-sm

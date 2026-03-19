@@ -141,6 +141,7 @@ const SolutionsIndex = () => {
                     {/* Explore Button */}
                     <Link
                       to={solution.path}
+                      onClick={() => window.scrollTo(0, 0)}
                       className="inline-flex items-center justify-center w-fit px-5 py-2.5 
                         bg-gradient-to-r from-[#C9A84C] via-[#D4B65A] to-[#C9A84C] 
                         text-forest font-montserrat font-semibold text-sm

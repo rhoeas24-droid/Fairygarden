@@ -106,6 +106,7 @@ const CorporateHome = () => {
                   {/* Button */}
                   <Link
                     to="/corporate/experiences"
+                    onClick={() => window.scrollTo(0, 0)}
                     className="inline-flex items-center justify-center w-full max-w-[220px] px-5 py-3 
                       bg-gradient-to-r from-[#C9A84C] via-[#D4B65A] to-[#C9A84C] 
                       text-forest font-montserrat font-semibold text-sm
@@ -154,6 +155,7 @@ const CorporateHome = () => {
                   {/* Button */}
                   <Link
                     to="/corporate/solutions"
+                    onClick={() => window.scrollTo(0, 0)}
                     className="inline-flex items-center justify-center w-full max-w-[260px] px-5 py-3 
                       bg-gradient-to-r from-[#C9A84C] via-[#D4B65A] to-[#C9A84C] 
                       text-forest font-montserrat font-semibold text-sm

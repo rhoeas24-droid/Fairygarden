@@ -9,6 +9,7 @@ import Navigation from './components/Navigation';
 import CartDrawer from './components/CartDrawer';
 import CookieConsent from './components/CookieConsent';
 import ScrollToTop from './components/ScrollToTop';
+import RouteScrollToTop from './components/RouteScrollToTop';
 import GoogleAnalytics from './components/GoogleAnalytics';
 import Hero from './components/sections/Hero';
 import MagicalDivider from './components/sections/MagicalDivider';
@@ -136,7 +137,7 @@ function App() {
     <AuthProvider>
       <CartProvider>
         <Router>
-          <ScrollToTop />
+          <RouteScrollToTop />
           <Routes>
             {/* Home Page */}
             <Route path="/" element={<HomePage />} />
