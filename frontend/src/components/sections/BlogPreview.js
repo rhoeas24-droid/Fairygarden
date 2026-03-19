@@ -188,15 +188,8 @@ const BlogPreview = () => {
     <>
       <section
         id="blog"
-        className="relative py-12 sm:py-16 lg:py-24 px-3 sm:px-4"
-        style={{
-          backgroundImage: 'url(/BG_TILE_FINAL.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
+        className="relative py-12 sm:py-16 lg:py-24 px-3 sm:px-4 bg-cream"
       >
-        <div className="absolute inset-0 bg-forest/85" />
-        
         <div className="relative z-10 max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -204,10 +197,10 @@ const BlogPreview = () => {
             viewport={{ once: true }}
             className="text-center mb-10 sm:mb-16"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-cinzel font-bold text-gold mb-3 sm:mb-4" data-testid="blog-title">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-cinzel font-bold text-forest mb-3 sm:mb-4" data-testid="blog-title">
               {t('blog.title')}
             </h2>
-            <p className="text-cream/80 font-montserrat text-sm sm:text-base lg:text-lg max-w-2xl mx-auto px-2 text-justify">
+            <p className="text-forest/70 font-montserrat text-sm sm:text-base lg:text-lg max-w-2xl mx-auto px-2 text-justify">
               {t('blog.subtitle')}
             </p>
           </motion.div>

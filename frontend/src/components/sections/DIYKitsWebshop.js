@@ -62,19 +62,28 @@ const DIYKitsWebshop = () => {
   };
 
   return (
-    <section id="diy-kits" className="relative py-12 sm:py-16 lg:py-24 px-3 sm:px-4 bg-cream scroll-mt-24">
-      <div className="max-w-7xl mx-auto">
+    <section 
+      id="diy-kits" 
+      className="relative py-12 sm:py-16 lg:py-24 px-3 sm:px-4 scroll-mt-24"
+      style={{
+        backgroundImage: 'url(/BG_TILE_FINAL.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div className="absolute inset-0 bg-forest-dark/90" />
+      <div className="relative z-10 max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-8 sm:mb-12"
         >
-          <Package className="w-12 h-12 sm:w-16 sm:h-16 text-gold-dark mx-auto mb-4 sm:mb-6" />
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-cinzel font-bold text-forest mb-4" data-testid="diy-kits-title">
+          <Package className="w-12 h-12 sm:w-16 sm:h-16 text-gold mx-auto mb-4 sm:mb-6" />
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-cinzel font-bold text-gold mb-4" data-testid="diy-kits-title">
             DIY Florarium Kits
           </h2>
-          <p className="text-forest/70 font-montserrat text-sm sm:text-base lg:text-lg max-w-2xl mx-auto">
+          <p className="text-cream/80 font-montserrat text-sm sm:text-base lg:text-lg max-w-2xl mx-auto">
             Create your own florarium at home with our DIY Kit.
           </p>
         </motion.div>
@@ -85,7 +94,7 @@ const DIYKitsWebshop = () => {
           </div>
         ) : products.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-forest/60 font-montserrat">{t('diy.noProducts', 'DIY kits coming soon!')}</p>
+            <p className="text-cream/60 font-montserrat">{t('diy.noProducts', 'DIY kits coming soon!')}</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
@@ -96,10 +105,11 @@ const DIYKitsWebshop = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05 }}
-                className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gold/10"
+                className="group bg-forest/50 backdrop-blur-sm border border-gold/20 rounded-xl overflow-hidden
+                  hover:border-gold/40 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(212,175,55,0.15)]"
                 data-testid={`diy-product-${product.id}`}
               >
-                <div className="relative aspect-square overflow-hidden bg-forest/5">
+                <div className="relative aspect-square overflow-hidden">
                   <img
                     src={product.image}
                     alt={product.name}
@@ -111,16 +121,16 @@ const DIYKitsWebshop = () => {
                 </div>
 
                 <div className="p-4">
-                  <h3 className="font-cinzel font-bold text-forest text-sm sm:text-base mb-1 line-clamp-1">
+                  <h3 className="font-cinzel font-bold text-gold text-sm sm:text-base mb-1 line-clamp-1">
                     {product.name}
                   </h3>
-                  <p className="text-forest/60 font-montserrat text-xs line-clamp-2 mb-3 text-justify">
+                  <p className="text-cream/70 font-montserrat text-xs line-clamp-2 mb-3 text-justify">
                     {stripHtml(product.description)}
                   </p>
                   
                   <div className="flex items-center justify-between">
                     <div>
-                      <span className="text-gold-dark font-cinzel font-bold text-lg">
+                      <span className="text-gold font-cinzel font-bold text-lg">
                         €{product.price.toFixed(2)}
                       </span>
                     </div>
@@ -129,7 +139,7 @@ const DIYKitsWebshop = () => {
                   <div className="flex gap-2 mt-3">
                     <button
                       onClick={() => setSelectedProduct(product)}
-                      className="flex-1 py-2 px-3 bg-gold/20 hover:bg-gold/30 text-forest font-montserrat text-sm font-semibold rounded-lg transition-colors flex items-center justify-center gap-1"
+                      className="flex-1 py-2 px-3 bg-gold/20 hover:bg-gold/30 text-cream font-montserrat text-sm font-semibold rounded-lg transition-colors flex items-center justify-center gap-1"
                       data-testid={`diy-view-${product.id}`}
                     >
                       <Eye className="w-4 h-4" />
@@ -137,7 +147,7 @@ const DIYKitsWebshop = () => {
                     </button>
                     <button
                       onClick={() => handleAddToCart(product)}
-                      className="flex-1 py-2 px-3 bg-forest hover:bg-forest/90 text-cream font-montserrat text-sm font-semibold rounded-lg transition-colors"
+                      className="flex-1 py-2 px-3 bg-gold hover:bg-gold-light text-forest font-montserrat text-sm font-semibold rounded-lg transition-colors"
                       data-testid={`diy-add-to-cart-${product.id}`}
                     >
                       {t('diy.addToCart')}

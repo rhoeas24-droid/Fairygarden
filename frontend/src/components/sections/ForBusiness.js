@@ -38,7 +38,7 @@ const ForBusiness = () => {
         backgroundPosition: 'center',
       }}
     >
-      <div className="absolute inset-0 bg-forest-dark/90" />
+      <div className="absolute inset-0 bg-forest/90" />
       
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Header */}
