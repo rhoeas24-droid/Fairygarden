@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useCart } from '../../contexts/CartContext';
-import { Sparkles, Wand2, Eye, ChevronDown, ShoppingBag } from 'lucide-react';
-import GoldButton from '../GoldButton';
 import CustomTerrariumBuilder from '../CustomTerrariumBuilder';
 import ProductDetailModal from '../ProductDetailModal';
 import axios from 'axios';
@@ -100,35 +98,10 @@ const TerrariumGallery = () => {
   const [products, setProducts] = useState([]);
   const [isCustomBuilderOpen, setIsCustomBuilderOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [isWebshopExpanded, setIsWebshopExpanded] = useState(false);
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
     fetchProducts();
-    
-    // Check if URL has shop anchor - auto expand
-    const hash = window.location.hash;
-    if (hash && (hash.includes('shop-bottles') || hash.includes('shop-plants') || hash.includes('shop-decorations'))) {
-      setIsWebshopExpanded(true);
-    }
-    
-    // Listen for expand webshop event from navigation
-    const handleExpandWebshop = (e) => {
-      setIsWebshopExpanded(true);
-      // Scroll to target after expansion
-      setTimeout(() => {
-        const targetId = e.detail?.targetId;
-        if (targetId) {
-          const element = document.getElementById(targetId);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }
-      }, 300);
-    };
-    
-    window.addEventListener('expandWebshop', handleExpandWebshop);
-    return () => window.removeEventListener('expandWebshop', handleExpandWebshop);
   }, []);
 
   // Refetch products when language changes
@@ -255,127 +228,6 @@ const TerrariumGallery = () => {
             </div>
           </motion.div>
         </div>
-        
-        {/* Browse More Categories */}
-        {!isWebshopExpanded && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-16 text-center"
-          >
-            <button
-              onClick={() => {
-                setIsWebshopExpanded(true);
-                setTimeout(() => {
-                  document.getElementById('shop-bottles')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 100);
-              }}
-              className="inline-flex items-center gap-3 px-8 py-4 bg-gold hover:bg-gold-light text-forest font-cinzel font-bold text-lg rounded-full transition-all shadow-lg hover:shadow-xl"
-            >
-              <ShoppingBag className="w-6 h-6" />
-              Browse Our Webshop
-              <ChevronDown className="w-5 h-5" />
-            </button>
-          </motion.div>
-        )}
-        
-        {/* Expanded Webshop Categories */}
-        <AnimatePresence>
-          {isWebshopExpanded && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.5 }}
-              className="mt-24 space-y-16"
-            >
-              {/* Bottles, Jars & Tools */}
-              <div id="shop-bottles" className="scroll-mt-24">
-                <h3 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold mb-6 text-center">
-                  Bottles, Jars & Tools
-                </h3>
-                <p className="text-cream/70 font-montserrat text-center mb-8 max-w-2xl mx-auto">
-                  Professional tools and premium glass containers for your florarium projects
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-6">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="relative opacity-50" style={{ aspectRatio: '867/1535' }}>
-                      <div className="absolute inset-[8%] rounded-lg bg-forest/30 border border-gold/20 flex items-center justify-center">
-                        <span className="text-gold/40 font-cinzel text-sm">Coming Soon</span>
-                      </div>
-                      <div
-                        className="absolute inset-0 pointer-events-none"
-                        style={{
-                          backgroundImage: 'url(https://fairygarden4u.com/ablak_frame.png)',
-                          backgroundSize: 'contain',
-                          backgroundPosition: 'center',
-                          backgroundRepeat: 'no-repeat'
-                        }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              {/* Plants & Substrate Mix */}
-              <div id="shop-plants" className="scroll-mt-24">
-                <h3 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold mb-6 text-center">
-                  Plants & Substrate Mix
-                </h3>
-                <p className="text-cream/70 font-montserrat text-center mb-8 max-w-2xl mx-auto">
-                  Home-grown plants and our special tried-and-tested substrate blend
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-6">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="relative opacity-50" style={{ aspectRatio: '867/1535' }}>
-                      <div className="absolute inset-[8%] rounded-lg bg-forest/30 border border-gold/20 flex items-center justify-center">
-                        <span className="text-gold/40 font-cinzel text-sm">Coming Soon</span>
-                      </div>
-                      <div
-                        className="absolute inset-0 pointer-events-none"
-                        style={{
-                          backgroundImage: 'url(https://fairygarden4u.com/ablak_frame.png)',
-                          backgroundSize: 'contain',
-                          backgroundPosition: 'center',
-                          backgroundRepeat: 'no-repeat'
-                        }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              {/* Decorations & Terrascaping */}
-              <div id="shop-decorations" className="scroll-mt-24">
-                <h3 className="text-2xl sm:text-3xl font-cinzel font-bold text-gold mb-6 text-center">
-                  Decorations & Terrascaping
-                </h3>
-                <p className="text-cream/70 font-montserrat text-center mb-8 max-w-2xl mx-auto">
-                  Driftwood, stones, moss and miniature figures to bring your world to life
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-6">
-                  {[1, 2, 3].map((i) => (
-                    <div key={i} className="relative opacity-50" style={{ aspectRatio: '867/1535' }}>
-                      <div className="absolute inset-[8%] rounded-lg bg-forest/30 border border-gold/20 flex items-center justify-center">
-                        <span className="text-gold/40 font-cinzel text-sm">Coming Soon</span>
-                      </div>
-                      <div
-                        className="absolute inset-0 pointer-events-none"
-                        style={{
-                          backgroundImage: 'url(https://fairygarden4u.com/ablak_frame.png)',
-                          backgroundSize: 'contain',
-                          backgroundPosition: 'center',
-                          backgroundRepeat: 'no-repeat'
-                        }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
       
       <CustomTerrariumBuilder

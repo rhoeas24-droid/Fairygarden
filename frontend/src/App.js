@@ -14,6 +14,7 @@ import GoogleAnalytics from './components/GoogleAnalytics';
 import Hero from './components/sections/Hero';
 import MagicalDivider from './components/sections/MagicalDivider';
 import OurShop from './components/sections/OurShop';
+import DIYKits from './components/sections/DIYKits';
 import ForBusiness from './components/sections/ForBusiness';
 import Workshops from './components/sections/Workshops';
 import About from './components/sections/About';
@@ -108,6 +109,7 @@ const HomePage = () => {
         <Hero />
         <MagicalDivider />
         <OurShop />
+        <DIYKits />
         <ForBusiness />
         <Workshops />
         <About />

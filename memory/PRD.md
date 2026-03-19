@@ -7,12 +7,23 @@ Full-stack e-commerce website for a magical terrarium brand "Fairygarden For You
 - **Frontend**: React, react-router-dom, Tailwind CSS, react-i18next (en/el only), Framer Motion, lucide-react
 - **Backend**: FastAPI (Python), MongoDB (sessions/forms), WooCommerce REST API (products/orders/customers)
 - **Newsletter**: MailPoet via WordPress admin-ajax.php endpoint
-- **Deployment**: cPanel via manual curl + tar extraction, SpeedyCache must be cleared after each deploy
+- **Deployment**: cPanel - webroot is `/home/medisolu/fairygarden4u.com` (NOT public_html)
 - **Caching**: File-based JSON cache (`product_cache/*.json`) - survives process restarts
 
 ## What's Implemented
 - Hero section with glass-morphism text
-- Shop section (TerrariumGallery, DIYKits, Plants, SubstratesBugs) with WooCommerce products
+- **Shop & Webshop Structure (March 19, 2026)**:
+  - Homepage "Our Shop" section: Non-clickable 2x3 category grid + "Go to Webshop" button
+  - Homepage "DIY Kits" section: Full descriptive text, no products, "Go to Webshop" button
+  - `/webshop` page with 6 product sections:
+    1. Enchanted Florariums (WooCommerce ready-florarium)
+    2. Bottles & Jars (new section)
+    3. Tools & Equipments (new section)
+    4. Plants, Substrates & Bugs (combined section)
+    5. Decorations & Terrascaping (renamed)
+    6. DIY Florarium Kits (simplified text, products)
+  - Category navigation buttons scroll to corresponding sections
+  - Navigation: "SHOP" → /webshop, "DIY KITS" → /#diy-kits
 - Multi-step checkout modal with auth pre-step
 - User auth (register/login/account) via WooCommerce Customer API
 - Contact, Workshop, Newsletter forms (MailPoet integration)
@@ -34,6 +45,17 @@ Full-stack e-commerce website for a magical terrarium brand "Fairygarden For You
   - `/corporate/solutions/partner-gifts` - Partner Gifts page
 - "Under Construction" banner (temporarily disabled with BANNER_ENABLED flag)
 
+## Key Files - Shop Structure
+- `/app/frontend/src/pages/Webshop.js` - Main webshop page with all sections
+- `/app/frontend/src/components/sections/TerrariumGallery.js` - Enchanted Florariums
+- `/app/frontend/src/components/sections/BottlesJars.js` - Bottles & Jars section
+- `/app/frontend/src/components/sections/ToolsEquipments.js` - Tools & Equipments section
+- `/app/frontend/src/components/sections/PlantsSubstratesBugs.js` - Combined plants section
+- `/app/frontend/src/components/sections/DecorationsTerrascaping.js` - Decorations section
+- `/app/frontend/src/components/sections/DIYKits.js` - Homepage DIY section (text only)
+- `/app/frontend/src/components/sections/DIYKitsWebshop.js` - Webshop DIY section (products)
+- `/app/frontend/src/components/sections/OurShop.js` - Homepage shop category grid
+
 ## Key Files - Corporate Section
 - `/app/frontend/src/pages/corporate/CorporateHome.js` - Main corporate page
 - `/app/frontend/src/pages/corporate/CorporateLayout.js` - Layout wrapper
@@ -53,7 +75,7 @@ Full-stack e-commerce website for a magical terrarium brand "Fairygarden For You
 ## Deployment Instructions
 1. Build frontend: `cd /app/frontend && yarn build`
 2. Create package: `cd /app/frontend/build && tar -czf ../public/deploy.tar.gz *`
-3. User runs curl command from catbox.moe URL to extract to webroot
+3. User runs curl command: `cd /home/medisolu/fairygarden4u.com && rm -rf static && curl -L -o deploy.tar.gz "URL" && tar -xzf deploy.tar.gz && rm deploy.tar.gz`
 4. Clear SpeedyCache in WordPress admin after deploy
 
 ## Test Results
@@ -63,7 +85,7 @@ Full-stack e-commerce website for a magical terrarium brand "Fairygarden For You
 
 ## Backlog
 - P1: Content population for 8 corporate subpages
-- P1: Add products for Plants and Substrates & Bugs WooCommerce categories
+- P1: Add products for new WooCommerce categories (bottles-jars, tools-equipments, decorations-terrascaping)
 - P1: Bank transfer text finalization
 - P1: Shipping costs/options confirmation  
 - P1: WooCommerce admin setup guidance

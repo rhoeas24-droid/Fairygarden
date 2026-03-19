@@ -11,7 +11,7 @@ export default defineConfig({
     ['json', { outputFile: '/root/.emergent/automation_output/20260302_174902/results.json' }],
   ],
   use: {
-    baseURL: 'https://corporate-build.preview.emergentagent.com',
+    baseURL: 'https://florariums-staging.preview.emergentagent.com',
     screenshot: 'only-on-failure',
     trace: 'off',
     headless: true,

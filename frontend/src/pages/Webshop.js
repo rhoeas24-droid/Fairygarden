@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import Footer from '../components/sections/Footer';
 import TerrariumGallery from '../components/sections/TerrariumGallery';
-import DIYKits from '../components/sections/DIYKits';
-import Plants from '../components/sections/Plants';
-import SubstratesBugs from '../components/sections/SubstratesBugs';
+import BottlesJars from '../components/sections/BottlesJars';
+import ToolsEquipments from '../components/sections/ToolsEquipments';
+import PlantsSubstratesBugs from '../components/sections/PlantsSubstratesBugs';
+import DecorationsTerrascaping from '../components/sections/DecorationsTerrascaping';
+import DIYKitsWebshop from '../components/sections/DIYKitsWebshop';
 import { Toaster } from 'sonner';
 
 const categories = [
@@ -140,11 +142,13 @@ const Webshop = () => {
             </div>
           </section>
 
-          {/* Product Sections */}
+          {/* Product Sections - Correct Order */}
           <TerrariumGallery />
-          <DIYKits />
-          <Plants />
-          <SubstratesBugs />
+          <BottlesJars />
+          <ToolsEquipments />
+          <PlantsSubstratesBugs />
+          <DecorationsTerrascaping />
+          <DIYKitsWebshop />
         </main>
         
         <Footer />

@@ -1,72 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Package, Eye, Scissors, Leaf, BookOpen, Bug, Sparkles } from 'lucide-react';
+import { Package, Scissors, Leaf, BookOpen, Bug, Sparkles, ArrowRight } from 'lucide-react';
 import { GlassWater, Layers, FlaskConical, PenTool } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import axios from 'axios';
-import { toast } from 'sonner';
-import { useCart } from '../../contexts/CartContext';
 import CustomTerrariumBuilder from '../CustomTerrariumBuilder';
-import ProductDetailModal from '../ProductDetailModal';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-// Helper function to strip HTML tags from WooCommerce descriptions
-const stripHtml = (html) => {
-  if (!html) return '';
-  return html.replace(/<[^>]*>/g, '').trim();
-};
 
 const DIYKits = () => {
-  const { t, i18n } = useTranslation();
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
   const [isCustomBuilderOpen, setIsCustomBuilderOpen] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const { addToCart } = useCart();
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  // Refetch products when language changes
-  useEffect(() => {
-    fetchProducts();
-  }, [i18n.language]);
-
-  const fetchProducts = async () => {
-    try {
-      // Fetch from WooCommerce API with language parameter and product_type filter
-      const response = await axios.get(`${API}/wc/products`, {
-        params: { lang: i18n.language, product_type: 'diy-kit' }
-      });
-      setProducts(response.data);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      // Fallback to old API if WooCommerce fails
-      try {
-        const fallbackResponse = await axios.get(`${API}/products`);
-        setProducts(fallbackResponse.data.filter(p => p.category === 'DIY Kit'));
-      } catch (fallbackError) {
-        console.error('Fallback also failed:', fallbackError);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleAddToCart = (product) => {
-    const diyProduct = {
-      ...product,
-      id: `diy-${product.id}`,
-      name: `DIY Kit: ${product.name}`,
-      isDIYKit: true,
-      variation_id: product.variation_id || null
-    };
-    addToCart(diyProduct);
-    toast.success(t('gallery.addedToCart', { name: `DIY Kit: ${product.name}` }));
-  };
 
   return (
     <section id="diy-kits" className="relative py-12 sm:py-16 lg:py-24 px-3 sm:px-4 bg-cream">
@@ -83,21 +25,21 @@ const DIYKits = () => {
             {t('diy.title')}
           </h2>
           
-          {/* New Description */}
+          {/* Full Description Text */}
           <div className="max-w-3xl mx-auto space-y-4 text-forest/80 font-montserrat text-sm sm:text-base lg:text-lg leading-relaxed text-justify px-4">
             <p>
-              {t('diy.description1')}
+              Love our gardens but want the hands-on experience of building one yourself? Choose any design from our entire collection — past and present. Even if it's no longer available in the shop, the concept lives on, and you can recreate it at home with our DIY Kit.
             </p>
             <p>
-              {t('diy.description2')}
+              We take care of the rest: every substrate layer, every plant, every tool — all carefully selected and packed for you, along with a detailed step-by-step guide to walk you through the whole process.
             </p>
             <p className="mt-8">
-              {t('diy.cantFind')}{' '}
+              Can't find your perfect design?{' '}
               <button 
                 onClick={() => setIsCustomBuilderOpen(true)}
                 className="text-gold-dark hover:text-gold font-semibold underline decoration-gold/50 hover:decoration-gold transition-colors"
               >
-                {t('diy.buildOwn')}
+                Put together your own right here!
               </button>
             </p>
           </div>
@@ -105,20 +47,20 @@ const DIYKits = () => {
           {/* Kit Contents Grid */}
           <div className="mt-10 sm:mt-16 mb-8 max-w-4xl mx-auto px-2">
             <h3 className="text-xl sm:text-2xl font-cinzel font-bold text-forest mb-6 text-center">
-              {t('diy.kitsInclude', 'Our kits include:')}
+              Our kits include:
             </h3>
             <div className="grid grid-cols-3 sm:grid-cols-5 gap-3 sm:gap-4">
             {[
-              { icon: GlassWater, name: t('diyKit.glassContainer', 'Glass Container') },
-              { icon: Layers, name: t('diyKit.drainageMix', 'Drainage Mix') },
-              { icon: FlaskConical, name: t('diyKit.substrateMix', 'Substrate Mix') },
-              { icon: Leaf, name: t('diyKit.plants', 'Plants') },
-              { icon: Sparkles, name: t('diyKit.decorItems', 'Decor Items') },
-              { icon: Scissors, name: t('diyKit.scissors', 'Scissors') },
-              { icon: PenTool, name: t('diyKit.tweezers', 'Tweezers') },
-              { icon: PenTool, name: t('diyKit.brush', 'Brush') },
-              { icon: BookOpen, name: t('diyKit.guide', 'Step-by-Step Guide') },
-              { icon: Bug, name: t('diyKit.magicBugs', 'Magic Bugs') },
+              { icon: GlassWater, name: 'Glass Container' },
+              { icon: Layers, name: 'Drainage Mix' },
+              { icon: FlaskConical, name: 'Substrate Mix' },
+              { icon: Leaf, name: 'Plants' },
+              { icon: Sparkles, name: 'Decor Items' },
+              { icon: Scissors, name: 'Scissors' },
+              { icon: PenTool, name: 'Tweezers' },
+              { icon: PenTool, name: 'Brush' },
+              { icon: BookOpen, name: 'Step-by-Step Guide' },
+              { icon: Bug, name: 'Magic Bugs' },
             ].map((item, i) => (
               <div key={i} className="flex flex-col items-center gap-1.5 sm:gap-2 text-forest">
                 <div className="w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-gold/20 flex items-center justify-center">
@@ -129,95 +71,29 @@ const DIYKits = () => {
             ))}
             </div>
           </div>
+
+          {/* Go to Webshop Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-10"
+          >
+            <Link
+              to="/webshop#diy-kits"
+              onClick={() => window.scrollTo(0, 0)}
+              className="inline-flex items-center gap-3 px-8 py-4 bg-forest hover:bg-forest/90 text-cream font-cinzel font-bold text-lg rounded-full transition-all shadow-lg hover:shadow-xl"
+            >
+              Go to Webshop
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </motion.div>
         </motion.div>
-
-        {/* Product Grid */}
-        {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gold"></div>
-          </div>
-        ) : products.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-forest/60 font-montserrat">{t('diy.noProducts', 'DIY kits coming soon!')}</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
-            {products.map((product, index) => (
-              <motion.div
-                key={product.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gold/10"
-                data-testid={`diy-product-${product.id}`}
-              >
-                {/* Image with Frame */}
-                <div className="relative aspect-square overflow-hidden bg-forest/5">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  {/* DIY Badge */}
-                  <div className="absolute top-3 left-3 bg-gold text-forest px-3 py-1 rounded-full text-xs font-bold font-montserrat">
-                    DIY KIT
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-4">
-                  <h3 className="font-cinzel font-bold text-forest text-sm sm:text-base mb-1 line-clamp-1">
-                    {product.name}
-                  </h3>
-                  <p className="text-forest/60 font-montserrat text-xs line-clamp-2 mb-3 text-justify">
-                    {stripHtml(product.description)}
-                  </p>
-                  
-                  {/* Price */}
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <span className="text-gold-dark font-cinzel font-bold text-lg">
-                        €{product.price.toFixed(2)}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  {/* Buttons */}
-                  <div className="flex gap-2 mt-3">
-                    <button
-                      onClick={() => setSelectedProduct(product)}
-                      className="flex-1 py-2 px-3 bg-gold/20 hover:bg-gold/30 text-forest font-montserrat text-sm font-semibold rounded-lg transition-colors flex items-center justify-center gap-1"
-                      data-testid={`diy-view-${product.id}`}
-                    >
-                      <Eye className="w-4 h-4" />
-                      {t('diy.viewDetails', 'Details')}
-                    </button>
-                    <button
-                      onClick={() => handleAddToCart(product)}
-                      className="flex-1 py-2 px-3 bg-forest hover:bg-forest/90 text-cream font-montserrat text-sm font-semibold rounded-lg transition-colors"
-                      data-testid={`diy-add-to-cart-${product.id}`}
-                    >
-                      {t('diy.addToCart')}
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        )}
       </div>
       
       <CustomTerrariumBuilder
         isOpen={isCustomBuilderOpen}
         onClose={() => setIsCustomBuilderOpen(false)}
-      />
-      
-      <ProductDetailModal
-        isOpen={!!selectedProduct}
-        onClose={() => setSelectedProduct(null)}
-        product={selectedProduct}
-        isDIYKit={true}
       />
     </section>
   );

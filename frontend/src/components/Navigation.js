@@ -112,6 +112,14 @@ const Navigation = () => {
                 {t('nav.shop')}
               </Link>
               
+              {/* DIY Kits - Link to homepage section */}
+              <button
+                onClick={() => scrollToSection('diy-kits')}
+                className="text-cream hover:text-gold transition-colors font-montserrat text-sm font-semibold uppercase tracking-wider px-2"
+              >
+                DIY KITS
+              </button>
+              
               {/* For Business Dropdown */}
               <div 
                 className="relative"
@@ -268,6 +276,14 @@ const Navigation = () => {
                 >
                   {t('nav.shop')}
                 </Link>
+
+                {/* DIY Kits - Link to homepage section */}
+                <button
+                  onClick={() => scrollToSection('diy-kits')}
+                  className="w-full flex items-center px-5 py-3.5 text-cream hover:text-gold hover:bg-gold/5 transition-all font-montserrat text-sm font-semibold uppercase tracking-wider"
+                >
+                  DIY KITS
+                </button>
 
                 {/* For Business with expandable sub */}
                 <div>
