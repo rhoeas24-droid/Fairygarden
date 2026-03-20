@@ -118,3 +118,7 @@ frontend/node_modules/.cache/default-development/4.pack
 frontend/public/deploy.tar.gz
 frontend/build/deploy.tar.gz
 frontend/node_modules/.cache/default-development/11.pack_
+-e 
+# Environment files
+*.env
+*.env.*
